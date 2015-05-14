@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="NoArgumentMatchingMethodsInQueryable" xml:space="preserve">
+    <value>There is no method '{0}' on class System.Linq.Enumerable that matches the specified arguments</value>
+  </data>
+  <data name="InvalidTimeZone_InvalidRegistryData" xml:space="preserve">
+    <value>The time zone ID '{0}' was found on the local computer, but the registry information was corrupt.</value>
+  </data>
+  <data name="Argument_OutOfOrderDateTimes" xml:space="preserve">
+    <value>The DateStart property must come before the DateEnd property.</value>
+  </data>
+  <data name="Argument_DateTimeHasTimeOfDay" xml:space="preserve">
+    <value>The supplied DateTime includes a TimeOfDay setting.   This is not supported.</value>
+  </data>
+  <data name="PartitionerQueryOperator_WrongNumberOfPartitions" xml:space="preserve">
+    <value>Partitioner returned a wrong number of partitions.</value>
+  </data>
+  <data name="ParallelQuery_DuplicateDOP" xml:space="preserve">
+    <value>The WithDegreeOfParallelism operator may be used at most once in a query.</value>
+  </data>
+  <data name="OwningTeam" xml:space="preserve">
+    <value>DLinq</value>
+  </data>
+  <data name="event_ParallelQueryBegin" xml:space="preserve">
+    <value>Query {2} beginning from Task {1}.</value>
+  </data>
+  <data name="PLINQ_CommonEnumerator_Current_NotStarted" xml:space="preserve">
+    <value>Enumeration has not started. MoveNext must be called to initiate enumeration.</value>
+  </data>
+  <data name="Argument_DateTimeKindMustBeUnspecified" xml:space="preserve">
+    <value>The supplied DateTime must have the Kind property set to DateTimeKind.Unspecified.</value>
+  </data>
+  <data name="PLINQ_DisposeRequested" xml:space="preserve">
+    <value>The query enumerator has been disposed.</value>
+  </data>
+  <data name="Serialization_CorruptField" xml:space="preserve">
+    <value>The value of the field '{0}' is invalid.  The serialized data is corrupt.  </value>
+  </data>
+  <data name="Argument_DateTimeIsNotAmbiguous" xml:space="preserve">
+    <value>The supplied DateTime is not in an ambiguous time range.</value>
+  </data>
+  <data name="NoMatch" xml:space="preserve">
+    <value>Sequence contains no matching element</value>
+  </data>
+  <data name="ArgumentOutOfRange_DayParam" xml:space="preserve">
+    <value>The Day parameter must be in the range 1 through 31.</value>
+  </data>
+  <data name="ArgumentNotValid" xml:space="preserve">
+    <value>Argument {0} is not valid</value>
+  </data>
+  <data name="ParallelEnumerable_WithMergeOptions_InvalidOptions" xml:space="preserve">
+    <value>The mergeOptions argument contains an invalid value.</value>
+  </data>
+  <data name="Argument_DateTimeHasTicks" xml:space="preserve">
+    <value>The supplied DateTime must have the Year, Month, and Day properties set to 1.  The time cannot be specified more precisely than whole milliseconds.</value>
+  </data>
+  <data name="Security_CannotReadRegistryData" xml:space="preserve">
+    <value>The time zone ID '{0}' was found on the local computer, but the application does not have permission to read the registry information.</value>
+  </data>
+  <data name="event_ParallelQueryFork" xml:space="preserve">
+    <value>Task {1} joining Query {2}.</value>
+  </data>
+  <data name="event_ParallelQueryJoin" xml:space="preserve">
+    <value>Task {1} leaving Query {2}.</value>
+  </data>
+  <data name="ParallelQuery_DuplicateTaskScheduler" xml:space="preserve">
+    <value>The WithTaskScheduler operator may be used at most once in a query.</value>
+  </data>
+  <data name="Serialization_InvalidEscapeSequence" xml:space="preserve">
+    <value>The serialized data contained an invalid escape sequence '\{0}'.</value>
+  </data>
+  <data name="Argument_AdjustmentRulesOutOfOrder" xml:space="preserve">
+    <value>The elements of the AdjustmentRule array must be in chronological order and must not overlap.</value>
+  </data>
+  <data name="MoreThanOneMatch" xml:space="preserve">
+    <value>Sequence contains more than one matching element</value>
+  </data>
+  <data name="Argument_TransitionTimesAreIdentical" xml:space="preserve">
+    <value>The DaylightTransitionStart property must not equal the DaylightTransitionEnd property.</value>
+  </data>
+  <data name="Argument_AdjustmentRulesrDaylightSavingTimeOverlapNonRuleRange" xml:space="preserve">
+    <value>The elements of the AdjustmentRule array must not contain Daylight Saving Time periods that overlap the DateStart or DateEnd properties in such a way as to cause invalid or ambiguous time periods.</value>
+  </data>
+  <data name="PLINQ_EnumerationPreviouslyFailed" xml:space="preserve">
+    <value>The query enumerator previously threw an exception.</value>
+  </data>
+  <data name="ArgumentNotSequence" xml:space="preserve">
+    <value>{0} is not a sequence</value>
+  </data>
+  <data name="ArgumentOutOfRange_Week" xml:space="preserve">
+    <value>The Week parameter must be in the range 1 through 5.</value>
+  </data>
+  <data name="Argument_TimeZoneInfoBadTZif" xml:space="preserve">
+    <value>The tzfile does not begin with the magic characters 'TZif'.  Please verify that the file is not corrupt.</value>
+  </data>
+  <data name="Argument_DateTimeIsInvalid" xml:space="preserve">
+    <value>The supplied DateTime represents an invalid time.  For example, when the clock is adjusted forward, any time in the period that is skipped is invalid.</value>
+  </data>
+  <data name="Argument_DateTimeOffsetIsNotAmbiguous" xml:space="preserve">
+    <value>The supplied DateTimeOffset is not in an ambiguous time range.</value>
+  </data>
+  <data name="ParallelEnumerable_ToArray_DimensionRequired" xml:space="preserve">
+    <value>At least one dimension length must be provided.</value>
+  </data>
+  <data name="ParallelEnumerable_BinaryOpMustUseAsParallel" xml:space="preserve">
+    <value>The second data source of a binary operator must be of type System.Linq.ParallelQuery&lt;T&gt; rather than System.Collections.Generic.IEnumerable&lt;T&gt;. To fix this problem, use the AsParallel() extension method to convert the right data source to System.Linq.ParallelQuery&lt;T&gt;.</value>
+  </data>
+  <data name="ParallelQuery_DuplicateMergeOptions" xml:space="preserve">
+    <value>The WithMergeOptions operator may be used at most once in a query.</value>
+  </data>
+  <data name="ParallelEnumerable_WithQueryExecutionMode_InvalidMode" xml:space="preserve">
+    <value>The executionMode argument contains an invalid value.</value>
+  </data>
+  <data name="MoreThanOneElement" xml:space="preserve">
+    <value>Sequence contains more than one element</value>
+  </data>
+  <data name="Argument_InvalidId" xml:space="preserve">
+    <value>The specified ID parameter '{0}' is not supported.</value>
+  </data>
+  <data name="InvalidTimeZone_InvalidWin32APIData" xml:space="preserve">
+    <value>The Local time zone was found on the local computer, but the data was corrupt.</value>
+  </data>
+  <data name="ArgumentNotLambda" xml:space="preserve">
+    <value>Argument {0} is not a LambdaExpression</value>
+  </data>
+  <data name="PartitionerQueryOperator_NullPartitionList" xml:space="preserve">
+    <value>Partitioner returned null instead of a list of partitions.</value>
+  </data>
+  <data name="TimeZoneNotFound_MissingRegistryData" xml:space="preserve">
+    <value>The time zone ID '{0}' was not found on the local computer.</value>
+  </data>
+  <data name="NoElements" xml:space="preserve">
+    <value>Sequence contains no elements</value>
+  </data>
+  <data name="Argument_InvalidSerializedString" xml:space="preserve">
+    <value>The specified serialized string '{0}' is not supported.</value>
+  </data>
+  <data name="Argument_AdjustmentRulesNoNulls" xml:space="preserve">
+    <value>The AdjustmentRule array cannot contain null elements.</value>
+  </data>
+  <data name="NoMethodOnTypeMatchingArguments" xml:space="preserve">
+    <value>There is no method '{0}' on type '{1}' that matches the specified arguments</value>
+  </data>
+  <data name="NoMethodOnType" xml:space="preserve">
+    <value>There is no method '{0}' on type '{1}'</value>
+  </data>
+  <data name="ParallelQuery_DuplicateExecutionMode" xml:space="preserve">
+    <value>The WithExecutionMode operator may be used at most once in a query.</value>
+  </data>
+  <data name="ParallelQuery_PartitionerNotOrderable" xml:space="preserve">
+    <value>AsOrdered may not be used with a partitioner that is not orderable.</value>
+  </data>
+  <data name="EmptyEnumerable" xml:space="preserve">
+    <value>Enumeration yielded no results</value>
+  </data>
+  <data name="ArgumentNotIEnumerableGeneric" xml:space="preserve">
+    <value>{0} is not IEnumerable&lt;&gt;</value>
+  </data>
+  <data name="PLINQ_ExternalCancellationRequested" xml:space="preserve">
+    <value>The query has been canceled via the token supplied to WithCancellation.</value>
+  </data>
+  <data name="Argument_AdjustmentRulesrDaylightSavingTimeOverlap" xml:space="preserve">
+    <value>The elements of the AdjustmentRule array must not contain Daylight Saving Time periods that overlap adjacent elements in such a way as to cause invalid or ambiguous time periods.</value>
+  </data>
+  <data name="IncompatibleElementTypes" xml:space="preserve">
+    <value>The two sequences have incompatible element types</value>
+  </data>
+  <data name="ParallelQuery_InvalidNonGenericAsOrderedCall" xml:space="preserve">
+    <value>Non-generic AsOrdered may only be called on the result of the non-generic AsParallel.</value>
+  </data>
+  <data name="Argument_TimeZoneInfoInvalidTZif" xml:space="preserve">
+    <value>The TZif data structure is corrupt.</value>
+  </data>
+  <data name="ParallelQuery_InvalidAsOrderedCall" xml:space="preserve">
+    <value>AsOrdered may only be called on the result of AsParallel, ParallelEnumerable.Range, or ParallelEnumerable.Repeat.</value>
+  </data>
+  <data name="ArgumentOutOfRange_UtcOffsetAndDaylightDelta" xml:space="preserve">
+    <value>The sum of the BaseUtcOffset and DaylightDelta properties must within plus or minus 14.0 hours.</value>
+  </data>
+  <data name="ArgumentOutOfRange_UtcOffset" xml:space="preserve">
+    <value>The TimeSpan parameter must be within plus or minus 14.0 hours.</value>
+  </data>
+  <data name="ParallelPartitionable_NullElement" xml:space="preserve">
+    <value>Elements returned must not be null.</value>
+  </data>
+  <data name="ParallelQuery_DuplicateWithCancellation" xml:space="preserve">
+    <value>The WithCancellation operator may by used at most once in a query.</value>
+  </data>
+  <data name="ArgumentArrayHasTooManyElements" xml:space="preserve">
+    <value>Parameter {0} has too many elements</value>
+  </data>
+  <data name="NoNameMatchingMethodsInQueryable" xml:space="preserve">
+    <value>There is no method '{0}' on class System.Linq.Queryable that matches the specified arguments</value>
+  </data>
+  <data name="Argument_TimeSpanHasSeconds" xml:space="preserve">
+    <value>The TimeSpan parameter cannot be specified more precisely than whole minutes.</value>
+  </data>
+  <data name="PartitionerQueryOperator_NullPartition" xml:space="preserve">
+    <value>Partitioner returned a null partition.</value>
+  </data>
+  <data name="Argument_AdjustmentRulesAmbiguousOverlap" xml:space="preserve">
+    <value>The elements of the AdjustmentRule array must not contain ambiguous time periods that extend beyond the DateStart or DateEnd properties of the element.</value>
+  </data>
+  <data name="ParallelPartitionable_IncorretElementCount" xml:space="preserve">
+    <value>The returned array's length must equal the number of partitions requested.</value>
+  </data>
+  <data name="ArgumentOutOfRange_DateTimeBadTicks" xml:space="preserve">
+    <value>Ticks must be between DateTime.MinValue.Ticks and DateTime.MaxValue.Ticks.</value>
+  </data>
+  <data name="ParallelEnumerable_WithCancellation_TokenSourceDisposed" xml:space="preserve">
+    <value>The CancellationTokenSource associated with this CancellationToken has been disposed.</value>
+  </data>
+  <data name="Argument_AdjustmentRulesInvalidOverlap" xml:space="preserve">
+    <value>The elements of the AdjustmentRule array must not contain invalid time periods that extend beyond the DateStart or DateEnd properties of the element. </value>
+  </data>
+  <data name="Argument_InvalidREG_TZI_FORMAT" xml:space="preserve">
+    <value>The REG_TZI_FORMAT structure is corrupt.</value>
+  </data>
+  <data name="ArgumentOutOfRange_DayOfWeek" xml:space="preserve">
+    <value>The DayOfWeek enumeration must be in the range 0 through 6.</value>
+  </data>
+  <data name="Argument_ConvertMismatch" xml:space="preserve">
+    <value>The conversion could not be completed because the supplied DateTime did not have the Kind property set correctly.  For example, when the Kind property is DateTimeKind.Local, the source time zone must be TimeZoneInfo.Local.</value>
+  </data>
+  <data name="ParallelPartitionable_NullReturn" xml:space="preserve">
+    <value>The return value must not be null.</value>
+  </data>
+  <data name="event_ParallelQueryEnd" xml:space="preserve">
+    <value>Query {2} ending from Task {1}.</value>
+  </data>
+  <data name="ArgumentOutOfRange_MonthParam" xml:space="preserve">
+    <value>The Month parameter must be in the range 1 through 12.</value>
+  </data>
+</root>

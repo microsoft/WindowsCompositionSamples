@@ -1,0 +1,507 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>LIKUBA6</Machine>
+    <WindowsUser>likuba</WindowsUser>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <SolutionConfiguration>Debug|x64</SolutionConfiguration>
+    <PackageArchitecture>x64</PackageArchitecture>
+    <PackageIdentityName>9c92b610-99b6-4dca-9ada-0748ac5a2fa7</PackageIdentityName>
+    <IntermediateOutputPath>C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\obj\x64\Debug\</IntermediateOutputPath>
+    <RegisteredManifestChecksum>7F0D2D770E63002FEF0D81C984A5B7971A08E2DCCEACD727356D0FC3B81185B1</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>9c92b610-99b6-4dca-9ada-0748ac5a2fa7_1.0.0.0_x64__8wekyb3d8bbwe</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>9c92b610-99b6-4dca-9ada-0748ac5a2fa7_8wekyb3d8bbwe!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>9c92b610-99b6-4dca-9ada-0748ac5a2fa7</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+    <JitOptimizationSuppressed>True</JitOptimizationSuppressed>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-05-08T18:26:08.829</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\ApplicationInsights.config">
+      <PackagePath>ApplicationInsights.config</PackagePath>
+      <Modified>2015-05-08T18:26:07.767</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\Assets\smalltile-sdk.png">
+      <PackagePath>Assets\smalltile-sdk.png</PackagePath>
+      <Modified>2015-05-08T17:53:46.527</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\Assets\splash-sdk.png">
+      <PackagePath>Assets\splash-sdk.png</PackagePath>
+      <Modified>2015-05-08T17:53:46.542</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\Assets\squaretile-sdk.png">
+      <PackagePath>Assets\squaretile-sdk.png</PackagePath>
+      <Modified>2015-05-08T17:53:46.542</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\Assets\storelogo-sdk.png">
+      <PackagePath>Assets\storelogo-sdk.png</PackagePath>
+      <Modified>2015-05-08T17:53:46.542</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\Assets\tile-sdk.png">
+      <PackagePath>Assets\tile-sdk.png</PackagePath>
+      <Modified>2015-05-08T17:53:46.542</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\ClrCompression.dll">
+      <PackagePath>ClrCompression.dll</PackagePath>
+      <Modified>2015-04-18T04:53:08.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\compositionvisual.exe">
+      <PackagePath>compositionvisual.exe</PackagePath>
+      <Modified>2015-05-08T18:26:07.579</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\CoreRuntime\compositionvisual.exe">
+      <PackagePath>CoreRuntime\compositionvisual.exe</PackagePath>
+      <Modified>2015-04-18T04:53:08.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\Internal.Net.dll">
+      <PackagePath>Internal.Net.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\Internal.Uri.dll">
+      <PackagePath>Internal.Uri.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\Microsoft.ApplicationInsights.dll">
+      <PackagePath>Microsoft.ApplicationInsights.dll</PackagePath>
+      <Modified>2015-05-08T18:26:05.986</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\Microsoft.ApplicationInsights.Extensibility.Windows.dll">
+      <PackagePath>Microsoft.ApplicationInsights.Extensibility.Windows.dll</PackagePath>
+      <Modified>2015-05-08T18:26:05.939</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\Microsoft.ApplicationInsights.PersistenceChannel.dll">
+      <PackagePath>Microsoft.ApplicationInsights.PersistenceChannel.dll</PackagePath>
+      <Modified>2015-05-08T18:26:05.064</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\Microsoft.CSharp.dll">
+      <PackagePath>Microsoft.CSharp.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\Microsoft.Diagnostics.Tracing.EventSource.dll">
+      <PackagePath>Microsoft.Diagnostics.Tracing.EventSource.dll</PackagePath>
+      <Modified>2015-05-08T18:26:06.111</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\Microsoft.VisualBasic.dll">
+      <PackagePath>Microsoft.VisualBasic.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\Microsoft.Win32.Primitives.dll">
+      <PackagePath>Microsoft.Win32.Primitives.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\Properties\Default.rd.xml">
+      <PackagePath>Properties\Default.rd.xml</PackagePath>
+      <Modified>2015-05-08T17:53:46.542</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <Modified>2015-05-08T18:26:12.064</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.AppContext.dll">
+      <PackagePath>System.AppContext.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Collections.Concurrent.dll">
+      <PackagePath>System.Collections.Concurrent.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Collections.dll">
+      <PackagePath>System.Collections.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Collections.NonGeneric.dll">
+      <PackagePath>System.Collections.NonGeneric.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Collections.Specialized.dll">
+      <PackagePath>System.Collections.Specialized.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.ComponentModel.Annotations.dll">
+      <PackagePath>System.ComponentModel.Annotations.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.ComponentModel.dll">
+      <PackagePath>System.ComponentModel.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.ComponentModel.EventBasedAsync.dll">
+      <PackagePath>System.ComponentModel.EventBasedAsync.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.ComponentModel.Primitives.dll">
+      <PackagePath>System.ComponentModel.Primitives.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.ComponentModel.TypeConverter.dll">
+      <PackagePath>System.ComponentModel.TypeConverter.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Console.dll">
+      <PackagePath>System.Console.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Core.dll">
+      <PackagePath>System.Core.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Data.Common.dll">
+      <PackagePath>System.Data.Common.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Diagnostics.Contracts.dll">
+      <PackagePath>System.Diagnostics.Contracts.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Diagnostics.Debug.dll">
+      <PackagePath>System.Diagnostics.Debug.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Diagnostics.Tools.dll">
+      <PackagePath>System.Diagnostics.Tools.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Diagnostics.Tracing.dll">
+      <PackagePath>System.Diagnostics.Tracing.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.dll">
+      <PackagePath>System.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Dynamic.Runtime.dll">
+      <PackagePath>System.Dynamic.Runtime.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Globalization.Calendars.dll">
+      <PackagePath>System.Globalization.Calendars.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Globalization.dll">
+      <PackagePath>System.Globalization.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Globalization.Extensions.dll">
+      <PackagePath>System.Globalization.Extensions.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.IO.Compression.dll">
+      <PackagePath>System.IO.Compression.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.IO.Compression.ZipFile.dll">
+      <PackagePath>System.IO.Compression.ZipFile.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.IO.dll">
+      <PackagePath>System.IO.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.IO.FileSystem.dll">
+      <PackagePath>System.IO.FileSystem.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.IO.FileSystem.Primitives.dll">
+      <PackagePath>System.IO.FileSystem.Primitives.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.IO.IsolatedStorage.dll">
+      <PackagePath>System.IO.IsolatedStorage.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.IO.UnmanagedMemoryStream.dll">
+      <PackagePath>System.IO.UnmanagedMemoryStream.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Linq.dll">
+      <PackagePath>System.Linq.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Linq.Expressions.dll">
+      <PackagePath>System.Linq.Expressions.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Linq.Parallel.dll">
+      <PackagePath>System.Linq.Parallel.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Linq.Queryable.dll">
+      <PackagePath>System.Linq.Queryable.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Net.Http.dll">
+      <PackagePath>System.Net.Http.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Net.Http.Rtc.dll">
+      <PackagePath>System.Net.Http.Rtc.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Net.NetworkInformation.dll">
+      <PackagePath>System.Net.NetworkInformation.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Net.Primitives.dll">
+      <PackagePath>System.Net.Primitives.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Net.Requests.dll">
+      <PackagePath>System.Net.Requests.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Net.WebHeaderCollection.dll">
+      <PackagePath>System.Net.WebHeaderCollection.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Numerics.Vectors.dll">
+      <PackagePath>System.Numerics.Vectors.dll</PackagePath>
+      <Modified>2015-05-08T18:26:04.907</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Numerics.Vectors.WindowsRuntime.dll">
+      <PackagePath>System.Numerics.Vectors.WindowsRuntime.dll</PackagePath>
+      <Modified>2015-05-08T18:26:04.923</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.ObjectModel.dll">
+      <PackagePath>System.ObjectModel.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Private.DataContractSerialization.dll">
+      <PackagePath>System.Private.DataContractSerialization.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Private.Networking.dll">
+      <PackagePath>System.Private.Networking.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Private.ServiceModel.dll">
+      <PackagePath>System.Private.ServiceModel.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Reflection.Context.dll">
+      <PackagePath>System.Reflection.Context.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Reflection.DispatchProxy.dll">
+      <PackagePath>System.Reflection.DispatchProxy.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Reflection.dll">
+      <PackagePath>System.Reflection.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Reflection.Emit.dll">
+      <PackagePath>System.Reflection.Emit.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Reflection.Emit.ILGeneration.dll">
+      <PackagePath>System.Reflection.Emit.ILGeneration.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Reflection.Emit.Lightweight.dll">
+      <PackagePath>System.Reflection.Emit.Lightweight.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Reflection.Extensions.dll">
+      <PackagePath>System.Reflection.Extensions.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Reflection.Primitives.dll">
+      <PackagePath>System.Reflection.Primitives.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Reflection.TypeExtensions.dll">
+      <PackagePath>System.Reflection.TypeExtensions.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Resources.ResourceManager.dll">
+      <PackagePath>System.Resources.ResourceManager.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Resources.ResourceWriter.dll">
+      <PackagePath>System.Resources.ResourceWriter.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Runtime.dll">
+      <PackagePath>System.Runtime.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Runtime.Extensions.dll">
+      <PackagePath>System.Runtime.Extensions.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Runtime.Handles.dll">
+      <PackagePath>System.Runtime.Handles.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Runtime.InteropServices.dll">
+      <PackagePath>System.Runtime.InteropServices.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Runtime.InteropServices.WindowsRuntime.dll">
+      <PackagePath>System.Runtime.InteropServices.WindowsRuntime.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Runtime.Numerics.dll">
+      <PackagePath>System.Runtime.Numerics.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Runtime.Serialization.Json.dll">
+      <PackagePath>System.Runtime.Serialization.Json.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Runtime.Serialization.Primitives.dll">
+      <PackagePath>System.Runtime.Serialization.Primitives.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Runtime.Serialization.Xml.dll">
+      <PackagePath>System.Runtime.Serialization.Xml.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Runtime.WindowsRuntime.dll">
+      <PackagePath>System.Runtime.WindowsRuntime.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Runtime.WindowsRuntime.UI.Xaml.dll">
+      <PackagePath>System.Runtime.WindowsRuntime.UI.Xaml.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Security.Claims.dll">
+      <PackagePath>System.Security.Claims.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Security.Cryptography.DeriveBytes.dll">
+      <PackagePath>System.Security.Cryptography.DeriveBytes.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Security.Cryptography.Encoding.dll">
+      <PackagePath>System.Security.Cryptography.Encoding.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Security.Cryptography.Encryption.Aes.dll">
+      <PackagePath>System.Security.Cryptography.Encryption.Aes.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Security.Cryptography.Encryption.dll">
+      <PackagePath>System.Security.Cryptography.Encryption.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Security.Cryptography.Hashing.Algorithms.dll">
+      <PackagePath>System.Security.Cryptography.Hashing.Algorithms.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Security.Cryptography.Hashing.dll">
+      <PackagePath>System.Security.Cryptography.Hashing.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Security.Cryptography.RandomNumberGenerator.dll">
+      <PackagePath>System.Security.Cryptography.RandomNumberGenerator.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Security.Principal.dll">
+      <PackagePath>System.Security.Principal.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.ServiceModel.Duplex.dll">
+      <PackagePath>System.ServiceModel.Duplex.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.ServiceModel.Http.dll">
+      <PackagePath>System.ServiceModel.Http.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.ServiceModel.NetTcp.dll">
+      <PackagePath>System.ServiceModel.NetTcp.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.ServiceModel.Primitives.dll">
+      <PackagePath>System.ServiceModel.Primitives.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.ServiceModel.Security.dll">
+      <PackagePath>System.ServiceModel.Security.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Text.Encoding.CodePages.dll">
+      <PackagePath>System.Text.Encoding.CodePages.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Text.Encoding.dll">
+      <PackagePath>System.Text.Encoding.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Text.Encoding.Extensions.dll">
+      <PackagePath>System.Text.Encoding.Extensions.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Text.RegularExpressions.dll">
+      <PackagePath>System.Text.RegularExpressions.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Threading.dll">
+      <PackagePath>System.Threading.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Threading.Tasks.dll">
+      <PackagePath>System.Threading.Tasks.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Threading.Tasks.Parallel.dll">
+      <PackagePath>System.Threading.Tasks.Parallel.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Threading.Timer.dll">
+      <PackagePath>System.Threading.Timer.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Xml.ReaderWriter.dll">
+      <PackagePath>System.Xml.ReaderWriter.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Xml.XDocument.dll">
+      <PackagePath>System.Xml.XDocument.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Xml.XmlDocument.dll">
+      <PackagePath>System.Xml.XmlDocument.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Xml.XmlSerializer.dll">
+      <PackagePath>System.Xml.XmlSerializer.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Xml.XPath.dll">
+      <PackagePath>System.Xml.XPath.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Xml.XPath.XDocument.dll">
+      <PackagePath>System.Xml.XPath.XDocument.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\System.Xml.XPath.XmlDocument.dll">
+      <PackagePath>System.Xml.XPath.XmlDocument.dll</PackagePath>
+      <Modified>2015-04-18T04:59:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\likuba\Desktop\git\compositionvisual\cs\compositionvisual\bin\x64\Debug\Core\WinMetadata\Windows.winmd">
+      <PackagePath>WinMetadata\Windows.winmd</PackagePath>
+      <Modified>2015-05-06T18:23:33.605</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.CoreRuntime\1.0\">
+      <Name>Microsoft.NET.CoreRuntime.1.0</Name>
+      <Version>1.0.22816.1</Version>
+      <Architecture>x64</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.CoreRuntime.1.0, MinVersion = 1.0.22816.1, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.CoreRuntime\1.0\.\AppX\x64\Microsoft.NET.CoreRuntime.1.0.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+  </ItemGroup>
+</Project>

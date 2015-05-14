@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <!-- 
+      This is a workaround to support installation of packages that depend on EventSource in all Windows Runtime 
+      projects flavors (.NET, C++ and JavaScript).
+    
+      Although managed assembly references can be added to C# and Visual Basic projects directly from the lib folder, 
+      NuGet cannot distinguish between managed and JavaScript project flavors and fails to add references from lib to 
+      JavaScript projects on win8 and wpa81 platforms. NuGet also does not support adding managed references to C++ 
+      projects (native platform).
+    -->
+    <Reference Include="Microsoft.Diagnostics.Tracing.EventSource">
+      <HintPath>$(MSBuildThisFileDirectory)..\..\lib\net45\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
