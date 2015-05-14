@@ -1,0 +1,72 @@
+﻿<Page
+    x:Class="SlideShow.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SlideShow"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid>
+        <SplitView x:ConnectionId='1' x:Name="MySplitView"
+            DisplayMode="Overlay">
+
+            <SplitView.Pane>
+                <StackPanel Margin="10,50,0,0">
+                    <CheckBox x:ConnectionId='3'
+                        x:Name="NearSlideCheckBox"
+                                                       
+                        Content="Near Slide"
+                        IsChecked="True"/>
+                    
+                    <CheckBox x:ConnectionId='4'
+                        x:Name="FarSlideCheckBox"
+                                                      
+                        Content="Far Slide"
+                        IsChecked="True"/>
+
+                    <CheckBox x:ConnectionId='5'
+                        x:Name="FlashlightCheckBox"
+                                                        
+                        Content="Flashlight"
+                        IsChecked="True"
+                        Margin="20,0,0,0"/>
+
+                    <CheckBox x:ConnectionId='6'
+                        x:Name="ZoomCheckBox"
+                                                  
+                        Content="Zoom"
+                        IsChecked="True"/>
+                    
+                    <CheckBox x:ConnectionId='7'
+                        x:Name="StackCheckBox"
+                                                   
+                        Content="Stack / Unstack"
+                        IsChecked="True"/>
+                </StackPanel>
+            </SplitView.Pane>
+
+            <SplitView.Content>
+                <Frame>
+                    <Grid x:ConnectionId='8' Name="PictureHost"
+                        Background="Black"
+                                                   
+                                                             
+                                                       
+                      />
+                </Frame>
+            </SplitView.Content>
+        </SplitView>
+        
+        <AppBarButton x:ConnectionId='2'
+                                       
+            Width="50" 
+            Height="50">
+
+            <AppBarButton.Icon>
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;"/>
+            </AppBarButton.Icon>
+        </AppBarButton>
+    </Grid>
+</Page>
+
