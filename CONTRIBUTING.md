@@ -16,12 +16,12 @@ origins and continuing existence of the code. The CLA helps us achieve that
 goal by ensuring that we have the agreement of our contributors to use their
 work, whether it be code, or documentation.
 
-The CLA permits Microsoft to distribute your code without restriction. It
-doesn't require you to assign to us any copyright you have, the ownership of
+The CLA permits Microsoft to distribute your code sample without restriction. 
+It doesn't require you to assign to us any copyright you have, the ownership of
 the copyright remains with you. You cannot withdraw permission for use of the
 contribution at a later date.
 
-We are generally seeking originally authored code and documentation as
+We are generally seeking originally authored code samples and documentation as
 contributions. Should you wish to submit materials that are not your original
 work, you may submit them separately to the Project in accordance with the terms
 of the CLA.
