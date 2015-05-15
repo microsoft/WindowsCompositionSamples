@@ -272,6 +272,12 @@ namespace compositionvisual
 
             _root = _compositor.CreateContainerVisual();
 
+            #region temp dpi fix
+            //temporary: manually correct for DPI
+            float dpiScaleFactor = (float)Windows.Graphics.Display.DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
+            _root.Scale = new Vector3(dpiScaleFactor, dpiScaleFactor, 1.0f);
+            #endregion
+
             _compositionTarget = _compositor.CreateTargetForCurrentView();
             _compositionTarget.Root = _root;
 
