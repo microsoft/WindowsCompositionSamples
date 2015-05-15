@@ -18,7 +18,7 @@
                         Click="NearSlideCheckBox_Click"
                         Content="Near Slide"
                         IsChecked="True"/>
-                    
+
                     <CheckBox
                         x:Name="FarSlideCheckBox"
                         Click="FarSlideCheckBox_Click"
@@ -37,7 +37,7 @@
                         Click="ZoomCheckBox_Click"
                         Content="Zoom"
                         IsChecked="True"/>
-                    
+
                     <CheckBox
                         x:Name="StackCheckBox"
                         Click="StackCheckBox_Click"
@@ -53,11 +53,14 @@
                         Loaded="PictureHost_Loaded"
                         SizeChanged="PictureHost_SizeChanged"
                         Unloaded="PictureHost_Unloaded"
-                      />
+                      >
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Name="MissingPictures" Foreground="White" Visibility="Collapsed">No Pictures Found.</TextBlock>
+                    </Grid>
+
                 </Frame>
             </SplitView.Content>
         </SplitView>
-        
+
         <AppBarButton
             Click="AppBarButton_Click" 
             Width="50" 
