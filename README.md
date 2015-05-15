@@ -9,7 +9,7 @@ The Windows.UI.Composition WinRT API is currently in preview mode and subject to
 
 <a href=http://channel9.msdn.com/events/Build/2015/3-737>Use New Motion and Effects Features to Captivate Users and Truly Bring Your App to Life</a> 
 
-<b>Reach us on Twitter @wincomposition.</b>
+<b>Reach us on Twitter @wincomposition</b>
 
 
 
