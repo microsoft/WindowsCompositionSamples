@@ -14,6 +14,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.Composition;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -39,6 +40,16 @@ namespace SlideShow
 
         private async void PictureHost_Loaded(object sender, RoutedEventArgs e)
         {
+            // Check that there are photos in the pictures folder
+
+            if (!await PhotoDatabase.PhotosExist())
+            {
+                MessageDialog messageDialog = new MessageDialog("Add some photos to your Pictures folder");
+                await messageDialog.ShowAsync();
+                MissingPictures.Visibility = Visibility.Visible;
+                return;
+            }
+
             // Host the Composition scene inside the PictureHost canvas, allowing us to also display
             // Xaml controls.
 
@@ -64,13 +75,17 @@ namespace SlideShow
             _transitionController.NextTransition();
         }
 
+        private void CheckPhotos()
+        {
+
+        }
 
         private void PictureHost_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (_transitionController != null)
             {
                 var newSize = e.NewSize;
-                var actualSize = new Vector2((float) newSize.Width, (float) newSize.Height);
+                var actualSize = new Vector2((float)newSize.Width, (float)newSize.Height);
                 _transitionController.UpdateWindowSize(actualSize);
             }
         }
@@ -87,7 +102,7 @@ namespace SlideShow
 
         private static ContainerVisual GetVisual(UIElement element)
         {
-            return (ContainerVisual) ElementCompositionPreview.GetContainerVisual(element);
+            return (ContainerVisual)ElementCompositionPreview.GetContainerVisual(element);
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
@@ -98,7 +113,7 @@ namespace SlideShow
         private void NearSlideCheckBox_Click(object sender, RoutedEventArgs e)
         {
             _transitionController.UpdateTransitionEnabled(
-                TransitionKind.NearSlide, 
+                TransitionKind.NearSlide,
                 NearSlideCheckBox.IsChecked == true);
         }
 

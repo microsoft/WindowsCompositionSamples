@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.Storage.Search;
 using Windows.UI.Composition;
 
 namespace SlideShow
@@ -32,28 +33,9 @@ namespace SlideShow
             _device = device;
             _allUris = new List<Uri>();
 
-
-            // Search pictures to build Uri collection of images.
-
-            StorageFolder picturesFolder = KnownFolders.PicturesLibrary;
-            StorageFolder useFolder = picturesFolder;
-
-            try
-            {
-                var item = await picturesFolder.TryGetItemAsync("Demo");
-                if ((item != null) && item.IsOfType(StorageItemTypes.Folder))
-                {
-                    StorageFolder demosFolder = (StorageFolder)item;
-                    useFolder = demosFolder;
-                }
-            }
-            catch (Exception)
-            {
-
-            }
+            StorageFolder useFolder = await GetPhotosFolder();
 
             await AddFiles(useFolder);
-
 
             // Ensure that each file is only listed once
 
@@ -62,8 +44,8 @@ namespace SlideShow
                 for (int b = a + 1; b < _allUris.Count; b++)
                 {
                     if (String.Equals(
-                        _allUris[a].LocalPath, 
-                        _allUris[b].LocalPath, 
+                        _allUris[a].LocalPath,
+                        _allUris[b].LocalPath,
                         StringComparison.OrdinalIgnoreCase))
                     {
                         Debug.Assert(false, "Same filename appears twice");
@@ -89,10 +71,50 @@ namespace SlideShow
             ShufflePhotos();
         }
 
+        public static async Task<bool> PhotosExist()
+        {
+            var parentFolder = await GetPhotosFolder();
+
+            var fileQuery = parentFolder.CreateFileQueryWithOptions(
+                new QueryOptions(Windows.Storage.Search.CommonFileQuery.OrderByDate, new string[] { ".jpg", ".png" })
+                );
+            return (await fileQuery.GetItemCountAsync() > 0);
+        }
+
+        private static async Task<StorageFolder> GetPhotosFolder()
+        {
+            // Search pictures to build Uri collection of images.
+
+            StorageFolder picturesFolder = KnownFolders.PicturesLibrary;
+            StorageFolder useFolder = picturesFolder;
+
+            try
+            {
+                var item = await picturesFolder.TryGetItemAsync("Demo");
+                if ((item != null) && item.IsOfType(StorageItemTypes.Folder))
+                {
+                    StorageFolder demosFolder = (StorageFolder)item;
+                    useFolder = demosFolder;
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return useFolder;
+        }
 
         private async Task AddFiles(StorageFolder parentFolder)
         {
-            var files = await parentFolder.GetFilesAsync().AsTask();
+            var fileQuery = parentFolder.CreateFileQueryWithOptions(
+                new QueryOptions(Windows.Storage.Search.CommonFileQuery.OrderByDate, new string[] { ".jpg", ".png" })
+                );
+
+            //Find up to 250 pictures in all sub folders of the parent folder
+
+            var files = await fileQuery.GetFilesAsync(0, 250);
+
             foreach (var file in files)
             {
                 string fileType = file.FileType.ToLowerInvariant();
@@ -112,15 +134,6 @@ namespace SlideShow
                             _allUris.Add(uri);
                         }
                         break;
-                }
-            }
-
-            if (_allUris.Count < MaxPhotos)
-            {
-                var childFolders = await parentFolder.GetFoldersAsync();
-                foreach (var folder in childFolders)
-                {
-                    await AddFiles(folder);
                 }
             }
         }
