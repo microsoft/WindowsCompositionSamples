@@ -1,3 +1,5 @@
+<!-- Copyright (c) Microsoft. All rights reserved. --> 
+
 ﻿<Page
     x:Class="SlideShow.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
