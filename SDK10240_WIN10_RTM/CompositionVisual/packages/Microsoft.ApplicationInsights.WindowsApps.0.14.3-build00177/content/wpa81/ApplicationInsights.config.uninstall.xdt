@@ -1,0 +1,21 @@
+<ApplicationInsights xmlns="http://schemas.microsoft.com/ApplicationInsights/2013/Settings" xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+
+  <ContextInitializers>
+    <Add xdt:Transform="Remove" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Extensibility.ComponentContextInitializer, Microsoft.ApplicationInsights" />
+    <Add xdt:Transform="Remove" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Extensibility.DeviceContextInitializer, Microsoft.ApplicationInsights" />
+  </ContextInitializers>
+  <ContextInitializers xdt:Transform="Remove" xdt:Locator="Condition(count(*)=0)"/>
+
+  <TelemetryInitializers>
+    <Add xdt:Transform="Remove" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Extensibility.Windows.UserContextInitializer, Microsoft.ApplicationInsights.Extensibility.Windows" />
+  </TelemetryInitializers>
+  <TelemetryInitializers xdt:Transform="Remove" xdt:Locator="Condition(count(*)=0)"/>
+
+  <TelemetryModules>
+    <Add xdt:Transform="Remove" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Extensibility.Windows.SessionTelemetryModule, Microsoft.ApplicationInsights.Extensibility.Windows" />
+    <Add xdt:Transform="Remove" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Extensibility.Windows.PageViewTelemetryModule, Microsoft.ApplicationInsights.Extensibility.Windows" />
+    <Add xdt:Transform="Remove" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Extensibility.Windows.UnhandledExceptionTelemetryModule, Microsoft.ApplicationInsights.Extensibility.Windows" />
+  </TelemetryModules>
+  <TelemetryModules xdt:Transform="Remove" xdt:Locator="Condition(count(*)=0)"/>
+
+</ApplicationInsights>
