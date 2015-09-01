@@ -1,0 +1,8 @@
+﻿<Application
+    x:Class="Animate_Visual_Position.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Animate_Visual_Position"
+    RequestedTheme="Light">
+
+</Application>
