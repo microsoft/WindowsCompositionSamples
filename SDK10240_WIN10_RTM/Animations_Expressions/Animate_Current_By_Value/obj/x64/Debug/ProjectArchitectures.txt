@@ -1,0 +1,1 @@
+C:\Users\pasiu\Documents\Visual Studio 2015\Projects\Animations_Expressions\Animate_Current_By_Value\Animate_Current_By_Value.csproj;x64

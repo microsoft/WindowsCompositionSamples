@@ -1,0 +1,1 @@
+C:\Users\pasiu\Documents\Visual Studio 2015\Projects\Animations_Expressions\Parallax_Expression\Parallax_Expression.csproj;x64

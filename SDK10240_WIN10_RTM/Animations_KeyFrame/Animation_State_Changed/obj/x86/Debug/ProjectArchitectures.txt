@@ -1,0 +1,1 @@
+c:\users\pasiu\documents\visual studio 2015\Projects\Animations_KeyFrame\Animation_State_Changed\Animation_State_Changed.csproj;x86

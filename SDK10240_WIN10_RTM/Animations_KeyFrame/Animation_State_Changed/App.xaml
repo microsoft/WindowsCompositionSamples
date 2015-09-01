@@ -1,0 +1,8 @@
+﻿<Application
+    x:Class="Animation_State_Changed.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Animation_State_Changed"
+    RequestedTheme="Light">
+
+</Application>

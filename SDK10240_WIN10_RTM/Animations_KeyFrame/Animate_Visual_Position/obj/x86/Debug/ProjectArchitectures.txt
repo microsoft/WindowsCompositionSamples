@@ -1,0 +1,1 @@
+c:\users\pasiu\documents\visual studio 2015\Projects\Animations_KeyFrame\Animate_Visual_Position\Animate_Visual_Position.csproj;x86

@@ -1,0 +1,1 @@
+C:\Users\pasiu\Documents\Visual Studio 2015\Projects\Animations_Expressions\Expression_Property_Reference\Expression_Property_Reference.csproj;x64
