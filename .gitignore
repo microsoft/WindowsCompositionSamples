@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/SDK10240_WIN10_RTM/SlideShow/.vs
+/SDK10240_WIN10_RTM/SlideShow/bin/x86/Debug
+/SDK10240_WIN10_RTM/SlideShow/obj/x86/Debug
+/SDK10240_WIN10_RTM/SlideShow/SlideShow.csproj.user
