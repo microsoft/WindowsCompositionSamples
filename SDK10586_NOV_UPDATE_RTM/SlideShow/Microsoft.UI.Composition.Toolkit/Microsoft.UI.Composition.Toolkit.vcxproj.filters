@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>09d27466-d553-4479-8728-1054288356d9</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="CompositionImageOptions.cpp" />
+    <ClCompile Include="WICBitmapSource.cpp" />
+    <ClCompile Include="CompositionImageFactory.cpp" />
+    <ClCompile Include="CompositionImage.cpp" />
+    <ClCompile Include="CompositionGraphicsDevice.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="CompositionImageOptions.h" />
+    <ClInclude Include="WICBitmapSource.h" />
+    <ClInclude Include="CompositionImageFactory.h" />
+    <ClInclude Include="CompositionImage.h" />
+    <ClInclude Include="CompositionGraphicsDevice.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

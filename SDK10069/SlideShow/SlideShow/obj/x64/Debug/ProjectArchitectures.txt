@@ -1,1 +1,0 @@
-C:\Users\likuba\Desktop\internalgit\SDK10069\Samples\SlideShow\SlideShow\SlideShow.csproj;x64
