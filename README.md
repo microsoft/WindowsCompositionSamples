@@ -1,16 +1,22 @@
 # Windows.UI.Composition
-This repository contains code samples created with the new <a href=http://go.microsoft.com/fwlink/?LinkID=534726&clcid=0x409>Windows.UI.Composition</a> WinRT API. Samples contained in this repository created by the Microsoft Composition team or contributors, are offered for use by the community via the MIT license. All code sample submissions are subject to review by the Microsoft Composition team before final publishing on the hub. 
+We are pleased to announce that as of Windows 10 Build 10586 and SDK Version 1511 the Windows.UI.Composition API is now fully public. Many thanks to all of those whocontibuted feedback to on the API during it;s preview phase to make it that much better.
+
+This repository contains code samples created with the  <a href=http://go.microsoft.com/fwlink/?LinkID=699334&clcid=0x409>Windows.UI.Composition</a> WinRT API. Samples contained in this repository created by the Microsoft Composition team or contributors, are offered for use by the community via the MIT license. All code sample submissions are subject to review by the Microsoft Composition team before final publishing on the hub. 
 
 The Windows.UI.Composition WinRT API is currently in preview mode and subject to change before final release later in 2015. The API itself is only available for 3rd party development on Windows Insider builds as we take in community feedback.
 
-<b>Watch Our Build Talks On Channel 9</b><br>
-<a href=http://channel9.msdn.com/events/Build/2015/2-672 >Bring Fluid, Responsive, and Highly Scalable UI Experiences to Your Universal Windows Apps with the New Visual Layer</a>
-
-<a href=http://channel9.msdn.com/events/Build/2015/3-737>Use New Motion and Effects Features to Captivate Users and Truly Bring Your App to Life</a> 
+<b>MSDN Developer Center Overview Documentation</b><br>
+To get a feel for what you can do with the new API visit our MSDN Windows Developer Center <a href=http://go.microsoft.com/fwlink/?LinkID=699334&clcid=0x409>Overview Documentation</a> including the following topics:
+<ul>
+<li><a href=http://go.microsoft.com/fwlink/?LinkID=699335&clcid=0x409>Visual Tree Basics</a>
+<li><a href=http://go.microsoft.com/fwlink/?LinkID=692060&clcid=0x409>Animation System Overview</a> 
+<li><a href=http://go.microsoft.com/fwlink/?LinkID=692063&clcid=0x409>Effects System Overview</a>
+<li><a href=http://go.microsoft.com/fwlink/?LinkID=692061&clcid=0x409>Direct3D and Direct2D Interop</a> 
 
 <b>MSDN Documentation</b><br>
 <a href=http://go.microsoft.com/fwlink/?LinkID=534726&clcid=0x409>Documentation for Windows.UI.Composition</a> is availible on MSDN. This is subject to updates and revisions as the preview API evolves from our continued work and your feedback.
 
+You can find a full list of changes made to the API from it's preview version to it's public version <a href=http://go.microsoft.com/fwlink/?LinkID=692067&clcid=0x409>here.</a>
 
 <b>Reach us on Twitter @wincomposition</b>
 
