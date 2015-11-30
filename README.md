@@ -15,6 +15,8 @@ To get a feel for what you can do with the new API visit our MSDN Windows Develo
 <b>MSDN Documentation</b><br>
 <a href=http://go.microsoft.com/fwlink/?LinkID=534726&clcid=0x409>Documentation for Windows.UI.Composition</a> is availible on MSDN. This is subject to updates and revisions as the preview API evolves from our continued work and your feedback.
 
+For another great overview of the API we reccomend Kenny Kerr’s excellent MSDN Article on our new API, <a href=https://msdn.microsoft.com/en-us/magazine/mt590968>Graphics and Animation - Windows Composition Turns 10</a>.
+
 You can find a full list of changes made to the API from it's preview version to it's public version <a href=http://go.microsoft.com/fwlink/?LinkID=692067&clcid=0x409>here.</a>
 
 <b>Reach us on Twitter @wincomposition</b>
