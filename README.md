@@ -12,6 +12,7 @@ To get a feel for what you can do with the new API visit our MSDN Windows Develo
 <li><a href=http://go.microsoft.com/fwlink/?LinkID=692060&clcid=0x409>Animation System Overview</a> 
 <li><a href=http://go.microsoft.com/fwlink/?LinkID=692063&clcid=0x409>Effects System Overview</a>
 <li><a href=http://go.microsoft.com/fwlink/?LinkID=692061&clcid=0x409>Direct3D and Direct2D Interop</a> 
+</ul>
 
 <b>MSDN Documentation</b><br>
 <a href=http://go.microsoft.com/fwlink/?LinkID=534726&clcid=0x409>Documentation for Windows.UI.Composition</a> is availible on MSDN. This is subject to updates and revisions as the preview API evolves from our continued work and your feedback.
