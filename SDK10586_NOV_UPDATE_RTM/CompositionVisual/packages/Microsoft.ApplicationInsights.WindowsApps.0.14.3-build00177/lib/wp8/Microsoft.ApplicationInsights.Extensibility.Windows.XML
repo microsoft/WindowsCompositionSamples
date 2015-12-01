@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.ApplicationInsights.Extensibility.Windows</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.ApplicationInsights.Extensibility.Windows.PageViewTelemetryModule">
+            <summary>
+            A module that deals in PageView events and will create PageViewTelemetry objects when triggered.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.Extensibility.Windows.PageViewTelemetryModule.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.ApplicationInsights.Extensibility.Windows.PageViewTelemetryModule"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.Extensibility.Windows.PageViewTelemetryModule.Initialize(Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration)">
+            <summary>
+            Initialize method is called after all configuration properties have been loaded from the configuration.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.Extensibility.Windows.PageViewTelemetryModule.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.Extensibility.Windows.SessionTelemetryModule">
+            <summary>
+            Tracks user sessions for Store Apps (Windows Store and Windows Phone).
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.Extensibility.Windows.SessionTelemetryModule.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.ApplicationInsights.Extensibility.Windows.SessionTelemetryModule"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.Extensibility.Windows.SessionTelemetryModule.Microsoft#ApplicationInsights#Extensibility#ITelemetryInitializer#Initialize(Microsoft.ApplicationInsights.Channel.ITelemetry)">
+            <summary>
+            Initializes <see cref="P:Microsoft.ApplicationInsights.Extensibility.Implementation.SessionContext.Id"/> property of the <see cref="P:Microsoft.ApplicationInsights.DataContracts.TelemetryContext.Session"/> context.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.Extensibility.Windows.SessionTelemetryModule.Initialize(Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration)">
+            <summary>
+            Initializes this instance of <see cref="T:Microsoft.ApplicationInsights.Extensibility.Windows.SessionTelemetryModule"/> and begins session tracking.
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.Extensibility.Windows.SessionTelemetryModule.Timeout">
+            <summary>
+            Gets or sets the value that determines if previous user session timed out.
+            </summary>
+            <remarks>
+            Store apps can be suspended or even closed when user switches back and forth between apps. 
+            If the amount of time between the moment an app is closed and then started again is less 
+            than <see cref="P:Microsoft.ApplicationInsights.Extensibility.Windows.SessionTelemetryModule.Timeout"/> we assume that the previous session continues.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.Extensibility.Windows.UserContextInitializer">
+            <summary>
+            Tracks anonymous user Id for Store Apps (Windows Store and Windows Phone).
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.Extensibility.Windows.UserContextInitializer.Initialize(Microsoft.ApplicationInsights.Channel.ITelemetry)">
+            <summary>
+            Initializes <see cref="P:Microsoft.ApplicationInsights.Extensibility.Implementation.UserContext.Id"/> property of the <see cref="P:Microsoft.ApplicationInsights.DataContracts.TelemetryContext.User"/> telemetry
+            and updates the IsFirst property of the SessionContext.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.Extensibility.Windows.UnhandledExceptionTelemetryModule">
+            <summary>
+            A module that deals in Exception events and will create ExceptionTelemetry objects when triggered.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.Extensibility.Windows.UnhandledExceptionTelemetryModule.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.ApplicationInsights.Extensibility.Windows.UnhandledExceptionTelemetryModule"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.Extensibility.Windows.UnhandledExceptionTelemetryModule.Dispose">
+            <summary>
+            Unsubscribes from the <see cref="E:System.Windows.Application.UnhandledException"/> event.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.Extensibility.Windows.UnhandledExceptionTelemetryModule.Initialize(Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration)">
+            <summary>
+            Subscribes to unhandled event notifications.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.Extensibility.Windows.UnhandledExceptionTelemetryModule.ApplicationOnUnhandledException(System.Object,System.Object)">
+            <summary>
+            Issues with the previous code - 
+            We were changing the exception as handled which should not be done, 
+            as the application might want the exception in other unhandled exception event handler.
+            Re throw of the exception triggers the users unhandled exception event handler twice and also caused the infinite loop issue.
+            Creating a new thread is not a good practice and the code will eventually move to persist and send exception on resume as hockeyApp.
+            </summary>
+        </member>
+    </members>
+</doc>
