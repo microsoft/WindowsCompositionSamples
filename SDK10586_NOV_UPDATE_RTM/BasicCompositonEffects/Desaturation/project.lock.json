@@ -1536,7 +1536,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Win2D.uwp/1.1.0": {
+      "Win2D.uwp/1.9.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {},
           "lib/uap10.0/Workaround1200257.dll": {}
@@ -3171,7 +3171,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Win2D.uwp/1.1.0": {
+      "Win2D.uwp/1.9.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {},
           "lib/uap10.0/Workaround1200257.dll": {}
@@ -4781,7 +4781,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Win2D.uwp/1.1.0": {
+      "Win2D.uwp/1.9.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {},
           "lib/uap10.0/Workaround1200257.dll": {}
@@ -6424,7 +6424,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Win2D.uwp/1.1.0": {
+      "Win2D.uwp/1.9.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {},
           "lib/uap10.0/Workaround1200257.dll": {}
@@ -8034,7 +8034,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Win2D.uwp/1.1.0": {
+      "Win2D.uwp/1.9.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {},
           "lib/uap10.0/Workaround1200257.dll": {}
@@ -9677,7 +9677,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Win2D.uwp/1.1.0": {
+      "Win2D.uwp/1.9.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {},
           "lib/uap10.0/Workaround1200257.dll": {}
@@ -11287,7 +11287,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Win2D.uwp/1.1.0": {
+      "Win2D.uwp/1.9.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {},
           "lib/uap10.0/Workaround1200257.dll": {}
@@ -14651,8 +14651,8 @@
         "System.Xml.XmlSerializer.nuspec"
       ]
     },
-    "Win2D.uwp/1.1.0": {
-      "sha512": "S7s+SjfharRHWEugh50y5M4uVWkAFVGSkADeyK7KvOXM6IePgZpFU82Crk3T1Rdkq6IR7h7m4RrGKI0NUfpvtQ==",
+    "Win2D.uwp/1.9.0": {
+      "sha512": "9Ae1ul1Lq3U+vxCOAETY3sEHwKoIfpcfl5C39IlPAk/s+C6tSWAQs5mNKMZBzwvwW2mDEe5VRBToWE1RS9Y53A==",
       "type": "Package",
       "files": [
         "[Content_Types].xml",
@@ -14664,7 +14664,7 @@
         "lib/uap10.0/Microsoft.Graphics.Canvas.winmd",
         "lib/uap10.0/Microsoft.Graphics.Canvas.xml",
         "lib/uap10.0/Workaround1200257.dll",
-        "package/services/metadata/core-properties/0b17de6427b240e4a1b0fa1d7a2c7acb.psmdcp",
+        "package/services/metadata/core-properties/d8d6650e5e4d4566b8815910d014778b.psmdcp",
         "runtimes/win10-arm/native/Microsoft.Graphics.Canvas.dll",
         "runtimes/win10-x64/native/Microsoft.Graphics.Canvas.dll",
         "runtimes/win10-x86/native/Microsoft.Graphics.Canvas.dll",
@@ -14676,7 +14676,7 @@
   "projectFileDependencyGroups": {
     "": [
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
-      "Win2D.uwp >= 1.1.0"
+      "Win2D.uwp >= 1.9.0"
     ],
     "UAP,Version=v10.0": []
   }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlphaMask", "AlphaMask\AlphaMask.csproj", "{B7028D40-FB94-4A26-9DE8-22CAD3234ECD}"
 EndProject
@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desaturation", "Desaturatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorSource and Blend", "ColorSource and Blend\ColorSource and Blend.csproj", "{40A75F2C-DF59-4E0A-A97D-E2FF5F37B041}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desaturation Animaiton", "Desaturation - Animation\Desaturation Animaiton.csproj", "{3395793E-E27E-4981-A0EF-5C451BAAA22C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desaturation Animation", "Desaturation - Animation\Desaturation Animation.csproj", "{3395793E-E27E-4981-A0EF-5C451BAAA22C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Microsoft.UI.Composition.Toolkit", "..\Microsoft.UI.Composition.Toolkit\Microsoft.UI.Composition.Toolkit.vcxproj", "{08A7D060-593A-4978-8DCC-B2029ACA7C95}"
 EndProject
