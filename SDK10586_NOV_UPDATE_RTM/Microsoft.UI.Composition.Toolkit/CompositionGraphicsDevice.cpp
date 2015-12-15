@@ -86,6 +86,7 @@ HRESULT CompositionGraphicsDevice::InitializeGraphicsDevice()
 
     _igraphicsDevice = graphicsDevice;
 
+
 Cleanup:
     return hr;
 }
@@ -142,7 +143,7 @@ HRESULT CompositionGraphicsDevice::InitializeDX()
     IFC(D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, __uuidof(ID2D1Factory1), &d2dFactory));
     IFC(d3dDevice.As(&dxgiDevice));
     IFC(d2dFactory->CreateDevice(dxgiDevice.Get(), &d2d1Device));
-
+	
     _graphicsFactoryBackingDXDevice = d2d1Device;
 
     IFC(d3dDevice.As(&_d3dDevice4));
