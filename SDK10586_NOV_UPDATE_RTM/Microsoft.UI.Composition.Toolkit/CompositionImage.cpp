@@ -23,6 +23,7 @@ CompositionImage::CompositionImage(
     CompositionImageOptions^ options) :
 	_compositor(compositor),
     _imageOptions(options),
+	_graphicsDevice(graphicsDevice),
     _uri(uri),
     _file(file)
 {
