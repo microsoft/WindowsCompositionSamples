@@ -76,12 +76,26 @@ namespace Toolkit {
             StorageFile^ file,
             CompositionImageOptions^ options);
 
+        static CompositionImage^ CreateCompositionImage(
+            Compositor^ compositor,
+            CompositionGraphicsDevice^ graphicsDevice,
+            const Array<byte>^ pixels,
+            int pixelWidth,
+            int pixelHeight);
+
         CompositionImage(
             Compositor^ compositor,
             CompositionGraphicsDevice^ graphicsDevice,
             Uri^ uri,
             StorageFile^ file,
             CompositionImageOptions^ options);
+
+        CompositionImage(
+            Compositor^ compositor,
+            CompositionGraphicsDevice^ graphicsDevice,
+            const Array<byte>^ pixels,
+            int pixelWidth,
+            int pixelHeight);
 
         IAsyncAction^ LoadImageAsync();
 
@@ -94,6 +108,8 @@ namespace Toolkit {
             SIZE sizeDecode);
 
         HRESULT CompositionImage::DrawBitmapOnSurface(ComPtr<IWICBitmapSource>& bitmapSource);
+
+        HRESULT CompositionImage::DrawBitmapOnSurface(const Array<byte>^ buffer, int pixelWidth, int pixelHeight);
 
         void HandleGraphicsDeviceLost(CompositionGraphicsDevice^ sender);
 
