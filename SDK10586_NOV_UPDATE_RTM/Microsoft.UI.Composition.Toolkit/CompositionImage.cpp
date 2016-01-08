@@ -21,9 +21,9 @@ CompositionImage::CompositionImage(
     Windows::Foundation::Uri^ uri,
     StorageFile^ file,
     CompositionImageOptions^ options) :
-	_compositor(compositor),
+    _compositor(compositor),
     _imageOptions(options),
-	_graphicsDevice(graphicsDevice),
+    _graphicsDevice(graphicsDevice),
     _uri(uri),
     _file(file)
 {
@@ -35,71 +35,71 @@ CompositionImage::CompositionImage(
 }
 
 CompositionImage::CompositionImage(
-	Compositor^ compositor,
-	CompositionGraphicsDevice^ graphicsDevice,
-	const Array<byte>^ pixels,
-	int pixelWidth,
-	int pixelHeight) :
-	_compositor(compositor),
-	_graphicsDevice(graphicsDevice)
+    Compositor^ compositor,
+    CompositionGraphicsDevice^ graphicsDevice,
+    const Array<byte>^ pixels,
+    int pixelWidth,
+    int pixelHeight) :
+    _compositor(compositor),
+    _graphicsDevice(graphicsDevice)
 {
-	_sizeDecode.cx = pixelWidth;
-	_sizeDecode.cy = pixelHeight;
+    _sizeDecode.cx = pixelWidth;
+    _sizeDecode.cy = pixelHeight;
 }
 
 // Creates a CompostionImage given a byte[] buffer and pixel width and height.
 CompositionImage^ CompositionImage::CreateCompositionImage(
-	Compositor^ compositor,
-	CompositionGraphicsDevice^ graphicsDevice,
-	const Array<byte>^ pixels,
-	int pixelWidth,
-	int pixelHeight)
+    Compositor^ compositor,
+    CompositionGraphicsDevice^ graphicsDevice,
+    const Array<byte>^ pixels,
+    int pixelWidth,
+    int pixelHeight)
 {
-	if (pixels == nullptr)
-	{
-		ERR(E_INVALIDARG, L"CompositionImage requires a buffer to be created.");
-		__abi_ThrowIfFailed(E_INVALIDARG);
-	}
+    if (pixels == nullptr)
+    {
+        ERR(E_INVALIDARG, L"CompositionImage requires a buffer to be created.");
+        __abi_ThrowIfFailed(E_INVALIDARG);
+    }
 
-	CompositionImage^ image = ref new CompositionImage(
-		compositor,
-		graphicsDevice,
-		pixels,
-		pixelWidth,
-		pixelHeight);
+    CompositionImage^ image = ref new CompositionImage(
+        compositor,
+        graphicsDevice,
+        pixels,
+        pixelWidth,
+        pixelHeight);
 
-	//
-	// Create the underlying composition drawing surface using the given graphics device
-	//
-	Windows::Foundation::Size initialPixelSize;
-	initialPixelSize.Width = static_cast<float>(pixelWidth);
-	initialPixelSize.Height = static_cast<float>(pixelHeight);
+    //
+    // Create the underlying composition drawing surface using the given graphics device
+    //
+    Windows::Foundation::Size initialPixelSize;
+    initialPixelSize.Width = static_cast<float>(pixelWidth);
+    initialPixelSize.Height = static_cast<float>(pixelHeight);
 
-	ICompositionSurface^ surface = graphicsDevice->CreateDrawingSurface(
-		initialPixelSize,
-		DirectXPixelFormat::B8G8R8A8UIntNormalized,
-		DirectXAlphaMode::Premultiplied);
+    ICompositionSurface^ surface = graphicsDevice->CreateDrawingSurface(
+        initialPixelSize,
+        DirectXPixelFormat::B8G8R8A8UIntNormalized,
+        DirectXAlphaMode::Premultiplied);
 
-	image->_sizeCompositionSurface = image->_sizeDecode;
-	image->_compositionSurface =
-		reinterpret_cast<ABI::Windows::UI::Composition::ICompositionDrawingSurface*>(surface);
+    image->_sizeCompositionSurface = image->_sizeDecode;
+    image->_compositionSurface =
+        reinterpret_cast<ABI::Windows::UI::Composition::ICompositionDrawingSurface*>(surface);
 
-	__abi_ThrowIfFailed(image->_compositionSurface.As(&image->_compositionSurfaceInterop));
+    __abi_ThrowIfFailed(image->_compositionSurface.As(&image->_compositionSurfaceInterop));
 
-	//
-	// Register for device lost since we must redraw the bitmap into the composition surface
-	// in the case the graphics device is reset.
-	//
-	graphicsDevice->DeviceLost += ref new CompositionGraphicsDeviceLostEventHandler(
-		image,
-		&CompositionImage::HandleGraphicsDeviceLost);
+    //
+    // Register for device lost since we must redraw the bitmap into the composition surface
+    // in the case the graphics device is reset.
+    //
+    graphicsDevice->DeviceLost += ref new CompositionGraphicsDeviceLostEventHandler(
+        image,
+        &CompositionImage::HandleGraphicsDeviceLost);
 
-	//
-	// Create a bitmap and draw this bitmap on surfece.
-	//
-	image->DrawBitmapOnSurface(pixels, pixelWidth, pixelHeight);
+    //
+    // Create a bitmap and draw this bitmap on surfece.
+    //
+    image->DrawBitmapOnSurface(pixels, pixelWidth, pixelHeight);
 
-	return image;
+    return image;
 }
 
 // Creates a CompostionImage given a Uri or a StorageFile object, only one should be provided.
@@ -496,78 +496,78 @@ Cleanup:
 
 HRESULT CompositionImage::DrawBitmapOnSurface(const Array<byte>^ buffer, int pixelWidth, int pixelHeight)
 {
-	HRESULT hr = S_OK;
-	ComPtr<ID2D1DeviceContext> d2d1DeviceContext;
-	ComPtr<ID2D1Bitmap> d2d1BitmapSource;
-	ComPtr<ID2D1BitmapRenderTarget> compatibleRenderTarget;
+    HRESULT hr = S_OK;
+    ComPtr<ID2D1DeviceContext> d2d1DeviceContext;
+    ComPtr<ID2D1Bitmap> d2d1BitmapSource;
+    ComPtr<ID2D1BitmapRenderTarget> compatibleRenderTarget;
 
-	// Keep track of whether or not BeginDraw was called successfully on our backing surface so
-	// that we know in the Cleanup whether or not to call EndDraw.
-	bool drawingBegun = false;
+    // Keep track of whether or not BeginDraw was called successfully on our backing surface so
+    // that we know in the Cleanup whether or not to call EndDraw.
+    bool drawingBegun = false;
 
-	// CompositionGraphicsDevice only allows one surface to be active (i.e. BeginDraw has been called but not EndDraw) so
-	// we acquire the drawing lock so that all drawing onto composition surfaces created by the CompositionGraphicsDevice
-	// happen synchronously with no overlap.
-	_graphicsDevice->AcquireDrawingLock();
+    // CompositionGraphicsDevice only allows one surface to be active (i.e. BeginDraw has been called but not EndDraw) so
+    // we acquire the drawing lock so that all drawing onto composition surfaces created by the CompositionGraphicsDevice
+    // happen synchronously with no overlap.
+    _graphicsDevice->AcquireDrawingLock();
 
-	RECT rect;
-	rect.left = 0;
-	rect.top = 0;
-	rect.right = pixelWidth;
-	rect.bottom = pixelHeight;
-	POINT offset;
+    RECT rect;
+    rect.left = 0;
+    rect.top = 0;
+    rect.right = pixelWidth;
+    rect.bottom = pixelHeight;
+    POINT offset;
 
-	IFC(_compositionSurfaceInterop->BeginDraw(
-		&rect,
-		IID_PPV_ARGS(&d2d1DeviceContext),
-		&offset));
-	drawingBegun = true;
+    IFC(_compositionSurfaceInterop->BeginDraw(
+        &rect,
+        IID_PPV_ARGS(&d2d1DeviceContext),
+        &offset));
+    drawingBegun = true;
 
-	IFC(d2d1DeviceContext->CreateCompatibleRenderTarget(&compatibleRenderTarget));
+    IFC(d2d1DeviceContext->CreateCompatibleRenderTarget(&compatibleRenderTarget));
 
-	//
-	// Create bitmap and options.
-	//
-	D2D1_SIZE_U d2d1Size = D2D1::SizeU(pixelWidth, pixelHeight);
+    //
+    // Create bitmap and options.
+    //
+    D2D1_SIZE_U d2d1Size = D2D1::SizeU(pixelWidth, pixelHeight);
 
-	D2D1_BITMAP_PROPERTIES bitmapProperties = 
-		D2D1::BitmapProperties(
-			D2D1::PixelFormat(DXGI_FORMAT_B8G8R8A8_UNORM, D2D1_ALPHA_MODE_PREMULTIPLIED));
+    D2D1_BITMAP_PROPERTIES bitmapProperties = 
+        D2D1::BitmapProperties(
+            D2D1::PixelFormat(DXGI_FORMAT_B8G8R8A8_UNORM, D2D1_ALPHA_MODE_PREMULTIPLIED));
 
-	hr = compatibleRenderTarget->CreateBitmap(d2d1Size, buffer->Data, d2d1Size.width * 4, &bitmapProperties, &d2d1BitmapSource);
-	if (FAILED(hr))
-	{
-		ERR(hr, L"Failed to create bitmap form pixels.");
-		IFC(hr);
-	}
+    hr = compatibleRenderTarget->CreateBitmap(d2d1Size, buffer->Data, d2d1Size.width * 4, &bitmapProperties, &d2d1BitmapSource);
+    if (FAILED(hr))
+    {
+        ERR(hr, L"Failed to create bitmap form pixels.");
+        IFC(hr);
+    }
 
-	D2D1_RECT_F d2d1Rect;
-	d2d1Rect.left = static_cast<float>(offset.x);
-	d2d1Rect.top = static_cast<float>(offset.y);
-	d2d1Rect.right = static_cast<float>(d2d1Rect.left + pixelWidth);
-	d2d1Rect.bottom = static_cast<float>(d2d1Rect.top + pixelHeight);
+    D2D1_RECT_F d2d1Rect;
+    d2d1Rect.left = static_cast<float>(offset.x);
+    d2d1Rect.top = static_cast<float>(offset.y);
+    d2d1Rect.right = static_cast<float>(d2d1Rect.left + pixelWidth);
+    d2d1Rect.bottom = static_cast<float>(d2d1Rect.top + pixelHeight);
 
-	d2d1DeviceContext->SetPrimitiveBlend(D2D1_PRIMITIVE_BLEND_COPY);
-	d2d1DeviceContext->DrawBitmap(
-		d2d1BitmapSource.Get(),
-		&d2d1Rect,
-		1.0f,
-		D2D1_BITMAP_INTERPOLATION_MODE_LINEAR,
-		&d2d1Rect);
+    d2d1DeviceContext->SetPrimitiveBlend(D2D1_PRIMITIVE_BLEND_COPY);
+    d2d1DeviceContext->DrawBitmap(
+        d2d1BitmapSource.Get(),
+        &d2d1Rect,
+        1.0f,
+        D2D1_BITMAP_INTERPOLATION_MODE_LINEAR,
+        &d2d1Rect);
 
 Cleanup:
-	if (drawingBegun)
-	{
-		HRESULT endDrawHr = _compositionSurfaceInterop->EndDraw();
-		if (FAILED(endDrawHr))
-		{
-			ERR(endDrawHr, L"Failed to EndDraw");
-		}
-	}
+    if (drawingBegun)
+    {
+        HRESULT endDrawHr = _compositionSurfaceInterop->EndDraw();
+        if (FAILED(endDrawHr))
+        {
+            ERR(endDrawHr, L"Failed to EndDraw");
+        }
+    }
 
-	_graphicsDevice->ReleaseDrawingLock();
+    _graphicsDevice->ReleaseDrawingLock();
 
-	return hr;
+    return hr;
 }
 
 // Draws the given bitmap on the ICompositionSurface represented by this CompositionImage synchronously.

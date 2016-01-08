@@ -98,12 +98,12 @@ CompositionImage^ CompositionImageFactory::CreateImageFromFile(StorageFile^ file
 // Creates a CompositionImage given a pixels buffer.
 CompositionImage^ CompositionImageFactory::CreateImageFromPixels(const Array<byte>^ pixels, int pixelWidth,int pixelHeight)
 {
-	return CompositionImage::CreateCompositionImage(
-		_compositor,
-		_graphicsDevice,
-		pixels,
-		pixelWidth,
-		pixelHeight);
+    return CompositionImage::CreateCompositionImage(
+        _compositor,
+        _graphicsDevice,
+        pixels,
+        pixelWidth,
+        pixelHeight);
 }
 
 }  // namespace Toolkit
