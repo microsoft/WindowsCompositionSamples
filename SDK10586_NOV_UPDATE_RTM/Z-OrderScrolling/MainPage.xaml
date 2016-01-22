@@ -1,0 +1,114 @@
+﻿<Page
+    x:Class="Z_ORderScrolling.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Z_ORderScrolling"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+
+        <Style TargetType="TextBlock" x:Key="ProfileName">
+            <Setter Property="Foreground" Value="AntiqueWhite"/>
+            <Setter Property="FontSize" Value="36"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="ProfileTitle">
+            <Setter Property="Foreground" Value="GhostWhite"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+
+        <Style TargetType="Border" x:Key="DividingBorder">
+            <Setter Property="Margin" Value="0,10,0,0"/>
+            <Setter Property="BorderThickness" Value="0,0,0,5" />
+            <Setter Property="BorderBrush" Value="BurlyWood"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="DividingText">
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="BasicText">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,5,0,5"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+
+    </Page.Resources>
+
+    <Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ScrollViewer Name="Scroller">
+            <Grid>
+                <StackPanel Name="ContentPanel">
+                    <Border Style="{StaticResource DividingBorder}">
+                        <TextBlock Text="Career" Style="{StaticResource DividingText}"></TextBlock>
+                    </Border>
+                    <TextBlock Style="{StaticResource BasicText}" xml:space="default" Text=
+"Mr. Satya Nadella is the Chief Executive Officer of Microsoft Corporation since February 4, 2014. Nadella 
+joined Microsoft in 1992. Prior to becoming CEO, Nadella was the president of the Servers and Tools 
+Business (STB) at Microsoft. Satya Nadella was accountable for the overall business and technical vision, 
+strategy, operations, engineering and marketing for Microsoft's $15 billion business. STB is responsible for 
+Microsoft infrastructure software, developer tools and cloud platform, including products such as Windows Server, 
+SQL Server, Visual Studio, System Center and the Windows Azure Platform. 
+&#x0a;&#x0a;
+Prior to joining the Online Services Division, he led Microsoft Business Solutions (MBS), which develops and 
+markets the Microsoft Dynamics line of ERP and CRM products. Prior to that, he spent several years leading engineering 
+efforts in Microsoft's Server group. Before joining Microsoft, Nadella was a member of the technology staff at 
+Sun Microsystems Inc. 
+&#x0a;&#x0a;
+A native of Hyderabad (India), Nadella has a Bachelor's degree in Electrical Engineering from Mangalore University, 
+a Master's degree in Computer Science from the University of Wisconsin and an M.B.A. from the University of Chicago. 
+He and his wife have three children and reside in Washington state.">
+
+                    </TextBlock>
+
+
+                    <Border Style="{StaticResource DividingBorder}">
+                        <TextBlock Style="{StaticResource DividingText}"  Text="Basic Background"/>
+                    </Border>
+
+                    <TextBlock Style="{StaticResource BasicText}" Text=
+"Satya Narayana Nadella (/ˈnədɛlæ/; born August 19, 1967) is an Indian-American business executive. He is the 
+current chief executive officer (CEO) of Microsoft.[7][8] He was appointed as CEO on 4 February 2014, succeeding
+Steve Ballmer. Before becoming CEO of Microsoft, he was Executive Vice President of Microsoft's Cloud and 
+Enterprise group, responsible for building and running the company's Computing Platforms, Developer Tools and 
+Cloud Computing Services."
+                         ></TextBlock>
+
+
+                    <Border Style="{StaticResource DividingBorder}">
+                        <TextBlock Style="{StaticResource DividingText}"  Text="Early life">
+                        </TextBlock>
+                    </Border>
+                    <TextBlock Style="{StaticResource BasicText}" Text=
+"Nadella[9][10][11] was born into a Telugu speaking family[11] in Hyderabad, Andhra Pradesh (now Telangana),
+India. His father, Bukkapuram Nadella Yugandher, was a civil servant of the Indian Administrative Service.[12][13] 
+Nadella attended the Hyderabad Public School, Begumpet[14] before attaining a bachelor's degree in electrical engineering[15] 
+from the Manipal Institute of Technology in 1988 (then affiliated with Mangalore University), Manipal, Karnataka.[16][17][18][19][20]
+&#x0a;&#x0a;
+Nadella subsequently traveled to the U.S. to study for an M.S. degree in Computer Science at the University of 
+Wisconsin–Milwaukee,[21] receiving his degree in 1990.[22] Later he received an MBA from the University of Chicago 
+Booth School of Business.[23][24]
+&#x0a;&#x0a;
+Nadella said he &quot;always wanted to build things&quot;.[25] He knew that computer science was what he wanted to
+pursue,[26] but that emphasis was not available at Manipal University. &quot;And so it [electrical engineering] was
+a great way for me to go discover what turned out to become a passion,&quot; he says.[27]"
+                         >
+
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+        <Grid Name="MainGrid" VerticalAlignment="Top">
+            <Grid Name="BackGrid"></Grid>
+            <Image Name="ParallaxingImage"  Source="assets/RollingWaves.jpg" IsHitTestVisible="False"></Image>
+            <StackPanel Name="ProfileContent" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False">
+                <TextBlock Style="{StaticResource ProfileName}" IsHitTestVisible="False">Satya Nadella</TextBlock>
+                <TextBlock Style="{StaticResource ProfileTitle}" IsHitTestVisible="False">Chief Executive Officer</TextBlock>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
