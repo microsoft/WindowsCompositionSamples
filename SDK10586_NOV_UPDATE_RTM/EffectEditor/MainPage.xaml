@@ -1,0 +1,246 @@
+﻿<Page
+    x:Class="EffectEditor.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EffectEditor"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    mc:Ignorable="d"
+    d:DesignWidth="1366"
+    d:DesignHeight="768"
+    x:Name="LayoutPage">
+
+    <Grid x:Name="MainGrid" Loaded="MainGridLoaded" SizeChanged="MainGridSizeChanged" Background="RoyalBlue">
+        <StackPanel x:Name="EffectControls" Orientation="Vertical" HorizontalAlignment="Left" Width="350" Background="#33000000">
+            <ComboBox x:Name="EffectSelector" Margin="10,10,10,5" HorizontalAlignment="Stretch" Height="30" SelectedIndex="{Binding ActiveEffectType, Mode=TwoWay}">
+                <ComboBoxItem>No Effect</ComboBoxItem>
+                <ComboBoxItem>Alpha Mask</ComboBoxItem>
+                <ComboBoxItem>Arithmetic</ComboBoxItem>
+                <ComboBoxItem>Blend</ComboBoxItem>
+                <ComboBoxItem>Color Source</ComboBoxItem>
+                <ComboBoxItem>Contrast</ComboBoxItem>
+                <ComboBoxItem>Exposure</ComboBoxItem>
+                <ComboBoxItem>Gamma Transfer</ComboBoxItem>
+                <ComboBoxItem>Grayscale</ComboBoxItem>
+                <ComboBoxItem>Hue Rotation</ComboBoxItem>
+                <ComboBoxItem>Invert</ComboBoxItem>
+                <ComboBoxItem>Saturation</ComboBoxItem>
+                <ComboBoxItem>Sepia</ComboBoxItem>
+                <ComboBoxItem>Temperature and Tint</ComboBoxItem>
+                <ComboBoxItem>Transform 2D</ComboBoxItem>
+            </ComboBox>
+
+            <Grid Padding="20,0,20,0" Width="350" Background="#33000000">
+                <Grid x:Name="AlphaMaskParams" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <ToggleSwitch Grid.Row="0" Grid.Column="1" x:Name="AlphaMaskAnimation" Toggled="OnAlphaMaskAnimationToggled" Style="{StaticResource EffectPropertyToggleSwitchStyle}" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Animation" Style="{StaticResource EffectPropertyStyle}" />
+                </Grid>
+
+                <Grid x:Name="ArithmeticParams" Grid.Row="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Slider Grid.Row="0" Grid.Column="1" x:Name="ArithmeticMultiply" ValueChanged="OnArithmeticMultiplyValueChanged" StepFrequency="0.1" Minimum="0" Maximum="1" Style="{StaticResource EffectPropertySliderStyle}" />
+                    <Slider Grid.Row="1" Grid.Column="1" x:Name="ArithmeticSource1" ValueChanged="OnArithmeticSource1ValueChanged" StepFrequency="0.1" Minimum="0" Maximum="1" Style="{StaticResource EffectPropertySliderStyle}" />
+                    <Slider Grid.Row="2" Grid.Column="1" x:Name="ArithmeticSource2" ValueChanged="OnArithmeticSource2ValueChanged" StepFrequency="0.1" Minimum="0" Maximum="1" Style="{StaticResource EffectPropertySliderStyle}" />
+                    <Slider Grid.Row="3" Grid.Column="1" x:Name="ArithmeticOffset" ValueChanged="OnArithmeticOffsetValueChanged" StepFrequency="0.1" Minimum="0" Maximum="1" Style="{StaticResource EffectPropertySliderStyle}" />
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Multiply" Style="{StaticResource EffectPropertyStyle}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Source1" Style="{StaticResource EffectPropertyStyle}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Source2" Style="{StaticResource EffectPropertyStyle}" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Offset" Style="{StaticResource EffectPropertyStyle}" />
+                </Grid>
+
+                <Grid x:Name="BlendParams" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <ComboBox x:Name="BlendModeSelector" Margin="0,10,0,5" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding SupportedBlendModes}" SelectedIndex="{Binding ActiveBlendMode, Mode=TwoWay}" />
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Blend Mode" Style="{StaticResource EffectPropertyStyle}" />
+                </Grid>
+
+                <Grid x:Name="ColorSourceParams" Grid.Row="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Slider Grid.Row="0" Grid.Column="1" x:Name="ColorSourceRed" ValueChanged="OnColorSourceRedValueChanged" StepFrequency="0.1" Minimum="0" Maximum="1" Style="{StaticResource EffectPropertySliderStyle}" />
+                    <Slider Grid.Row="1" Grid.Column="1" x:Name="ColorSourceGreen" ValueChanged="OnColorSourceGreenValueChanged" StepFrequency="0.1" Minimum="0" Maximum="1" Style="{StaticResource EffectPropertySliderStyle}" />
+                    <Slider Grid.Row="2" Grid.Column="1" x:Name="ColorSourceBlue" ValueChanged="OnColorSourceBlueValueChanged" StepFrequency="0.1" Minimum="0" Maximum="1" Style="{StaticResource EffectPropertySliderStyle}" />
+                    <Slider Grid.Row="3" Grid.Column="1" x:Name="ColorSourceAlpha" ValueChanged="OnColorSourceAlphaValueChanged" StepFrequency="0.1" Minimum="0" Maximum="1" Style="{StaticResource EffectPropertySliderStyle}" />
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Red" Style="{StaticResource EffectPropertyStyle}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Green" Style="{StaticResource EffectPropertyStyle}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Blue" Style="{StaticResource EffectPropertyStyle}" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Alpha" Style="{StaticResource EffectPropertyStyle}" />
+                </Grid>
+
+                <Grid x:Name="ContrastParams" Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Slider Grid.Row="0" Grid.Column="1" x:Name="Contrast" ValueChanged="OnContrastValueChanged" StepFrequency="0.1" Minimum="0" Maximum="1" Style="{StaticResource EffectPropertySliderStyle}" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Contrast" Style="{StaticResource EffectPropertyStyle}" />
+
+                    <ToggleSwitch Grid.Row="1" Grid.Column="1" x:Name="ContrastAnimation" Toggled="OnContrastAnimationToggled" Style="{StaticResource EffectPropertyToggleSwitchStyle}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Animation" Style="{StaticResource EffectPropertyStyle}" />
+                </Grid>
+
+                <Grid x:Name="ExposureParams" Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Slider Grid.Row="0" Grid.Column="1" x:Name="Exposure" ValueChanged="OnExposureValueChanged" StepFrequency="0.1" Minimum="0" Maximum="1" Style="{StaticResource EffectPropertySliderStyle}" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Exposure" Style="{StaticResource EffectPropertyStyle}" />
+
+                    <ToggleSwitch Grid.Row="1" Grid.Column="1" x:Name="ExposureAnimation" Toggled="OnExposureAnimationToggled" Style="{StaticResource EffectPropertyToggleSwitchStyle}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Animation" Style="{StaticResource EffectPropertyStyle}" />
+                </Grid>
+
+                <Grid x:Name="GammaTransferParams" Grid.Row="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <ComboBox x:Name="GammaTransferChannelSelector" SelectionChanged="OnGammaTransferChannelSelectorSelectionChanged" Margin="0,10,0,5" Grid.Row="0" Grid.Column="2" Height="30" Width="130">
+                        <ComboBoxItem>Red</ComboBoxItem>
+                        <ComboBoxItem>Green</ComboBoxItem>
+                        <ComboBoxItem>Blue</ComboBoxItem>
+                    </ComboBox>
+                    <Slider Grid.Row="1" Grid.Column="1" x:Name="GammaAmplitude" ValueChanged="OnGammaAmplitudeValueChanged" StepFrequency="0.1" Minimum="0" Maximum="8" Style="{StaticResource EffectPropertySliderStyle}" />
+                    <Slider Grid.Row="2" Grid.Column="1" x:Name="GammaExponent" ValueChanged="OnGammaExponentValueChanged" StepFrequency="0.1" Minimum="0" Maximum="8" Style="{StaticResource EffectPropertySliderStyle}" />
+                    <Slider Grid.Row="3" Grid.Column="1" x:Name="GammaOffset" ValueChanged="OnGammaOffsetValueChanged" StepFrequency="0.1" Minimum="0" Maximum="1" Style="{StaticResource EffectPropertySliderStyle}" />
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Channel" Style="{StaticResource EffectPropertyStyle}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Amplitude" Style="{StaticResource EffectPropertyStyle}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Exponent" Style="{StaticResource EffectPropertyStyle}" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Offset" Style="{StaticResource EffectPropertyStyle}" />
+                </Grid>
+
+                <Grid x:Name="HueRotationParams" Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Slider Grid.Row="0" Grid.Column="1" x:Name="HueRotation" ValueChanged="OnHueRotationValueChanged" StepFrequency="0.1" Minimum="0" Maximum="1" Style="{StaticResource EffectPropertySliderStyle}" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Angle" Style="{StaticResource EffectPropertyStyle}" />
+
+                    <ToggleSwitch Grid.Row="1" Grid.Column="1" x:Name="HueRotationAnimation" Toggled="OnHueRotationAnimationToggled" Style="{StaticResource EffectPropertyToggleSwitchStyle}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Animation" Style="{StaticResource EffectPropertyStyle}" />
+                </Grid>
+
+                <Grid x:Name="SepiaParams" Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <ComboBox x:Name="SepiaAlphaModeSelector" Margin="0,10,0,5" Grid.Row="0" Grid.Column="2" Height="30" Width="130" SelectedIndex="{Binding ActiveSepiaAlphaMode, Mode=TwoWay}">
+                        <ComboBoxItem>Premultiplied</ComboBoxItem>
+                        <ComboBoxItem>Straight</ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Alpha Mode" Style="{StaticResource EffectPropertyStyle}" />
+
+                    <Slider Grid.Row="1" Grid.Column="1" x:Name="Sepia" ValueChanged="OnSepiaValueChanged" StepFrequency="0.1" Minimum="0" Maximum="1" Style="{StaticResource EffectPropertySliderStyle}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Intensity" Style="{StaticResource EffectPropertyStyle}" />
+
+                    <ToggleSwitch Grid.Row="2" Grid.Column="1" x:Name="SepiaAnimation" Toggled="OnSepiaAnimationToggled" Style="{StaticResource EffectPropertyToggleSwitchStyle}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Animation" Style="{StaticResource EffectPropertyStyle}" />
+                </Grid>
+
+                <Grid x:Name="SaturationParams" Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Slider Grid.Row="0" Grid.Column="1" x:Name="Saturation" ValueChanged="OnSaturationValueChanged" StepFrequency="0.1" Minimum="0" Maximum="1" Style="{StaticResource EffectPropertySliderStyle}" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Saturation" Style="{StaticResource EffectPropertyStyle}" />
+
+                    <ToggleSwitch Grid.Row="1" Grid.Column="1" x:Name="SaturationAnimation" Toggled="OnSaturationAnimationToggled" Style="{StaticResource EffectPropertyToggleSwitchStyle}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Animation" Style="{StaticResource EffectPropertyStyle}" />
+                </Grid>
+
+                <Grid x:Name="TemperatureAndTintParams" Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Slider Grid.Row="0" Grid.Column="1" x:Name="Temperature" ValueChanged="OnTemperatureValueChanged" StepFrequency="0.1" Minimum="0" Maximum="1" Style="{StaticResource EffectPropertySliderStyle}" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Temperature" Style="{StaticResource EffectPropertyStyle}" />
+
+                    <Slider Grid.Row="1" Grid.Column="1" x:Name="Tint" ValueChanged="OnTintValueChanged" StepFrequency="0.1" Minimum="0" Maximum="1" Style="{StaticResource EffectPropertySliderStyle}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Tint" Style="{StaticResource EffectPropertyStyle}" />
+                </Grid>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>
