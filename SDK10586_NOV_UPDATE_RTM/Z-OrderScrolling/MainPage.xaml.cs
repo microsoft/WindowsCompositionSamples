@@ -36,35 +36,6 @@ namespace Z_ORderScrolling
         }
 
         /// <summary>
-        /// Method used to walk throughthe tree doing a search to find a child element of a given type.
-        /// </summary>
-        /// <typeparam name="T">The type of the element to retrieve.</typeparam>
-        /// <param name="rootElement">The root to start the search at.</param>
-        /// <returns></returns>
-        private static T GetChildElement<T>(DependencyObject rootElement)
-        {
-            int childCount = VisualTreeHelper.GetChildrenCount(rootElement);
-            for (int i = 0; i < childCount; i++)
-            {
-                DependencyObject current = VisualTreeHelper.GetChild(rootElement, i);
-                if ((current.GetType()).Equals(typeof(T)))
-                {
-                    return (T)Convert.ChangeType(current, typeof(T));
-                }
-            }
-
-            for (int i = 0; i < childCount; i++)
-            {
-                DependencyObject current = VisualTreeHelper.GetChild(rootElement, i);
-                T temp = GetChildElement<T>(current);
-                if (temp != null)
-                    return temp;
-            }
-
-            return default(T);
-        }
-
-        /// <summary>
         /// MainPage_Loaded is used for all of our initialization to keep the UI thread mostly free.
         /// </summary>
         /// <param name="sender">not used</param>
@@ -83,8 +54,6 @@ namespace Z_ORderScrolling
             InitializeFrontVisual(scrollProperties, maskedBrush);
             InitializeBehindVisual(scrollProperties, maskedBrush);
 
-            _scrollBar = GetChildElement<ScrollBar>(Scroller);
-
             UpdateSizes();
         }
 
@@ -96,19 +65,20 @@ namespace Z_ORderScrolling
         private void InitializeBackgroundImageVisual(CompositionPropertySet scrollProperties)
         {
             //
-            // Get the visual for the background image, and let it parallax up until the ParallaxPoint.
-            // ParallaxPoint is later defined as the amount of the image to leave showing.
+            // Get the visual for the background image, and let it parallax up until the BackgroundPeekSize.
+            // BackgroundPeekSize is later defined as the amount of the image to leave showing.
             //
             _backgroundVisual = ElementCompositionPreview.GetElementVisual(ParallaxingImage);
+
+            //
+            // If the scrolling is positive (i.e., bouncing), don't translate at all.  Then check to see if
+            // we have parallaxed as far as we should go.  If we haven't, keep parallaxing otherwise use
+            // the scrolling translation to keep the background stuck with the background peeking out.
+            //
             _backgroundTranslationAnimation = _compositor.CreateExpressionAnimation(
-                "BaseOffset + Vector3(" +
-                                      "0," +
-
-                                      "scrollingProperties.Translation.Y > 0 ? 0 :" +
-                                            "(ParallaxRatio * -scrollingProperties.Translation.Y) < ParallaxPoint ? " +
-                                                "(ParallaxRatio * scrollingProperties.Translation.Y) : (-ParallaxPoint)," +
-
-                                      "0)");
+                "BaseOffset + (scrollingProperties.Translation.Y > 0 ? 0 : " +
+                    "( (1-ParallaxRatio) * -scrollingProperties.Translation.Y) < BackgroundPeekSize ? " +
+                            "(ParallaxRatio * -scrollingProperties.Translation.Y) : -BackgroundPeekSize-scrollingProperties.Translation.Y)");
             _backgroundTranslationAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
             _backgroundTranslationAnimation.SetScalarParameter("ParallaxRatio", _parallaxRatio);
 
@@ -130,16 +100,16 @@ namespace Z_ORderScrolling
             //
             _profileContentVisual = ElementCompositionPreview.GetElementVisual(ProfileContent);
             _profileContentTranslationAnimation = _compositor.CreateExpressionAnimation(
-                "Vector3(Target.Size.X/2, Target.Size.Y/2 + Background.Offset.Y - Background.Size.Y/2, 0) + " +
-                        "Lerp(" +
-                                "Vector3(0, 0, 0)," +
-                                "Vector3(0, 1+ShowRatio/2 * Background.Size.Y ,0)" +
-                                "Clamp( (BaseOffset.Y - Background.Offset.Y)/ParallaxPoint,0,1)" +
-                            ")");
-            _profileContentTranslationAnimation.SetReferenceParameter("Target", _profileContentVisual);
+                "(-scrollingProperties.Translation.Y + Background.Offset.Y + Background.Size.Y/2)/2");
             _profileContentTranslationAnimation.SetReferenceParameter("Background", _backgroundVisual);
             _profileContentTranslationAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
-            _profileContentTranslationAnimation.SetScalarParameter("ShowRatio", _backgroundShowRatio);
+
+            _profileContentScaleAnimation = _compositor.CreateExpressionAnimation(
+                    "Lerp(1,ShrinkRatio, " +
+                        "Clamp( (Background.Offset.Y - Background.Size.Y/2) / (Background.Size.Y - BackgroundPeekSize),0,1))"
+                );
+            _profileContentScaleAnimation.SetScalarParameter("ShrinkRatio", _contentShrinkRatio);
+            _profileContentScaleAnimation.SetReferenceParameter("Background", _backgroundVisual);
         }
 
 
@@ -159,29 +129,16 @@ namespace Z_ORderScrolling
             ElementCompositionPreview.SetElementChildVisual(MainGrid, _frontVisual);
 
             //
-            // "Terms" and explanation of the following expression:
+            // "Terms" in the following expression:
             //
             //      (CrossoverTranslation + scrollingProperties.Translation.Y)/CrossoverTranslation  
             //
             //              Since scrollingProperties.Translation.Y is negative.  This creates a normalized value that goes from 
             //              0 to 1 between no scrolling and the CrossoverTranslation.
             //
-            //      (maxClamp - minClamp)
-            //
-            //              This calculates the difference between the two clamps.  This will be scaled by the normalized value
-            //              above.
-            //
-            //      minClamp
-            //
-            //              We add the minClamp back to the whole equation in order to create an equation that runs from minClamp
-            //              to maxClamp.
-            //      
             _frontPropertiesScalarScaleAnimation = _compositor.CreateExpressionAnimation(
-                "Clamp(" +
-                            "(CrossoverTranslation + scrollingProperties.Translation.Y)/CrossoverTranslation * (maxClamp-minClamp) + minclamp," +
-                            "minClamp," +
-                            "maxClamp" +
-                       ")");
+                    "Lerp(minClamp, maxClamp, Clamp((CrossoverTranslation + scrollingProperties.Translation.Y)/CrossoverTranslation,0,1))"
+                );
             _frontPropertiesScalarScaleAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
             _frontPropertiesScalarScaleAnimation.SetScalarParameter("minClamp", _finalScaleAmount);
             _frontPropertiesScalarScaleAnimation.SetScalarParameter("maxClamp", _initialScaleAmount);
@@ -202,6 +159,11 @@ namespace Z_ORderScrolling
             _frontVisibilityAnimation =
                 _compositor.CreateExpressionAnimation("-scrollingProperties.Translation.Y <= CrossoverTranslation ? 1 : 0");
             _frontVisibilityAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
+
+            _frontTranslationAnimation =
+                _compositor.CreateExpressionAnimation("scrollingProperties.Translation.Y > 0 ? BaseOffset : BaseOffset-scrollingProperties.Translation.Y");
+            _frontTranslationAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
+
         }
 
         /// <summary>
@@ -244,7 +206,7 @@ namespace Z_ORderScrolling
             //              the visibility swaps between frontVisual and backVisual, they are perfectly aligned.
             //
             _behindTranslateAnimation = _compositor.CreateExpressionAnimation(
-                "initialOffset + 1 * (CrossoverTranslation + scrollingProperties.Translation.Y)");
+            "(BaseOffset - scrollingProperties.Translation.Y) + 2 * (CrossoverTranslation + scrollingProperties.Translation.Y)");
             _behindTranslateAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
         }
 
@@ -254,11 +216,11 @@ namespace Z_ORderScrolling
             // 
             // First, calculate all of the new sizes and distances we will need.
             //
-            var backgroundImageSize = new Vector2((float)ParallaxingImage.ActualHeight - (float)_scrollBar.ActualWidth, (float)ParallaxingImage.ActualHeight);
+            var backgroundImageSize = new Vector2((float)ParallaxingImage.ActualHeight, (float)ParallaxingImage.ActualHeight);
             var profileImageSize = new Vector2((float)ParallaxingImage.ActualHeight, (float)ParallaxingImage.ActualHeight) * _initialScaleAmount;
-            var crossOverPoint = profileImageSize.Y * _finalScaleAmount / 2 + _followMargin;
+            var crossoverTranslation = (profileImageSize.Y * _finalScaleAmount / 2 + _followMargin) / (1 - _parallaxRatio);
             var offset = new Vector3((float)ParallaxingImage.ActualWidth / 2, (float)ParallaxingImage.ActualHeight, 0);
-            var parallaxPoint = backgroundImageSize.Y * _backgroundShowRatio;
+            var backgroundPeekSize = backgroundImageSize.Y * _backgroundShowRatio;
 
             // Push the text content down to make room for the image overhanging.
             //
@@ -270,10 +232,12 @@ namespace Z_ORderScrolling
             _frontVisual.AnchorPoint = new Vector2(.5f, .5f);
             _frontVisual.Offset = offset;
             _frontVisual.Size = profileImageSize;
-            _frontPropertiesScalarScaleAnimation.SetScalarParameter("CrossoverTranslation", crossOverPoint);
-            _frontVisibilityAnimation.SetScalarParameter("CrossoverTranslation", crossOverPoint);
+            _frontTranslationAnimation.SetScalarParameter("BaseOffset", offset.Y);
+            _frontPropertiesScalarScaleAnimation.SetScalarParameter("CrossoverTranslation", crossoverTranslation);
+            _frontVisibilityAnimation.SetScalarParameter("CrossoverTranslation", crossoverTranslation);
             _frontVisual.Properties.StartAnimation("ScalarScale", _frontPropertiesScalarScaleAnimation);
             _frontVisual.StartAnimation("Opacity", _frontVisibilityAnimation);
+            _frontVisual.StartAnimation("Offset.Y", _frontTranslationAnimation);
 
 
             //
@@ -282,9 +246,9 @@ namespace Z_ORderScrolling
             _backVisual.AnchorPoint = new Vector2(.5f, .5f);
             _backVisual.Offset = offset;
             _backVisual.Size = profileImageSize;
-            _behindTranslateAnimation.SetScalarParameter("initialOffset", offset.Y);
-            _behindTranslateAnimation.SetScalarParameter("CrossoverTranslation", crossOverPoint);
-            _behindOpacityAnimation.SetScalarParameter("CrossoverTranslation", crossOverPoint);
+            _behindTranslateAnimation.SetScalarParameter("BaseOffset", offset.Y);
+            _behindTranslateAnimation.SetScalarParameter("CrossoverTranslation", crossoverTranslation);
+            _behindOpacityAnimation.SetScalarParameter("CrossoverTranslation", crossoverTranslation);
 
             _backVisual.StartAnimation("Opacity", _behindOpacityAnimation);
             _backVisual.StartAnimation("Offset.Y", _behindTranslateAnimation);
@@ -292,12 +256,13 @@ namespace Z_ORderScrolling
             //
             // Resolve all property parameters and references on _backgroundVisual
             //
-            _backgroundTranslationAnimation.SetScalarParameter("ParallaxPoint", parallaxPoint);
-            _backgroundVisual.AnchorPoint = new Vector2(.5f, .5f);
+            _backgroundTranslationAnimation.SetScalarParameter("BackgroundPeekSize", backgroundPeekSize);
             _backgroundVisual.Size = backgroundImageSize;
+            _backgroundVisual.AnchorPoint = new Vector2(.5f, .5f);
             _backgroundVisual.CenterPoint = new Vector3(backgroundImageSize / 2, 1);
-            _backgroundTranslationAnimation.SetVector3Parameter("BaseOffset", new Vector3(backgroundImageSize / 2, 0) - new Vector3((float)_scrollBar.ActualWidth,0,0));
-            _backgroundVisual.StartAnimation("Offset", _backgroundTranslationAnimation);
+            _backgroundTranslationAnimation.SetScalarParameter("BaseOffset", backgroundImageSize.Y / 2);
+            _backgroundVisual.Offset = new Vector3(backgroundImageSize / 2, 0);
+            _backgroundVisual.StartAnimation("Offset.Y", _backgroundTranslationAnimation);
             _backgroundVisual.StartAnimation("Scale.X", _backgroundScaleAnimation);
             _backgroundVisual.StartAnimation("Scale.Y", _backgroundScaleAnimation);
 
@@ -306,9 +271,12 @@ namespace Z_ORderScrolling
             //
             _profileContentVisual.Size = new Vector2((float)ProfileContent.ActualWidth, (float)ProfileContent.ActualHeight);
             _profileContentVisual.AnchorPoint = new Vector2(0.5f, 0.5f);
-            _profileContentTranslationAnimation.SetScalarParameter("ParallaxPoint", parallaxPoint);
-            _profileContentTranslationAnimation.SetVector3Parameter("BaseOffset", new Vector3(backgroundImageSize / 2, 0));
-            _profileContentVisual.StartAnimation("Offset", _profileContentTranslationAnimation);
+            _profileContentVisual.Offset = new Vector3(0);
+            _profileContentVisual.Offset = new Vector3(_profileContentVisual.Size / 2, 0);
+            _profileContentScaleAnimation.SetScalarParameter("BackgroundPeekSize", backgroundPeekSize);
+            _profileContentVisual.StartAnimation("Offset.Y", _profileContentTranslationAnimation);
+            _profileContentVisual.StartAnimation("Scale.X", _profileContentScaleAnimation);
+            _profileContentVisual.StartAnimation("Scale.Y", _profileContentScaleAnimation);
         }
 
         /// <summary>
@@ -362,6 +330,7 @@ namespace Z_ORderScrolling
         private ExpressionAnimation _behindTranslateAnimation;
 
         private SpriteVisual _frontVisual;
+        private ExpressionAnimation _frontTranslationAnimation;
         private ExpressionAnimation _frontPropertiesScalarScaleAnimation;
         private ExpressionAnimation _frontVisibilityAnimation;
 
@@ -371,14 +340,14 @@ namespace Z_ORderScrolling
 
         private Visual _profileContentVisual;
         private ExpressionAnimation _profileContentTranslationAnimation;
-
-        private ScrollBar _scrollBar;
+        private ExpressionAnimation _profileContentScaleAnimation;
 
         private float _initialScaleAmount = .8f;
         private float _finalScaleAmount = .4f;
-        private float _followMargin = 50f;
-        private float _backgroundShowRatio = .6f;
+        private float _followMargin = 20f;
+        private float _backgroundShowRatio = .8f;
         private float _backgroundScaleAmount = .25f;
-        private float _parallaxRatio = .6f;
+        private float _parallaxRatio = .2f;
+        private float _contentShrinkRatio = .7f;
     }
 }

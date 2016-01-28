@@ -1,4 +1,10 @@
-﻿.vs/
-bin/
-obj/
+# General Visual Studio files to ignore
+.vs/
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
 *.csproj.user
+*.sdf
+*.opendb
