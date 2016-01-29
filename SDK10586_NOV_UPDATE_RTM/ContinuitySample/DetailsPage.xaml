@@ -1,0 +1,16 @@
+﻿<Page
+    x:Class="ContinuitySample.DetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ContinuitySample"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="MainGrid">
+        <StackPanel x:Name="ContentPanel">
+            <Rectangle x:Name="HeroRectangle" Height="160" Width="160" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="DetailText" TextWrapping="Wrap" Visibility="Collapsed"/>
+        </StackPanel>
+    </Grid>
+</Page>
