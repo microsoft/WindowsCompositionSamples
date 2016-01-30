@@ -55,6 +55,8 @@ namespace Z_ORderScrolling
         {
             if (_sprite != null)
             {
+                ApplyStretchingPolicy(e.NewSize);
+
                 _sprite.Size = e.NewSize.ToVector2();
             }
         }
@@ -76,6 +78,23 @@ namespace Z_ORderScrolling
             {
                 _sprite.Dispose();
                 _sprite = null;
+            }
+        }
+
+        private void ApplyStretchingPolicy(Size targetSize)
+        {
+            if (_surface != null)
+            {
+                // Uniform stretching only for now
+                double aspect = _surface.Size.Height / _surface.Size.Width;
+                if (_surface.Size.Width > _surface.Size.Height)
+                {
+                    Height = targetSize.Width * aspect;
+                }
+                else
+                {
+                    Width = targetSize.Height * aspect;
+                }
             }
         }
 
@@ -101,7 +120,6 @@ namespace Z_ORderScrolling
             }
         }
 
-
         private async void OnUriChanged()
         {
             if (_uri == null)
@@ -123,16 +141,8 @@ namespace Z_ORderScrolling
                 return;
             }
 
-            // Uniform stretching
-            double aspect = _surface.Size.Height / _surface.Size.Width;
-            if (_surface.Size.Width > _surface.Size.Height)
-            {
-                Height = ActualWidth * aspect;
-            }
-            else
-            {
-                Width = ActualHeight * aspect;
-            }
+            // Apply stretching policy
+            ApplyStretchingPolicy(new Size(ActualWidth, ActualHeight));
 
             if (_effectBrush == null)
             {
