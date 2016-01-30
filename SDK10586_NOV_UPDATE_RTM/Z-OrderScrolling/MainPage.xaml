@@ -121,7 +121,7 @@ ornare porttitor. Nam fermentum ante quis ipsum porta, nec auctor quam imperdiet
                 </StackPanel>
                 <Grid Name="MainGrid" VerticalAlignment="Top">
                     <Grid Name="BackGrid"></Grid>
-                    <Image Name="ParallaxingImage"  Source="assets/RollingWaves.jpg" IsHitTestVisible="False"></Image>
+                    <local:CompositionImage x:Name="ParallaxingImage"  IsHitTestVisible="False"></local:CompositionImage>
                     <StackPanel Name="ProfileContent" HorizontalAlignment="Center" VerticalAlignment="Top">
                         <TextBlock Style="{StaticResource ProfileName}">Satya Nadella</TextBlock>
                         <TextBlock Style="{StaticResource ProfileTitle}">Chief Executive Officer</TextBlock>

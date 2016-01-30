@@ -18,6 +18,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.UI.Composition.Toolkit;
 using System.Numerics;
+using Microsoft.Graphics.Canvas.UI.Composition;
+using Windows.Graphics.DirectX;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -45,6 +47,12 @@ namespace Z_ORderScrolling
             _compositor = ElementCompositionPreview.GetElementVisual(sender as UIElement).Compositor;
             _imageFactory = CompositionImageFactory.CreateCompositionImageFactory(_compositor);
             var scrollProperties = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(Scroller);
+
+            SurfaceLoader.Initialize(_compositor);
+
+            ParallaxingImage.LoadTimeEffectHandler = ApplyBlurEffect;
+            ParallaxingImage.Uri = new Uri("ms-appx:///assets/RollingWaves.jpg");
+            ParallaxingImage.SetEffectBrush(InitializeCrossFadeEffect());
 
             var maskedBrush = InitializeCompositeEffect();
 
@@ -90,6 +98,17 @@ namespace Z_ORderScrolling
                     ")");
             _backgroundScaleAnimation.SetScalarParameter("Amount", _backgroundScaleAmount);
             _backgroundScaleAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
+
+            _backgroundBlurAnimation = _compositor.CreateExpressionAnimation(
+                "Clamp(-scrollingProperties.Translation.Y / (BackgroundPeekSize * .5),0,1)");
+            _backgroundBlurAnimation.SetScalarParameter("Amount", _backgroundScaleAmount);
+            _backgroundBlurAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
+
+            _backgroundInverseBlurAnimation = _compositor.CreateExpressionAnimation(
+                "1-Clamp(-scrollingProperties.Translation.Y / (BackgroundPeekSize * .5),0,1)");
+            _backgroundInverseBlurAnimation.SetScalarParameter("Amount", _backgroundScaleAmount);
+            _backgroundInverseBlurAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
+
 
             //
             // We want to keep the Name/Title text in the middle of the background image.  To start with,
@@ -266,6 +285,11 @@ namespace Z_ORderScrolling
             _backgroundVisual.StartAnimation("Scale.X", _backgroundScaleAnimation);
             _backgroundVisual.StartAnimation("Scale.Y", _backgroundScaleAnimation);
 
+            _backgroundBlurAnimation.SetScalarParameter("BackgroundPeekSize", backgroundPeekSize);
+            _backgroundInverseBlurAnimation.SetScalarParameter("BackgroundPeekSize", backgroundPeekSize);
+            ParallaxingImage.EffectBrush.StartAnimation("Arithmetic.Source1Amount", _backgroundInverseBlurAnimation);
+            ParallaxingImage.EffectBrush.StartAnimation("Arithmetic.Source2Amount", _backgroundBlurAnimation);
+
             //
             // Resolve all property parameters and references on _profileContentVisual
             //
@@ -321,6 +345,53 @@ namespace Z_ORderScrolling
 
         }
 
+        /// <summary>
+        /// Function is responsible for creating the circular alpha masked profile brush
+        /// </summary>
+        /// <returns></returns>
+        private CompositionEffectBrush InitializeCrossFadeEffect()
+        {
+            var graphicsEffect = new ArithmeticCompositeEffect
+            {
+                Name = "Arithmetic",
+                Source1 = new CompositionEffectSourceParameter("ImageSource"),
+                Source1Amount = 1,
+                Source2 = new CompositionEffectSourceParameter("EffectSource"),
+                Source2Amount = 0,
+                MultiplyAmount = 0
+            };
+
+            var factory = _compositor.CreateEffectFactory(graphicsEffect, new[] { "Arithmetic.Source1Amount", "Arithmetic.Source2Amount" });
+            return factory.CreateBrush();
+        }
+
+        CompositionDrawingSurface ApplyBlurEffect(CanvasBitmap bitmap, Windows.UI.Composition.CompositionGraphicsDevice device, Size sizeTarget)
+        {
+            GaussianBlurEffect blurEffect = new GaussianBlurEffect()
+            {
+                Source = bitmap,
+                BlurAmount = 20.0f
+            };
+
+            float fDownsample = .3f;
+            Size sizeSource = bitmap.Size;
+            if (sizeTarget == Size.Empty)
+            {
+                sizeTarget = sizeSource;
+            }
+
+            sizeTarget = new Size(sizeTarget.Width * fDownsample, sizeTarget.Height * fDownsample);
+            CompositionDrawingSurface blurSurface = device.CreateDrawingSurface(sizeTarget, DirectXPixelFormat.B8G8R8A8UIntNormalized, DirectXAlphaMode.Premultiplied);
+            using (var ds = CanvasComposition.CreateDrawingSession(blurSurface))
+            {
+                Rect destination = new Rect(0, 0, sizeTarget.Width, sizeTarget.Height);
+                ds.Clear(Windows.UI.Color.FromArgb(255, 255, 255, 255));
+                ds.DrawImage(blurEffect, destination, new Rect(0, 0, sizeSource.Width, sizeSource.Height));
+            }
+
+            return blurSurface;
+        }
+
 
         private Compositor _compositor;
         private CompositionImageFactory _imageFactory;
@@ -337,6 +408,8 @@ namespace Z_ORderScrolling
         private Visual _backgroundVisual;
         private ExpressionAnimation _backgroundTranslationAnimation;
         private ExpressionAnimation _backgroundScaleAnimation;
+        private ExpressionAnimation _backgroundBlurAnimation;
+        private ExpressionAnimation _backgroundInverseBlurAnimation;
 
         private Visual _profileContentVisual;
         private ExpressionAnimation _profileContentTranslationAnimation;
