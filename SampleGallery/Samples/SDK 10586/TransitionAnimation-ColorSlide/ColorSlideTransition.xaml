@@ -1,0 +1,69 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.ColorSlideTransition"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+
+    <Grid Background="Transparent" x:Name="UICanvas" SizeChanged="UICanvas_SizeChanged">
+        
+        <!-- This element hosts the Visuals. Lays out below the Pivot in z-order within the same Grid cell -->
+        <Rectangle x:Name="hostForVisual" Fill="Transparent"/>
+        
+        <!-- We picked the Pivot merely to show off transitions as you move from item to item.
+             But this could just as well be anything with in-place navigation and a static frame
+             like a Hub control or a Frame with more than one Pages -->
+        <Pivot x:Name="rootPivot" Title="COLOR SLIDE TRANSITION" Typography.CapitalSpacing="True">
+            <Pivot.Resources>
+                <Style TargetType="TextBlock" x:Key="PivotTextStyle">
+                    <Setter Property="FontSize" Value="42"/>
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Setter Property="TextWrapping" Value="WrapWholeWords"/>
+                </Style>
+            </Pivot.Resources>
+
+            <PivotItem>
+                <PivotItem.Header>
+                    <AppBarButton Icon="Pictures"  x:Name="Pictures" Click="Header_Click" Background="Orange"/>
+                </PivotItem.Header>
+                
+                <!-- Using a TextBlock for brevity. 
+                     This could be more substantial UI but that's not the point of the current exercise -->
+                <TextBlock Text="Placeholder for Pictures" Style="{StaticResource ResourceKey='PivotTextStyle'}" />
+            </PivotItem>
+
+            <PivotItem>
+                <PivotItem.Header>
+                    <AppBarButton Icon="ContactInfo" x:Name="ContactInfo" Click="Header_Click" Background="Lavender" />
+                </PivotItem.Header>
+                
+                <TextBlock Text="Placeholder for Contact info" Style="{StaticResource ResourceKey='PivotTextStyle'}" />
+            </PivotItem>
+
+            <PivotItem>
+                <PivotItem.Header>
+                    <AppBarButton Icon="Download"  x:Name="Download" Click="Header_Click" Background="GreenYellow" />
+                </PivotItem.Header>
+                
+                <TextBlock Text="Placeholder for Download info" Style="{StaticResource ResourceKey='PivotTextStyle'}" />
+            </PivotItem>
+
+            <PivotItem>
+                <PivotItem.Header>
+                    <AppBarButton Icon="Comment" x:Name="Comment" Click="Header_Click" Background="DeepSkyBlue" />
+                </PivotItem.Header>
+                
+                <TextBlock Text="Placeholder for Comments" Style="{StaticResource ResourceKey='PivotTextStyle'}" />
+            </PivotItem>
+
+        </Pivot>
+
+    </Grid>
+
+
+</local:SamplePage>

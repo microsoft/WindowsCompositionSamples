@@ -1,28 +1,44 @@
-# Windows.UI.Composition
-We are pleased to announce that as of Windows 10 Build 10586 and SDK Version 1511 the Windows.UI.Composition API is now fully public. Many thanks to all of those who contibuted feedback to on the API during it's preview phase to make it that much better.
+# Windows UI Dev Labs
+Welcome to the Windows UI Dev Labs repository for the latest code samples, demos, and developer feedback for building beautiful and engaging Universal Windows Platform apps using Windows UI.
 
-This repository contains code samples created with the  <a href=http://go.microsoft.com/fwlink/?LinkID=699334&clcid=0x409>Windows.UI.Composition</a> WinRT API. Samples contained in this repository created by the Microsoft Composition team or contributors, are offered for use by the community via the MIT license. All code sample submissions are subject to review by the Microsoft Composition team before final publishing on the hub. 
+The code samples and demos are targeted for developers who are interested in experimenting, building, and providing feedback on the latest flighting Windows UI APIs. 
 
-<b>MSDN Developer Center Overview Documentation</b><br>
-To get a feel for what you can do with the new API visit our MSDN Windows Developer Center <a href=http://go.microsoft.com/fwlink/?LinkID=699334&clcid=0x409>Overview Documentation</a> including the following topics:
-<ul>
-<li><a href=http://go.microsoft.com/fwlink/?LinkID=699335&clcid=0x409>Visual Tree Basics</a>
-<li><a href=http://go.microsoft.com/fwlink/?LinkID=692060&clcid=0x409>Animation System Overview</a> 
-<li><a href=http://go.microsoft.com/fwlink/?LinkID=692063&clcid=0x409>Effects System Overview</a>
-<li><a href=http://go.microsoft.com/fwlink/?LinkID=692061&clcid=0x409>Direct3D and Direct2D Interop</a> 
-</ul>
+We are focused on creating a place where we can experiment, inpsire, and receive developer feedback on:
+- Flighting APIs for Windows UI
+- Testing out new UX patterns
+- Early reference implementations and prototypes
+- Inspiring demonstrations of the Windows UI API  
 
-<b>MSDN Documentation</b><br>
-<a href=http://go.microsoft.com/fwlink/?LinkID=534726&clcid=0x409>Documentation for Windows.UI.Composition</a> is available on MSDN. This is subject to updates and revisions as the preview API evolves from our continued work and your feedback.
+If you are a developer getting familiar with the [Windows.UI.Xaml](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.aspx) and [Windows.UI.Composition](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.composition.aspx) APIs, want to build beautiful UI experiences, and don't mind a few bugs here and there; then, this is the place for you. 
 
-<b>Other Resources</b><br>
-For a quick overview of the API check out our Channel 9 presentation on the API <a href=https://channel9.msdn.com/events/Windows/Developers-Guide-to-Windows-10-Version-1511/Creating-fluid-and-beautiful-UI-using-the-new-Visual-Layer>Creating fluid and beautiful UI using the new Visual Layer</a>
+We also want to see what inspiring UX you're building and you can reach out to us on Twitter [@WindowsUI](https://twitter.com/windowsui).
 
-For another great overview of the API we recommend Kenny Kerr’s excellent MSDN Article on our new API, <a href=https://msdn.microsoft.com/en-us/magazine/mt590968>Graphics and Animation - Windows Composition Turns 10</a>.
+We're excited to see what you can you make with Windows UI.
 
-You can find a full list of changes made to the API from its preview version to its public version <a href=http://go.microsoft.com/fwlink/?LinkID=692067&clcid=0x409>here.</a>
+## Project Structure
+The following outlines the key folders for the project.
 
-<b>Reach us on Twitter @wincomposition</b>
+### Demos
+The Demos folder contains standalone code demos that are focused on combining many concepts and feature sets in the Windows UI space to demonstrate interesting user experience. The code is to help inspire and prototype novel and engaging user experiences.
+
+### Sample Gallery
+The Sample Gallery is an application itself that contains code examples of flighting various Windows UI APIs. The Sample Gallery uses conditional compilation to only compile the code samples that are available in your target SDK.
+
+By default the Sample Gallery is set to the last major platform release, however, you can retarget the Sample Gallery project file to the latest SDK that you have installed to see more samples light up.
+
+### Samples Common
+These are early reference implementations, prototypes, and utilties the team has built over the course of developing our demos and code examples. These are code examples of common code that's shared across code samples and demos.
+
+## Developing and Building with Windows UI
+These samples require Visual Studio 2015 and the Windows Software Development Kit (SDK) for Windows 10 to build, test, and deploy your Universal Windows apps. 
+
+[Get a free copy of Visual Studio 2015 Community Edition with support for building Universal Windows apps](http://go.microsoft.com/fwlink/?LinkID=280676)
+
+Additionally, to stay on top of the latest updates to Windows and the development tools, become a Windows Insider by joining the Windows Insider Program.
+
+[Become a Windows Insider](https://insider.windows.com/)
+
+We will be frequently iterating and updating code samples in this repository, so it's recommended you become an Insider, follow us on Twitter for the latest updates, and provide feedback in the Issue section. 
 
 
 

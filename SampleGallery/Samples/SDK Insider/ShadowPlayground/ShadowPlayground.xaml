@@ -1,0 +1,90 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.ShadowPlayground"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:common="using:SamplesCommon"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="SamplePage_Loaded"
+    Unloaded="SamplePage_Unloaded">
+
+    <Grid x:Name="MainGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Vertical" Grid.Row="0">
+                <Button x:Name="MaskButton" Click="MaskButton_Click" HorizontalAlignment="Center"
+                    Margin="0, 10">Toggle Mask</Button>
+                <CheckBox x:Name="AnimationCheckBox" Click="AnimationCheckBox_Click" 
+                          HorizontalAlignment="Center" Content="Animated Interpolation"
+                          Margin="0, 10"/>
+            </StackPanel>
+
+            <ScrollViewer x:Name="SliderList"  Grid.Row="1"
+                          VerticalAlignment="Stretch"
+                          HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Vertical"
+                            Margin="10">
+                    <TextBlock HorizontalAlignment="Center">Blur Radius</TextBlock>
+                    <Slider x:Name="BlurRadiusSlider" ValueChanged="BlurRadiusSlider_ValueChanged"  
+                            PointerCaptureLost="BlurRadiusSlider_PointerCaptureLost"
+                            HorizontalAlignment="Stretch"
+                            Minimum="0" Maximum="100"
+                            Margin="0, 20, 10, 0"/>
+                    <TextBlock HorizontalAlignment="Center">Offset - X</TextBlock>
+                    <Slider x:Name="OffsetXSlider" ValueChanged="OffsetXSlider_ValueChanged" 
+                            PointerCaptureLost="OffsetXSlider_PointerCaptureLost"
+                            HorizontalAlignment="Stretch"
+                            Minimum="-200" Maximum="200" 
+                            Margin="0, 20, 10, 0"/>
+                    <TextBlock HorizontalAlignment="Center">Offset - Y</TextBlock>
+                    <Slider x:Name="OffsetYSlider" ValueChanged="OffsetYSlider_ValueChanged" 
+                            PointerCaptureLost="OffsetYSlider_PointerCaptureLost"
+                            HorizontalAlignment="Stretch"
+                            Minimum="-200" Maximum="200"  
+                            Margin="0, 20, 10, 0"/>
+                    <TextBlock HorizontalAlignment="Center">Shadow Color - Red</TextBlock>
+                    <Slider x:Name="RedSlider" ValueChanged="RedSlider_ValueChanged" 
+                            PointerCaptureLost="RedSlider_PointerCaptureLost"
+                            HorizontalAlignment="Stretch"
+                            Maximum="255"
+                            Margin="0, 20, 10, 0"/>
+                    <TextBlock HorizontalAlignment="Center">Shadow Color - Green</TextBlock>
+                    <Slider x:Name="GreenSlider" ValueChanged="GreenSlider_ValueChanged" 
+                            PointerCaptureLost="GreenSlider_PointerCaptureLost"
+                            HorizontalAlignment="Stretch"
+                            Maximum="255"
+                            Margin="0, 20, 10, 0"/>
+                    <TextBlock HorizontalAlignment="Center">Shadow Color - Blue</TextBlock>
+                    <Slider x:Name="BlueSlider" ValueChanged="BlueSlider_ValueChanged" 
+                            PointerCaptureLost="BlueSlider_PointerCaptureLost"
+                            HorizontalAlignment="Stretch"
+                            Maximum="255"
+                            Margin="0, 20, 10, 0"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid x:Name="ShadowContainer" Grid.Column="1"
+              HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+
+            <common:CompositionImage x:Name="Image"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    Source="ms-appx:///Samples/SDK Insider/ShadowPlayground/win11_-15607.jpg"
+                                    Width="400"
+                                    Height="267"
+                                    Stretch="Fill">
+            </common:CompositionImage>
+        </Grid>
+    </Grid>
+</local:SamplePage>

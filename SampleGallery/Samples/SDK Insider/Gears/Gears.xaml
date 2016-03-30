@@ -1,0 +1,46 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.Gears"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+
+    <Grid x:Name ="Root" Background="#36454F">
+        <StackPanel Orientation="Horizontal">
+                <Button x:Name="AnimateSlow" Click="AnimateSlow_Click" Background="White" Width="100" Height="50" VerticalAlignment="Top" Margin="10,10,0,0">Slow</Button>
+                <Button x:Name="AnimateFast" Click="AnimateFast_Click" Background="White" Width="100" Height="50" VerticalAlignment="Top" Margin="10,10,0,0">Fast</Button>
+                <Button x:Name="Stop" Click="Stop_Click" Background="White" Width="100" Height="50" VerticalAlignment="Top" Margin="10,10,0,0">Stop</Button>
+                <Button x:Name="Reverse" Click="Reverse_Click" Background="White" Width="100" Height="50" VerticalAlignment="Top" Margin="10,10,0,0">Reverse</Button>
+            </StackPanel>
+            <Canvas x:Name="Container" Margin="0,60,0,0" >
+                <Image x:Name="Gear0"  Source="ms-appx:///Assets/FirstGear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="90" Canvas.Top ="90"/>
+            <Image x:Name="Gear1"  Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="176" Canvas.Top="115"/>
+            <Image x:Name="Gear2"  Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="238" Canvas.Top="179"/>
+            <Image x:Name="Gear3"  Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="160" Canvas.Top="223"/>
+            <Image x:Name="Gear4"  Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="205" Canvas.Top="302"/>
+            <Image x:Name="Gear5"  Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="292" Canvas.Top="280"/>
+            <Image x:Name="Gear6"  Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="369" Canvas.Top="326"/>
+            <Image x:Name="Gear7"  Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="323" Canvas.Top="402"/>
+            <Image x:Name="Gear8"  Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="258" Canvas.Top="464"/>
+            <Image x:Name="Gear9"  Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="301" Canvas.Top="542"/>
+            <Image x:Name="Gear10" Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="391" Canvas.Top="543"/>
+            <Image x:Name="Gear11" Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="437" Canvas.Top="466"/>
+            <Image x:Name="Gear12" Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="502" Canvas.Top="403"/>
+            <Image x:Name="Gear13" Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="503" Canvas.Top="313"/>
+            <Image x:Name="Gear14" Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="590" Canvas.Top="291"/>
+            <Image x:Name="Gear15" Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="568" Canvas.Top="204"/>
+            <Image x:Name="Gear16" Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="614" Canvas.Top="127"/>
+            <Image x:Name="Gear17" Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="691" Canvas.Top="173"/>
+            <Image x:Name="Gear18" Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="713" Canvas.Top="260"/>
+            <Image x:Name="Gear19" Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="790" Canvas.Top="306"/>
+            <Image x:Name="Gear20" Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="837" Canvas.Top="229"/>
+            <Image x:Name="Gear21" Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="862" Canvas.Top="142"/>
+            <Image x:Name="Gear22" Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="887" Canvas.Top="55"/>
+            <Image x:Name="Gear23" Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="963" Canvas.Top="101"/>
+            <Image x:Name="Gear24" Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="1050" Canvas.Top="79"/>
+            <Image x:Name="Gear25" Source="ms-appx:///Assets/gear.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Canvas.Left="1072" Canvas.Top="165"/>
+            </Canvas>
+        </Grid>
+</local:SamplePage>

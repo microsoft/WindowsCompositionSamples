@@ -1,0 +1,36 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.Curtain"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+
+    <Grid x:Name ="Root" Background="White"  PointerPressed="Root_PointerPressed">
+        <TextBlock x:Name ="Text" TextWrapping="Wrap" Width="500" Height="900" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur, eros sit amet laoreet scelerisque, 
+                   nunc odio ultricies metus, ut consectetur nulla massa eu nibh. Phasellus in lorem id nunc euismod tempus. Phasellus et nulla non turpis tempor blandit ut eget turpis. 
+                   Phasellus ac ornare elit, ut scelerisque dolor. Nam vel finibus lorem. Aenean malesuada pulvinar eros id ornare. Fusce blandit ante eget dolor efficitur suscipit. 
+                   Phasellus ac lacus nibh. Aenean eget blandit risus, in lacinia mi. Proin fermentum ante eros, non sollicitudin mi pretium eu. Curabitur suscipit lectus arcu, eget 
+                   pretium quam sagittis non. Mauris purus mauris, condimentum nec laoreet sit amet, imperdiet sit amet nisi. Sed interdum, urna et aliquam porta, elit velit tincidunt orci, 
+                   vitae vestibulum risus lacus at nulla. Phasellus sapien ipsum, pellentesque varius enim nec, iaculis aliquet enim. Nulla id dapibus ante. Sed hendrerit sagittis leo, commodo 
+                   fringilla ligula rutrum ut. Nullam sodales, ex ut pellentesque scelerisque, sapien nulla mattis lectus, vel ullamcorper leo enim ac mi. Sed consectetur vitae velit in consequat. 
+                   Pellentesque ac condimentum justo, at feugiat nulla. Sed ut congue neque. Nam gravida quam ac urna porttitor, ut bibendum ante mattis. Cras viverra cursus sapien, et sollicitudin 
+                   risus fringilla eget. Nulla facilisi. Duis pellentesque scelerisque nisi, facilisis malesuada massa gravida et. Vestibulum ac leo sed orci tincidunt feugiat. Vestibulum ante ipsum 
+                   primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc id leo vestibulum, vulputate ipsum sit amet, scelerisque velit. Curabitur imperdiet justo et tortor dignissim, 
+                   sit amet volutpat sem ullamcorper. Nam mollis ullamcorper tellus vitae convallis. Aliquam eleifend elit nec tincidunt pharetra. Aliquam turpis eros, mollis et nunc quis, porta molestie 
+                   justo. Etiam ultrices sem non turpis imperdiet dictum. Aliquam molestie elit in urna sodales, nec luctus dui laoreet. Curabitur molestie risus vel ligula efficitur, non fringilla urna iaculis. 
+                   Curabitur neque tortor, facilisis quis dictum facilisis, facilisis et ante. Sed nisl erat, semper vitae efficitur ut, congue vitae quam. Ut auctor lacus sit amet varius placerat. 
+                   Sed ac tellus tempus, ultricies est quis, tempor felis. Nulla vel faucibus elit, eu tincidunt eros. Nulla blandit id nisl ut porta. Class aptent taciti sociosqu ad litora torquent 
+                   per conubia nostra, per inceptos himenaeos. Etiam suscipit tellus a mattis pulvinar. Sed et libero vel ligula elementum suscipit. Ut elementum libero at sagittis pharetra. Fusce ultrices 
+                   odio sapien, a posuere est consectetur ut. 
+" Margin="0,100,0,50" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Image x:Name="Clock" Source="ms-appx:///Assets/Clock.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1000" Height="1000"/>
+        <ListBox x:Name="Selector" Margin="0,0,0,0" SelectionChanged="Selector_SelectionChanged" SelectedIndex="0" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.8">
+            <TextBlock Text="Default" />
+            <TextBlock Text="Springy" />
+            <TextBlock Text="Gravity" />
+        </ListBox>
+
+    </Grid>
+</local:SamplePage>

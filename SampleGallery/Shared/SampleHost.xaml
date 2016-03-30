@@ -1,0 +1,53 @@
+﻿<Page
+    x:Class="CompositionSampleGallery.SampleHost"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    >
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0">
+            <Button Style="{StaticResource SplitViewTogglePaneButtonStyle}"
+                    Click="ShowSplitView"/>
+            <Button Style="{StaticResource SplitViewTogglePaneButtonStyle}" Content=""
+                    Click="NavigateHome"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Margin="5">
+            <TextBlock 
+                x:Name="SampleName" 
+                x:FieldModifier="public"
+                Style="{ThemeResource TitleTextBlockStyle}" 
+                TextWrapping="Wrap"
+                FontWeight="Bold"
+                Margin="5,5,5,0"/>
+            <TextBlock
+                x:Name="SampleDescription"
+                x:FieldModifier="public"
+                Style="{ThemeResource BodyTextBlockStyle}"
+                TextWrapping="Wrap"
+                Margin="5,5,5,0"/>
+            <HyperlinkButton 
+                x:Name="SampleCode"
+                x:FieldModifier="public"
+                Content="Click here to see the sample code on GitHub"
+                Margin="5,5,5,5"/>
+        </StackPanel>
+        
+        <Frame x:Name="ContentFrame" x:FieldModifier="Public" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+        <local:SampleListControl x:Name="MySampleListControl" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+    </Grid>
+</Page>

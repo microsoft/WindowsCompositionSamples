@@ -1,0 +1,53 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.ForegroundFocusEffects"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:common="using:SamplesCommon"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:CompositionSampleGallery.Shared"
+    mc:Ignorable="d"
+    Loaded ="Page_Loaded"
+    Unloaded="Page_Unloaded"
+    >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ComboBox x:Name="EffectSelection" 
+                      HorizontalAlignment="Left" 
+                      VerticalAlignment="Top" 
+                      Margin="20,20,20,20"
+                      Grid.Row="0"
+                      SelectionChanged="EffectSelection_SelectionChanged"/>
+
+        <RelativePanel Grid.Row="1">
+            <ListView x:Name="ThumbnailList"
+                      ContainerContentChanging="ListView_ContainerContentChanging"
+                      ItemClick="ThumbnailList_ItemClick"
+                      IsItemClickEnabled="True"
+                      SizeChanged="ThumbnailList_SizeChanged"
+                      >
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="data:Thumbnail">
+                        <RelativePanel Width="160"
+                                Height="160" 
+                                Margin="0,10,0,10">
+                            <common:CompositionImage Width="160" Height="160" Stretch="UniformToFill"/>
+                        </RelativePanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </RelativePanel>
+    </Grid>
+
+</local:SamplePage>

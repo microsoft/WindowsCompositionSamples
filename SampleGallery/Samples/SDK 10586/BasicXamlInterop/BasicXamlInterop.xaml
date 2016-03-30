@@ -1,0 +1,41 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.BasicXamlInterop"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="SamplePage_Loaded">
+
+    <ScrollViewer VerticalScrollMode="Auto" HorizontalScrollMode="Disabled">
+        <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <TextBlock Text="Example 1 - Animate a tree of XAML content using GetElementVisual()"
+                   Margin="10"
+                   TextWrapping="WrapWholeWords"
+                   FontWeight="Bold"/>
+            <TextBlock x:Name="TextBlock1" 
+                   Text="This is a XAML TextBlock animated with Windows.UI.Composition."
+                   Margin="10"
+                   TextWrapping="Wrap"/>
+
+            <TextBlock Text="Example 2 - Add Windows.UI.Composition content to the XAML tree using SetElementChildVisual()"
+                   Margin="10, 40, 10, 10"
+                   TextWrapping="WrapWholeWords"
+                   FontWeight="Bold"/>
+            <TextBlock x:Name="TextBlock2"
+                   Text="These are Windows.UI.Composition SpriteVisuals which are children of this TextBlock."
+                   Margin="10"
+                   TextWrapping="Wrap"/>
+
+            <TextBlock Text="Example 3 - Change the tree order of the Windows.UI.Composition content"
+                   Margin="10, 140, 10, 10"
+                   TextWrapping="WrapWholeWords"
+                   FontWeight="Bold"/>
+            <TextBlock x:Name="TextBlock3"
+                   Text="Change the tree order for the SpriteVisuals every one second."
+                   Margin="10,10,10,110"
+                   TextWrapping="WrapWholeWords"/>
+        </StackPanel>
+    </ScrollViewer>
+</local:SamplePage>

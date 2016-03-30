@@ -1,0 +1,43 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.PullToAnimate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+    <RelativePanel x:Name="Root" Background="Black" PointerPressed="Pointer_Pressed">
+        <Image x:Name="BackgroundImage" Source="ms-appx:///Assets/Background.png"
+               RelativePanel.AlignBottomWithPanel="True"
+               RelativePanel.AlignLeftWithPanel="True"
+               RelativePanel.AlignRightWithPanel="True"
+               RelativePanel.AlignTopWithPanel="True"
+               Stretch="UniformToFill"/>
+        <Rectangle Name="BackgroundImageBlurPanel"
+                   RelativePanel.AlignBottomWithPanel="True"
+                   RelativePanel.AlignLeftWithPanel="True"
+                   RelativePanel.AlignRightWithPanel="True"
+                   RelativePanel.AlignTopWithPanel="True"/>
+        <Rectangle Name="BackgroundImageOverlay"
+                   RelativePanel.AlignBottomWithPanel="True"
+                   RelativePanel.AlignLeftWithPanel="True"
+                   RelativePanel.AlignRightWithPanel="True"
+                   RelativePanel.AlignTopWithPanel="True"/>
+        <Grid x:Name="WeatherLayer" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,36,36"
+              RelativePanel.AlignRightWithPanel="True"
+              RelativePanel.AlignBottomWithPanel="True">
+            <Image x:Name="WeatherInfoImage" Source="ms-appx:///Assets/WeatherInfo.png" HorizontalAlignment="Center" VerticalAlignment="Top" Width="383" Height="351" Margin="0,0,0,0"/>
+        </Grid>
+        <Grid x:Name="ToDoLayer" Width="500" Height="145" Margin="0,0,0,0"
+              RelativePanel.AlignHorizontalCenterWithPanel="True"
+              RelativePanel.AlignVerticalCenterWithPanel="True">
+            <Image x:Name="Appointment" Source="ms-appx:///Assets/Appointment.png" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="500" Height="145" Margin="0,0,0,0"/>
+        </Grid>
+        <Image x:Name="CalendarIcon" Source="ms-appx:///Assets/Calendar.png"
+               RelativePanel.AlignHorizontalCenterWithPanel="True"
+               RelativePanel.AlignVerticalCenterWithPanel="True"
+               Margin="0,280,0,0" Width="58" Height="59"/>
+        <Button x:Name="ToggleState" Click="ToggleState_Click" Background="#33B21414"
+                RelativePanel.AlignVerticalCenterWithPanel="True">Toggle</Button>
+    </RelativePanel>
+</local:SamplePage>

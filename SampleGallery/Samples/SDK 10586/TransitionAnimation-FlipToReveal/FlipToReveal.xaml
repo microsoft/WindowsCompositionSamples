@@ -1,0 +1,31 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.FlipToReveal"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="MainPanel" 
+          SizeChanged="MainPanel_SizeChanged"
+          Tapped="MainPanel_Tapped">
+        
+        <!-- ImageTile and CaptionTile occupy the same cell in the Grid -->
+        <Image Source="Image.jpg" Width="400" Height="220"
+                HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ImageTile" />
+        
+        <Border BorderThickness="2" BorderBrush="#B91C8D" Background="#250E35" x:Name="CaptionTile"
+                Width="400" Height="220" Opacity="0.8" 
+                HorizontalAlignment="Center" VerticalAlignment="Center">
+            
+            <StackPanel Padding="10" VerticalAlignment="Bottom" Background="#250E35" Opacity="1">
+                <TextBlock Text="Lorem ipsum" Typography.Capitals="AllSmallCaps" Foreground="#FDDA01" />
+                <TextBlock Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." 
+                           Foreground="#F0EFF0" 
+                           MaxLines="3"  TextTrimming="WordEllipsis"
+                           TextWrapping="WrapWholeWords"/>
+            </StackPanel>    
+        </Border>
+    </Grid>
+</local:SamplePage>

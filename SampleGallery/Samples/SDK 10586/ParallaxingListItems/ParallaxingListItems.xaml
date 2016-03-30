@@ -1,0 +1,47 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.ParallaxingListItems"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:CompositionSampleGallery.Shared"
+    mc:Ignorable="d"
+    Loaded ="Page_Loaded"
+    Unloaded="Page_Unloaded"
+    >
+        <ListView x:Name="ThumbnailList" 
+                  ContainerContentChanging="ThumbanilList_ContainerContentChanging"
+                  Grid.Row="2"
+                  Grid.ColumnSpan="2"
+                  MaxWidth="400"
+                  >
+
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="data:Thumbnail">
+                    <RelativePanel Width="320" Height="240">
+                        <Canvas x:Name="MyPanel" 
+                                RelativePanel.AlignLeftWithPanel="True"
+                                RelativePanel.AlignTopWithPanel="True"
+                                Width="320" 
+                                Height="240">
+                            <Canvas.Clip>
+                                <RectangleGeometry Rect="0, 25, 360, 185" />
+                            </Canvas.Clip>
+                            <Image Source="{x:Bind ImageUrl}"
+                                   Width="450"
+                                   Height="450"
+                                   Stretch="UniformToFill"/>
+                        </Canvas>
+                        <TextBlock RelativePanel.AlignBottomWithPanel="True"
+                                   RelativePanel.AlignRightWithPanel="True"
+                                   Text="{x:Bind Name}"
+                                   Style="{ThemeResource TitleTextBlockStyle}"
+                                   Foreground="Black">
+                        </TextBlock>
+                    </RelativePanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+</local:SamplePage>

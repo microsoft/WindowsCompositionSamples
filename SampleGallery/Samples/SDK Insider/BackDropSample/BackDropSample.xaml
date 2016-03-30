@@ -1,0 +1,16 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.BackDropSample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:common="using:SamplesCommon"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Image Source="ms-appx:///Samples/SDK 10586/Z-Order Scrolling/RollingWaves.jpg"/>
+        <TextBlock Text="Animated Blur Sample With TintColor" Foreground="Black" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+        <common:BackDrop x:Name="backDrop" BlurAmount="10" TintColor="#880000FF"/>
+    </Grid>
+</local:SamplePage>

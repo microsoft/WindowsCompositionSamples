@@ -1,0 +1,136 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.Z_OrderScrolling"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:common="using:SamplesCommon"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    >
+
+    <Page.Resources>
+
+        <Style TargetType="TextBlock" x:Key="ProfileName">
+            <Setter Property="Foreground" Value="AntiqueWhite"/>
+            <Setter Property="FontSize" Value="36"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="ProfileTitle">
+            <Setter Property="Foreground" Value="GhostWhite"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+
+        <Style TargetType="Border" x:Key="DividingBorder">
+            <Setter Property="Margin" Value="0,10,0,0"/>
+            <Setter Property="BorderThickness" Value="0,0,0,5" />
+            <Setter Property="BorderBrush" Value="BurlyWood"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="DividingText">
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="BasicText">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,5,0,5"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+
+    </Page.Resources>
+
+    <Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" MaxWidth="480" Grid.Row="2" Grid.ColumnSpan="2">
+        <ScrollViewer Name="Scroller">
+            <Grid>
+                <StackPanel Name="ContentPanel">
+                    <Border Style="{StaticResource DividingBorder}">
+                        <TextBlock Text="Career" Style="{StaticResource DividingText}"></TextBlock>
+                    </Border>
+                    <TextBlock Style="{StaticResource BasicText}" xml:space="default" Text=
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce iaculis eget tellus sodales feugiat. Proin risus nunc,
+facilisis ut tincidunt a, tempus at felis. In nec congue justo, vel interdum libero. Cum sociis natoque penatibus et
+magnis dis parturient montes, nascetur ridiculus mus. In et sapien aliquet, rutrum ex congue, accumsan augue. Nulla
+nec eleifend quam. Pellentesque et facilisis libero. Duis tristique, augue in consectetur imperdiet, turpis odio
+consequat orci, malesuada semper sem lectus tristique enim. Nunc porta varius nibh, in congue mauris sodales at.
+Phasellus tristique eleifend magna auctor euismod. Integer accumsan eu lorem a rhoncus.
+&#x0a;&#x0a;
+Nulla in porttitor ex. Nam vestibulum fermentum gravida. Donec vehicula ligula vel hendrerit finibus. Sed pulvinar
+sagittis metus, eu condimentum nunc rutrum tristique. Vestibulum sit amet ultricies augue. Mauris dictum porta dignissim. In
+non dignissim sem. Mauris eu eleifend eros. Nunc ac ante et elit sollicitudin egestas non vel ligula. In eu enim
+purus. Praesent feugiat nulla enim, ut congue metus fermentum ac. Mauris vehicula quam sem. Suspendisse lacus purus,
+ultrices et dapibus ac, interdum mollis nisl. Sed fermentum, purus a gravida luctus, nibh orci viverra diam, non posuere
+risus velit ut arcu. Aliquam erat volutpat. Donec rutrum turpis non sem fermentum euismod.
+&#x0a;&#x0a;
+Vestibulum laoreet justo placerat erat placerat, ut dictum ante eleifend. Curabitur pulvinar libero eros, a mattis nisl
+finibus accumsan. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce a
+vestibulum ante. Sed nec dui et urna blandit venenatis quis sit amet sapien. Integer tristique nec metus vitae viverra.
+Mauris egestas augue a felis pretium aliquet. Donec ultricies urna non erat mattis, sit amet porta erat eleifend. Nullam in
+consequat enim. Integer ipsum nunc, tempor sit amet tellus fermentum, tristique bibendum ipsum. Integer vitae venenatis
+justo. Donec at nulla mollis, mollis sem nec, sagittis elit. Nulla in dapibus nisi, feugiat convallis justo. Morbi elit
+libero, rutrum vel venenatis in, pulvinar sed lectus. Ut sem lorem, congue sit amet erat varius, interdum elementum arcu.
+Curabitur ut neque sit amet lectus lacinia tempor faucibus gravida lorem. ">
+
+                    </TextBlock>
+
+
+                    <Border Style="{StaticResource DividingBorder}">
+                        <TextBlock Style="{StaticResource DividingText}"  Text="Basic Background"/>
+                    </Border>
+
+                    <TextBlock Style="{StaticResource BasicText}" Text=
+"Pellentesque dignissim ac lorem non viverra. Curabitur placerat sapien sem, sit amet dictum enim malesuada sit amet.
+Curabitur tristique sit amet quam eget vehicula. Sed facilisis leo turpis, ut tincidunt mi mattis quis. In eget suscipit
+erat. Vivamus aliquet rhoncus posuere. Cras bibendum lobortis nulla vel dignissim. Vivamus congue lacus id vestibulum porttitor.
+Pellentesque sit amet volutpat metus. Nulla vitae quam eget nibh rutrum viverra. Vivamus mollis, mauris sed tempor commodo,
+massa ex accumsan lectus, sit amet ultrices leo velit sed leo. Nunc in enim enim."
+                        ></TextBlock>
+
+
+                    <Border Style="{StaticResource DividingBorder}">
+                        <TextBlock Style="{StaticResource DividingText}"  Text="Early life">
+                        </TextBlock>
+                    </Border>
+                    <TextBlock Style="{StaticResource BasicText}" Text=
+"Phasellus eu tincidunt est, et blandit lectus. Integer ultricies faucibus hendrerit. Integer ultricies efficitur sem. In
+ut molestie magna. Aliquam erat volutpat. Morbi mauris dui, cursus maximus libero a, egestas dignissim mi. Aliquam volutpat
+neque non eros interdum scelerisque. Integer ut efficitur quam. Nullam vitae purus a risus luctus vulputate. Curabitur a
+turpis metus. Vestibulum lectus dui, aliquet ac dolor lobortis, commodo cursus nulla. Donec dui quam, fringilla ut iaculis
+nec, dictum a odio. Duis justo elit, vehicula et ex ac, tincidunt placerat ligula. Integer volutpat ultricies augue, euismod
+volutpat dolor finibus ut. Duis tortor nisl, molestie non semper sed, consequat id urna. Proin tincidunt vestibulum lacus, ut
+vulputate lorem.
+&#x0a;&#x0a;
+Pellentesque convallis auctor feugiat. Nulla sed massa tellus. Donec porta quam massa, vel pretium arcu accumsan viverra.
+Quisque dignissim commodo mattis. Nullam eu dictum sem. Aenean faucibus ante eget nisl laoreet, a rhoncus ligula viverra.
+Morbi pulvinar quam ex, sed tincidunt nulla posuere at. Vestibulum sit amet urna vel justo lacinia finibus. Ut laoreet aliquam
+posuere. Etiam tortor dui, interdum vel magna ut, finibus mattis ante. Phasellus sem nunc, vestibulum quis lacus vitae, lacinia
+egestas urna. Aenean et eros vitae ligula fermentum ornare. Mauris imperdiet ipsum quis sapien cursus, nec imperdiet leo aliquam.
+Nunc non sapien id augue feugiat dapibus a sit amet enim. Curabitur ante orci, feugiat quis nulla et, dignissim dapibus tellus.
+&#x0a;&#x0a;
+Pellentesque non tempor ipsum. Nunc ut tristique ex, eu iaculis tellus. Integer tincidunt commodo turpis sed pellentesque.
+Aenean rutrum massa tortor, in mollis lectus placerat sed. Vivamus enim libero, rutrum in libero nec, ultricies volutpat risus.
+Mauris quis massa nec justo fermentum dictum. Donec laoreet ante eget velit imperdiet molestie. Nullam tellus ligula, hendrerit
+vel commodo at, scelerisque ac neque. Aliquam egestas sed elit vel lobortis.
+&#x0a;&#x0a;
+Morbi pretium purus ac dui malesuada iaculis. Maecenas consectetur nulla in odio vulputate, vel dapibus diam lobortis. Morbi
+laoreet ligula sapien, bibendum scelerisque purus euismod sed. Vestibulum et varius risus, eu pulvinar neque. Pellentesque
+consequat, ex a molestie congue, elit leo consectetur lectus, sed tempus enim dolor eget nunc. Pellentesque mollis ligula non
+ornare porttitor. Nam fermentum ante quis ipsum porta, nec auctor quam imperdiet. "
+                        >
+
+                    </TextBlock>
+                </StackPanel>
+                <Grid Name="MainGrid" VerticalAlignment="Top">
+                    <Grid Name="BackGrid"></Grid>
+                    <common:CompositionImage x:Name="ParallaxingImage"  IsHitTestVisible="False"></common:CompositionImage>
+                    <StackPanel Name="ProfileContent" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <TextBlock Style="{StaticResource ProfileName}">Satya Nadella</TextBlock>
+                        <TextBlock Style="{StaticResource ProfileTitle}">Chief Executive Officer</TextBlock>
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</local:SamplePage>
