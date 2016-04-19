@@ -142,6 +142,7 @@
     <Compile Include="Samples\SDK 10586\Continuity\ContinuityDetails.xaml.cs" />
     <Compile Include="Samples\SDK 10586\Continuity\ContinuityTransition.cs" />
     <Compile Include="Samples\SDK Insider\ForegroundFocusEffects\ForegroundFocusEffects.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\NowPlaying\NowPlaying.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 10586\ParallaxingListItems\ParallaxingListItems.xaml.cs" />
     <Compile Include="Samples\SDK 10586\PointerEnterEffects\EffectTechniques.cs" />
     <Compile Include="Samples\SDK 10586\PointerEnterEffects\PointerEnterEffects.xaml.cs" />
@@ -212,6 +213,7 @@
     <Content Include="Samples\SDK 10586\TransitionAnimation-ColorBloom\CircleOpacityMask.png" />
     <Content Include="Samples\SDK 10586\Z-Order Scrolling\RollingWaves.jpg" />
     <Content Include="Samples\SDK 10586\Z-Order Scrolling\teched3ae5a27b-4f78-e111-94ad-001ec953730b.jpg" />
+    <Content Include="Samples\SDK Insider\NowPlaying\normalmap.jpg" />
     <Content Include="Samples\SDK Insider\ShadowPlayground\win11_-15607.jpg" />
     <Content Include="Samples\SDK Insider\ThumbnailLighting\BeveledEdges.jpg" />
     <Content Include="Samples\SDK Insider\ThumbnailLighting\SphericalWithMask.png" />
@@ -307,6 +309,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\SDK Insider\ForegroundFocusEffects\ForegroundFocusEffects.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK Insider\NowPlaying\NowPlaying.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

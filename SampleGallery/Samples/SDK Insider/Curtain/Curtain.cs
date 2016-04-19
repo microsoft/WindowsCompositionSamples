@@ -20,6 +20,7 @@ using Windows.UI.Composition;
 using Windows.UI.Xaml.Hosting;
 using System.Numerics;
 using Windows.UI.ViewManagement;
+using Windows.UI.Composition.Interactions;
 
 namespace CompositionSampleGallery
 {
@@ -51,14 +52,14 @@ namespace CompositionSampleGallery
 
         private void ConfigureInteractionTracker()
         {
-            _tracker = _compositor.CreateInteractionTracker();
+            _tracker = InteractionTracker.Create(_compositor);
 
 
-            _interactionSource = new VisualInteractionSource(_compositor, _root);
+            _interactionSource = VisualInteractionSource.Create(_root);
 
             _interactionSource.PositionYSourceMode = InteractionSourceMode.EnabledWithInertia;
 
-            _interactionSource.SystemManipulationMode = InteractionSystemManipulationMode.Limited;
+            _interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadOnly;
 
             _tracker.InteractionSources.Add(_interactionSource);
 
@@ -69,7 +70,7 @@ namespace CompositionSampleGallery
             // Use the Tacker's Position (negated) to apply to the Offset of the Image.
             //
 
-            var positionExpression = _compositor.CreateExpressionAnimation("-tracker.ScrollPosition");
+            var positionExpression = _compositor.CreateExpressionAnimation("-tracker.Position");
             positionExpression.SetReferenceParameter("tracker", _tracker);
 
             _image.StartAnimation("Offset", positionExpression);
@@ -80,13 +81,13 @@ namespace CompositionSampleGallery
             var dampingConstant = 5;
             var springConstant = 20;
 
-            var modifier = _compositor.CreateInteractionTrackerInertiaMotion();
+            var modifier = InteractionTrackerInertiaMotion.Create(_compositor);
 
             // Set the condition to true (always)
             modifier.Condition = _compositor.CreateExpressionAnimation("true");
 
             // Define a spring-like force, anchored at position 0.
-            modifier.Motion = _compositor.CreateExpressionAnimation(@"(-(target.ScrollPosition.Y) * springConstant) - (dampingConstant * target.ScrollPositionVelocity.Y)");
+            modifier.Motion = _compositor.CreateExpressionAnimation(@"(-(this.target.Position.Y) * springConstant) - (dampingConstant * this.target.PositionVelocityInPixelsPerSecond.Y)");
 
             modifier.Motion.SetScalarParameter("dampingConstant", dampingConstant);
             modifier.Motion.SetScalarParameter("springConstant", springConstant);
@@ -97,16 +98,16 @@ namespace CompositionSampleGallery
         private void ActivateGravityForce()
         {
             var gravity = -700;
-            var bounce = 150f;
+            var bounce = -150f;
 
-            var modifier = _compositor.CreateInteractionTrackerInertiaMotion();
+            var modifier = InteractionTrackerInertiaMotion.Create(_compositor);
 
             modifier.Condition = _compositor.CreateExpressionAnimation("true");
 
             modifier.Motion = _compositor.CreateExpressionAnimation(
-                "(target.ScrollPosition.Y > 0) ? (gravity) :" +
-                    "((target.ScrollPositionVelocity.Y <= 0) ?" +
-                        "(bounce * -target.ScrollPositionVelocity.Y) : (0))");
+                "(this.target.Position.Y > 0) ? (gravity) :" +
+                    "((this.target.PositionVelocityInPixelsPerSecond.Y <= 0) ?" +
+                        "(bounce * this.target.PositionVelocityInPixelsPerSecond.Y) : (0))");
 
             modifier.Motion.SetScalarParameter("gravity", gravity);
             modifier.Motion.SetScalarParameter("bounce", bounce);
@@ -116,10 +117,7 @@ namespace CompositionSampleGallery
 
         private void ClearInertiaModifiers()
         {
-            var modifier = _compositor.CreateInteractionTrackerInertiaEndpoint();
-            modifier.Condition = _compositor.CreateExpressionAnimation("false");
-            modifier.Endpoint = _compositor.CreateExpressionAnimation("0.0f");
-            _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
+            _tracker.ConfigurePositionYInertiaModifiers(null);
         }
 
         private void Root_PointerPressed(object sender, PointerRoutedEventArgs e)
@@ -127,7 +125,7 @@ namespace CompositionSampleGallery
             if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
             {
                 // Tell the system to use the gestures from this pointer point (if it can).
-                _interactionSource.Capture(e.GetCurrentPoint(Root));
+                _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(Root));
             }
         }
 

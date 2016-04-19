@@ -23,6 +23,7 @@ using System.Numerics;
 
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Composition.Interactions;
 
 namespace CompositionSampleGallery
 {
@@ -169,7 +170,7 @@ namespace CompositionSampleGallery
                 new[] { "blur.BlurAmount" })
                 .CreateBrush();
 
-            blurBrush.SetSourceParameter("source", _compositor.CreateDestinationBrush());
+            blurBrush.SetSourceParameter("source", _compositor.CreateBackdropBrush());
 
             _blurredBackgroundImageVisual = _compositor.CreateSpriteVisual();
             _blurredBackgroundImageVisual.Brush = blurBrush;
@@ -232,18 +233,20 @@ namespace CompositionSampleGallery
 
         private void ConfigureInteractionTracker()
         {
-            _tracker = _compositor.CreateInteractionTracker();
+            _tracker = InteractionTracker.Create(_compositor);
 
             _tracker.MaxPosition = new Vector3(0, _backgroundImageVisual.Size.Y * 0.5f, 0);
+            _tracker.MinPosition = new Vector3();
 
-            _interactionSource = new VisualInteractionSource(_backgroundImageVisual.Compositor, _backgroundVisual);
+            _interactionSource = VisualInteractionSource.Create(_backgroundVisual);
+
 
             _interactionSource.PositionYSourceMode = InteractionSourceMode.EnabledWithInertia;
 
             _tracker.InteractionSources.Add(_interactionSource);
 
             var progressExpression = _compositor.CreateExpressionAnimation(
-                                            "clamp(tracker.ScrollPosition.Y / tracker.MaxPosition.Y, 0, 1)");
+                                            "clamp(tracker.Position.Y / tracker.MaxPosition.Y, 0, 1)");
 
             progressExpression.SetReferenceParameter("tracker", _tracker);
 
@@ -252,20 +255,20 @@ namespace CompositionSampleGallery
 
         private void ConfigureRestingPoints()
         {
-            var endpoint1 = _compositor.CreateInteractionTrackerInertiaEndpoint();
+            var endpoint1 = InteractionTrackerInertiaRestingValue.Create(_compositor);
 
             endpoint1.Condition = _compositor.CreateExpressionAnimation(
-                    "target.NaturalEndPosition.y < (target.MaxPosition.y - target.MinPosition.y) / 2");
+                    "this.target.NaturalRestingPosition.y < (this.target.MaxPosition.y - this.target.MinPosition.y) / 2");
 
-            endpoint1.Endpoint = _compositor.CreateExpressionAnimation("target.MinPosition.y");
+            endpoint1.RestingValue = _compositor.CreateExpressionAnimation("this.target.MinPosition.y");
 
 
-            var endpoint2 = _compositor.CreateInteractionTrackerInertiaEndpoint();
+            var endpoint2 = InteractionTrackerInertiaRestingValue.Create(_compositor);
 
             endpoint2.Condition = _compositor.CreateExpressionAnimation(
-                    "target.NaturalEndPosition.y >= (target.MaxPosition.y - target.MinPosition.y) / 2");
+                    "this.target.NaturalRestingPosition.y >= (this.target.MaxPosition.y - this.target.MinPosition.y) / 2");
 
-            endpoint2.Endpoint = _compositor.CreateExpressionAnimation("target.MaxPosition.y");
+            endpoint2.RestingValue = _compositor.CreateExpressionAnimation("this.target.MaxPosition.y");
 
             _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { endpoint1, endpoint2 });
         }
@@ -383,7 +386,7 @@ namespace CompositionSampleGallery
             if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
             {
                 //Capture pointer to system for gestures
-                _interactionSource.Capture(e.GetCurrentPoint(Root));
+                _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(Root));
             }
 
         }
