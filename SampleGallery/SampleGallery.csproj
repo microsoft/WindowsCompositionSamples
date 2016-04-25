@@ -126,6 +126,7 @@
       <DependentUpon>ImagePopupViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\SDK Insider\PhotoViewer\PhotoViewer.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\TextShimmer\TextShimmer.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\ThumbnailLighting\ThumbnailLighting.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Shared\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -281,6 +282,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\SDK Insider\PhotoViewer\PhotoViewer.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK Insider\TextShimmer\TextShimmer.xaml" Condition="$(TargetPlatformBuild) &gt;10586" >
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
