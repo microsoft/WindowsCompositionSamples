@@ -224,11 +224,13 @@ namespace SamplesCommon
         {
             _unloaded = true;
 
-            ReleaseSurface();
+            // TODO: Remove this workaround after 14332
+            //ReleaseSurface();
 
             if (_sprite != null)
             {
-                _sprite.Dispose();
+                // TODO: Remove this workaround after 14332
+                // _sprite.Dispose();
                 _sprite = null;
             }
         }

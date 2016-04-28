@@ -99,11 +99,13 @@ namespace CompositionSampleGallery
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             // Dispose the sprite and unparent it
-            ElementCompositionPreview.SetElementChildVisual(ThumbnailList, null);
+            // TODO: Remove this workaround after 14332
+            //ElementCompositionPreview.SetElementChildVisual(ThumbnailList, null);
 
             if (_destinationSprite != null)
             {
-                _destinationSprite.Dispose();
+                // TODO: Remove this workaround after 14332
+                //_destinationSprite.Dispose();
                 _destinationSprite = null;
             }
         }
