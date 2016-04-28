@@ -2,11 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
 
-    <SDKVersionToUse>10.0.10586.0</SDKVersionToUse>
-
-    <!-- Change this to true if you have a post-insider RS1 SDK installed. -->
-    <HavePostInsiderRS1SDK>false</HavePostInsiderRS1SDK>
-    
+    <SDKVersionToUse>10.0.14332.0</SDKVersionToUse>
 
     <TargetPlatformVersion Condition="$(TargetPlatformVersion) == ''">$(SDKVersionToUse)</TargetPlatformVersion>
     <TargetPlatformMinVersion Condition="$(TargetPlatformMinVersion) == ''">10.0.10586.0</TargetPlatformMinVersion>
@@ -14,8 +10,6 @@
     <TargetPlatformBuild>$(TargetPlatformVersion.Split('.')[2])</TargetPlatformBuild>
     <DefineConstants Condition="$(TargetPlatformBuild) &gt;=10586">$(DefineConstants);SDKVERSION_10586</DefineConstants>
     <DefineConstants Condition="$(TargetPlatformBuild) &gt; 10586">$(DefineConstants);SDKVERSION_INSIDER</DefineConstants>
-
-    <DefineConstants Condition="$(HavePostInsiderRS1SDK)">$(DefineConstants);SDKVERSION_RS1</DefineConstants>
 
   </PropertyGroup>
 </Project>

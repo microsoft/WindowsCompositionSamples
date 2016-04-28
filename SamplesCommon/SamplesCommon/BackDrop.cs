@@ -166,14 +166,4 @@ namespace SamplesCommon
             return factory.CreateBrush();
         }
     }
-
-#if SDKVERSION_INSIDER && !SDKVERSION_RS1
-    public static class CompositorBackDropExtension
-    {
-        public static CompositionBrush CreateBackdropBrush(this Compositor comp)
-        {
-            return comp.CreateDestinationBrush();
-        }
-    }
-#endif
 }

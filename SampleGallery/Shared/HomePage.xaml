@@ -84,7 +84,7 @@
         </RichTextBlock>
         
 
-        <local:SampleListControl x:Name="MySampleListControl" Grid.ColumnSpan="2" Grid.RowSpan="2" />
+        <local:SampleListControl x:Name="MySampleListControl" Grid.ColumnSpan="2" Grid.RowSpan="3" />
     </Grid>
 
 </Page>

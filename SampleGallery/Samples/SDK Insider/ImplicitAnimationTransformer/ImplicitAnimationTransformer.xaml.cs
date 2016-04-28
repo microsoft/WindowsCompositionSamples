@@ -299,6 +299,8 @@ namespace CompositionSampleGallery
         Vector3KeyFrameAnimation CreateOffsetAnimation()
         {
             var _offsetKeyFrameAnimation = _compositor.CreateVector3KeyFrameAnimation();
+            _offsetKeyFrameAnimation.Target = "Offset";
+            
             // Final Value signifies the target value to which the visual will animate
             // in this case it will be defined by new offset
             _offsetKeyFrameAnimation.InsertExpressionKeyFrame(1.0f, "this.FinalValue");
@@ -310,28 +312,30 @@ namespace CompositionSampleGallery
         /// <summary>
         /// Creates scale animation that can be applied to a visual
         /// </summary>
-        AnimationGroup CreateScaleAnimation()
+        CompositionAnimationGroup CreateScaleAnimation()
         {
             var scaleKeyFrameAnimation = _compositor.CreateVector3KeyFrameAnimation();
+            scaleKeyFrameAnimation.Target = "Scale";
             scaleKeyFrameAnimation.InsertExpressionKeyFrame(1.0f, "this.FinalValue");
             scaleKeyFrameAnimation.Duration = TimeSpan.FromSeconds(3);
 
             var rotationAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            rotationAnimation.Target = "RotationAngleInDegrees";
             rotationAnimation.InsertExpressionKeyFrame(1.0f, "this.StartingValue + 45.0f");
             rotationAnimation.Duration = TimeSpan.FromSeconds(3);
 
             var animationGroup = _compositor.CreateAnimationGroup();
 
             // AnimationGroup associates the animations with the target
-            animationGroup["Scale"] = scaleKeyFrameAnimation;
-            animationGroup["RotationAngleInDegrees"] = rotationAnimation;
+            animationGroup.Add(scaleKeyFrameAnimation);
+            animationGroup.Add(rotationAnimation);
             
             return animationGroup;
         }
 
         private void EnableAnimations_Checked(object sender, RoutedEventArgs e)
         {
-            ImplicitAnimationMap implicitAnimationCollection = _compositor.CreateImplicitAnimationMap();
+            ImplicitAnimationCollection implicitAnimationCollection = _compositor.CreateImplicitAnimationCollection();
             implicitAnimationCollection["Offset"] = CreateOffsetAnimation();
             implicitAnimationCollection["Scale"] = CreateScaleAnimation();
             foreach (var child in _root.Children)

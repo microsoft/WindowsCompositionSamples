@@ -44,6 +44,7 @@ namespace CompositionSampleGallery
             LightenBlur,
             DarkenBlur,
             RainbowBlur,
+            Mask,
             VividLight,
             Desaturation,
             Hue,
@@ -98,11 +99,13 @@ namespace CompositionSampleGallery
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             // Dispose the sprite and unparent it
-            ElementCompositionPreview.SetElementChildVisual(ThumbnailList, null);
+            // TODO: Remove this workaround after 14332
+            //ElementCompositionPreview.SetElementChildVisual(ThumbnailList, null);
 
             if (_destinationSprite != null)
             {
-                _destinationSprite.Dispose();
+                // TODO: Remove this workaround after 14332
+                //_destinationSprite.Dispose();
                 _destinationSprite = null;
             }
         }
@@ -149,6 +152,16 @@ namespace CompositionSampleGallery
             ComboBoxItem item = EffectSelection.SelectedValue as ComboBoxItem;
             switch ((EffectTypes)item.Tag)
             {
+                case EffectTypes.Mask:
+                    {
+                        CompositionSurfaceBrush brush = ((CompositionEffectBrush)_destinationSprite.Brush).GetSourceParameter("SecondSource") as CompositionSurfaceBrush;
+                        Vector2KeyFrameAnimation scaleAnimation = _compositor.CreateVector2KeyFrameAnimation();
+                        scaleAnimation.InsertKeyFrame(0f, new Vector2(1.25f, 1.25f));
+                        scaleAnimation.InsertKeyFrame(1f, new Vector2(0f, 0f));
+                        scaleAnimation.Duration = TimeSpan.FromMilliseconds(2000);
+                        brush.StartAnimation("Scale", scaleAnimation);
+                        break;
+                    }
                 case EffectTypes.VividLight:
                     {
                         CompositionEffectBrush brush = (CompositionEffectBrush)_destinationSprite.Brush;
@@ -213,6 +226,15 @@ namespace CompositionSampleGallery
             ComboBoxItem item = EffectSelection.SelectedValue as ComboBoxItem;
             switch ((EffectTypes)item.Tag)
             {
+                case EffectTypes.Mask:
+                    {
+                        CompositionSurfaceBrush brush = ((CompositionEffectBrush)_destinationSprite.Brush).GetSourceParameter("SecondSource") as CompositionSurfaceBrush;
+                        Vector2KeyFrameAnimation scaleAnimation = _compositor.CreateVector2KeyFrameAnimation();
+                        scaleAnimation.InsertKeyFrame(1f, new Vector2(2.0f, 2.0f));
+                        scaleAnimation.Duration = TimeSpan.FromMilliseconds(1000);
+                        brush.StartAnimation("Scale", scaleAnimation);
+                        break;
+                    }
                 case EffectTypes.VividLight:
                     {
                         CompositionEffectBrush brush = (CompositionEffectBrush)_destinationSprite.Brush;
@@ -245,7 +267,7 @@ namespace CompositionSampleGallery
             UpdateEffect();
         }
 
-        private void UpdateEffect()
+        private async void UpdateEffect()
         {
             if (_compositor != null)
             {
@@ -297,7 +319,38 @@ namespace CompositionSampleGallery
                             animatableProperties = new[] { "Base.Color" };
                         }
                         break;
-                        
+                    case EffectTypes.Mask:
+                        {
+                            graphicsEffect = new CompositeEffect()
+                            {
+                                Mode = CanvasComposite.DestinationOver,
+                                Sources =
+                                {
+                                    new CompositeEffect()
+                                    {
+                                        Mode = CanvasComposite.DestinationIn,
+                                        Sources =
+                                        {
+
+                                            new CompositionEffectSourceParameter("ImageSource"),
+                                            new CompositionEffectSourceParameter("SecondSource")
+                                        }
+                                    },
+                                    new ColorSourceEffect()
+                                    {
+                                        Color = Color.FromArgb(200,255,255,255)
+                                    },
+                                }
+                            };
+
+                            CompositionDrawingSurface backgroundSurface = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Samples/SDK Insider/ForegroundFocusEffects/mask.png"));
+
+                            CompositionSurfaceBrush maskBrush = _compositor.CreateSurfaceBrush(backgroundSurface);
+                            maskBrush.Stretch = CompositionStretch.UniformToFill;
+                            maskBrush.CenterPoint = backgroundSurface.Size.ToVector2() / 2;
+                            secondaryBrush = maskBrush;
+                        }
+                        break;
                     case EffectTypes.Blur:
                         {
                             graphicsEffect = new GaussianBlurEffect()

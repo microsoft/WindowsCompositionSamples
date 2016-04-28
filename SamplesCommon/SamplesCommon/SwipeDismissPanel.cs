@@ -8,13 +8,11 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Composition;
+using Windows.UI.Composition.Interactions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media;
-#if SDKVERSION_RS1
-using Windows.UI.Composition.Interactions;
-#endif
 
 namespace SamplesCommon
 {
@@ -41,7 +39,7 @@ namespace SamplesCommon
             CompletedOffset = 2000;
             CompletionThreshold = 400;
 
-#if SDKVERSION_RS1
+
             m_interactionSource = VisualInteractionSource.Create(m_rootVisual);
             m_interactionSource.PositionXSourceMode = InteractionSourceMode.EnabledWithInertia;
 
@@ -64,30 +62,6 @@ namespace SamplesCommon
             var snapFarEndpoint = InteractionTrackerInertiaRestingValue.Create(m_compositor);
             snapFarEndpoint.Condition = snapFarConditionExpression;
             snapFarEndpoint.RestingValue = snapFarValueExpression;
-#else
-            m_interactionSource = new VisualInteractionSource(m_compositor, m_rootVisual);
-            m_interactionSource.PositionXSourceMode = InteractionSourceMode.EnabledWithInertia;
-
-            var snapHomeEndpoint = m_compositor.CreateInteractionTrackerInertiaEndpoint();
-            snapHomeEndpoint.Condition = m_compositor.CreateExpressionAnimation("true");
-            snapHomeEndpoint.Endpoint = m_compositor.CreateExpressionAnimation("0");
-
-            var snapNearConditionExpression = m_compositor.CreateExpressionAnimation(
-                "target.ScrollPosition.X < -target.CompletionThreshold");
-            var snapNearValueExpression = m_compositor.CreateExpressionAnimation("-target.CompletedOffset");
-
-            var snapNearEndpoint = m_compositor.CreateInteractionTrackerInertiaEndpoint();
-            snapNearEndpoint.Condition = snapNearConditionExpression;
-            snapNearEndpoint.Endpoint = snapNearValueExpression;
-
-            var snapFarConditionExpression = m_compositor.CreateExpressionAnimation(
-                "target.ScrollPosition.X > target.CompletionThreshold");
-            var snapFarValueExpression = m_compositor.CreateExpressionAnimation("target.CompletedOffset");
-
-            var snapFarEndpoint = m_compositor.CreateInteractionTrackerInertiaEndpoint();
-            snapFarEndpoint.Condition = snapFarConditionExpression;
-            snapFarEndpoint.Endpoint = snapFarValueExpression;
-#endif
 
             m_inertiaModifiers = new InteractionTrackerInertiaModifier[] {
                 snapNearEndpoint,
@@ -148,12 +122,7 @@ namespace SamplesCommon
 
         private void OnLoading(FrameworkElement sender, object args)
         {
-#if SDKVERSION_RS1
             m_interactionTracker = InteractionTracker.CreateWithOwner(m_compositor, this);
-#else
-            m_interactionTracker = m_compositor.CreateInteractionTracker();
-            m_interactionTracker.Owner = this;
-#endif
             m_sourcesWorkaround = m_interactionTracker.InteractionSources;
             m_sourcesWorkaround.Add(m_interactionSource);
             m_interactionTracker.Properties.InsertScalar(nameof(CompletedOffset), (float)m_completedOffset);
@@ -186,11 +155,7 @@ namespace SamplesCommon
 
                 if (Content != null)
                 {
-#if SDKVERSION_RS1
                     var positionExpression = m_compositor.CreateExpressionAnimation("-tracker.Position");
-#else
-                    var positionExpression = m_compositor.CreateExpressionAnimation("-tracker.ScrollPosition");
-#endif
                     positionExpression.SetReferenceParameter("tracker", m_interactionTracker);
 
                     m_contentVisual = ElementCompositionPreview.GetElementVisual(Content);
@@ -224,11 +189,7 @@ namespace SamplesCommon
         {
         }
 
-#if SDKVERSION_RS1
         void IInteractionTrackerOwner.InteractingStateEntered(InteractionTracker sender, InteractionTrackerInteractingStateEnteredArgs args)
-#else
-        void IInteractionTrackerOwner.InContactStateEntered(InteractionTracker sender, InteractionTrackerInContactStateEnteredArgs args)
-#endif
         {
             m_isInteracting = true;
         }
@@ -256,11 +217,7 @@ namespace SamplesCommon
             */
         }
 
-#if SDKVERSION_RS1
         void IInteractionTrackerOwner.ValuesChanged(InteractionTracker sender, InteractionTrackerValuesChangedArgs args)
-#else
-        void IInteractionTrackerOwner.ScrollValuesChanged(InteractionTracker sender, InteractionTrackerValuesChangedArgs args)
-#endif
         {
             if (!m_isInteracting && Math.Abs(args.Position.X) > CompletionThreshold)
             {
@@ -280,11 +237,7 @@ namespace SamplesCommon
             }
         }
 
-#if SDKVERSION_RS1
         void IInteractionTrackerOwner.RequestIgnored(InteractionTracker sender, InteractionTrackerRequestIgnoredArgs args)
-#else
-        void IInteractionTrackerOwner.UpdateValueRequestIgnored(InteractionTracker sender, InteractionTrackerRequestIgnoredArgs args)
-#endif
         {
 
         }

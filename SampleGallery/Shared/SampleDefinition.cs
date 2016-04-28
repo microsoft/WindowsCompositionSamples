@@ -73,16 +73,18 @@ namespace CompositionSampleGallery
         static SampleDefinition[] definitions =
         {
 #if SDKVERSION_INSIDER
-            new SampleDefinition(ForegroundFocusEffects.StaticSampleName,       typeof(ForegroundFocusEffects),         SampleType.EndToEnd,  SampleCategory.Effects),
-            new SampleDefinition(PhotoViewer.StaticSampleName,                  typeof(PhotoViewer),                    SampleType.EndToEnd,  SampleCategory.Effects),
-            new SampleDefinition(ThumbnailLighting.StaticSampleName,            typeof(ThumbnailLighting),              SampleType.EndToEnd,  SampleCategory.Effects),
             new SampleDefinition(BackDropSample.StaticSampleName,               typeof(BackDropSample),                 SampleType.Reference, SampleCategory.Effects),
-            new SampleDefinition(ImplicitAnimationTransformer.StaticSampleName, typeof(ImplicitAnimationTransformer),   SampleType.Reference, SampleCategory.Animations),
-            new SampleDefinition(ShadowPlayground.StaticSampleName,             typeof(ShadowPlayground),               SampleType.Reference, SampleCategory.Visuals),
+            new SampleDefinition(Curtain.StaticSampleName,                      typeof(Curtain),                        SampleType.Reference, SampleCategory.ExpressionAnimations),
+            new SampleDefinition(ForegroundFocusEffects.StaticSampleName,       typeof(ForegroundFocusEffects),         SampleType.EndToEnd,  SampleCategory.Effects),
             new SampleDefinition(Gears.StaticSampleName,                        typeof(Gears),                          SampleType.EndToEnd,  SampleCategory.ExpressionAnimations),
             new SampleDefinition(ImageLightingPlayground.StaticSampleName,      typeof(ImageLightingPlayground),        SampleType.Reference, SampleCategory.Effects),
-            new SampleDefinition(Curtain.StaticSampleName,                       typeof(Curtain),                        SampleType.Reference, SampleCategory.ExpressionAnimations),
+            new SampleDefinition(ImplicitAnimationTransformer.StaticSampleName, typeof(ImplicitAnimationTransformer),   SampleType.Reference, SampleCategory.Animations),
+            new SampleDefinition(NowPlaying.StaticSampleName,                   typeof(NowPlaying),                     SampleType.EndToEnd,  SampleCategory.Effects),
+            new SampleDefinition(PhotoViewer.StaticSampleName,                  typeof(PhotoViewer),                    SampleType.EndToEnd,  SampleCategory.Effects),
             new SampleDefinition(PullToAnimate.StaticSampleName,                typeof(PullToAnimate),                  SampleType.EndToEnd,  SampleCategory.ExpressionAnimations),
+            new SampleDefinition(ShadowPlayground.StaticSampleName,             typeof(ShadowPlayground),               SampleType.Reference, SampleCategory.Visuals),
+            new SampleDefinition(TextShimmer.StaticSampleName,                  typeof(TextShimmer),                    SampleType.EndToEnd,  SampleCategory.Effects),
+            new SampleDefinition(ThumbnailLighting.StaticSampleName,            typeof(ThumbnailLighting),              SampleType.EndToEnd,  SampleCategory.Effects),
 #endif
 
 #if SDKVERSION_10586
