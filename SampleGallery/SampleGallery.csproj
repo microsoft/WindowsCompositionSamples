@@ -15,6 +15,8 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>CompositionSampleGallery_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <TargetPlatformVersion>10.0.14332.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildThisFileDirectory)\..\SamplesCommon\SamplesCommon\CommonBuild.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -285,7 +287,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK Insider\TextShimmer\TextShimmer.xaml" Condition="$(TargetPlatformBuild) &gt;10586" >
+    <Page Include="Samples\SDK Insider\TextShimmer\TextShimmer.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

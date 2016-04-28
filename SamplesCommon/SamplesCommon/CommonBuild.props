@@ -2,7 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
 
-    <SDKVersionToUse>10.0.10586.0</SDKVersionToUse>
+    <SDKVersionToUse>10.0.14332.0</SDKVersionToUse>
 
     <TargetPlatformVersion Condition="$(TargetPlatformVersion) == ''">$(SDKVersionToUse)</TargetPlatformVersion>
     <TargetPlatformMinVersion Condition="$(TargetPlatformMinVersion) == ''">10.0.10586.0</TargetPlatformMinVersion>
