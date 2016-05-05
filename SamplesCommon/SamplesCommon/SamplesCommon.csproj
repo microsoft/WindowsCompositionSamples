@@ -112,6 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackDrop.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="ColorMixer.xaml.cs">
+      <DependentUpon>ColorMixer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PerspectivePanel.cs" />
     <Compile Include="CompositionImage.cs" />
     <Compile Include="ImageLoader\ImageLoader.cs" />
@@ -122,6 +125,12 @@
     <Compile Include="UIElementExtensionMethods.cs" />
     <Compile Include="VisualTreeHelperExtensions.cs" />
     <EmbeddedResource Include="Properties\SamplesCommon.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ColorMixer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
