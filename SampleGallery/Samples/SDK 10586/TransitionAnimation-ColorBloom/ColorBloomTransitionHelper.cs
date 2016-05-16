@@ -16,6 +16,7 @@ using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Effects;
 using SamplesCommon.ImageLoader;
 using System;
+using System.Linq;
 using System.Numerics;
 using Windows.Foundation;
 using Windows.UI.Composition;
@@ -246,24 +247,18 @@ namespace CompositionSampleGallery
             colorVisual.StartAnimation("Scale.X", _bloomAnimation);
             colorVisual.StartAnimation("Scale.Y", _bloomAnimation);
 
-            batchTransaction.Completed += BloomAnimationCompleted;
+            batchTransaction.Completed += (sender, args) =>
+            {
+                // remove this visual from visual tree
+                _containerForVisuals.Children.Remove(colorVisual);
 
+                // notify interested parties
+                ColorBloomTransitionCompleted(this, EventArgs.Empty);
+            };
+            
             batchTransaction.End();
 
         }
-
-        /// <summary>
-        /// Cleans up after the bloom animation has ended
-        /// </summary>
-        private void BloomAnimationCompleted(object sender, CompositionBatchCompletedEventArgs args)
-        {
-            // reset the container for subsequent use
-            _containerForVisuals.Children.RemoveAll();
-
-            // notify interested parties
-            ColorBloomTransitionCompleted(this, EventArgs.Empty);
-        }
-
         #endregion
 
     }
