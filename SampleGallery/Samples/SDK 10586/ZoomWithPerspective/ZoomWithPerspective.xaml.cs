@@ -71,8 +71,8 @@ namespace CompositionSampleGallery
             // the zoom in.
             //
 
-            GeneralTransform coordinate = listItem.TransformToVisual(RootPanel);
-            Vector2 clickedItemCenterPosition = coordinate.TransformPoint(new Point(0, 0)).ToVector2() + 
+            GeneralTransform coordinate = listItem.TransformToVisual(listView);
+            Vector2 clickedItemCenterPosition = coordinate.TransformPoint(new Point(0, 0)).ToVector2() +
                                                 new Vector2((float)listItem.ActualWidth / 2, (float)listItem.ActualHeight / 2);
 
 
@@ -80,8 +80,9 @@ namespace CompositionSampleGallery
             // Calculate the offset we want to animate up/down/in for the zoom based on the center point of the target and the 
             // size of the panel/viewport.
             //
-            Vector2 targetOffset = new Vector2((float)RootPanel.ActualWidth / 2, (float)RootPanel.ActualHeight / 2) - clickedItemCenterPosition;
-            
+
+            Vector2 targetOffset = new Vector2((float)listView.ActualWidth / 2, (float)listView.ActualHeight / 2) - clickedItemCenterPosition;
+
 
             //
             // Get the root panel and set it up for the rotation animation.  We're rotating the listview around the Y-axis relative
@@ -102,9 +103,7 @@ namespace CompositionSampleGallery
 
             // Calcuate the offset for the point we are zooming towards
             const float zoomFactor = .8f;
-            Vector3 zoomedOffset = new Vector3(targetOffset.X * zoomFactor, // Adjust the x offset since the rotation will shorten the distance
-                                               targetOffset.Y, 
-                                               (float)PerspectivePanel.ActualWidth * zoomFactor);
+            Vector3 zoomedOffset = new Vector3(targetOffset.X, targetOffset.Y, (float)PerspectivePanel.ActualWidth * zoomFactor) * zoomFactor;
 
             Vector3KeyFrameAnimation offsetAnimaton = _compositor.CreateVector3KeyFrameAnimation();
             offsetAnimaton.InsertKeyFrame(0, new Vector3(0, 0, 0));
@@ -123,7 +122,7 @@ namespace CompositionSampleGallery
         private void DialogDismissedHandler(IUICommand command)
         {
             Visual root = ElementCompositionPreview.GetElementVisual(ThumbnailList);
-            
+
             //
             // Animate the rotation and offset back to the starting values
             //
