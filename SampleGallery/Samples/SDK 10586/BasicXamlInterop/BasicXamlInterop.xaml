@@ -14,11 +14,13 @@
                    Margin="10"
                    TextWrapping="WrapWholeWords"
                    FontWeight="Bold"/>
-            <TextBlock x:Name="TextBlock1" 
-                   Text="This is a XAML TextBlock animated with Windows.UI.Composition."
-                   Margin="10"
-                   TextWrapping="Wrap"/>
-
+            <Border Margin="10">
+                <!-- This border is needed to ensure XAML does not explicitly set Offset on the 
+                     TextBlock which we are animating.  -->
+                <TextBlock x:Name="TextBlock1" 
+                       Text="This is a XAML TextBlock animated with Windows.UI.Composition."
+                       TextWrapping="Wrap"/>
+            </Border>
             <TextBlock Text="Example 2 - Add Windows.UI.Composition content to the XAML tree using SetElementChildVisual()"
                    Margin="10, 40, 10, 10"
                    TextWrapping="WrapWholeWords"

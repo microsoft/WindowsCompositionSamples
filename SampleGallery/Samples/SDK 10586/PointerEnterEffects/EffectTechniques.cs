@@ -261,7 +261,8 @@ namespace CompositionSampleGallery.PointerEffectTechniques
             GaussianBlurEffect blurEffect = new GaussianBlurEffect()
             {
                 Source = bitmap,
-                BlurAmount = 10.0f
+                BlurAmount = 10.0f,
+                BorderMode = EffectBorderMode.Hard,
             };
 
             float fDownsample = .3f;
@@ -361,7 +362,7 @@ namespace CompositionSampleGallery.PointerEffectTechniques
             _enterAnimation.Duration = TimeSpan.FromMilliseconds(4500);
             _enterAnimation.IterationBehavior = AnimationIterationBehavior.Count;
             _enterAnimation.IterationCount = 1;
-            
+
             _exitAnimation = _compositor.CreateScalarKeyFrameAnimation();
             _exitAnimation.InsertKeyFrame(1.0f, 0f);
             _exitAnimation.Duration = TimeSpan.FromMilliseconds(1000);
@@ -475,7 +476,7 @@ namespace CompositionSampleGallery.PointerEffectTechniques
             _enterAnimation.InsertKeyFrame(1.0f, 1.0f, easeIn);
             _enterAnimation.Duration = TimeSpan.FromMilliseconds(5000);
             _enterAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
-            
+
             _exitAnimation = _compositor.CreateVector2KeyFrameAnimation();
             _exitAnimation.InsertKeyFrame(1.0f, new Vector2(0, 0));
             _exitAnimation.Duration = TimeSpan.FromMilliseconds(750);

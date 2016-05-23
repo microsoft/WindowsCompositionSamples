@@ -250,8 +250,8 @@ namespace CompositionSampleGallery
             // 
             // First, calculate all of the new sizes and distances we will need.
             //
-            var backgroundImageSize = new Vector2((float)ParallaxingImage.ActualHeight, (float)ParallaxingImage.ActualHeight);
-            var profileImageSize = new Vector2((float)ParallaxingImage.ActualHeight, (float)ParallaxingImage.ActualHeight) * _initialScaleAmount;
+            var backgroundImageSize = new Vector2((float)ParallaxingImage.ActualWidth, (float)ParallaxingImage.ActualHeight);
+            var profileImageSize = new Vector2((float)ParallaxingImage.ActualWidth, (float)ParallaxingImage.ActualHeight) * _initialScaleAmount;
             var crossoverTranslation = (profileImageSize.Y * _finalScaleAmount / 2 + _followMargin) / (1 - _parallaxRatio);
             var offset = new Vector3((float)ParallaxingImage.ActualWidth / 2, (float)ParallaxingImage.ActualHeight, 0);
             var backgroundPeekSize = backgroundImageSize.Y * _backgroundShowRatio;
@@ -309,7 +309,7 @@ namespace CompositionSampleGallery
             // Resolve all property parameters and references on _profileContentVisual
             //
             _profileContentVisual.Size = new Vector2((float)ProfileContent.ActualWidth, (float)ProfileContent.ActualHeight);
-            _profileContentVisual.AnchorPoint = new Vector2(0.5f, 0.5f);
+            _profileContentVisual.AnchorPoint = new Vector2(0.5f, 0f);
             _profileContentVisual.Offset = new Vector3(0);
             _profileContentVisual.Offset = new Vector3(_profileContentVisual.Size / 2, 0);
             _profileContentScaleAnimation.SetScalarParameter("BackgroundPeekSize", backgroundPeekSize);
@@ -377,7 +377,7 @@ namespace CompositionSampleGallery
             };
 
             var factory = _compositor.CreateEffectFactory(graphicsEffect, new[] { "Arithmetic.Source1Amount", "Arithmetic.Source2Amount" });
-            
+
             CompositionDrawingSurface blurSurface = await SurfaceLoader.LoadFromUri(uri, Size.Empty, ApplyBlurEffect);
             CompositionEffectBrush crossFadeBrush = factory.CreateBrush(); ;
             crossFadeBrush.SetSourceParameter("ImageSource", ParallaxingImage.SurfaceBrush);
@@ -391,7 +391,8 @@ namespace CompositionSampleGallery
             GaussianBlurEffect blurEffect = new GaussianBlurEffect()
             {
                 Source = bitmap,
-                BlurAmount = 20.0f
+                BlurAmount = 20.0f,
+                BorderMode = EffectBorderMode.Hard,
             };
 
             float fDownsample = .3f;
@@ -412,7 +413,7 @@ namespace CompositionSampleGallery
 
             return blurSurface;
         }
-        
+
         private Compositor _compositor;
         private IImageLoader _imageLoader;
 
