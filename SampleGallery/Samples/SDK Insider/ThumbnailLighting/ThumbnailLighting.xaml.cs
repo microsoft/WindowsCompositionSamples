@@ -24,6 +24,7 @@ using Windows.Foundation;
 using Windows.Graphics.Effects;
 using Windows.UI;
 using Windows.UI.Composition;
+using Windows.UI.Composition.Effects;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
@@ -36,10 +37,10 @@ namespace CompositionSampleGallery
         private CompositionEffectFactory    _effectFactory;
         private CompositionSurfaceBrush     _flatNormalsBrush;
         private CompositionSurfaceBrush     _circleNormalsBrush;
-        private Vector3KeyFrameAnimation    _lightPositionAnimation;
-        private ColorKeyFrameAnimation      _lightColorAnimation;
-        private ScalarKeyFrameAnimation     _lightAzimuthAnimation;
-        private ScalarKeyFrameAnimation     _lightElevationAnimation;
+        private AmbientLight                _ambientLight;
+        private PointLight                  _pointLight;
+        private DistantLight                _distantLight;
+        private SpotLight                   _spotLight;
 
         public enum LightingTypes
         {
@@ -55,6 +56,19 @@ namespace CompositionSampleGallery
         {
             Model = new LocalDataSource();
             this.InitializeComponent();
+
+            // Get the current compositor
+            _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
+
+
+            //
+            // Create the lights
+            //
+
+            _ambientLight = _compositor.CreateAmbientLight();
+            _pointLight = _compositor.CreatePointLight();
+            _distantLight = _compositor.CreateDistantLight();
+            _spotLight = _compositor.CreateSpotLight();
         }
 
         public static string    StaticSampleName    { get { return "Thumbnail Lighting"; } }
@@ -78,9 +92,6 @@ namespace CompositionSampleGallery
 
             LightingSelection.ItemsSource = lightList;
             LightingSelection.SelectedIndex = 0;
-            
-            // Get the current compositor
-            _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
 
             ThumbnailList.ItemsSource = Model.Items;
 
@@ -102,7 +113,7 @@ namespace CompositionSampleGallery
             normalMap = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Samples/SDK Insider/ThumbnailLighting/BeveledEdges.jpg"));
             _flatNormalsBrush = _compositor.CreateSurfaceBrush(normalMap);
             _flatNormalsBrush.Stretch = CompositionStretch.Fill;
-
+       
             // Update the effect brushes now that the normal maps are available.
             UpdateEffectBrush();
         }
@@ -118,10 +129,12 @@ namespace CompositionSampleGallery
                 }
             }
         }
-        
+
         private void UpdateAnimations()
         {
-            Vector2 sizeLightBounds = new Vector2((float)RootPanel.ActualWidth, (float)RootPanel.ActualHeight + 200f);
+            Vector2 sizeLightBounds = new Vector2((float)RootPanel.ActualWidth, (float)RootPanel.ActualHeight);
+            Vector3KeyFrameAnimation lightPositionAnimation;
+            ColorKeyFrameAnimation lightColorAnimation;
 
             ComboBoxItem item = LightingSelection.SelectedValue as ComboBoxItem;
             switch ((LightingTypes)item.Tag)
@@ -129,23 +142,28 @@ namespace CompositionSampleGallery
                 case LightingTypes.PointDiffuse:
                 case LightingTypes.PointSpecular:
                     {
-                        // Create the light position animation
-                        _lightPositionAnimation = _compositor.CreateVector3KeyFrameAnimation();
-                        _lightPositionAnimation.InsertKeyFrame(0f, new Vector3(0f, 0f, 100f));
-                        _lightPositionAnimation.InsertKeyFrame(.25f, new Vector3(sizeLightBounds.X * .7f, sizeLightBounds.Y * .5f, 100f));
-                        _lightPositionAnimation.InsertKeyFrame(.50f, new Vector3(sizeLightBounds.X, sizeLightBounds.Y, 100f));
-                        _lightPositionAnimation.InsertKeyFrame(.75f, new Vector3(sizeLightBounds.X * .2f, sizeLightBounds.Y, 100f));
-                        _lightPositionAnimation.InsertKeyFrame(1f, new Vector3(0f, 0f, 100f));
-                        _lightPositionAnimation.Duration = TimeSpan.FromMilliseconds(7500);
-                        _lightPositionAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
+                        float flZDistance = 50f;
 
-                        _lightColorAnimation = _compositor.CreateColorKeyFrameAnimation();
-                        _lightColorAnimation.InsertKeyFrame(0f, Colors.White);
-                        _lightColorAnimation.InsertKeyFrame(.33f, Colors.White);
-                        _lightColorAnimation.InsertKeyFrame(.66f, Colors.Yellow);
-                        _lightColorAnimation.InsertKeyFrame(1f, Colors.White);
-                        _lightColorAnimation.Duration = TimeSpan.FromMilliseconds(20000);
-                        _lightColorAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
+                        // Create the light position animation
+                        lightPositionAnimation = _compositor.CreateVector3KeyFrameAnimation();
+                        lightPositionAnimation.InsertKeyFrame(0f, new Vector3(0f, 0f, flZDistance));
+                        lightPositionAnimation.InsertKeyFrame(.25f, new Vector3(sizeLightBounds.X * .2f, sizeLightBounds.Y * .5f, flZDistance));
+                        lightPositionAnimation.InsertKeyFrame(.50f, new Vector3(sizeLightBounds.X * .75f, sizeLightBounds.Y * .5f, flZDistance));
+                        lightPositionAnimation.InsertKeyFrame(.75f, new Vector3(sizeLightBounds.X * .2f, sizeLightBounds.Y * .2f, flZDistance));
+                        lightPositionAnimation.InsertKeyFrame(1f, new Vector3(0f, 0f, flZDistance));
+                        lightPositionAnimation.Duration = TimeSpan.FromMilliseconds(7500);
+                        lightPositionAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
+
+                        lightColorAnimation = _compositor.CreateColorKeyFrameAnimation();
+                        lightColorAnimation.InsertKeyFrame(0f, Colors.White);
+                        lightColorAnimation.InsertKeyFrame(.33f, Colors.White);
+                        lightColorAnimation.InsertKeyFrame(.66f, Colors.Yellow);
+                        lightColorAnimation.InsertKeyFrame(1f, Colors.White);
+                        lightColorAnimation.Duration = TimeSpan.FromMilliseconds(20000);
+                        lightColorAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
+
+                        _pointLight.StartAnimation("Offset", lightPositionAnimation);
+                        _pointLight.StartAnimation("Color", lightColorAnimation);
                     }
                     break;
 
@@ -153,40 +171,45 @@ namespace CompositionSampleGallery
                 case LightingTypes.SpotLightSpecular:
                     {
                         // Create the light position animation
-                        _lightPositionAnimation = _compositor.CreateVector3KeyFrameAnimation();
-                        _lightPositionAnimation.InsertKeyFrame(0f, new Vector3(0f, 0f, 100f));
-                        _lightPositionAnimation.InsertKeyFrame(.33f, new Vector3(sizeLightBounds.X * .5f, sizeLightBounds.Y * .5f, 400f));
-                        _lightPositionAnimation.InsertKeyFrame(.66f, new Vector3(sizeLightBounds.X, sizeLightBounds.Y * .5f, 1400f));
-                        _lightPositionAnimation.InsertKeyFrame(1f, new Vector3(0f, 0f, 100f));
-                        _lightPositionAnimation.Duration = TimeSpan.FromMilliseconds(7500);
-                        _lightPositionAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
+                        lightPositionAnimation = _compositor.CreateVector3KeyFrameAnimation();
+                        lightPositionAnimation.InsertKeyFrame(0f, new Vector3(0f, 0f, 100f));
+                        lightPositionAnimation.InsertKeyFrame(.33f, new Vector3(sizeLightBounds.X * .5f, sizeLightBounds.Y * .5f, 200f));
+                        lightPositionAnimation.InsertKeyFrame(.66f, new Vector3(sizeLightBounds.X, sizeLightBounds.Y * .5f, 400f));
+                        lightPositionAnimation.InsertKeyFrame(1f, new Vector3(0f, 0f, 100f));
+                        lightPositionAnimation.Duration = TimeSpan.FromMilliseconds(7500);
+                        lightPositionAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
 
-                        _lightColorAnimation = _compositor.CreateColorKeyFrameAnimation();
-                        _lightColorAnimation.InsertKeyFrame(0f, Colors.White);
-                        _lightColorAnimation.InsertKeyFrame(.33f, Colors.White);
-                        _lightColorAnimation.InsertKeyFrame(.66f, Colors.Yellow);
-                        _lightColorAnimation.InsertKeyFrame(1f, Colors.White);
-                        _lightColorAnimation.Duration = TimeSpan.FromMilliseconds(20000);
-                        _lightColorAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
+                        lightColorAnimation = _compositor.CreateColorKeyFrameAnimation();
+                        lightColorAnimation.InsertKeyFrame(0f, Colors.White);
+                        lightColorAnimation.InsertKeyFrame(.33f, Colors.White);
+                        lightColorAnimation.InsertKeyFrame(.66f, Colors.Yellow);
+                        lightColorAnimation.InsertKeyFrame(1f, Colors.White);
+                        lightColorAnimation.Duration = TimeSpan.FromMilliseconds(20000);
+                        lightColorAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
+
+                        _spotLight.StartAnimation("Offset", lightPositionAnimation);
+                        _spotLight.StartAnimation("InnerConeColor", lightColorAnimation);
                     }
                     break;
 
                 case LightingTypes.DistantDiffuse:
                 case LightingTypes.DistantSpecular:
                     {
-                        _lightAzimuthAnimation = _compositor.CreateScalarKeyFrameAnimation();
-                        _lightAzimuthAnimation.InsertKeyFrame(0f, 0f);
-                        _lightAzimuthAnimation.InsertKeyFrame(1f, (float)Math.PI * 2f);
-                        _lightAzimuthAnimation.Duration = TimeSpan.FromMilliseconds(10000);
-                        _lightAzimuthAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
+                        // Animate the light direction from left to right
+                        double flLeftSweepRadians = Math.PI / 8;
+                        double flRightSweepRadians = Math.PI - flLeftSweepRadians;
+                        double flCenterRadians = Math.PI / 2;
 
-                        _lightElevationAnimation = _compositor.CreateScalarKeyFrameAnimation();
-                        _lightElevationAnimation.InsertKeyFrame(0f, (float)Math.PI * .5f);
-                        _lightElevationAnimation.InsertKeyFrame(.33f, (float)Math.PI * .25f);
-                        _lightElevationAnimation.InsertKeyFrame(.66f, (float)Math.PI * .75f);
-                        _lightElevationAnimation.InsertKeyFrame(1f, (float)Math.PI * .5f);
-                        _lightElevationAnimation.Duration = TimeSpan.FromMilliseconds(5000);
-                        _lightElevationAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
+                        Vector3KeyFrameAnimation lightDirectionAnimation = _compositor.CreateVector3KeyFrameAnimation();
+                        lightDirectionAnimation.InsertKeyFrame(0f,   new Vector3((float)Math.Cos(flCenterRadians),     0, (float)-Math.Sin(flCenterRadians)));
+                        lightDirectionAnimation.InsertKeyFrame(.25f, new Vector3((float)Math.Cos(flLeftSweepRadians),  0, (float)-Math.Sin(flLeftSweepRadians)));
+                        lightDirectionAnimation.InsertKeyFrame(.50f, new Vector3((float)Math.Cos(flRightSweepRadians), 0, (float)-Math.Sin(flRightSweepRadians)));
+                        lightDirectionAnimation.InsertKeyFrame(.75f, new Vector3((float)Math.Cos(flLeftSweepRadians),  0, (float)-Math.Sin(flLeftSweepRadians)));
+                        lightDirectionAnimation.InsertKeyFrame(1f,   new Vector3((float)Math.Cos(flCenterRadians),     0, (float)-Math.Sin(flCenterRadians)));
+                        lightDirectionAnimation.Duration = TimeSpan.FromMilliseconds(7500);
+                        lightDirectionAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
+                        
+                        _distantLight.StartAnimation("Direction", lightDirectionAnimation);
                     }
                     break;
 
@@ -199,33 +222,17 @@ namespace CompositionSampleGallery
         {
             // Create the effect brush and bind the normal map
             CompositionEffectBrush brush = _effectFactory.CreateBrush();
-            
+
             ComboBoxItem item = LightingSelection.SelectedValue as ComboBoxItem;
             switch ((LightingTypes)item.Tag)
             {
                 case LightingTypes.SpotLightSpecular:
                 case LightingTypes.PointSpecular:
-                    brush.StartAnimation("Light1.LightPosition", _lightPositionAnimation);
-                    brush.StartAnimation("Light1.LightColor", _lightColorAnimation);
-                    brush.StartAnimation("Light2.LightPosition", _lightPositionAnimation);
-                    brush.StartAnimation("Light2.LightColor", _lightColorAnimation);
-                    brush.SetSourceParameter("NormalMap", _circleNormalsBrush);
-                    break;
                 case LightingTypes.DistantDiffuse:
-                    brush.SetSourceParameter("NormalMap", _circleNormalsBrush);
-                    brush.StartAnimation("Light1.Azimuth", _lightAzimuthAnimation);
-                    brush.StartAnimation("Light1.Elevation", _lightElevationAnimation);
-                    break;
                 case LightingTypes.DistantSpecular:
                     brush.SetSourceParameter("NormalMap", _circleNormalsBrush);
-                    brush.StartAnimation("Light1.Azimuth", _lightAzimuthAnimation);
-                    brush.StartAnimation("Light1.Elevation", _lightElevationAnimation);
-                    brush.StartAnimation("Light2.Azimuth", _lightAzimuthAnimation);
-                    brush.StartAnimation("Light2.Elevation", _lightElevationAnimation);
                     break;
                 default:
-                    brush.StartAnimation("Light1.LightPosition", _lightPositionAnimation);
-                    brush.StartAnimation("Light1.LightColor", _lightColorAnimation);
                     brush.SetSourceParameter("NormalMap", _flatNormalsBrush);
                     break;
             }
@@ -259,10 +266,10 @@ namespace CompositionSampleGallery
 
         private void UpdateLightingEffect()
         {
-            if (_compositor == null)
-            {
-                _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
-            }
+            _ambientLight.Targets.RemoveAll();
+            _pointLight.Targets.RemoveAll();
+            _distantLight.Targets.RemoveAll();
+            _spotLight.Targets.RemoveAll();
 
             ComboBoxItem item = LightingSelection.SelectedValue as ComboBoxItem;
             switch ((LightingTypes)item.Tag)
@@ -280,20 +287,22 @@ namespace CompositionSampleGallery
                             Sources =
                             {
                                 new CompositionEffectSourceParameter("ImageSource"),
-                                new PointDiffuseEffect()
+                                new SceneLightingEffect()
                                 {
-                                    Name = "Light1",
+                                    AmbientAmount = 0,
                                     DiffuseAmount = .75f,
-                                    LightPosition = new Vector3(0f, 0f, 100),
-                                    LightColor = Colors.White,
-                                    Source = new CompositionEffectSourceParameter("NormalMap"),
+                                    SpecularAmount = 0,
+                                    NormalMapSource = new CompositionEffectSourceParameter("NormalMap"),
                                 }
                             }
                         };
 
-                        _effectFactory = _compositor.CreateEffectFactory(graphicsEffect,
-                                            new[] { "Light1.LightPosition", "Light1.LightColor" });
+                        _effectFactory = _compositor.CreateEffectFactory(graphicsEffect);
 
+                        // Set the light coordinate space and add the target
+                        Visual lightRoot = ElementCompositionPreview.GetElementVisual(ThumbnailList);
+                        _pointLight.CoordinateSpace = lightRoot;
+                        _pointLight.Targets.Add(lightRoot);
                     }
                     break;
 
@@ -306,49 +315,35 @@ namespace CompositionSampleGallery
 
                         IGraphicsEffect graphicsEffect = new CompositeEffect()
                         {
-                            Mode = CanvasComposite.Add,
+                            Mode = CanvasComposite.DestinationIn,
                             Sources =
                             {
                                 new ArithmeticCompositeEffect()
                                 {
-                                    Source1Amount = .6f,
-                                    Source2Amount = 0,
                                     MultiplyAmount = 1,
-
-                                    Source1 = new CompositeEffect()
+                                    Source1Amount = 0,
+                                    Source2Amount = 0,
+                                    Source1 = new CompositionEffectSourceParameter("ImageSource"),
+                                    Source2 = new SceneLightingEffect()
                                     {
-                                        Mode = CanvasComposite.DestinationIn,
-                                        Sources =
-                                        {
-                                            new CompositionEffectSourceParameter("ImageSource"),
-                                            new CompositionEffectSourceParameter("NormalMap"),
-                                        }
-                                    },
-                                    Source2 = new PointDiffuseEffect()
-                                    {
-                                        Name = "Light1",
-                                        DiffuseAmount = .75f,
-                                        LightPosition = new Vector3(0f, 0f, 100),
-                                        LightColor = Colors.White,
-                                        Source = new CompositionEffectSourceParameter("NormalMap"),
-                                    },
+                                        AmbientAmount = .6f,
+                                        DiffuseAmount = .05f,
+                                        SpecularAmount = .5f,
+                                        SpecularShine = 10f,
+                                        NormalMapSource = new CompositionEffectSourceParameter("NormalMap"),
+                                    }
                                 },
-                                new PointSpecularEffect()
-                                {
-                                    Name = "Light2",
-                                    SpecularAmount = 1f,
-                                    SpecularExponent = 50f,
-                                    LightPosition = new Vector3(0f, 0f, 100),
-                                    LightColor = Colors.White,
-                                    Source = new CompositionEffectSourceParameter("NormalMap"),
-                                }
+                                new CompositionEffectSourceParameter("NormalMap"),
                             }
                         };
 
-                        _effectFactory = _compositor.CreateEffectFactory(graphicsEffect,
-                                            new[] { "Light1.LightPosition", "Light1.LightColor",
-                                                    "Light2.LightPosition", "Light2.LightColor"});
+                        _effectFactory = _compositor.CreateEffectFactory(graphicsEffect);
 
+                        // Set the light coordinate space and add the target
+                        Visual lightRoot = ElementCompositionPreview.GetElementVisual(ThumbnailList);
+                        _ambientLight.Targets.Add(lightRoot);
+                        _pointLight.CoordinateSpace = lightRoot;
+                        _pointLight.Targets.Add(lightRoot);
                     }
                     break;
 
@@ -365,82 +360,70 @@ namespace CompositionSampleGallery
                             Sources =
                             {
                                 new CompositionEffectSourceParameter("ImageSource"),
-                                new SpotDiffuseEffect()
+                                new SceneLightingEffect()
                                 {
-                                    Name = "Light1",
-                                    DiffuseAmount = .6f,
-                                    LimitingConeAngle = (float)Math.PI / 8f,
-                                    LightTarget = new Vector3(1000, 1000, 100),
-                                    LightPosition = new Vector3(1000f, 1000f, 1400),
-                                    LightColor = Colors.White,
-                                    Source = new CompositionEffectSourceParameter("NormalMap"),
+                                    AmbientAmount = 0,
+                                    DiffuseAmount = .75f,
+                                    SpecularAmount = 0,
+                                    NormalMapSource = new CompositionEffectSourceParameter("NormalMap"),
                                 }
                             }
                         };
 
-                        _effectFactory = _compositor.CreateEffectFactory(graphicsEffect,
-                                            new[] { "Light1.LightPosition", "Light1.LightColor" });
+                        _effectFactory = _compositor.CreateEffectFactory(graphicsEffect);
+
+                        // Set the light coordinate space and add the target
+                        Visual lightRoot = ElementCompositionPreview.GetElementVisual(ThumbnailList);
+                        _spotLight.CoordinateSpace = lightRoot;
+                        _spotLight.Targets.Add(lightRoot);
+                        _spotLight.InnerConeAngle = (float)(Math.PI / 15);
+                        _spotLight.OuterConeAngle = (float)(Math.PI / 10);
+                        _spotLight.Direction = new Vector3(0, 0, -1);
                     };
                     break;
+
                 case LightingTypes.SpotLightSpecular:
                     {
-                        //p0
+                        //
                         // Result =    Ambient   +       Diffuse           +     Specular
                         // Result = (Image * .6) + (Image * Diffuse color) + (Specular color)
                         //
-
+                        
                         IGraphicsEffect graphicsEffect = new CompositeEffect()
                         {
-                            Mode = CanvasComposite.Add,
+                            Mode = CanvasComposite.DestinationIn,
                             Sources =
                             {
                                 new ArithmeticCompositeEffect()
                                 {
-                                    Source1Amount  = .6f,
-                                    Source2Amount  = 0,
                                     MultiplyAmount = 1,
-
-                                    Source1 = new CompositeEffect()
+                                    Source1Amount = 0,
+                                    Source2Amount = 0,
+                                    Source1 = new CompositionEffectSourceParameter("ImageSource"),
+                                    Source2 = new SceneLightingEffect()
                                     {
-                                        Mode = CanvasComposite.DestinationIn,
-                                        Sources =
-                                        {
-                                            new CompositionEffectSourceParameter("ImageSource"),
-                                            new CompositionEffectSourceParameter("NormalMap"),
-                                        }
-                                    },
-
-                                    Source2 = new SpotDiffuseEffect()
-                                    {
-                                        Name = "Light1",
-                                        DiffuseAmount = 1f,
-                                        LimitingConeAngle = (float)Math.PI / 8f,
-                                        LightTarget = new Vector3(1000, 1000, 100),
-                                        LightPosition = new Vector3(0f, 0f, 100),
-                                        LightColor = Colors.White,
-                                        Source = new CompositionEffectSourceParameter("NormalMap"),
-                                    },
+                                        AmbientAmount = .6f,
+                                        DiffuseAmount = .95f,
+                                        SpecularAmount = .5f,
+                                        SpecularShine = 30f,
+                                        NormalMapSource = new CompositionEffectSourceParameter("NormalMap"),
+                                    }
                                 },
-                                new SpotSpecularEffect()
-                                {
-                                    Name = "Light2",
-                                    SpecularAmount = 1f,
-                                    SpecularExponent = 50f,
-                                    LimitingConeAngle = (float)Math.PI / 8f,
-                                    LightTarget = new Vector3(1000, 1000, 100),
-                                    LightPosition = new Vector3(0f, 0f, 100),
-                                    LightColor = Colors.White,
-                                    Source = new CompositionEffectSourceParameter("NormalMap"),
-                                }
+                                new CompositionEffectSourceParameter("NormalMap"),
                             }
                         };
 
+                        // Create the effect factory
+                        _effectFactory = _compositor.CreateEffectFactory(graphicsEffect);
 
-                        // Create the effect factory, we're going to animate the light positions and colors
-                        _effectFactory = _compositor.CreateEffectFactory(graphicsEffect,
-                                            new[] { "Light1.LightPosition", "Light1.LightColor",
-                                                    "Light2.LightPosition", "Light2.LightColor" });
-
+                        // Set the light coordinate space and add the target
+                        Visual lightRoot = ElementCompositionPreview.GetElementVisual(ThumbnailList);
+                        _ambientLight.Targets.Add(lightRoot);
+                        _spotLight.CoordinateSpace = lightRoot;
+                        _spotLight.Targets.Add(lightRoot);
+                        _spotLight.InnerConeAngle = (float)(Math.PI / 15);
+                        _spotLight.OuterConeAngle = (float)(Math.PI / 10);
+                        _spotLight.Direction = new Vector3(0, 0, -1);
                     };
                     break;
 
@@ -451,38 +434,37 @@ namespace CompositionSampleGallery
                         // Result =  Image * Diffuse color
                         //
 
-                        IGraphicsEffect graphicsEffect = new ArithmeticCompositeEffect()
+                        IGraphicsEffect graphicsEffect = new CompositeEffect()
                         {
-                            Source1Amount  = 0,
-                            Source2Amount  = 0,
-                            MultiplyAmount = 1,
-
-                            Source1 = new CompositeEffect()
+                            Mode = CanvasComposite.DestinationIn,
+                            Sources =
                             {
-                                Mode = CanvasComposite.DestinationIn,
-                                Sources =
+                                new ArithmeticCompositeEffect()
                                 {
-                                    new CompositionEffectSourceParameter("ImageSource"),
-                                    new CompositionEffectSourceParameter("NormalMap"),
-                                }
-                            },
-
-                            Source2 = new DistantDiffuseEffect()
-                            {
-                                Name = "Light1",
-                                DiffuseAmount = 1f,
-                                Elevation = 0f,
-                                Azimuth = 0f,
-                                LightColor = Colors.White,
-                                Source = new CompositionEffectSourceParameter("NormalMap"),
-                            },
+                                    MultiplyAmount = 1,
+                                    Source1Amount = 0,
+                                    Source2Amount = 0,
+                                    Source1 = new CompositionEffectSourceParameter("ImageSource"),
+                                    Source2 = new SceneLightingEffect()
+                                    {
+                                        AmbientAmount = 0,
+                                        DiffuseAmount = .75f,
+                                        SpecularAmount = 0,
+                                        NormalMapSource = new CompositionEffectSourceParameter("NormalMap"),
+                                    }
+                                },
+                                new CompositionEffectSourceParameter("NormalMap"),
+                            }
                         };
 
-                        _effectFactory = _compositor.CreateEffectFactory(graphicsEffect,
-                                            new[] { "Light1.Azimuth", "Light1.Elevation" });
+                        _effectFactory = _compositor.CreateEffectFactory(graphicsEffect);
 
+                        Visual lightRoot = ElementCompositionPreview.GetElementVisual(ThumbnailList);
+                        _distantLight.CoordinateSpace = lightRoot;
+                        _distantLight.Targets.Add(lightRoot);
                     };
                     break;
+
                 case LightingTypes.DistantSpecular:
                     {
                         //
@@ -492,50 +474,32 @@ namespace CompositionSampleGallery
 
                         IGraphicsEffect graphicsEffect = new CompositeEffect()
                         {
-                            Mode = CanvasComposite.Add,
+                            Mode = CanvasComposite.DestinationIn,
                             Sources =
                             {
                                 new ArithmeticCompositeEffect()
                                 {
-                                    Source1Amount  = 0,
-                                    Source2Amount  = 0,
                                     MultiplyAmount = 1,
-                                    Source1 = new CompositeEffect()
+                                    Source1Amount = 0,
+                                    Source2Amount = 0,
+                                    Source1 = new CompositionEffectSourceParameter("ImageSource"),
+                                    Source2 = new SceneLightingEffect()
                                     {
-                                        Mode = CanvasComposite.DestinationIn,
-                                        Sources =
-                                        {
-                                            new CompositionEffectSourceParameter("ImageSource"),
-                                            new CompositionEffectSourceParameter("NormalMap"),
-                                        }
-                                    },
-                                    Source2 = new DistantDiffuseEffect()
-                                    {
-                                        Name = "Light1",
-                                        DiffuseAmount = 1f,
-                                        Elevation = 0f,
-                                        Azimuth = 0f,
-                                        LightColor = Colors.White,
-                                        Source = new CompositionEffectSourceParameter("NormalMap"),
+                                        AmbientAmount = 0,
+                                        DiffuseAmount = .75f,
+                                        SpecularAmount = .75f,
+                                        NormalMapSource = new CompositionEffectSourceParameter("NormalMap"),
                                     }
                                 },
-                                new DistantSpecularEffect()
-                                {
-                                    Name = "Light2",
-                                    SpecularAmount = 1f,
-                                    SpecularExponent = 50f,
-                                    Elevation = 0f,
-                                    Azimuth = 0f,
-                                    LightColor = Colors.White,
-                                    Source = new CompositionEffectSourceParameter("NormalMap"),
-                                }
+                                new CompositionEffectSourceParameter("NormalMap"),
                             }
                         };
 
-                        _effectFactory = _compositor.CreateEffectFactory(graphicsEffect,
-                                            new[] { "Light1.Azimuth", "Light1.Elevation",
-                                                    "Light2.Azimuth", "Light2.Elevation" });
+                        _effectFactory = _compositor.CreateEffectFactory(graphicsEffect);
 
+                        Visual lightRoot = ElementCompositionPreview.GetElementVisual(ThumbnailList);
+                        _distantLight.CoordinateSpace = lightRoot;
+                        _distantLight.Targets.Add(lightRoot);
                     };
                     break;
 
