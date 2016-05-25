@@ -87,6 +87,7 @@ namespace CompositionSampleGallery
             new SampleDefinition(ThumbnailLighting.StaticSampleName,            typeof(ThumbnailLighting),              SampleType.EndToEnd,  SampleCategory.Effects),
             new SampleDefinition(BlurPlayground.StaticSampleName,               typeof(BlurPlayground),                 SampleType.Reference, SampleCategory.Effects),
             new SampleDefinition(VideoPlayground.StaticSampleName,              typeof(VideoPlayground),                SampleType.Reference, SampleCategory.Effects),
+            new SampleDefinition(Photos.StaticSampleName,                       typeof(Photos),                         SampleType.EndToEnd, SampleCategory.Animations),
 #endif
 
 #if SDKVERSION_10586
