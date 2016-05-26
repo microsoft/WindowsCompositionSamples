@@ -1,0 +1,40 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.Photos"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="Black">
+        <ScrollViewer>
+            <StackPanel>
+                <GridView x:Name="gridView" ContainerContentChanging="gridView_ContainerContentChanging">
+                    <GridView.Items>
+                        <Image Source="1.jpg" Width="235" Height="200" Stretch="UniformToFill"/>
+                        <Image Source="2.jpg" Stretch="UniformToFill"/>
+                        <Image Source="3.jpg" Stretch="UniformToFill"/>
+                        <Image Source="4.jpg" Stretch="UniformToFill"/>
+                        <Image Source="5.jpg" Stretch="UniformToFill"/>
+                        <Image Source="6.jpg" Stretch="UniformToFill"/>
+                        <Image Source="7.jpg" Stretch="UniformToFill"/>
+                        <Image Source="8.jpg" Stretch="UniformToFill"/>
+                        <Image Source="9.jpg" Stretch="UniformToFill"/>
+                        <Image Source="10.jpg" Stretch="UniformToFill"/>
+                        <Image Source="11.jpg" Stretch="UniformToFill"/>
+                        <Image Source="12.jpg" Stretch="UniformToFill"/>
+                        <Image Source="13.jpg" Stretch="UniformToFill"/>
+                        <Image Source="14.jpg" Stretch="UniformToFill"/>
+                        <Image Source="15.jpg" Stretch="UniformToFill"/>
+                        <Image Source="16.jpg" Stretch="UniformToFill"/>
+                        <Image Source="17.jpg" Stretch="UniformToFill"/>
+                        <Image Source="18.jpg" Stretch="UniformToFill"/>
+                        <Image Source="19.jpg" Stretch="UniformToFill"/>
+                        <Image Source="20.jpg" Stretch="UniformToFill"/>
+                    </GridView.Items>
+                </GridView>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</local:SamplePage>

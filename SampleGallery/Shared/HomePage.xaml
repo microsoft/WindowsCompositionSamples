@@ -18,10 +18,10 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <Button Style="{StaticResource SplitViewTogglePaneButtonStyle}"
                 Click="ShowSplitView"/>
-        
+
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
             <TextBlock Text="Windows UI Dev Labs" 
                            VerticalAlignment="Center"
@@ -30,7 +30,7 @@
                            FontWeight="Bold"
                            FontSize="24"
                            Grid.Column="1"/>
-            
+
             <RichTextBlock Style="{ThemeResource BodyRichTextBlockStyle}">
                 <Paragraph>
                     Welcome to the Windows UI Dev Labs!  Explore a variety of UI samples now by clicking on one of the featured samples or navigate the full list of samples via the hamburger button.
@@ -45,7 +45,7 @@
                 <HyperlinkButton Content="Follow Us on Twitter @WindowsUI" NavigateUri="https://twitter.com/WindowsUI"/>
                 <HyperlinkButton Content="Get the sample code on GitHub" NavigateUri="https://github.com/Microsoft/WindowsUIDevLabs" Margin="10,0,0,0"/>
             </StackPanel>
-            
+
             <TextBlock Text="Check out these featured samples:" Style="{ThemeResource TitleTextBlockStyle}" FontSize="18" FontWeight="Bold"/>
         </StackPanel>
         <ListView x:Name="FeaturedSampleList" ItemClick="FeaturedSampleList_ItemClick" IsItemClickEnabled="True" Grid.Row="1" Grid.Column="1">
@@ -59,7 +59,7 @@
                     <StackPanel Orientation="Vertical" MaxWidth="350"
                             Height="Auto" 
                             Margin="0,10,10,10">
-                        <common:CompositionImage Width="350" Height="200" Source="{x:Bind ImageUrl}" Stretch="UniformToFill" Margin="0,0,0,5"/>
+                        <common:CompositionImage Width="350" Height="250" Source="{x:Bind ImageUrl}" Stretch="UniformToFill" Margin="0,0,0,5"/>
                         <TextBlock x:Name="SampleName"
                                     Text="{x:Bind Name}"
                                     Style="{ThemeResource BodyTextBlockStyle}"
@@ -82,7 +82,7 @@
                 <LineBreak/> Copyright (c) Microsoft Corporation. All rights
             </Paragraph>
         </RichTextBlock>
-        
+
 
         <local:SampleListControl x:Name="MySampleListControl" Grid.ColumnSpan="2" Grid.RowSpan="3" />
     </Grid>

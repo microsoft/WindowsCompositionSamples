@@ -13,6 +13,8 @@
 //*********************************************************
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -35,7 +37,7 @@ namespace CompositionSampleGallery
 
         PropertySet _colorsByPivotItem;
         ColorBloomTransitionHelper transition;
-
+        Queue<PivotItem> pendingTransitions = new Queue<PivotItem>();
         #endregion
 
 
@@ -115,6 +117,17 @@ namespace CompositionSampleGallery
             transition.Start((Windows.UI.Color)_colorsByPivotItem[header.Name],  // the color for the circlular bloom
                                  initialBounds,                                  // the initial size and position
                                        finalBounds);                             // the area to fill over the animation duration
+
+            // Add item to queue of transitions
+            var pivotItem = (PivotItem)rootPivot.Items.Single(i => ((AppBarButton)((PivotItem)i).Header).Name.Equals(header.Name));
+            pendingTransitions.Enqueue(pivotItem);
+
+            // Make the content visible immediately, when first clicked. Subsequent clicks will be handled by Pivot Control
+            var content = (FrameworkElement)pivotItem.Content;
+            if (content.Visibility == Visibility.Collapsed)
+            {
+                content.Visibility = Visibility.Visible;
+            }
         }
 
 
@@ -123,13 +136,13 @@ namespace CompositionSampleGallery
         /// </summary>
         private void ColorBloomTransitionCompleted(object sender, EventArgs e)
         {
+            // Grab an item off the pending transitions queue
+            var item = pendingTransitions.Dequeue();
+            
             // now remember, that bloom animation was just transitional
             // so we need to explicitly set the correct color as background of the layout panel
-            var header = ((rootPivot.SelectedItem as PivotItem).Header) as AppBarButton;
+            var header = (AppBarButton)item.Header;
             UICanvas.Background = new SolidColorBrush((Windows.UI.Color)_colorsByPivotItem[header.Name]);
-
-            // the content for each pivot item has its Visibility set to Collapsed by default. time to make it visible.
-            ((rootPivot.SelectedItem as PivotItem).Content as FrameworkElement).Visibility = Visibility.Visible;
         }
 
        

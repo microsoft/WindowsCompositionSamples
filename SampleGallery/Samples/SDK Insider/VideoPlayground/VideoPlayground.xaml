@@ -1,0 +1,278 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.VideoPlayground"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:CompositionSampleGallery.Converters"
+    xmlns:triggers="using:CompositionSampleGallery.StateTriggers"
+    Unloaded="SamplePage_Unloaded"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <converters:StringAppenderConverter x:Key="StringAppenderConverter" />
+        <converters:LightModeToBrushConverter x:Key="LightModeToBrushConverter"/>
+        <converters:LightModeToVisibilityConverter x:Key="LightModeToVisibilityConverter"/>
+        <converters:InvertBoolConverter x:Key="InvertBoolConverter" />
+        <converters:BoolToStringConverter x:Key="BoolToStringConverter" />
+
+        <Style TargetType="Button" x:Key="VideoPlaygroundButton">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Width" Value="88" />
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="VideoPlaygroundText">
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <!-- We use a relative panel in order to have an apdaptive layout. It will house both the 
+             video and the Composition related controls. -->
+        <RelativePanel x:Name="RootRelativePanel" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <!-- This is the viewbox used for the video. We specifcally use a viewbox here so that
+                 we can preserve the aspect ratio of our border/grid combo that will be the parent
+                 of the SpriteVisual that has the video swapchain as its content. -->
+            <Viewbox x:Name="VideoViewbox" Margin="10" RelativePanel.RightOf="ControlsScrollViewer" VerticalAlignment="Center">
+                <Border BorderThickness="4" 
+                    BorderBrush="{Binding LightMode, Converter={StaticResource LightModeToBrushConverter}}" 
+                    Width="504" 
+                    Height="285.25">
+                    <Grid>
+                        <Grid x:Name="VideoContentGrid" 
+                          Background="Black">
+                            <!-- This UI will only be visible when there isn't a video playing, as
+                                 the video visual will draw ontop of all of the contents of its parent.-->
+                            <StackPanel Orientation="Vertical" 
+                                    FlowDirection="LeftToRight" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                                <FontIcon Glyph="&#xe116;" 
+                                      FontSize="34"
+                                      Foreground="White"/>
+                                <TextBlock Text="Select a video to see it here!" 
+                                       TextAlignment="Center" 
+                                       Foreground="White"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- This is the prompt UI used to tell the user to click to place their lights. -->
+                        <Grid Visibility="{Binding LightMode, Converter={StaticResource LightModeToVisibilityConverter}, ConverterParameter=AddLight}" 
+                          Tapped="AddLightPromptGrid_Tapped">
+                            <Rectangle Fill="Black" 
+                                   Opacity="0.7" />
+                            <StackPanel Orientation="Vertical" 
+                                    FlowDirection="LeftToRight" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                                <FontIcon Glyph="&#xE7C9;" 
+                                      FontSize="34" 
+                                      Foreground="White"/>
+                                <TextBlock Text="Touch or click to place your light" 
+                                       TextAlignment="Center" 
+                                       Foreground="White" />
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- This is the prompt UI used to tell the user to click to remove their lights. -->
+                        <Grid Visibility="{Binding LightMode, Converter={StaticResource LightModeToVisibilityConverter}, ConverterParameter=RemoveLight}" 
+                          Tapped="RemoveLightPromptGrid_Tapped">
+                            <Rectangle Fill="Black" 
+                                   Opacity="0.7" />
+                            <StackPanel Orientation="Vertical" 
+                                    FlowDirection="LeftToRight" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                                <FontIcon Glyph="&#xE7C9;" 
+                                      FontSize="34" 
+                                      Foreground="White"/>
+                                <TextBlock Text="Touch or click a light to remove it" 
+                                       TextAlignment="Center" 
+                                       Foreground="White" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+
+                </Border>
+            </Viewbox>
+
+            <!-- This ScrollViewer contains all of the Composition related controls for the video. 
+                 On a desktop the ScrollViewer might not be needed, but make sure you keep smaller 
+                 form-factor devices in mind, like tablets and phones! Additionally, putting the 
+                 ScrollViewer around the controls isntead of the entire page allows us to always
+                 keep the video in view, even if the user is scrolling down the list. -->
+            <ScrollViewer x:Name="ControlsScrollViewer" VerticalScrollBarVisibility="Auto">
+                <StackPanel Orientation="Vertical" 
+                            HorizontalAlignment="Stretch"
+                            MinWidth="300"
+                            MaxWidth="350"
+                            Margin="10, 10, 25, 10">
+                    <!-- Controls to load video. -->
+                    <TextBlock Text="Video Source" Style="{StaticResource VideoPlaygroundText}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="OpenFileButton" 
+                            Content="Open File" 
+                            Style="{StaticResource VideoPlaygroundButton}"
+                            Command="{Binding OpenFileCommand}"/>
+                        <Button x:Name="OpenUriButton" 
+                            Grid.Column="1" 
+                            Content="Open Link" 
+                            Style="{StaticResource VideoPlaygroundButton}"
+                            Command="{Binding OpenLinkDialogCommand}"
+                            CommandParameter="{Binding ElementName=LinkDialog}"/>
+                    </Grid>
+
+                    <!-- The rest of these controls shouldn't show if there is not video loaded, as 
+                         there shouldn't be a current effect assigned until then.-->
+
+                    <!-- Controls to add and remove lights. -->
+                    <TextBlock Text="Lighting"  
+                           Visibility="{Binding CurrentEffect, Converter={StaticResource NullToVisibilityConverter}}"
+                               Style="{StaticResource VideoPlaygroundText}"/>
+                    <Grid Visibility="{Binding CurrentEffect, Converter={StaticResource NullToVisibilityConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="AddLightButton" 
+                            Content="{Binding IsAddMode, Converter={StaticResource BoolToStringConverter}, ConverterParameter=Cancel;Add}" 
+                            Style="{StaticResource VideoPlaygroundButton}"
+                            Command="{Binding AddLightCommand}"
+                            IsEnabled="{Binding IsRemoveMode, Converter={StaticResource InvertBoolConverter}}"/>
+                        <Button x:Name="RemoveLightButton" 
+                            Grid.Column="1" 
+                            Content="{Binding IsRemoveMode, Converter={StaticResource BoolToStringConverter}, ConverterParameter=Cancel;Remove}" 
+                            Style="{StaticResource VideoPlaygroundButton}"
+                            Command="{Binding RemoveLightCommand}"
+                            IsEnabled="{Binding IsAddMode, Converter={StaticResource InvertBoolConverter}}"/>
+                    </Grid>
+
+                    <!-- Controls to add effects to the video. -->
+                    <TextBlock Text="Effects" 
+                           Visibility="{Binding CurrentEffect, Converter={StaticResource NullToVisibilityConverter}}"
+                               Style="{StaticResource VideoPlaygroundText}"/>
+                    <ComboBox HorizontalAlignment="Stretch" 
+                              Margin="5"
+                              ItemsSource="{Binding EffectItems}" 
+                              SelectedIndex="{Binding EffectIndex, Mode=TwoWay}"
+                              Visibility="{Binding CurrentEffect, Converter={StaticResource NullToVisibilityConverter}}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate x:DataType="local:EffectItem">
+                                <TextBlock Text="{x:Bind EffectName}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <!-- These controls will only show if the current effect has an animatable property. -->
+                    <Grid Visibility="{Binding CurrentEffect, Converter={StaticResource NullToVisibilityConverter}}">
+                        <StackPanel Visibility="{Binding CurrentEffect.AnimatablePropertyName, Converter={StaticResource NullToVisibilityConverter}}">
+                            <TextBlock Text="{Binding CurrentEffect.AnimatablePropertyName}" 
+                                       Style="{StaticResource VideoPlaygroundText}" />
+                            <Slider Minimum="{Binding CurrentEffect.ValueMin}" 
+                                Maximum="{Binding CurrentEffect.ValueMax}" 
+                                SmallChange="{Binding CurrentEffect.SmallChange}" 
+                                LargeChange="{Binding CurrentEffect.LargeChange}" 
+                                Value="{Binding EffectValue1, Mode=TwoWay}"
+                                Margin="5"  />
+                            <TextBlock Text="Animation"
+                                       Style="{StaticResource VideoPlaygroundText}"/>
+                            <ToggleSwitch x:Name="AnimationToggleSwitch"  />
+
+                            <!-- These controls will only show if the user has selected to turn
+                                 animations on. -->
+                            <Slider Minimum="{Binding CurrentEffect.ValueMin}" 
+                                Maximum="{Binding CurrentEffect.ValueMax}"
+                                SmallChange="{Binding CurrentEffect.SmallChange}" 
+                                LargeChange="{Binding CurrentEffect.LargeChange}" 
+                                Value="{Binding EffectValue2, Mode=TwoWay}"
+                                Margin="5" 
+                                Visibility="{Binding ElementName=AnimationToggleSwitch, Path=IsOn, Converter={StaticResource BoolToVisibilityConverter}}"  />
+                            <TextBlock Text="Duration"  
+                                   Visibility="{Binding ElementName=AnimationToggleSwitch, Path=IsOn, Converter={StaticResource BoolToVisibilityConverter}}"
+                                       Style="{StaticResource VideoPlaygroundText}"/>
+                            <ComboBox HorizontalAlignment="Stretch"  
+                                  Margin="5"  
+                                  Visibility="{Binding ElementName=AnimationToggleSwitch, Path=IsOn, Converter={StaticResource BoolToVisibilityConverter}}"
+                                  ItemsSource="{Binding Durations}"
+                                  SelectedIndex="{Binding DurationIndex, Mode=TwoWay}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource StringAppenderConverter}, ConverterParameter=seconds}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <Button Content="Animate" 
+                                HorizontalAlignment="Right" 
+                                Margin="5" 
+                                Command="{Binding AnimateCommand}"
+                                Visibility="{Binding ElementName=AnimationToggleSwitch, Path=IsOn, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+        </RelativePanel>
+
+        <!-- This content dialog asks the user to input a link to a video. -->
+        <ContentDialog x:Name="LinkDialog" 
+                       VerticalAlignment="Stretch"
+                       HorizontalAlignment="Stretch"
+                       Grid.RowSpan="3"
+                       MaxWidth="{Binding ActualWidth, ElementName=Page}"
+                       Title="Type or paste your link here:"
+                       PrimaryButtonText="Open"
+                       PrimaryButtonCommand="{Binding OpenLinkCommand}"
+                       PrimaryButtonCommandParameter="{Binding ElementName=LinkTextBox, Path=Text}"
+                       SecondaryButtonText="Cancel">
+            <TextBox x:Name="LinkTextBox" 
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Stretch"
+                     Margin="10"/>
+
+        </ContentDialog>
+
+        <!-- The VisualStateManger will allow us to make sure our layout is appropriate for whatever
+             device we are on. We take advantage of XAML's ability to let us define our own adaptive 
+             triggers. By implementing StateTriggerBase, we can define our own behavior, which in 
+             this case will trigger if the width or height becomes larger than the other. When one 
+             of the triggers triger, we change the relationship between the controls in the 
+             RelativePanel. -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <triggers:OrientationTrigger Orientation="Portrait" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RootRelativePanel.VerticalAlignment" Value="Stretch" />
+                        <Setter Target="VideoViewbox.VerticalAlignment" Value="Top" />
+                        <Setter Target="VideoViewbox.(RelativePanel.RightOf)" Value="" />
+                        <Setter Target="VideoViewbox.(RelativePanel.AlignTopWithPanel)" Value="True" />
+                        <Setter Target="ControlsScrollViewer.(RelativePanel.Below)" Value="VideoViewbox" />
+                        <Setter Target="ControlsScrollViewer.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="True" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <triggers:OrientationTrigger Orientation="Landscape" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RootRelativePanel.VerticalAlignment" Value="Center" />
+                        <Setter Target="VideoViewbox.VerticalAlignment" Value="Center" />
+                        <Setter Target="VideoViewbox.(RelativePanel.RightOf)" Value="ControlsScrollViewer" />
+                        <Setter Target="VideoViewbox.(RelativePanel.AlignTopWithPanel)" Value="False" />
+                        <Setter Target="ControlsScrollViewer.(RelativePanel.Below)" Value="" />
+                        <Setter Target="ControlsScrollViewer.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="False" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</local:SamplePage>

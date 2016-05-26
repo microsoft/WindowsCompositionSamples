@@ -9,25 +9,32 @@
     mc:Ignorable="d"
     Loaded="SamplePage_Loaded">
 
-    <ScrollViewer VerticalScrollMode="Auto" HorizontalScrollMode="Disabled">
+    <Grid>
         <common:PerspectivePanel x:Name="MyPerspectivePanel" PerspectiveDepth="500">
             <StackPanel x:Name="MyPanel" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                 <TextBlock Text="Example 1 - Animate a visual's Z offset"
-                   TextWrapping="WrapWholeWords"
-                   FontWeight="Bold"
-                   Margin="10"/>
-                <TextBlock x:Name="TextBlock1" 
-                   Text="Watch me animate towards the vanishing point and back again"
-                   TextWrapping="Wrap"
-                   Margin="10"/>
-
+                TextWrapping="WrapWholeWords"
+                FontWeight="Bold"
+                Margin="10"/>
+                <Border Margin="10">
+                    <!-- This border is needed to ensure XAML does not explicitly set Offset on the 
+                         TextBlock which we are animating.  -->
+                    <TextBlock x:Name="TextBlock1" 
+                    Text="Watch me animate towards the vanishing point and back again"
+                    TextWrapping="Wrap"
+                    />
+                </Border>
                 <TextBlock Text="Example 2 - Rotate a visual with perspective, Z offset = 200"
-                   TextWrapping="WrapWholeWords"
-                   FontWeight="Bold"
-                   Margin="10, 40, 10, 10"/>
-                <Image x:Name="RotatedImage" Source="ms-appx:///Samples/SDK 10586/Perspective/jellyfish.jpg" Width="300" Height="100" Stretch="Fill"/>
+                            TextWrapping="WrapWholeWords"
+                            FontWeight="Bold"
+                            Margin="10, 40, 10, 10"/>
+                <Border Margin="10" HorizontalAlignment="Center">
+                    <!-- This border is needed to ensure XAML does not explicitly set Offset on the 
+                         TextBlock which we are animating.  -->
+                    <Image x:Name="RotatedImage" Source="ms-appx:///Samples/SDK 10586/Perspective/jellyfish.jpg"  Width="300" Height="100" Stretch="Fill"/>
+                </Border>
 
             </StackPanel>
         </common:PerspectivePanel>
-    </ScrollViewer>
+    </Grid>
 </local:SamplePage>

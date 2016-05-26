@@ -120,6 +120,9 @@
       <DependentUpon>ColorBloomTransition.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\SDK 10586\TransitionAnimation-ColorBloom\ColorBloomTransitionHelper.cs" />
+    <Compile Include="Samples\SDK Insider\LayoutAnimations\Photos.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
+      <DependentUpon>Photos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\SDK Insider\PullToAnimate\PullToAnimate.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\ShadowPlayground\ShadowPlayground.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>ShadowPlayground.xaml</DependentUpon>
@@ -131,6 +134,20 @@
     <Compile Include="Samples\SDK Insider\PhotoViewer\PhotoViewer.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\TextShimmer\TextShimmer.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\ThumbnailLighting\ThumbnailLighting.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Commands\DelegateCommand.cs" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\BoolToStringConverter.cs" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\InvertBoolConverter.cs" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\LightModeToBrushConverter.cs" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\LightModeToVisibilityConverter.cs" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\StringApenderConverter.cs" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\EffectItem.cs" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\StateTriggers\OrientationTrigger.cs" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\VideoPlayground.xaml.cs">
+      <DependentUpon>VideoPlayground.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\SDK Insider\VideoPlayground\VideoPlaygroundViewModel.cs" />
     <Compile Include="Shared\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -217,6 +234,26 @@
     <Content Include="Samples\SDK 10586\TransitionAnimation-ColorBloom\CircleOpacityMask.png" />
     <Content Include="Samples\SDK 10586\Z-Order Scrolling\RollingWaves.jpg" />
     <Content Include="Samples\SDK 10586\Z-Order Scrolling\teched3ae5a27b-4f78-e111-94ad-001ec953730b.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\1.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\10.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\11.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\12.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\13.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\14.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\15.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\16.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\17.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\18.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\19.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\2.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\20.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\3.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\4.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\5.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\6.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\7.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\8.jpg" />
+    <Content Include="Samples\SDK Insider\LayoutAnimations\9.jpg" />
     <Content Include="Samples\SDK Insider\NowPlaying\normalmap.jpg" />
     <Content Include="Samples\SDK Insider\ShadowPlayground\win11_-15607.jpg" />
     <Content Include="Samples\SDK Insider\ThumbnailLighting\BeveledEdges.jpg" />
@@ -276,6 +313,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\SDK Insider\LayoutAnimations\Photos.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\SDK Insider\PullToAnimate\PullToAnimate.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -297,6 +338,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\SDK Insider\ThumbnailLighting\ThumbnailLighting.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK Insider\VideoPlayground\VideoPlayground.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
