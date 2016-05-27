@@ -40,5 +40,13 @@ Additionally, to stay on top of the latest updates to Windows and the developmen
 
 We will be frequently iterating and updating code samples in this repository, so it's recommended you become an Insider, follow us on Twitter for the latest updates, and provide feedback in the Issue section. 
 
+##Learning More about Windows UI APIs
+Want to learn about all the exciting features that the Windows UI APIs can bring to your app? Check out the BUILD 2016 session recordings for Windows UI.
 
+[List of talks for BUILD 2016 that can be watched on Channel9](https://github.com/Microsoft/WindowsUIDevLabs/wiki/Windows-UI-Newsletter---May-Edition#build-sessions)
 
+There are also a number of blogs and blog posts from members of our community that go into the specifics of using the Windows.UI.Composition APIs. A few of them are listed below.
+- Kenny Kerr has [a detailed introduction to graphics and animation using the Windows Composition APIs](https://msdn.microsoft.com/en-us/magazine/mt590968) in MSDN magazine
+- Mike Taulty has [a number of blog posts](https://mtaulty.com/category/composition/) experimenting with the Windows.UI.Composition APIs, with topics relating to effects and performance.
+- Microsoft Windows UI team member Robert Mikhayelyan talks about UWP development and the basics of the Composition APIs in [his personal blog](http://blog.robmikh.com/).
+- XAML Brewer Diederik Krols has many [in-depth posts on Effects and custom Windows UI controls](https://xamlbrewer.wordpress.com/category/composition-api/).
