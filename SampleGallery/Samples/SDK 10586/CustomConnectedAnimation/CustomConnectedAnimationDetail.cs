@@ -21,15 +21,15 @@ using Windows.UI.Core;
 
 namespace CompositionSampleGallery
 {
-    public sealed partial class ContinuityDetails : Page
+    public sealed partial class CustomConnectedAnimationDetail : Page
     {
-        private ContinuityTransition
+        private ConnectedTransition
                                     _currentTransition;
-        private Continuity.DetailsInfo
+        private CustomConnectedAnimation.DetailsInfo
                                     _detailsInfo;
-        private SampleHost          _host;
+        private Frame               _host;
 
-        public ContinuityDetails()
+        public CustomConnectedAnimationDetail()
         {
             this.InitializeComponent();
         }
@@ -38,27 +38,27 @@ namespace CompositionSampleGallery
         {
             base.OnNavigatedTo(e);
 
-            _currentTransition = (ContinuityTransition)e.Parameter;
-            _detailsInfo = (Continuity.DetailsInfo)_currentTransition.Payload;
-            _host = (SampleHost)_currentTransition.Host;
+            _currentTransition = (ConnectedTransition)e.Parameter;
+            _detailsInfo = (CustomConnectedAnimation.DetailsInfo)_currentTransition.Payload;
+            _host = _currentTransition.Host as Frame;
 
             Title.Text = _detailsInfo.thumbanil.Name;
             DetailText.Text = _detailsInfo.thumbanil.Description;
 
             // Enable the back button
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = _host.ContentFrame.CanGoBack ?
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = _host.CanGoBack ?
                                                 AppViewBackButtonVisibility.Visible : 
                                                 AppViewBackButtonVisibility.Collapsed;
             
-            SystemNavigationManager.GetForCurrentView().BackRequested += ContinuityDetails_BackRequested;
+            SystemNavigationManager.GetForCurrentView().BackRequested += CustomConnectedAnimationDetail_BackRequested;
         }
 
-        private void ContinuityDetails_BackRequested(object sender, BackRequestedEventArgs e)
+        private void CustomConnectedAnimationDetail_BackRequested(object sender, BackRequestedEventArgs e)
         {
             if (!e.Handled)
             {
                 // Unregister the handler
-                SystemNavigationManager.GetForCurrentView().BackRequested -= ContinuityDetails_BackRequested;
+                SystemNavigationManager.GetForCurrentView().BackRequested -= CustomConnectedAnimationDetail_BackRequested;
 
                 // We are about to transition to a new page.  Cancel any outstanding transitions.
                 if (_currentTransition != null)
@@ -71,9 +71,10 @@ namespace CompositionSampleGallery
                 }
 
                 // Setup the new transition and trigger the navigation
-                ContinuityTransition transition = new ContinuityTransition();
+                ConnectedTransition transition = new ConnectedTransition();
                 transition.Initialize(_host, ThumbnailImage, _detailsInfo);
-                _host.ContentFrame.Navigate(typeof(Continuity), transition);
+
+                _host.Navigate(typeof(CustomConnectedAnimation), transition);
 
                 // We've got it handled
                 e.Handled = true;
@@ -84,7 +85,7 @@ namespace CompositionSampleGallery
         {
             if (_currentTransition != null)
             {
-                Continuity.DetailsInfo info = (Continuity.DetailsInfo)_currentTransition.Payload;
+                CustomConnectedAnimation.DetailsInfo info = (CustomConnectedAnimation.DetailsInfo)_currentTransition.Payload;
                 
                 // Update the Thumbnail image to point to the proper album art
                 ThumbnailImage.Source = new Uri(info.thumbanil.ImageUrl);

@@ -91,17 +91,17 @@ namespace CompositionSampleGallery
 #endif
 
 #if SDKVERSION_10586
-            new SampleDefinition(BasicXamlInterop.StaticSampleName,             typeof(BasicXamlInterop),       SampleType.Reference, SampleCategory.Visuals),
-            new SampleDefinition(Continuity.StaticSampleName,                   typeof(Continuity),             SampleType.EndToEnd,  SampleCategory.Transitions),
-            new SampleDefinition(ParallaxingListItems.StaticSampleName,         typeof(ParallaxingListItems),   SampleType.EndToEnd,  SampleCategory.ExpressionAnimations),
-            new SampleDefinition(Perspective.StaticSampleName,                  typeof(Perspective),            SampleType.Reference, SampleCategory.Visuals),
-            new SampleDefinition(PointerEnterEffects.StaticSampleName,          typeof(PointerEnterEffects),    SampleType.EndToEnd,  SampleCategory.Effects),
-            new SampleDefinition(PropertySets.StaticSampleName,                 typeof(PropertySets),           SampleType.Reference, SampleCategory.ExpressionAnimations),
-            new SampleDefinition(ColorBloomTransition.StaticSampleName,         typeof(ColorBloomTransition),   SampleType.EndToEnd,  SampleCategory.Transitions),
-            new SampleDefinition(ColorSlideTransition.StaticSampleName,         typeof(ColorSlideTransition),   SampleType.EndToEnd,  SampleCategory.Transitions),
-            new SampleDefinition(ZoomWithPerspective.StaticSampleName,          typeof(ZoomWithPerspective),    SampleType.EndToEnd,  SampleCategory.Visuals),
-            new SampleDefinition(FlipToReveal.StaticSampleName,                 typeof(FlipToReveal),           SampleType.EndToEnd,  SampleCategory.Transitions),
-            new SampleDefinition(Z_OrderScrolling.StaticSampleName,             typeof(Z_OrderScrolling),       SampleType.EndToEnd,  SampleCategory.ExpressionAnimations),
+            new SampleDefinition(BasicXamlInterop.StaticSampleName,             typeof(BasicXamlInterop),           SampleType.Reference, SampleCategory.Visuals),
+            new SampleDefinition(ParallaxingListItems.StaticSampleName,         typeof(ParallaxingListItems),       SampleType.EndToEnd,  SampleCategory.ExpressionAnimations),
+            new SampleDefinition(Perspective.StaticSampleName,                  typeof(Perspective),                SampleType.Reference, SampleCategory.Visuals),
+            new SampleDefinition(PointerEnterEffects.StaticSampleName,          typeof(PointerEnterEffects),        SampleType.EndToEnd,  SampleCategory.Effects),
+            new SampleDefinition(PropertySets.StaticSampleName,                 typeof(PropertySets),               SampleType.Reference, SampleCategory.ExpressionAnimations),
+            new SampleDefinition(ColorBloomTransition.StaticSampleName,         typeof(ColorBloomTransition),       SampleType.EndToEnd,  SampleCategory.Transitions),
+            new SampleDefinition(ColorSlideTransition.StaticSampleName,         typeof(ColorSlideTransition),       SampleType.EndToEnd,  SampleCategory.Transitions),
+            new SampleDefinition(ZoomWithPerspective.StaticSampleName,          typeof(ZoomWithPerspective),        SampleType.EndToEnd,  SampleCategory.Visuals),
+            new SampleDefinition(FlipToReveal.StaticSampleName,                 typeof(FlipToReveal),               SampleType.EndToEnd,  SampleCategory.Transitions),
+            new SampleDefinition(Z_OrderScrolling.StaticSampleName,             typeof(Z_OrderScrolling),           SampleType.EndToEnd,  SampleCategory.ExpressionAnimations),
+            new SampleDefinition(ConnectedAnimationShell.StaticSampleName,      typeof(ConnectedAnimationShell),    SampleType.EndToEnd,  SampleCategory.Transitions),
 #endif
         };
 

@@ -59,9 +59,9 @@ namespace CompositionSampleGallery
 #else
             featuredSamples = new FeaturedSample[]
                 {
-                    new FeaturedSample(ColorBloomTransition.StaticSampleName, "Demonstrates how to use Visuals and Animations to create a color bloom effect during page or state transitions.", "ms-appx:///Assets/ColorBloom.jpg"),
-                    new FeaturedSample(Continuity.StaticSampleName,           "Connected animations communicate context across page navigations. Click on one of the thumbnails and see it transition continuously across from one page navigate to another.", "ms-appx:///Assets/ContinuityAnimations.jpg"),
-                    new FeaturedSample(ZoomWithPerspective.StaticSampleName,  "Demonstrates how to apply and animate a perspective transform.", "ms-appx:///Assets/ZoomPerspective.jpg"),
+                    new FeaturedSample(ColorBloomTransition.StaticSampleName,       "Demonstrates how to use Visuals and Animations to create a color bloom effect during page or state transitions.", "ms-appx:///Assets/ColorBloom.jpg"),
+                    new FeaturedSample(ConnectedAnimationShell.StaticSampleName,    "Connected animations communicate context across page navigations. Click on one of the thumbnails and see it transition continuously across from one page navigate to another.", "ms-appx:///Assets/ContinuityAnimations.jpg"),
+                    new FeaturedSample(ZoomWithPerspective.StaticSampleName,        "Demonstrates how to apply and animate a perspective transform.", "ms-appx:///Assets/ZoomPerspective.jpg"),
                 };
 #endif
             FeaturedSampleList.ItemsSource = featuredSamples;
