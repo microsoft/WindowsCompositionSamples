@@ -16,12 +16,15 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ComboBox x:Name="LightingSelection" 
+        <StackPanel Orientation="Horizontal">
+            <ComboBox x:Name="LightingSelection" 
                       HorizontalAlignment="Left" 
                       VerticalAlignment="Top" 
                       Margin="20,20,20,20"
                       Grid.Row="0"
                       SelectionChanged="LightingSelection_SelectionChanged"/>
+            <CheckBox x:Name="MouseHover" Click="CheckBox_Checked">Enable Mouse hover</CheckBox>
+        </StackPanel>
 
         <RelativePanel x:Name="RootPanel" Grid.Row="1">
 

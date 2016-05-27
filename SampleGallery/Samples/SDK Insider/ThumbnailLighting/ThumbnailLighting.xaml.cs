@@ -513,5 +513,46 @@ namespace CompositionSampleGallery
             // Update all the image to have the new effect
             UpdateEffectBrush();
         }
+
+        private void ThumbnailList_PointerMoved(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            Vector2 offset = e.GetCurrentPoint(ThumbnailList).Position.ToVector2();
+            ComboBoxItem item = LightingSelection.SelectedValue as ComboBoxItem;
+            switch ((LightingTypes)item.Tag)
+            {
+                case LightingTypes.PointDiffuse:
+                case LightingTypes.PointSpecular:
+                    _pointLight.Offset = new Vector3(offset.X, offset.Y, 75);
+                    break;
+
+                case LightingTypes.SpotLightDiffuse:
+                case LightingTypes.SpotLightSpecular:
+                    _spotLight.Offset = new Vector3(offset.X, offset.Y, 100);
+                    break;
+
+                case LightingTypes.DistantDiffuse:
+                case LightingTypes.DistantSpecular:
+                    Vector3 position = new Vector3((float)ThumbnailList.ActualWidth / 2, (float)ThumbnailList.ActualHeight / 2, 200);
+                    Vector3 lookAt = new Vector3((float)ThumbnailList.ActualWidth - offset.X, (float)ThumbnailList.ActualHeight - offset.Y, 0);
+                    _distantLight.Direction = Vector3.Normalize(lookAt - position);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if(MouseHover.IsChecked == true)
+            {
+                ThumbnailList.PointerMoved += ThumbnailList_PointerMoved;
+            }
+            else
+            {
+                ThumbnailList.PointerMoved -= ThumbnailList_PointerMoved;
+                UpdateAnimations();
+            }
+        }
     }
 }
