@@ -28,15 +28,14 @@ using Windows.UI.Xaml.Navigation;
 
 namespace CompositionSampleGallery
 {
-    public sealed partial class Continuity : SamplePage
+    public sealed partial class CustomConnectedAnimation : Page
     {
-        private SampleHost              _host;
-        private ContinuityTransition    _currentTransition;
+        private ConnectedTransition    _currentTransition;
 
         public struct ContinuityData
         {
             public SpriteVisual sprite;
-            public SampleHost   host;
+            public Frame        frame;
             public UIElement    parent;
             public CompositionImage image;
         }
@@ -46,17 +45,12 @@ namespace CompositionSampleGallery
             public Thumbnail thumbanil;
         }
 
-        public Continuity()
+        public CustomConnectedAnimation()
         {
             Model = new LocalDataSource();
             this.InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
-
-        public static string    StaticSampleName    { get { return "Continuity"; } }
-        public override string  SampleName          { get { return StaticSampleName; } }
-        public override string  SampleDescription   { get { return "Connected animations communicate context across page navigations. Click on one of the thumbnails and see it transition continuously across from one page navigate to another."; } }
-        public override string  SampleCodeUri       { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761164"; } }
 
         public LocalDataSource Model
         {
@@ -83,9 +77,10 @@ namespace CompositionSampleGallery
             info.thumbanil = (Thumbnail)e.ClickedItem;
 
             // Setup the new transition and trigger the navigation
-            ContinuityTransition transition = new ContinuityTransition();
-            transition.Initialize(_host, image, info);
-            _host.ContentFrame.Navigate(typeof(ContinuityDetails), transition);
+            ConnectedTransition transition = new ConnectedTransition();
+            transition.Initialize(Frame, image, info);
+
+            Frame.Navigate(typeof(CustomConnectedAnimationDetail), transition);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -93,13 +88,9 @@ namespace CompositionSampleGallery
             base.OnNavigatedTo(e);
 
             // Store the incoming parameter
-            if (e.Parameter is SampleHost)
+            if (e.Parameter is ConnectedTransition)
             {
-                _host = (SampleHost)e.Parameter;
-            }
-            else if (e.Parameter is ContinuityTransition)
-            {
-                _currentTransition = (ContinuityTransition)e.Parameter;
+                _currentTransition = (ConnectedTransition)e.Parameter;
             }
 
             //Hide the back button on the list page as there is no where to go back to. 

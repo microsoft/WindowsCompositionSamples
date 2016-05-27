@@ -112,6 +112,15 @@
     <Compile Include="Samples\SDK 10586\TransitionAnimation-FlipToReveal\FlipToReveal.xaml.cs" />
     <Compile Include="Samples\SDK 10586\ZoomWithPerspective\ZoomWithPerspective.xaml.cs" />
     <Compile Include="Samples\SDK Insider\BlurPlayground\BlurPlayground.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\ConnectedAnimationSample\ConnectedAnimationDetail.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
+      <DependentUpon>ConnectedAnimationDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\SDK 10586\CustomConnectedAnimation\ConnectedAnimationShell.xaml.cs">
+      <DependentUpon>ConnectedAnimationShell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\SDK Insider\ConnectedAnimationSample\ConnectedAnimationSample.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
+      <DependentUpon>ConnectedAnimationSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\SDK Insider\Gears\Gears.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\Curtain\Curtain.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\ImplicitAnimationTransformer\ImplicitAnimationTransformer.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
@@ -159,9 +168,9 @@
     <Compile Include="Shared\SamplePage.cs" />
     <Compile Include="Shared\SampleListControl.xaml.cs" />
     <Compile Include="Samples\SDK 10586\BasicXamlInterop\BasicXamlInterop.xaml.cs" />
-    <Compile Include="Samples\SDK 10586\Continuity\Continuity.xaml.cs" />
-    <Compile Include="Samples\SDK 10586\Continuity\ContinuityDetails.xaml.cs" />
-    <Compile Include="Samples\SDK 10586\Continuity\ContinuityTransition.cs" />
+    <Compile Include="Samples\SDK 10586\CustomConnectedAnimation\CustomConnectedAnimation.xaml.cs" />
+    <Compile Include="Samples\SDK 10586\CustomConnectedAnimation\CustomConnectedAnimationDetail.cs" />
+    <Compile Include="Samples\SDK 10586\CustomConnectedAnimation\ConnectedTransition.cs" />
     <Compile Include="Samples\SDK Insider\ForegroundFocusEffects\ForegroundFocusEffects.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\NowPlaying\NowPlaying.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 10586\ParallaxingListItems\ParallaxingListItems.xaml.cs" />
@@ -292,6 +301,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\SDK Insider\ConnectedAnimationSample\ConnectedAnimationDetail.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\SDK 10586\CustomConnectedAnimation\ConnectedAnimationShell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\SDK Insider\ConnectedAnimationSample\ConnectedAnimationSample.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\SDK Insider\Curtain\Curtain.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -357,11 +378,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK 10586\Continuity\Continuity.xaml">
+    <Page Include="Samples\SDK 10586\CustomConnectedAnimation\CustomConnectedAnimation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK 10586\Continuity\ContinuityDetails.xaml">
+    <Page Include="Samples\SDK 10586\CustomConnectedAnimation\CustomConnectedAnimationDetail.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
