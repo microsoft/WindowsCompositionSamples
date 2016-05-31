@@ -195,17 +195,16 @@ namespace CompositionSampleGallery
                 case LightingTypes.DistantDiffuse:
                 case LightingTypes.DistantSpecular:
                     {
-                        // Animate the light direction from left to right
-                        double flLeftSweepRadians = Math.PI / 8;
-                        double flRightSweepRadians = Math.PI - flLeftSweepRadians;
-                        double flCenterRadians = Math.PI / 2;
+                        // Animate the light direction
+                        Vector3 position = new Vector3(0, 0, 100);
+                        float offCenter = 700f;
 
                         Vector3KeyFrameAnimation lightDirectionAnimation = _compositor.CreateVector3KeyFrameAnimation();
-                        lightDirectionAnimation.InsertKeyFrame(0f,   new Vector3((float)Math.Cos(flCenterRadians),     0, (float)-Math.Sin(flCenterRadians)));
-                        lightDirectionAnimation.InsertKeyFrame(.25f, new Vector3((float)Math.Cos(flLeftSweepRadians),  0, (float)-Math.Sin(flLeftSweepRadians)));
-                        lightDirectionAnimation.InsertKeyFrame(.50f, new Vector3((float)Math.Cos(flRightSweepRadians), 0, (float)-Math.Sin(flRightSweepRadians)));
-                        lightDirectionAnimation.InsertKeyFrame(.75f, new Vector3((float)Math.Cos(flLeftSweepRadians),  0, (float)-Math.Sin(flLeftSweepRadians)));
-                        lightDirectionAnimation.InsertKeyFrame(1f,   new Vector3((float)Math.Cos(flCenterRadians),     0, (float)-Math.Sin(flCenterRadians)));
+                        lightDirectionAnimation.InsertKeyFrame(0f,   Vector3.Normalize(new Vector3(0,0,0)           - position));
+                        lightDirectionAnimation.InsertKeyFrame(.25f, Vector3.Normalize(new Vector3(offCenter, 0, 0) - position));
+                        lightDirectionAnimation.InsertKeyFrame(.5f,  Vector3.Normalize(new Vector3(-offCenter, offCenter, 0) - position));
+                        lightDirectionAnimation.InsertKeyFrame(.75f, Vector3.Normalize(new Vector3(0, -offCenter, 0) - position));
+                        lightDirectionAnimation.InsertKeyFrame(1f,   Vector3.Normalize(new Vector3(0, 0, 0)          - position));
                         lightDirectionAnimation.Duration = TimeSpan.FromMilliseconds(7500);
                         lightDirectionAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
                         
@@ -309,8 +308,8 @@ namespace CompositionSampleGallery
                 case LightingTypes.PointSpecular:
                     {
                         //
-                        // Result =    Ambient   +       Diffuse           +        Specular
-                        // Result = (Image * .6) + (Image * Diffuse color) + (.75 * Specular color)
+                        // Result =    Ambient   +       Diffuse           +     Specular
+                        // Result = (Image * .6) + (Image * Diffuse color) + (Specular color)
                         //
 
                         IGraphicsEffect graphicsEffect = new CompositeEffect()
@@ -320,16 +319,30 @@ namespace CompositionSampleGallery
                             {
                                 new ArithmeticCompositeEffect()
                                 {
-                                    MultiplyAmount = 1,
-                                    Source1Amount = 0,
-                                    Source2Amount = 0,
-                                    Source1 = new CompositionEffectSourceParameter("ImageSource"),
+                                    Source1Amount = 1,
+                                    Source2Amount = 1,
+                                    MultiplyAmount = 0,
+
+                                    Source1 = new ArithmeticCompositeEffect()
+                                    {
+                                        MultiplyAmount = 1,
+                                        Source1Amount = 0,
+                                        Source2Amount = 0,
+                                        Source1 = new CompositionEffectSourceParameter("ImageSource"),
+                                        Source2 = new SceneLightingEffect()
+                                        {
+                                            AmbientAmount = .6f,
+                                            DiffuseAmount = 1f,
+                                            SpecularAmount = 0f,
+                                            NormalMapSource = new CompositionEffectSourceParameter("NormalMap"),
+                                        }
+                                    },
                                     Source2 = new SceneLightingEffect()
                                     {
-                                        AmbientAmount = .6f,
-                                        DiffuseAmount = .05f,
-                                        SpecularAmount = .5f,
-                                        SpecularShine = 10f,
+                                        AmbientAmount = 0,
+                                        DiffuseAmount = 0f,
+                                        SpecularAmount = 1f,
+                                        SpecularShine = 100,
                                         NormalMapSource = new CompositionEffectSourceParameter("NormalMap"),
                                     }
                                 },
@@ -351,7 +364,7 @@ namespace CompositionSampleGallery
                     {
                         //
                         // Result = Ambient +      Diffuse
-                        // Result =  Image  + (Diffuse color *.6)
+                        // Result =  Image  + (Diffuse color * .75)
                         //
 
                         IGraphicsEffect graphicsEffect = new CompositeEffect()
@@ -388,7 +401,7 @@ namespace CompositionSampleGallery
                         // Result =    Ambient   +       Diffuse           +     Specular
                         // Result = (Image * .6) + (Image * Diffuse color) + (Specular color)
                         //
-                        
+
                         IGraphicsEffect graphicsEffect = new CompositeEffect()
                         {
                             Mode = CanvasComposite.DestinationIn,
@@ -396,16 +409,30 @@ namespace CompositionSampleGallery
                             {
                                 new ArithmeticCompositeEffect()
                                 {
-                                    MultiplyAmount = 1,
-                                    Source1Amount = 0,
-                                    Source2Amount = 0,
-                                    Source1 = new CompositionEffectSourceParameter("ImageSource"),
+                                    Source1Amount = 1,
+                                    Source2Amount = 1,
+                                    MultiplyAmount = 0,
+
+                                    Source1 = new ArithmeticCompositeEffect()
+                                    {
+                                        MultiplyAmount = 1,
+                                        Source1Amount = 0,
+                                        Source2Amount = 0,
+                                        Source1 = new CompositionEffectSourceParameter("ImageSource"),
+                                        Source2 = new SceneLightingEffect()
+                                        {
+                                            AmbientAmount = .6f,
+                                            DiffuseAmount = 1f,
+                                            SpecularAmount = 0f,
+                                            NormalMapSource = new CompositionEffectSourceParameter("NormalMap"),
+                                        }
+                                    },
                                     Source2 = new SceneLightingEffect()
                                     {
-                                        AmbientAmount = .6f,
-                                        DiffuseAmount = .95f,
-                                        SpecularAmount = .5f,
-                                        SpecularShine = 30f,
+                                        AmbientAmount = 0,
+                                        DiffuseAmount = 0f,
+                                        SpecularAmount = 1f,
+                                        SpecularShine = 100,
                                         NormalMapSource = new CompositionEffectSourceParameter("NormalMap"),
                                     }
                                 },
@@ -430,8 +457,8 @@ namespace CompositionSampleGallery
                 case LightingTypes.DistantDiffuse:
                     {
                         //
-                        // Result =       Diffuse
-                        // Result =  Image * Diffuse color
+                        // Result = Ambient +       Diffuse
+                        // Result = (Image) + (.5 * Diffuse color)
                         //
 
                         IGraphicsEffect graphicsEffect = new CompositeEffect()
@@ -439,18 +466,19 @@ namespace CompositionSampleGallery
                             Mode = CanvasComposite.DestinationIn,
                             Sources =
                             {
-                                new ArithmeticCompositeEffect()
+                                new CompositeEffect()
                                 {
-                                    MultiplyAmount = 1,
-                                    Source1Amount = 0,
-                                    Source2Amount = 0,
-                                    Source1 = new CompositionEffectSourceParameter("ImageSource"),
-                                    Source2 = new SceneLightingEffect()
+                                    Mode = CanvasComposite.Add,
+                                    Sources =
                                     {
-                                        AmbientAmount = 0,
-                                        DiffuseAmount = .75f,
-                                        SpecularAmount = 0,
-                                        NormalMapSource = new CompositionEffectSourceParameter("NormalMap"),
+                                        new CompositionEffectSourceParameter("ImageSource"),
+                                        new SceneLightingEffect()
+                                        {
+                                            AmbientAmount = 0,
+                                            DiffuseAmount = .5f,
+                                            SpecularAmount = 0,
+                                            NormalMapSource = new CompositionEffectSourceParameter("NormalMap"),
+                                        }
                                     }
                                 },
                                 new CompositionEffectSourceParameter("NormalMap"),
@@ -479,15 +507,30 @@ namespace CompositionSampleGallery
                             {
                                 new ArithmeticCompositeEffect()
                                 {
-                                    MultiplyAmount = 1,
-                                    Source1Amount = 0,
-                                    Source2Amount = 0,
-                                    Source1 = new CompositionEffectSourceParameter("ImageSource"),
+                                    Source1Amount = 1,
+                                    Source2Amount = 1,
+                                    MultiplyAmount = 0,
+
+                                    Source1 = new ArithmeticCompositeEffect()
+                                    {
+                                        MultiplyAmount = 1,
+                                        Source1Amount = 0,
+                                        Source2Amount = 0,
+                                        Source1 = new CompositionEffectSourceParameter("ImageSource"),
+                                        Source2 = new SceneLightingEffect()
+                                        {
+                                            AmbientAmount = .6f,
+                                            DiffuseAmount = 1f,
+                                            SpecularAmount = 0f,
+                                            NormalMapSource = new CompositionEffectSourceParameter("NormalMap"),
+                                        }
+                                    },
                                     Source2 = new SceneLightingEffect()
                                     {
                                         AmbientAmount = 0,
-                                        DiffuseAmount = .75f,
-                                        SpecularAmount = .75f,
+                                        DiffuseAmount = 0f,
+                                        SpecularAmount = 1f,
+                                        SpecularShine = 100,
                                         NormalMapSource = new CompositionEffectSourceParameter("NormalMap"),
                                     }
                                 },
