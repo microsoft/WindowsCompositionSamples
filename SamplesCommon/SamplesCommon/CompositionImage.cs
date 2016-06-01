@@ -461,8 +461,10 @@ namespace SamplesCommon
             loadingVisual.StartAnimation("Opacity", _fadeOutAnimation);
 
 #if SDKVERSION_INSIDER
+            Vector2 visualSize = _sprite.Size;
+            _surfaceBrush.CenterPoint = new Vector2(visualSize.X *.5f, visualSize.Y * .5f);
+
             _surfaceBrush.StartAnimation("Scale", _scaleAnimation);
-            _surfaceBrush.CenterPoint = new Vector2((float)_surface.Size.Width *.5f, (float)_surface.Size.Height * .5f);
 #endif
             // End the batch after those animations complete
             batch.End();

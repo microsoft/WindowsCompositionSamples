@@ -143,20 +143,20 @@
     <Compile Include="Samples\SDK Insider\PhotoViewer\PhotoViewer.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\TextShimmer\TextShimmer.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\ThumbnailLighting\ThumbnailLighting.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Commands\DelegateCommand.cs" />
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\BoolToStringConverter.cs" />
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\BoolToVisibilityConverter.cs" />
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\InvertBoolConverter.cs" />
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\LightModeToBrushConverter.cs" />
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\LightModeToVisibilityConverter.cs" />
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\NullToVisibilityConverter.cs" />
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\StringApenderConverter.cs" />
-    <Compile Include="Samples\SDK Insider\VideoPlayground\EffectItem.cs" />
-    <Compile Include="Samples\SDK Insider\VideoPlayground\StateTriggers\OrientationTrigger.cs" />
-    <Compile Include="Samples\SDK Insider\VideoPlayground\VideoPlayground.xaml.cs">
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Commands\DelegateCommand.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\BoolToStringConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\BoolToVisibilityConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\InvertBoolConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\LightModeToBrushConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\LightModeToVisibilityConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\NullToVisibilityConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\StringApenderConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
+    <Compile Include="Samples\SDK Insider\VideoPlayground\EffectItem.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
+    <Compile Include="Samples\SDK Insider\VideoPlayground\StateTriggers\OrientationTrigger.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
+    <Compile Include="Samples\SDK Insider\VideoPlayground\VideoPlayground.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>VideoPlayground.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\VideoPlaygroundViewModel.cs" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\VideoPlaygroundViewModel.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
     <Compile Include="Shared\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -190,6 +190,7 @@
     <Content Include="Assets\Appointment.png" />
     <Content Include="Assets\Background.png" />
     <Content Include="Assets\ContinuityAnimations.jpg" />
+    <Content Include="Assets\Noise.jpg" />
     <Content Include="Assets\ShadowPlayground.jpg" />
     <Content Include="Assets\Calendar.png" />
     <Content Include="Assets\CircleMask.png" />

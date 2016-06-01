@@ -111,7 +111,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackDrop.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="BackDrop.cs" />
     <Compile Include="ColorMixer.xaml.cs">
       <DependentUpon>ColorMixer.xaml</DependentUpon>
     </Compile>
