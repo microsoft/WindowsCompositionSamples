@@ -30,7 +30,9 @@
 
             <ListView x:Name="ThumbnailList"
                         ContainerContentChanging="ListView_ContainerContentChanging"
-                        SizeChanged="ThumbnailList_SizeChanged">
+                        SizeChanged="ThumbnailList_SizeChanged"
+                        IsItemClickEnabled="True"
+                       ItemClick="ThumbnailList_ItemClick">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <ItemsWrapGrid Orientation="Horizontal"/>
