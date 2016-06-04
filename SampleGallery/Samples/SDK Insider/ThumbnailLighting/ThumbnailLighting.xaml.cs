@@ -73,7 +73,7 @@ namespace CompositionSampleGallery
 
         public static string    StaticSampleName    { get { return "Thumbnail Lighting"; } }
         public override string  SampleName          { get { return StaticSampleName; } }
-        public override string  SampleDescription   { get { return "Demonstrates how to apply Image Lighting to ListView Items.  Switch between different combinations of light types(point, spot, distant) and lighting properties such as diffuse and specular."; } }
+        public override string  SampleDescription   { get { return "Demonstrates how to apply Image Lighting to ListView Items.  Switch between different combinations of light types(point, spot, distant) and lighting properties such as diffuse and specular.  Click on a tile to flip it, or select mouse mode to track the mouse location."; } }
         public override string  SampleCodeUri       { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761165"; } }
 
         public LocalDataSource Model { get; set; }
@@ -142,15 +142,15 @@ namespace CompositionSampleGallery
                 case LightingTypes.PointDiffuse:
                 case LightingTypes.PointSpecular:
                     {
-                        float flZDistance = 50f;
+                        float zDistance = 50f;
 
                         // Create the light position animation
                         lightPositionAnimation = _compositor.CreateVector3KeyFrameAnimation();
-                        lightPositionAnimation.InsertKeyFrame(0f, new Vector3(0f, 0f, flZDistance));
-                        lightPositionAnimation.InsertKeyFrame(.25f, new Vector3(sizeLightBounds.X * .2f, sizeLightBounds.Y * .5f, flZDistance));
-                        lightPositionAnimation.InsertKeyFrame(.50f, new Vector3(sizeLightBounds.X * .75f, sizeLightBounds.Y * .5f, flZDistance));
-                        lightPositionAnimation.InsertKeyFrame(.75f, new Vector3(sizeLightBounds.X * .2f, sizeLightBounds.Y * .2f, flZDistance));
-                        lightPositionAnimation.InsertKeyFrame(1f, new Vector3(0f, 0f, flZDistance));
+                        lightPositionAnimation.InsertKeyFrame(0f, new Vector3(0f, 0f, zDistance));
+                        lightPositionAnimation.InsertKeyFrame(.25f, new Vector3(sizeLightBounds.X * .2f, sizeLightBounds.Y * .5f, zDistance));
+                        lightPositionAnimation.InsertKeyFrame(.50f, new Vector3(sizeLightBounds.X * .75f, sizeLightBounds.Y * .5f, zDistance));
+                        lightPositionAnimation.InsertKeyFrame(.75f, new Vector3(sizeLightBounds.X * .2f, sizeLightBounds.Y * .2f, zDistance));
+                        lightPositionAnimation.InsertKeyFrame(1f, new Vector3(0f, 0f, zDistance));
                         lightPositionAnimation.Duration = TimeSpan.FromMilliseconds(7500);
                         lightPositionAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
 
@@ -596,6 +596,23 @@ namespace CompositionSampleGallery
                 ThumbnailList.PointerMoved -= ThumbnailList_PointerMoved;
                 UpdateAnimations();
             }
+        }
+
+        private void ThumbnailList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ListViewItem listItem = (ListViewItem)ThumbnailList.ContainerFromItem(e.ClickedItem);
+            CompositionImage image = listItem.ContentTemplateRoot.GetFirstDescendantOfType<CompositionImage>();
+
+            // Flip each thumbnail as it's clicked
+            SpriteVisual sprite = image.SpriteVisual;
+            sprite.RotationAxis = new Vector3(1, 0, 0);
+            sprite.CenterPoint = new Vector3(sprite.Size.X / 2, sprite.Size.Y / 2, 0);
+
+            ScalarKeyFrameAnimation rotateAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            rotateAnimation.InsertKeyFrame(0, 0);
+            rotateAnimation.InsertKeyFrame(1, 360);
+            rotateAnimation.Duration = TimeSpan.FromSeconds(2);
+            sprite.StartAnimation("RotationAngleInDegrees", rotateAnimation);
         }
     }
 }
