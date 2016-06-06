@@ -157,6 +157,9 @@
       <DependentUpon>VideoPlayground.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\SDK Insider\VideoPlayground\VideoPlaygroundViewModel.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
+    <Compile Include="Samples\SDK Insider\LayerDepth\LayerDepth.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
+      <DependentUpon>LayerDepth.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shared\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -364,6 +367,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\SDK Insider\VideoPlayground\VideoPlayground.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK Insider\LayerDepth\LayerDepth.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
