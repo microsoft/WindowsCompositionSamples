@@ -86,7 +86,7 @@ namespace CompositionSampleGallery
             list.Add(new TransformPropertyModel(AnchorPointYAction) { PropertyName = "AnchorPoint - Y (Red)", MinValue = -1, MaxValue = 2, StepFrequency = 0.01f, Value = _mainImage.AnchorPoint.Y });
             list.Add(new TransformPropertyModel(CenterPointXAction) { PropertyName = "CenterPoint - X (Green)", MinValue = -600, MaxValue = 600, StepFrequency = 1f, Value = _mainImage.CenterPoint.X });
             list.Add(new TransformPropertyModel(CenterPointYAction) { PropertyName = "CenterPoint - Y (Green)", MinValue = -600, MaxValue = 600, StepFrequency = 1f, Value = _mainImage.CenterPoint.Y });
-            list.Add(new TransformPropertyModel(RotationAction) { PropertyName = "Rotation", MinValue = 0, MaxValue = 360, StepFrequency = 1f, Value = _mainImage.RotationAngleInDegrees });
+            list.Add(new TransformPropertyModel(RotationAction) { PropertyName = "Rotation (in Degrees)", MinValue = 0, MaxValue = 360, StepFrequency = 1f, Value = _mainImage.RotationAngleInDegrees });
             list.Add(new TransformPropertyModel(ScaleXAction) { PropertyName = "Scale - X", MinValue = 0, MaxValue = 3, StepFrequency = 0.01f, Value = _mainImage.Scale.X });
             list.Add(new TransformPropertyModel(ScaleYAction) { PropertyName = "Scale - Y", MinValue = 0, MaxValue = 3, StepFrequency = 0.01f, Value = _mainImage.Scale.Y });
             list.Add(new TransformPropertyModel(OffsetXAction) { PropertyName = "Offset - X", MinValue = -200, MaxValue = 200, StepFrequency = 1f, Value = _mainImage.Offset.X });
