@@ -103,6 +103,7 @@ namespace CompositionSampleGallery
             new SampleDefinition(FlipToReveal.StaticSampleName,                 typeof(FlipToReveal),               SampleType.EndToEnd,  SampleCategory.Transitions),
             new SampleDefinition(Z_OrderScrolling.StaticSampleName,             typeof(Z_OrderScrolling),           SampleType.EndToEnd,  SampleCategory.ExpressionAnimations),
             new SampleDefinition(ConnectedAnimationShell.StaticSampleName,      typeof(ConnectedAnimationShell),    SampleType.EndToEnd,  SampleCategory.Transitions),
+            new SampleDefinition(BasicLayoutAndTransforms.StaticSampleName,     typeof(BasicLayoutAndTransforms),   SampleType.Reference, SampleCategory.Visuals),
 #endif
         };
 

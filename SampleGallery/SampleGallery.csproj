@@ -104,6 +104,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Samples\SDK 10586\BasicLayoutAndTransforms\BasicLayoutAndTransforms.xaml.cs">
+      <DependentUpon>BasicLayoutAndTransforms.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\SDK 10586\Perspective\Perspective.xaml.cs">
       <DependentUpon>Perspective.xaml</DependentUpon>
     </Compile>
@@ -143,20 +146,20 @@
     <Compile Include="Samples\SDK Insider\PhotoViewer\PhotoViewer.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\TextShimmer\TextShimmer.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\ThumbnailLighting\ThumbnailLighting.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Commands\DelegateCommand.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\BoolToStringConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\BoolToVisibilityConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\InvertBoolConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\LightModeToBrushConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\LightModeToVisibilityConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\NullToVisibilityConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\StringApenderConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\EffectItem.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\StateTriggers\OrientationTrigger.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Commands\DelegateCommand.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\BoolToStringConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\BoolToVisibilityConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\InvertBoolConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\LightModeToBrushConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\LightModeToVisibilityConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\NullToVisibilityConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\StringApenderConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\EffectItem.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\StateTriggers\OrientationTrigger.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\VideoPlayground\VideoPlayground.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>VideoPlayground.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\VideoPlaygroundViewModel.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
+    <Compile Include="Samples\SDK Insider\VideoPlayground\VideoPlaygroundViewModel.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\LayerDepth\LayerDepth.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>LayerDepth.xaml</DependentUpon>
     </Compile>
@@ -282,6 +285,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK 10586\BasicLayoutAndTransforms\BasicLayoutAndTransforms.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

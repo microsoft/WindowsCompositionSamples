@@ -1,0 +1,80 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.BasicLayoutAndTransforms"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:common="using:SamplesCommon"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="SamplePage_Loaded">
+
+    <Grid x:Name="MainGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" HorizontalAlignment="Stretch">
+
+            <ScrollViewer x:Name="SliderList"  Grid.Row="1"
+                          VerticalAlignment="Stretch"
+                          HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Vertical"
+                            Margin="10">
+                    <TextBlock HorizontalAlignment="Center">AnchorPoint - X (Red)</TextBlock>
+                    <Slider x:Name="AnchorPointXSlider" ValueChanged="AnchorPointXSlider_ValueChanged"  
+                            HorizontalAlignment="Stretch"
+                            Minimum="-1" Maximum="2" StepFrequency="0.01"
+                            Margin="0, 20, 10, 0"/>
+                    <TextBlock HorizontalAlignment="Center">AnchorPoint - Y (Red)</TextBlock>
+                    <Slider x:Name="AnchorPointYSlider" ValueChanged="AnchorPointYSlider_ValueChanged" 
+                            HorizontalAlignment="Stretch"
+                            Minimum="-1" Maximum="2" StepFrequency="0.01" 
+                            Margin="0, 20, 10, 0"/>
+                    <TextBlock HorizontalAlignment="Center">CenterPoint - X (Green)</TextBlock>
+                    <Slider x:Name="CenterPointXSlider" ValueChanged="CenterPointXSlider_ValueChanged"  
+                            HorizontalAlignment="Stretch"
+                            Minimum="-200" Maximum="200"
+                            Margin="0, 20, 10, 0"/>
+                    <TextBlock HorizontalAlignment="Center">CenterPoint - Y (Green)</TextBlock>
+                    <Slider x:Name="CenterPointYSlider" ValueChanged="CenterPointYSlider_ValueChanged"  
+                            HorizontalAlignment="Stretch"
+                            Minimum="-200" Maximum="200"
+                            Margin="0, 20, 10, 0"/>
+                    <TextBlock HorizontalAlignment="Center">RotationAngleInDegrees</TextBlock>
+                    <Slider x:Name="RotationSlider" ValueChanged="RotationSlider_ValueChanged" 
+                            HorizontalAlignment="Stretch"
+                            Minimum="0" Maximum="360"
+                            Margin="0, 20, 10, 0"/>
+                    <TextBlock HorizontalAlignment="Center">Scale - X</TextBlock>
+                    <Slider x:Name="ScaleXSlider" ValueChanged="ScaleXSlider_ValueChanged"  
+                            HorizontalAlignment="Stretch"
+                            Minimum="0" Maximum="5" StepFrequency="0.01"
+                            Margin="0, 20, 10, 0"/>
+                    <TextBlock HorizontalAlignment="Center">Scale - Y</TextBlock>
+                    <Slider x:Name="ScaleYSlider" ValueChanged="ScaleYSlider_ValueChanged"  
+                            HorizontalAlignment="Stretch"
+                            Minimum="0" Maximum="5" StepFrequency="0.01"
+                            Margin="0, 20, 10, 0"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid x:Name="ContentGrid"  Grid.Column="1" 
+              HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid x:Name="ImageContainer"
+              HorizontalAlignment="Center" VerticalAlignment="Center" >
+
+                <common:CompositionImage x:Name="Image"
+                                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                                     Source="ms-appx:///Assets/Landscapes/Landscape-1.jpg"
+                                     Width="400"
+                                     Height="267"
+                                     Stretch="Fill"/>
+
+            </Grid>
+        </Grid>
+        
+    </Grid>
+</local:SamplePage>
