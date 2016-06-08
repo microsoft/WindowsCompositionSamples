@@ -17,6 +17,7 @@ using System.Numerics;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Controls;
+using System.Collections.Generic;
 
 namespace CompositionSampleGallery
 {
@@ -25,6 +26,7 @@ namespace CompositionSampleGallery
         private Visual _xamlRoot;
         private Compositor _compositor;
         private ContainerVisual _root;
+        private ContainerVisual _indicatorContainer;
         private SpriteVisual _mainImage;
         private SpriteVisual _apIndicator;
         private SpriteVisual _cpIndicator;
@@ -40,7 +42,7 @@ namespace CompositionSampleGallery
 
         private void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            // Set up Composition tree structure
+            // Acquire Compositor and set up basic visual tree structure
             _xamlRoot = ElementCompositionPreview.GetElementVisual(MainGrid);
             _compositor = _xamlRoot.Compositor;
             _root = _compositor.CreateContainerVisual();
@@ -49,7 +51,10 @@ namespace CompositionSampleGallery
             ElementCompositionPreview.SetElementChildVisual(ImageContainer, _root);
             _root.Children.InsertAtTop(_mainImage);
 
-            // Add the visual indicators for AnchorPoint and CenterPoint
+
+            // Add visual indicators to show the position of AnchorPoint and CenterPoint
+            _indicatorContainer = _compositor.CreateContainerVisual();
+
             _apIndicator = _compositor.CreateSpriteVisual();
             _apIndicator.Size = new Vector2(10, 10);
             _apIndicator.AnchorPoint = new Vector2(0.5f, 0.5f);
@@ -60,11 +65,13 @@ namespace CompositionSampleGallery
             _cpIndicator.AnchorPoint = new Vector2(0.5f, 0.5f);
             _cpIndicator.Brush = _compositor.CreateColorBrush(Windows.UI.Colors.Green);
 
-            _root.Children.InsertAtTop(_cpIndicator);
-            _root.Children.InsertAtTop(_apIndicator);
+            _root.Children.InsertAtTop(_indicatorContainer);
+            _indicatorContainer.Children.InsertAtTop(_cpIndicator);
+            _indicatorContainer.Children.InsertAtTop(_apIndicator);
 
-            // Add Clip to the content container
-            var containerGrid = ElementCompositionPreview.GetElementVisual(ContentGrid);
+
+            // Specify a clip to prevent image from overflowing into the sliders list
+            Visual containerGrid = ElementCompositionPreview.GetElementVisual(ContentGrid);
             containerGrid.Size = new Vector2((float)ContentGrid.ActualWidth, (float)ContentGrid.ActualHeight);
             ContentGrid.SizeChanged += (s, a) =>
             {
@@ -72,67 +79,62 @@ namespace CompositionSampleGallery
             };
             containerGrid.Clip = _compositor.CreateInsetClip();
 
-            // Set all sliders to initial values
-            AnchorPointXSlider.Value = _mainImage.AnchorPoint.X;
-            AnchorPointYSlider.Value = _mainImage.AnchorPoint.Y;
-            CenterPointXSlider.Value = _mainImage.CenterPoint.X;
-            CenterPointYSlider.Value = _mainImage.CenterPoint.Y;
-            RotationSlider.Value = _mainImage.RotationAngleInDegrees;
-            ScaleXSlider.Value = _mainImage.Scale.X;
-            ScaleYSlider.Value = _mainImage.Scale.Y;
+
+            // Create list of properties to add as sliders
+            var list = new List<TransformPropertyModel>();
+            list.Add(new TransformPropertyModel(AnchorPointXAction) { PropertyName = "AnchorPoint - X (Red)", MinValue = -1, MaxValue = 2, StepFrequency = 0.01f, Value = _mainImage.AnchorPoint.X });
+            list.Add(new TransformPropertyModel(AnchorPointYAction) { PropertyName = "AnchorPoint - Y (Red)", MinValue = -1, MaxValue = 2, StepFrequency = 0.01f, Value = _mainImage.AnchorPoint.Y });
+            list.Add(new TransformPropertyModel(CenterPointXAction) { PropertyName = "CenterPoint - X (Green)", MinValue = -600, MaxValue = 600, StepFrequency = 1f, Value = _mainImage.CenterPoint.X });
+            list.Add(new TransformPropertyModel(CenterPointYAction) { PropertyName = "CenterPoint - Y (Green)", MinValue = -600, MaxValue = 600, StepFrequency = 1f, Value = _mainImage.CenterPoint.Y });
+            list.Add(new TransformPropertyModel(RotationAction) { PropertyName = "Rotation", MinValue = 0, MaxValue = 360, StepFrequency = 1f, Value = _mainImage.RotationAngleInDegrees });
+            list.Add(new TransformPropertyModel(ScaleXAction) { PropertyName = "Scale - X", MinValue = 0, MaxValue = 3, StepFrequency = 0.01f, Value = _mainImage.Scale.X });
+            list.Add(new TransformPropertyModel(ScaleYAction) { PropertyName = "Scale - Y", MinValue = 0, MaxValue = 3, StepFrequency = 0.01f, Value = _mainImage.Scale.Y });
+            list.Add(new TransformPropertyModel(OffsetXAction) { PropertyName = "Offset - X", MinValue = -200, MaxValue = 200, StepFrequency = 1f, Value = _mainImage.Offset.X });
+            list.Add(new TransformPropertyModel(OffsetYAction) { PropertyName = "Offset - Y", MinValue = -200, MaxValue = 200, StepFrequency = 1f, Value = _mainImage.Offset.Y });
+
+            XamlItemsControl.ItemsSource = list;
 
         }
 
-
-        private void AnchorPointXSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        private void AnchorPointXAction(float value)
         {
-            Slider slider = sender as Slider;
-            _mainImage.AnchorPoint = new Vector2((float)slider.Value, _mainImage.AnchorPoint.Y);
+            _mainImage.AnchorPoint = new Vector2(value, _mainImage.AnchorPoint.Y);
         }
-
-        private void AnchorPointYSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        private void AnchorPointYAction(float value)
         {
-            Slider slider = sender as Slider;
-            _mainImage.AnchorPoint = new Vector2(_mainImage.AnchorPoint.X, (float)slider.Value);
+            _mainImage.AnchorPoint = new Vector2(_mainImage.AnchorPoint.X, value);
         }
-
-        private void CenterPointXSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        private void CenterPointXAction(float value)
         {
-            Slider slider = sender as Slider;
-            _mainImage.CenterPoint = new Vector3((float)slider.Value, _mainImage.CenterPoint.Y, _mainImage.CenterPoint.Z);
+            _mainImage.CenterPoint = new Vector3(value, _mainImage.CenterPoint.Y, _mainImage.CenterPoint.Z);
             _cpIndicator.Offset = _mainImage.CenterPoint;
         }
-
-        private void CenterPointYSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        private void CenterPointYAction(float value)
         {
-            Slider slider = sender as Slider;
-            _mainImage.CenterPoint = new Vector3(_mainImage.CenterPoint.X, (float)slider.Value, _mainImage.CenterPoint.Z);
+            _mainImage.CenterPoint = new Vector3(_mainImage.CenterPoint.X, value, _mainImage.CenterPoint.Z);
             _cpIndicator.Offset = _mainImage.CenterPoint;
         }
-
-        private void RotationSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        private void RotationAction(float value)
         {
-            Slider slider = sender as Slider;
-            _mainImage.RotationAngleInDegrees = (float)slider.Value;
+            _mainImage.RotationAngleInDegrees = value;
         }
-
-        private void ScaleSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        private void ScaleXAction(float value)
         {
-            Slider slider = sender as Slider;
-            _mainImage.Scale = new Vector3((float)slider.Value, (float)slider.Value, 0);
+            _mainImage.Scale = new Vector3(value, _mainImage.Scale.Y, 0);
         }
-
-        private void ScaleXSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        private void ScaleYAction(float value)
         {
-            Slider slider = sender as Slider;
-            _mainImage.Scale = new Vector3((float)slider.Value, _mainImage.Scale.Y, _mainImage.Scale.Z);
+            _mainImage.Scale = new Vector3(_mainImage.Scale.X, value, 0);
         }
-
-        private void ScaleYSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        private void OffsetXAction(float value)
         {
-            Slider slider = sender as Slider;
-            _mainImage.Scale = new Vector3(_mainImage.Scale.X, (float)slider.Value, _mainImage.Scale.Z);
+            _mainImage.Offset = new Vector3((float)value, _mainImage.Offset.Y, _mainImage.Offset.Z);
+            _indicatorContainer.Offset = _mainImage.Offset;
         }
-
+        private void OffsetYAction(float value)
+        {
+            _mainImage.Offset = new Vector3(_mainImage.Offset.X, (float)value, _mainImage.Offset.Z);
+            _indicatorContainer.Offset = _mainImage.Offset;
+        }
     }
 }

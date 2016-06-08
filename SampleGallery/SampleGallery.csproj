@@ -107,6 +107,7 @@
     <Compile Include="Samples\SDK 10586\BasicLayoutAndTransforms\BasicLayoutAndTransforms.xaml.cs">
       <DependentUpon>BasicLayoutAndTransforms.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\SDK 10586\BasicLayoutAndTransforms\TransformPropertyModel.cs" />
     <Compile Include="Samples\SDK 10586\Perspective\Perspective.xaml.cs">
       <DependentUpon>Perspective.xaml</DependentUpon>
     </Compile>
