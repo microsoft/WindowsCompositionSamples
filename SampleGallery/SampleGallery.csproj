@@ -129,6 +129,8 @@
       <DependentUpon>ColorBloomTransition.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\SDK 10586\TransitionAnimation-ColorBloom\ColorBloomTransitionHelper.cs" />
+    <Compile Include="Samples\SDK Insider\Interactions3D\Interactions3D.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\Interactions3D\Node.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\LayoutAnimations\Photos.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>Photos.xaml</DependentUpon>
     </Compile>
@@ -143,20 +145,20 @@
     <Compile Include="Samples\SDK Insider\PhotoViewer\PhotoViewer.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\TextShimmer\TextShimmer.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\ThumbnailLighting\ThumbnailLighting.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Commands\DelegateCommand.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\BoolToStringConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\BoolToVisibilityConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\InvertBoolConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\LightModeToBrushConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\LightModeToVisibilityConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\NullToVisibilityConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\StringApenderConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\EffectItem.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\StateTriggers\OrientationTrigger.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Commands\DelegateCommand.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\BoolToStringConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\BoolToVisibilityConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\InvertBoolConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\LightModeToBrushConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\LightModeToVisibilityConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\NullToVisibilityConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\Converters\StringApenderConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\EffectItem.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\VideoPlayground\StateTriggers\OrientationTrigger.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\VideoPlayground\VideoPlayground.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>VideoPlayground.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\SDK Insider\VideoPlayground\VideoPlaygroundViewModel.cs" Condition="$(TargetPlatformBuild) &gt;10586"/>
+    <Compile Include="Samples\SDK Insider\VideoPlayground\VideoPlaygroundViewModel.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\LayerDepth\LayerDepth.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>LayerDepth.xaml</DependentUpon>
     </Compile>
@@ -247,6 +249,53 @@
     <Content Include="Samples\SDK 10586\TransitionAnimation-ColorBloom\CircleOpacityMask.png" />
     <Content Include="Samples\SDK 10586\Z-Order Scrolling\RollingWaves.jpg" />
     <Content Include="Samples\SDK 10586\Z-Order Scrolling\teched3ae5a27b-4f78-e111-94ad-001ec953730b.jpg" />
+    <Content Include="Assets\Photos\pic00.jpg" />
+    <Content Include="Assets\Photos\pic01.jpg" />
+    <Content Include="Assets\Photos\pic02.jpg" />
+    <Content Include="Assets\Photos\pic03.jpg" />
+    <Content Include="Assets\Photos\pic04.jpg" />
+    <Content Include="Assets\Photos\pic05.jpg" />
+    <Content Include="Assets\Photos\pic06.jpg" />
+    <Content Include="Assets\Photos\pic07.jpg" />
+    <Content Include="Assets\Photos\pic08.jpg" />
+    <Content Include="Assets\Photos\pic09.jpg" />
+    <Content Include="Assets\Photos\pic10.jpg" />
+    <Content Include="Assets\Photos\pic11.jpg" />
+    <Content Include="Assets\Photos\pic12.jpg" />
+    <Content Include="Assets\Photos\pic13.jpg" />
+    <Content Include="Assets\Photos\pic14.jpg" />
+    <Content Include="Assets\Photos\pic15.jpg" />
+    <Content Include="Assets\Photos\pic16.jpg" />
+    <Content Include="Assets\Photos\pic17.jpg" />
+    <Content Include="Assets\Photos\pic18.jpg" />
+    <Content Include="Assets\Photos\pic19.jpg" />
+    <Content Include="Assets\Photos\pic20.jpg" />
+    <Content Include="Assets\Photos\pic21.jpg" />
+    <Content Include="Assets\Photos\pic22.jpg" />
+    <Content Include="Assets\Photos\pic23.jpg" />
+    <Content Include="Assets\Photos\pic24.jpg" />
+    <Content Include="Assets\Photos\pic25.jpg" />
+    <Content Include="Assets\Photos\pic26.jpg" />
+    <Content Include="Assets\Photos\pic27.jpg" />
+    <Content Include="Assets\Photos\pic28.jpg" />
+    <Content Include="Assets\Photos\pic29.jpg" />
+    <Content Include="Assets\Photos\pic30.jpg" />
+    <Content Include="Assets\Photos\pic31.jpg" />
+    <Content Include="Assets\Photos\pic32.jpg" />
+    <Content Include="Assets\Photos\pic33.jpg" />
+    <Content Include="Assets\Photos\pic34.jpg" />
+    <Content Include="Assets\Photos\pic35.jpg" />
+    <Content Include="Assets\Photos\pic36.jpg" />
+    <Content Include="Assets\Photos\pic37.jpg" />
+    <Content Include="Assets\Photos\pic38.jpg" />
+    <Content Include="Assets\Photos\pic39.jpg" />
+    <Content Include="Assets\Photos\pic40.jpg" />
+    <Content Include="Assets\Photos\pic41.jpg" />
+    <Content Include="Assets\Photos\pic42.jpg" />
+    <Content Include="Assets\Photos\pic43.jpg" />
+    <Content Include="Assets\Photos\pic44.jpg" />
+    <Content Include="Assets\Photos\pic45.jpg" />
+    <Content Include="Samples\SDK Insider\Interactions3D\stage.jpg" />
     <Content Include="Samples\SDK Insider\LayoutAnimations\1.jpg" />
     <Content Include="Samples\SDK Insider\LayoutAnimations\10.jpg" />
     <Content Include="Samples\SDK Insider\LayoutAnimations\11.jpg" />
@@ -335,6 +384,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\SDK Insider\BackDropSample\BackDropSample.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK Insider\Interactions3D\Interactions3D.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

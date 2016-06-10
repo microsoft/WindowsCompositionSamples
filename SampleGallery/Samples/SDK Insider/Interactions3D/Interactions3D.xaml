@@ -1,0 +1,16 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.Interactions3D"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+
+    <Grid x:Name="Root" SizeChanged="Grid_SizeChanged">
+        <Grid.Clip>
+            <RectangleGeometry x:Name="GridClip" />
+        </Grid.Clip>
+        <Image x:Name ="Stage" Source="ms-appx:///Samples/SDK Insider/Interactions3D/stage.jpg" Stretch="UniformToFill" PointerPressed="Stage_PointerPressed"/>
+    </Grid>
+</local:SamplePage>
