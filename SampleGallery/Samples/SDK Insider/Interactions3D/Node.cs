@@ -1,8 +1,10 @@
 ﻿using SamplesCommon.ImageLoader;
 using System;
+using System.Collections.Generic;
 using System.Numerics;
 using Windows.UI.Text;
 using Windows.UI.Xaml.Media;
+using Microsoft.Graphics.Canvas.Text;
 
 namespace CompositionSampleGallery
 {
@@ -90,7 +92,6 @@ namespace CompositionSampleGallery
             Opacity = opacity;
         }
 
-
         public Vector3 Offset
         {
             get; set;
@@ -117,8 +118,6 @@ namespace CompositionSampleGallery
                 m_scale = value;
             }
         }
-
-        public IManagedSurface ManagedSurface { get; set; }
 
         private float m_scale = 1.0f;
 
@@ -175,75 +174,22 @@ namespace CompositionSampleGallery
         {
             get; set;
         }
-        
-        public override string ToString()
-        {
-            string format;
-
-            if (this.Opacity != 1.0f)
-            {
-                format = "new ImageNodeInfo(NamedImage.{0}, new Vector3({1}f, {2}f, {3}f), {4}f, {5}f),";
-            }
-            else
-            {
-                format = "new ImageNodeInfo(NamedImage.{0}, new Vector3({1}f, {2}f, {3}f), {4}f),";
-            }
-
-            return string.Format(format, this.NamedImage, this.Offset.X, this.Offset.Y, this.Offset.Z, this.Scale, this.Opacity);
-        }
     }
 
 
 
     internal class TextNodeInfo : NodeInfo
     {
-        public TextNodeInfo(string text, Vector3 offset, float scale, float opacity) : 
-            this(text, offset, scale, opacity, s_defaultFontSize, new FontFamily("Segoe UI"), FontWeights.Normal)
-        {
-        }
-
-        public TextNodeInfo(NamedText namedText, Vector3 offset, float scale, float opacity, bool applyDistanceEffects) :
-            this("", offset, scale, opacity, s_defaultFontSize, new FontFamily("Segoe UI"), FontWeights.Normal)
-        {
-            NamedText = namedText;
-            ApplyDistanceEffects = applyDistanceEffects;
-        }
-
-        public TextNodeInfo(string text, Vector3 offset, float scale, float opacity, float fontSize) :
-            this(text, offset, scale, opacity, fontSize, new FontFamily("Segoe UI"), FontWeights.Normal)
-        {
-        }
-
-        public TextNodeInfo(string text, Vector3 offset, float scale, float opacity, float fontSize, FontFamily fontFamily, FontWeight fontWeight) : 
+        public TextNodeInfo(String text, CanvasTextFormat textFormat, Vector2 textureSize, Vector3 offset, float scale, float opacity, bool applyDistanceEffects) : 
             base(offset, scale, opacity)
         {
             Text = text;
-            FontSize = fontSize;
-            FontFamily = fontFamily;
-            FontWeight = fontWeight;
+            TextFormat = textFormat;
+            TextureSize = textureSize;
+            ApplyDistanceEffects = applyDistanceEffects;
         }
 
         public string Text
-        {
-            get; set;
-        }
-
-        public FontFamily FontFamily
-        {
-            get; set;
-        }
-
-        public FontWeight FontWeight
-        {
-            get; set;
-        }
-
-        public float FontSize
-        {
-            get; set;
-        }
-
-        public NamedText NamedText
         {
             get; set;
         }
@@ -253,24 +199,20 @@ namespace CompositionSampleGallery
             get; set;
         }
 
-
-        public override string ToString()
+        public CanvasTextFormat TextFormat
         {
-            string format;
-
-            if (this.FontSize != s_defaultFontSize)
-            {
-                format = "new TextNodeInfo(\"{0}\", new Vector3({1}f, {2}f, {3}f), {4}f, {5}f, {6}f),";
-            }
-            else
-            {
-                format = "new TextNodeInfo(\"{0}\", new Vector3({1}f, {2}f, {3}f), {4}f, {5}f),";
-            }
-
-            return string.Format(format, this.Text, this.Offset.X, this.Offset.Y, this.Offset.Z, this.Scale, this.Opacity, this.FontSize);
+            get; set;
         }
 
-        private static float s_defaultFontSize = 23.7f;
+        public Vector2 TextureSize
+        {
+            get; set;
+        }
+
+        public int BrushIndex
+        {
+            get; set;
+        }
     }
 
 
@@ -322,17 +264,6 @@ namespace CompositionSampleGallery
         Pic43,
         Pic44,
         Pic45,
-
-        Count,
-    }
-
-
-    internal enum NamedText
-    {
-        Months,
-        Engineering,
-        Layout,
-        Adventure,
 
         Count,
     }

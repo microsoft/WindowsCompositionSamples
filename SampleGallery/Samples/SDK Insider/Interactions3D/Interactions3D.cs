@@ -23,6 +23,8 @@ using Windows.UI.Xaml.Hosting;
 using SamplesCommon.ImageLoader;
 using Windows.Foundation;
 using Windows.UI.Xaml.Input;
+using SamplesCommon;
+using Microsoft.Graphics.Canvas.Text;
 
 namespace CompositionSampleGallery
 {
@@ -48,11 +50,14 @@ namespace CompositionSampleGallery
             // Configure the camera and root scene structure
             ConfigureWorldView();
 
-            // Load the images to be displayed
-            LoadImages();
-
             // Configure the InteractionTrackers to handle the appropriate types of input
             ConfigureInteractionTracker();
+
+            // Load the nodes (data) which will be used to render the images and position them in the correct location
+            LoadNodes();
+
+            // Load the images to be displayed
+            LoadImages();
 
             // Setup some ambient animations to keep the scene moving even if no one is actively interacting
             ConfigureAmbientAnimations();
@@ -77,11 +82,11 @@ namespace CompositionSampleGallery
             //
 
             _interactionSource1 = VisualInteractionSource.Create(_rootContainer);
-            _interactionSource1.ScaleSourceMode = InteractionSourceMode.EnabledWithInertia;
+            _interactionSource1.ScaleSourceMode = InteractionSourceMode.EnabledWithoutInertia;
 
             _scaleTracker = InteractionTracker.CreateWithOwner(_compositor, this);
             _scaleTracker.MinScale = 0.6f;
-            _scaleTracker.MaxScale = 20.0f;
+            _scaleTracker.MaxScale = 5.0f;
             _scaleTracker.ScaleInertiaDecayRate = 0.96f;
 
             _scaleTracker.InteractionSources.Add(_interactionSource1);
@@ -92,7 +97,6 @@ namespace CompositionSampleGallery
             _positionTracker = InteractionTracker.CreateWithOwner(_compositor, this);
             _positionTracker.MaxPosition = new Vector3((float)Root.ActualWidth * 1.5f, 0, 0);
             _positionTracker.MinPosition = _positionTracker.MaxPosition * -1;
-            _positionTracker.PositionInertiaDecayRate = new Vector3(0.96f, 0.96f, 0.0f);
 
             _positionTracker.InteractionSources.Add(_interactionSource2);
 
@@ -149,78 +153,32 @@ namespace CompositionSampleGallery
         }
 
 
-        async private void LoadImages()
-        {
-            int loadedImageCount = 0;
-
-            // Create the loader
-            _imageLoader = ImageLoaderFactory.CreateImageLoader(_compositor);
-
-
-            //
-            // Populate/load our unique list of image textures.
-            //
-
-            for (int i = 0; i < (int)NamedImage.Count; i++)
-            {
-                var name = (NamedImage)i;
-
-                Uri uri = new Uri($"ms-appx:///Samples/SDK Insider/Interactions3D/Photos/{name.ToString()}.jpg");
-                _managedSurfaces[i] = _imageLoader.CreateManagedSurfaceFromUri(uri);
-                
-                var surface = await _imageLoader.LoadImageFromUriAsync(uri);
-                _brushes[i] = _compositor.CreateSurfaceBrush(surface);
-
-                loadedImageCount++;
-            }
-
-            //
-            // Populate/load our unique list of "text" image textures (pngs).
-            //
-
-            for (int i = 0; i < (int)NamedText.Count; i++)
-            {
-                var name = (NamedText)i;
-
-                Uri uri = new Uri($"ms-appx:///Samples/SDK Insider/Interactions3D/Photos/{name.ToString()}.png");
-                _managedTextSurfaces[i] = _imageLoader.CreateManagedSurfaceFromUri(uri);
-
-                var surface = await _imageLoader.LoadImageFromUriAsync(uri);
-                _textBrushes[i] = _compositor.CreateSurfaceBrush(surface);
-
-                loadedImageCount++;
-            }
-
-
-            //
-            // Once we've loaded all of the images, we can continue populating the world.
-            //
-
-            if (loadedImageCount == (int)NamedImage.Count + (int)NamedText.Count)
-            {
-                PopulateWorld();
-            }
-        }
-
-
-        private void PopulateWorld()
+        private void LoadNodes()
         {
             _nodes = new List<NodeInfo>(200);
 
+            //
+            // First, add in the text nodes
+            //
 
-            //
-            // Write some text using poor-man's technique (i.e. pngs).  Note: We should 
-            // have a helper class available now that will do this for us.  I think it 
-            // uses dwrite/d2d, so it's pretty powerful/
-            //
-            
-            _nodes.AddRange(new NodeInfo[] {
-                new TextNodeInfo(NamedText.Months, new Vector3(000.0f, -2900.0f, -3000.0f), 10.0f, 0.1f, false),
-                new TextNodeInfo(NamedText.Layout, new Vector3(76.1f, 131.2f, -100.0f), 1.0f, 0.5f, true),
-                new TextNodeInfo(NamedText.Adventure, new Vector3(-259.8f, -101.1f, -500.0f), 0.8f, 0.5f, true),
-                new TextNodeInfo(NamedText.Engineering, new Vector3(509.8f, 51.1f, -322.2f), 0.8f, 0.5f, true),
-                }
-            );
+            CanvasTextFormat monthsTextFormat = new CanvasTextFormat();
+            monthsTextFormat.FontFamily = "Segoe UI";
+            monthsTextFormat.FontSize = 120.0f;
+
+            CanvasTextFormat textFormat = new CanvasTextFormat();
+            textFormat.FontFamily = "Segoe UI";
+            textFormat.FontSize = 36.0f;
+
+            _textNodes = new TextNodeInfo[]
+            {
+                new TextNodeInfo("JAN    FEB    MAR    APR    MAY", monthsTextFormat, new Vector2(1920, 200), new Vector3(0.0f, -2500.0f, -3000.0f), 10.0f, 0.1f, false),
+                new TextNodeInfo("LAYOUT", textFormat, new Vector2(180, 52), new Vector3(76.1f, 131.2f, -100.0f), 1.0f, 0.5f, true),
+                new TextNodeInfo("ADVENTURE", textFormat, new Vector2(240, 52), new Vector3(-259.8f, -101.1f, -500.0f), 0.8f, 0.5f, true),
+                new TextNodeInfo("ENGINEERING", textFormat, new Vector2(280, 52), new Vector3(509.8f, 51.1f, -322.2f), 0.8f, 0.5f, true),
+            };
+
+            _nodes.AddRange(_textNodes);
+
 
 
             //
@@ -256,6 +214,74 @@ namespace CompositionSampleGallery
             //
 
             _nodes.Sort();
+        }
+
+
+        async private void LoadImages()
+        {
+            int loadedImageCount = 0;
+
+            // Create the loader
+            _imageLoader = ImageLoaderFactory.CreateImageLoader(_compositor);
+
+
+            //
+            // Populate/load our unique list of image textures.
+            //
+
+            for (int i = 0; i < (int)NamedImage.Count; i++)
+            {
+                var name = (NamedImage)i;
+
+                Uri uri = new Uri($"ms-appx:///Assets/Photos/{name.ToString()}.jpg");
+                _managedSurfaces[i] = _imageLoader.CreateManagedSurfaceFromUri(uri);
+
+                var surface = await _imageLoader.LoadImageFromUriAsync(uri);
+                _imageBrushes[i] = _compositor.CreateSurfaceBrush(surface);
+
+                loadedImageCount++;
+            }
+
+
+            //
+            // Populate/load our unique list of "text" image textures.
+            //
+
+            _textBrushes = new CompositionSurfaceBrush[_textNodes.Length];
+
+            for (int i = 0; i < _textNodes.Length; i++)
+            {
+                var textNode = _textNodes[i];
+
+                var textSurface = SurfaceLoader.LoadText(textNode.Text,  new Size(textNode.TextureSize.X, textNode.TextureSize.Y), textNode.TextFormat, Colors.Black, Colors.Transparent);
+
+                _textBrushes[i] = _compositor.CreateSurfaceBrush(textSurface);
+
+                //
+                // Remember the index of the brush so that we can refer to it later.
+                //
+
+                textNode.BrushIndex = i;
+
+                loadedImageCount++;
+            }
+
+
+
+
+            //
+            // Once we've loaded all of the images, we can continue populating the world.
+            //
+
+            if (loadedImageCount == _imageBrushes.Length + _textBrushes.Length)
+            {
+                PopulateWorld();
+            }
+        }
+
+
+        private void PopulateWorld()
+        {
 
             //
             // Iterate through the list and populate the world with items.
@@ -284,13 +310,13 @@ namespace CompositionSampleGallery
 
         private void AddImage(ImageNodeInfo imageNodeInfo)
         {
-            AddImage(_brushes[(int)imageNodeInfo.NamedImage], imageNodeInfo);
+            AddImage(_imageBrushes[(int)imageNodeInfo.NamedImage], imageNodeInfo);
         }
 
 
         private void AddText(TextNodeInfo textNodeInfo)
         {
-            var visual = AddImage(_textBrushes[(int)textNodeInfo.NamedText], textNodeInfo, textNodeInfo.Opacity, textNodeInfo.ApplyDistanceEffects);
+            var visual = AddImage(_textBrushes[textNodeInfo.BrushIndex], textNodeInfo, textNodeInfo.Opacity, textNodeInfo.ApplyDistanceEffects);
 
             if (!textNodeInfo.ApplyDistanceEffects)
             {
@@ -614,6 +640,9 @@ namespace CompositionSampleGallery
                 _interactionSource2.TryRedirectForManipulation(e.GetCurrentPoint(Stage));
                 _interactionSource1.TryRedirectForManipulation(e.GetCurrentPoint(Stage));
 
+                // Stop ambient animations for both trackers
+                _positionTracker.TryUpdatePositionBy(Vector3.Zero);
+                _scaleTracker.TryUpdatePositionBy(Vector3.Zero);
             }
         }
 
@@ -654,12 +683,13 @@ namespace CompositionSampleGallery
                                         _ambientAnimations;
         private IManagedSurface[]       _managedSurfaces = new IManagedSurface[(int)NamedImage.Count];
         private CompositionSurfaceBrush[]   
-                                        _brushes = new CompositionSurfaceBrush[(int)NamedImage.Count];
-
-        private IManagedSurface[]       _managedTextSurfaces = new IManagedSurface[(int)NamedText.Count];
+                                        _imageBrushes = new CompositionSurfaceBrush[(int)NamedImage.Count];
+        
         private CompositionSurfaceBrush[]   
-                                        _textBrushes = new CompositionSurfaceBrush[(int)NamedText.Count];
+                                        _textBrushes;
         private ExpressionAnimation     _opacityAnimation;
+
+        private TextNodeInfo[]          _textNodes;
 
         private enum AmbientAnimationTarget
         {
