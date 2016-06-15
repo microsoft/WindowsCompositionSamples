@@ -1,5 +1,6 @@
-﻿<Page
-    x:Class="Composition.Gears"
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.Gears"
+    xmlns:local="using:CompositionSampleGallery"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -21,4 +22,4 @@
             <Image x:Name="FirstGear" Source="ms-appx:///Assets/FirstGear.png" Width="100" Height="100"/>
         </Canvas>
     </Grid>
-</Page>
+</local:SamplePage>

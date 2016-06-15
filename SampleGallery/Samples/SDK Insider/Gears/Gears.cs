@@ -13,108 +13,105 @@
 //*********************************************************
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Numerics;
+using System.Runtime.CompilerServices;
+using Windows.Foundation;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Composition;
 using Windows.UI.Xaml.Hosting;
-using System.Numerics;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.Foundation;
-using System.Collections.Generic;
 using Windows.UI.Xaml.Navigation;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
-namespace Composition
+namespace CompositionSampleGallery
 {
-    public sealed partial class Gears : Page, INotifyPropertyChanged
+    public sealed partial class Gears : SamplePage
     {
-        #region Variables
-        private Compositor compositor;
-        private List<Visual> gearVisuals;
-        private ExpressionAnimation rotationExpression;
-        private ScalarKeyFrameAnimation gearMotionScalarAnimation;
-        private double x = 87, y = 0d;
-        private double width = 100, height = 100;
-
-        private double gearDimension = 87;
+        private Compositor _compositor;
+        private List<Visual> _gearVisuals;
+        private ExpressionAnimation _rotationExpression;
+        private ScalarKeyFrameAnimation _gearMotionScalarAnimation;
+        private double _x = 87, _y = 0d, _width = 100, _height = 100;
+        private double _gearDimension = 87;
+        private int _count;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Gears()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
-        private int count;
+        public static string StaticSampleName => "Gears";
+        public override string SampleName => StaticSampleName;
+        public override string SampleDescription => "Demonstrates how to use ExpressionAnimations to update many Visual properites based off of one driving property. Press any button to see the gears spin.";
+        public override string SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761162";
 
         public int Count
         {
-            get { return count; }
+            get { return _count; }
             set
             {
-                count = value;
-                this.RaisePropertyChanged();
+                _count = value;
+                RaisePropertyChanged();
             }
         }
 
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.compositor = ElementCompositionPreview.GetElementVisual(this)?.Compositor;
-
-            this.Setup();
+            _compositor = ElementCompositionPreview.GetElementVisual(this)?.Compositor;
+            Setup();
         }
 
         private void Setup()
         {
-            var firstGearVisual = ElementCompositionPreview.GetElementVisual(this.FirstGear);
-            firstGearVisual.Size = new Vector2((float)this.FirstGear.ActualWidth, (float)this.FirstGear.ActualHeight);
+            var firstGearVisual = ElementCompositionPreview.GetElementVisual(FirstGear);
+            firstGearVisual.Size = new Vector2((float)FirstGear.ActualWidth, (float)FirstGear.ActualHeight);
             firstGearVisual.AnchorPoint = new Vector2(0.5f, 0.5f);
 
-            for (int i = this.Container.Children.Count - 1; i > 0; i--)
+            for (int i = Container.Children.Count - 1; i > 0; i--)
             {
-                this.Container.Children.RemoveAt(i);
+                Container.Children.RemoveAt(i);
             }
 
-            x = 87;
-            y = 0d;
-            width = 100;
-            height = 100;
-            gearDimension = 87;
+            _x = 87;
+            _y = 0d;
+            _width = 100;
+            _height = 100;
+            _gearDimension = 87;
 
-            this.Count = 1;
-            this.gearVisuals = new List<Visual>() { firstGearVisual };
+            Count = 1;
+            _gearVisuals = new List<Visual>() { firstGearVisual };
         }
 
-        #endregion
-
-        private async void AddGear_Click(object sender, RoutedEventArgs e)
+        private void AddGear_Click(object sender, RoutedEventArgs e)
         {
             // Create an image
             var bitmapImage = new BitmapImage(new Uri("ms-appx:///Assets/Gear.png"));
             var image = new Image
             {
                 Source = bitmapImage,
-                Width = this.width,
-                Height = this.height,
+                Width = _width,
+                Height = _height,
                 RenderTransformOrigin = new Point(0.5, 0.5)
             };
 
-            // Set the coordinates of where is should be
-            Canvas.SetLeft(image, x);
-            Canvas.SetTop(image, y);
+            // Set the coordinates of where the image should be
+            Canvas.SetLeft(image, _x);
+            Canvas.SetTop(image, _y);
 
             PerformLayoutCalculation();
 
             // Add the gear to the container
-            this.Container.Children.Add(image);
+            Container.Children.Add(image);
 
             // Add a gear visual to the screen
-            var gearVisual = this.AddGear(image);
+            var gearVisual = AddGear(image);
 
-            ConfigureGearAnimation(gearVisuals[this.gearVisuals.Count - 1], gearVisuals[this.gearVisuals.Count - 2]);
+            ConfigureGearAnimation(_gearVisuals[_gearVisuals.Count - 1], _gearVisuals[_gearVisuals.Count - 2]);
         }
 
         private Visual AddGear(Image gear)
@@ -123,9 +120,9 @@ namespace Composition
             var visual = ElementCompositionPreview.GetElementVisual(gear);
             visual.Size = new Vector2((float)gear.ActualWidth, (float)gear.ActualHeight);
             visual.AnchorPoint = new Vector2(0.5f, 0.5f);
-            this.gearVisuals.Add(visual);
+            _gearVisuals.Add(visual);
 
-            this.Count++;
+            Count++;
 
             return visual;
         }
@@ -133,90 +130,81 @@ namespace Composition
         private void ConfigureGearAnimation(Visual currentGear, Visual previousGear)
         {
             // If rotation expression is null then create an expression of a gear rotating the opposite direction
-            rotationExpression = rotationExpression ?? compositor.CreateExpressionAnimation("-previousGear.RotationAngleInDegrees");
+            _rotationExpression = _rotationExpression ?? _compositor.CreateExpressionAnimation("-previousGear.RotationAngleInDegrees");
 
             // put in placeholder parameters
-            rotationExpression.SetReferenceParameter("previousGear", previousGear);
+            _rotationExpression.SetReferenceParameter("previousGear", previousGear);
 
             // Start the animation based on the Rotation Angle in Degrees.
-            currentGear.StartAnimation("RotationAngleInDegrees", rotationExpression);
+            currentGear.StartAnimation("RotationAngleInDegrees", _rotationExpression);
         }
 
-        private void EnsureGearMotor()
+        private void StartGearMotor(double secondsPerRotation)
         {
             // Start the first gear (the red one)
-            if (gearMotionScalarAnimation == null)
+            if (_gearMotionScalarAnimation == null)
             {
-                gearMotionScalarAnimation = compositor.CreateScalarKeyFrameAnimation();
-                var linear = compositor.CreateLinearEasingFunction();
+                _gearMotionScalarAnimation = _compositor.CreateScalarKeyFrameAnimation();
+                var linear = _compositor.CreateLinearEasingFunction();
 
-                gearMotionScalarAnimation.InsertExpressionKeyFrame(0.0f, "this.StartingValue");
-                gearMotionScalarAnimation.InsertExpressionKeyFrame(1.0f, "this.StartingValue + 360", linear);
+                _gearMotionScalarAnimation.InsertExpressionKeyFrame(0.0f, "this.StartingValue");
+                _gearMotionScalarAnimation.InsertExpressionKeyFrame(1.0f, "this.StartingValue + 360", linear);
 
-                gearMotionScalarAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
+                _gearMotionScalarAnimation.Duration = TimeSpan.FromSeconds(secondsPerRotation);
+                _gearMotionScalarAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
+
+                _gearVisuals.First().StartAnimation("RotationAngleInDegrees", _gearMotionScalarAnimation);
             }
         }
 
         private void AnimateFast_Click(object sender, RoutedEventArgs e)
         {
-            // Start red gear
-            EnsureGearMotor();
-
-            // Fast....
-            gearMotionScalarAnimation.Duration = TimeSpan.FromSeconds(1);
-
-            // I'm only animating the first gear! :-O
-            gearVisuals.First().StartAnimation("RotationAngleInDegrees", gearMotionScalarAnimation);
+            // Setup and start the animation on the red gear.
+            StartGearMotor(1);
         }
 
         private void AnimateSlow_Click(object sender, RoutedEventArgs e)
         {
-            EnsureGearMotor();
-
-            // Slow...
-            gearMotionScalarAnimation.Duration = TimeSpan.FromSeconds(5);
-
-            // I'm only animating the first gear! :-O
-            gearVisuals.First().StartAnimation("RotationAngleInDegrees", gearMotionScalarAnimation);
+            // Setup and start the animation on the red gear.
+            StartGearMotor(5);
         }
-
-        #region Other Methods
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
-            gearVisuals.First().StopAnimation("RotationAngleInDegrees");
+            _gearVisuals.First().StopAnimation("RotationAngleInDegrees");
         }
 
         private void Reverse_Click(object sender, RoutedEventArgs e)
         {
-            if (gearMotionScalarAnimation.Direction == AnimationDirection.Normal)
+            if (_gearMotionScalarAnimation.Direction == AnimationDirection.Normal)
             {
-                gearMotionScalarAnimation.Direction = AnimationDirection.Reverse;
+                _gearMotionScalarAnimation.Direction = AnimationDirection.Reverse;
             }
             else
             {
-                gearMotionScalarAnimation.Direction = AnimationDirection.Normal;
+                _gearMotionScalarAnimation.Direction = AnimationDirection.Normal;
             }
 
-            gearVisuals.First().StartAnimation("RotationAngleInDegrees", gearMotionScalarAnimation);
+            _gearVisuals.First().StartAnimation("RotationAngleInDegrees", _gearMotionScalarAnimation);
         }
 
         private void AddXGearsButton_Click(object sender, RoutedEventArgs e)
         {
-            var amount = int.Parse(this.NumberOfGears.Text) + this.gearVisuals.Count - 1;
+            var amount = int.Parse(NumberOfGears.Text) + _gearVisuals.Count - 1;
 
-            this.Setup();
-            var maxAreaPerTile = Math.Sqrt((this.Container.ActualWidth * this.Container.ActualHeight) / (amount + this.Container.Children.Count));
+            Setup();
 
-            if (maxAreaPerTile < this.width)
+            var maxAreaPerTile = Math.Sqrt((Container.ActualWidth * Container.ActualHeight) / (amount + Container.Children.Count));
+
+            if (maxAreaPerTile < _width)
             {
-                var wholeTilesHeight = Math.Floor(this.Container.ActualHeight / maxAreaPerTile);
-                var wholeTileWidth = Math.Floor(this.Container.ActualWidth / maxAreaPerTile);
+                var wholeTilesHeight = Math.Floor(Container.ActualHeight / maxAreaPerTile);
+                var wholeTileWidth = Math.Floor(Container.ActualWidth / maxAreaPerTile);
 
-                this.FirstGear.Width = this.FirstGear.Height = maxAreaPerTile;
-                this.width = this.height = maxAreaPerTile;
+                FirstGear.Width = FirstGear.Height = maxAreaPerTile;
+                _width = _height = maxAreaPerTile;
 
-                this.x = this.gearDimension = this.width * 0.87;
+                _x = _gearDimension = _width * 0.87;
             }
 
             for (int i = 0; i < amount; i++)
@@ -225,46 +213,31 @@ namespace Composition
             }
         }
 
-        private void RotateGears_Click(object sender, RoutedEventArgs e)
-        {
-            // Slow...
-            gearMotionScalarAnimation.Duration = TimeSpan.FromSeconds(5);
-
-            var container = ElementCompositionPreview.GetElementVisual(this.Root);
-            container.AnchorPoint = new Vector2(1f, 1f);
-            //container.CenterPoint = new Vector3(0.5f, 0.5f, 0.5f);
-            // I'm only animating the first gear! :-O
-            container.StartAnimation("RotationAngleInDegrees", gearMotionScalarAnimation);
-        }
-
         private void PerformLayoutCalculation()
         {
-            if (((x + this.Container.Margin.Left + this.width > this.Container.ActualWidth) && gearDimension > 0) || (x < this.Container.Margin.Left && gearDimension < 0))
+            if (
+                ((_x + Container.Margin.Left + _width > Container.ActualWidth) && _gearDimension > 0) ||
+                (_x < Container.Margin.Left && _gearDimension < 0))
             {
-                if (gearDimension < 0)
+                if (_gearDimension < 0)
                 {
-                    y -= gearDimension;
+                    _y -= _gearDimension;
                 }
                 else
                 {
-                    y += gearDimension;
+                    _y += _gearDimension;
                 }
-                gearDimension = -gearDimension;
+                _gearDimension = -_gearDimension;
             }
             else
             {
-                x += gearDimension;
+                _x += _gearDimension;
             }
         }
 
         private void RaisePropertyChanged([CallerMemberName]string property = "")
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(property));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
-
-        #endregion
     }
 }
