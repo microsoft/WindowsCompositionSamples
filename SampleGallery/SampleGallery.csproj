@@ -104,6 +104,10 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Samples\SDK 10586\BasicLayoutAndTransforms\BasicLayoutAndTransforms.xaml.cs">
+      <DependentUpon>BasicLayoutAndTransforms.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\SDK 10586\BasicLayoutAndTransforms\TransformPropertyModel.cs" />
     <Compile Include="Samples\SDK 10586\Perspective\Perspective.xaml.cs">
       <DependentUpon>Perspective.xaml</DependentUpon>
     </Compile>
@@ -331,6 +335,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK 10586\BasicLayoutAndTransforms\BasicLayoutAndTransforms.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
