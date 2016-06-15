@@ -28,7 +28,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace CompositionSampleGallery
 {
-    public sealed partial class Gears : SamplePage
+    public sealed partial class Gears : SamplePage, INotifyPropertyChanged
     {
         private Compositor _compositor;
         private List<Visual> _gearVisuals;
@@ -150,11 +150,11 @@ namespace CompositionSampleGallery
                 _gearMotionScalarAnimation.InsertExpressionKeyFrame(0.0f, "this.StartingValue");
                 _gearMotionScalarAnimation.InsertExpressionKeyFrame(1.0f, "this.StartingValue + 360", linear);
 
-                _gearMotionScalarAnimation.Duration = TimeSpan.FromSeconds(secondsPerRotation);
                 _gearMotionScalarAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
-
-                _gearVisuals.First().StartAnimation("RotationAngleInDegrees", _gearMotionScalarAnimation);
             }
+
+            _gearMotionScalarAnimation.Duration = TimeSpan.FromSeconds(secondsPerRotation);
+            _gearVisuals.First().StartAnimation("RotationAngleInDegrees", _gearMotionScalarAnimation);
         }
 
         private void AnimateFast_Click(object sender, RoutedEventArgs e)

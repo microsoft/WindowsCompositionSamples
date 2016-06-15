@@ -15,7 +15,7 @@
             <Button x:Name="Reverse" Click="Reverse_Click" Background="White" Width="100" Height="50" VerticalAlignment="Top" Margin="10,10,0,0">Reverse</Button>
             <Button x:Name="AddGearButton" Click="AddGear_Click" Background="White" Width="100" Height="50" VerticalAlignment="Top" Margin="10,10,0,0">Add Gear</Button>
             <TextBox x:Name="NumberOfGears" Width="200" Height="50" Margin="10" VerticalAlignment="Top" />
-            <Button x:Name="AddXGearsButton" Width="100" Height="50" Margin="10" VerticalAlignment="Top" Background="White" Content="Add X Gears" Click="AddXGearsButton_Click" />
+            <Button x:Name="AddXGearsButton" Width="110" Height="50" Margin="10" VerticalAlignment="Top" Background="White" Content="Add X Gears" Click="AddXGearsButton_Click" />
             <TextBlock x:Name="GearCount" Text="{x:Bind Count, Mode=OneWay}" FontSize="32" Foreground="White" />
         </StackPanel>
         <Canvas x:Name="Container" Margin="50,130,0,0" >
