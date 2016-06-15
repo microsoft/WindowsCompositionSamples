@@ -63,5 +63,13 @@ namespace CompositionSampleGallery
 
             _viewModel.TryRemoveLight((float)point.X, (float)point.Y);
         }
+
+        /// <summary>
+        /// Unload our resources.
+        /// </summary>
+        private void SamplePage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            _viewModel.Cleanup();
+        }
     }
 }

@@ -24,7 +24,7 @@ using Windows.UI.Xaml.Media;
 
 namespace CompositionSampleGallery
 {
-    class ContinuityTransition
+    class ConnectedTransition
     {
         private UIElement               _host;
         private UIElement               _parent;
@@ -38,7 +38,7 @@ namespace CompositionSampleGallery
         public object Payload { get { return _payload; } }
         public object Host { get { return _host; } }
 
-        public ContinuityTransition()
+        public ConnectedTransition()
         {
         }
 

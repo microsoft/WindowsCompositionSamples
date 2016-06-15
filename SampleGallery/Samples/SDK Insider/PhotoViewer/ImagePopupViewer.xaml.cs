@@ -38,7 +38,7 @@ namespace CompositionSampleGallery
         CompositionEffectBrush      _crossFadeBrush;
         CompositionSurfaceBrush     _previousSurfaceBrush;
         CompositionScopedBatch      _crossFadeBatch;
-        ContinuityTransition        _transition;
+        ConnectedTransition        _transition;
         string                      _initialPhoto;
         static ImagePopupViewer     _viewerInstance;
         static Grid                 _hostGrid;
@@ -52,7 +52,7 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
 
             _imageUriGetterFunc = photoGetter;
-            _transition = new ContinuityTransition();
+            _transition = new ConnectedTransition();
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
             this.Loaded += ImagePopupViewer_Loaded;
             this.Unloaded += ImagePopupViewer_Unloaded;
@@ -345,7 +345,7 @@ namespace CompositionSampleGallery
                     _transition.Cancel();
                 }
 
-                // Kick off a continuity transition to animate from it's current position to it's new location
+                // Kick off a connected animation to animate from it's current position to it's new location
                 CompositionImage image = VisualTreeHelperExtensions.GetFirstDescendantOfType<CompositionImage>(item);
                 _transition.Initialize(this, image, null);
                 _transition.Start(this, PrimaryImage, null, null);

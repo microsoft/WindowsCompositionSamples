@@ -667,6 +667,30 @@ namespace CompositionSampleGallery
         }
         #endregion
 
+        #region Cleanup
+        /// <summary>
+        /// Cleanup our resources and stop video playback.
+        /// </summary>
+        public void Cleanup()
+        {
+            if (_mediaPlayer != null)
+            {
+                _mediaPlayer.Dispose();
+            }
+
+            if (_videoSurface != null)
+            {
+                _videoSurface.Dispose();
+            }
+
+            if (_circleSurface != null)
+            {
+                _imageLoader.Dispose();
+                _circleSurface.Dispose();
+            }
+        }
+        #endregion
+
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
