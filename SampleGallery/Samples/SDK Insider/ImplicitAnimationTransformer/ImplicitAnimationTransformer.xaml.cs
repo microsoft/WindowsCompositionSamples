@@ -117,6 +117,9 @@ namespace CompositionSampleGallery
                     _root.Children.InsertAtTop(CreateChildElement(brush, posXUpdated, posYUpdated));
                 }
             }
+
+            // Update the default animation state
+            UpdateAnimationState(EnableAnimations.IsChecked == true);
         }
 
         /// <summary>
@@ -335,22 +338,39 @@ namespace CompositionSampleGallery
 
         private void EnableAnimations_Checked(object sender, RoutedEventArgs e)
         {
-            ImplicitAnimationCollection implicitAnimationCollection = _compositor.CreateImplicitAnimationCollection();
-            implicitAnimationCollection["Offset"] = CreateOffsetAnimation();
-            implicitAnimationCollection["Scale"] = CreateScaleAnimation();
-            foreach (var child in _root.Children)
+            if (_compositor != null)
             {
-                child.ImplicitAnimations = implicitAnimationCollection;
+                UpdateAnimationState(true);
             }
         }
 
         private void EnableAnimations_Unchecked(object sender, RoutedEventArgs e)
         {
-            foreach (var child in _root.Children)
+            if (_compositor != null)
             {
-                child.ImplicitAnimations = null;
+                UpdateAnimationState(false);
             }
+        }
 
+        private void UpdateAnimationState(bool animate)
+        {
+            if (animate)
+            {
+                ImplicitAnimationCollection implicitAnimationCollection = _compositor.CreateImplicitAnimationCollection();
+                implicitAnimationCollection["Offset"] = CreateOffsetAnimation();
+                implicitAnimationCollection["Scale"] = CreateScaleAnimation();
+                foreach (var child in _root.Children)
+                {
+                    child.ImplicitAnimations = implicitAnimationCollection;
+                }
+            }
+            else
+            {
+                foreach (var child in _root.Children)
+                {
+                    child.ImplicitAnimations = null;
+                }
+            }
         }
     }
 }

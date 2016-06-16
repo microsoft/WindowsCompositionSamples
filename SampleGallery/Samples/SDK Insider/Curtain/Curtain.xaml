@@ -7,7 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded">
 
-    <Grid x:Name ="Root" Background="White"  PointerPressed="Root_PointerPressed">
+    <Grid x:Name ="Root" Background="White"  PointerPressed="Root_PointerPressed" SizeChanged="Grid_SizeChanged">
+        <Grid.Clip>
+            <RectangleGeometry x:Name="GridClip" />
+        </Grid.Clip>
         <TextBlock x:Name ="Text" TextWrapping="Wrap" Width="500" Height="900" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur, eros sit amet laoreet scelerisque, 
                    nunc odio ultricies metus, ut consectetur nulla massa eu nibh. Phasellus in lorem id nunc euismod tempus. Phasellus et nulla non turpis tempor blandit ut eget turpis. 
                    Phasellus ac ornare elit, ut scelerisque dolor. Nam vel finibus lorem. Aenean malesuada pulvinar eros id ornare. Fusce blandit ante eget dolor efficitur suscipit. 

@@ -124,7 +124,6 @@
     <Compile Include="Samples\SDK Insider\Gears\Gears.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\Curtain\Curtain.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\ImplicitAnimationTransformer\ImplicitAnimationTransformer.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
-    <Compile Include="Samples\SDK Insider\ImageLightingPlayground\ImageLightingPlayground.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 10586\TransitionAnimation-ColorBloom\ColorBloomTransition.xaml.cs">
       <DependentUpon>ColorBloomTransition.xaml</DependentUpon>
     </Compile>
@@ -232,8 +231,6 @@
     <Content Include="Samples\SDK Insider\ImplicitAnimationTransformer\60SprinklesRainbow.png" />
     <Content Include="Samples\SDK Insider\ImplicitAnimationTransformer\60Strawberry.png" />
     <Content Include="Samples\SDK Insider\ImplicitAnimationTransformer\60Vanilla.png" />
-    <Content Include="Samples\SDK Insider\ImageLightingPlayground\rocks.jpg" />
-    <Content Include="Samples\SDK Insider\ImageLightingPlayground\rocks_NM_height.png" />
     <Content Include="Samples\SDK 10586\PointerEnterEffects\conemap.jpg" />
     <Content Include="Samples\SDK 10586\PointerEnterEffects\pointmap.jpg" />
     <Content Include="Properties\Default.rd.xml" />
@@ -316,7 +313,6 @@
     <Content Include="Samples\SDK Insider\LayoutAnimations\7.jpg" />
     <Content Include="Samples\SDK Insider\LayoutAnimations\8.jpg" />
     <Content Include="Samples\SDK Insider\LayoutAnimations\9.jpg" />
-    <Content Include="Samples\SDK Insider\NowPlaying\normalmap.jpg" />
     <Content Include="Samples\SDK Insider\ShadowPlayground\win11_-15607.jpg" />
     <Content Include="Samples\SDK Insider\ThumbnailLighting\BeveledEdges.jpg" />
     <Content Include="Samples\SDK Insider\ThumbnailLighting\SphericalWithMask.png" />
@@ -375,10 +371,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\SDK Insider\ImplicitAnimationTransformer\ImplicitAnimationTransformer.xaml" Condition="$(TargetPlatformBuild) &gt;10586" />
-    <Page Include="Samples\SDK Insider\ImageLightingPlayground\ImageLightingPlayground.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\SDK 10586\TransitionAnimation-ColorBloom\ColorBloomTransition.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

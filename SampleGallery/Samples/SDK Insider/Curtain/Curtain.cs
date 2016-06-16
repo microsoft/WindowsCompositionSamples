@@ -94,6 +94,10 @@ namespace CompositionSampleGallery
 
             _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
         }
+        private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            GridClip.Rect = new Rect(0d, 0d, e.NewSize.Width, e.NewSize.Height);
+        }
 
         private void ActivateGravityForce()
         {

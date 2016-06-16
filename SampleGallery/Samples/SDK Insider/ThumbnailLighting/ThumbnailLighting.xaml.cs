@@ -389,8 +389,8 @@ namespace CompositionSampleGallery
                         Visual lightRoot = ElementCompositionPreview.GetElementVisual(ThumbnailList);
                         _spotLight.CoordinateSpace = lightRoot;
                         _spotLight.Targets.Add(lightRoot);
-                        _spotLight.InnerConeAngle = (float)(Math.PI / 15);
-                        _spotLight.OuterConeAngle = (float)(Math.PI / 10);
+                        _spotLight.InnerConeAngle = (float)(Math.PI / 4);
+                        _spotLight.OuterConeAngle = (float)(Math.PI / 3.5);
                         _spotLight.Direction = new Vector3(0, 0, -1);
                     };
                     break;
@@ -570,7 +570,7 @@ namespace CompositionSampleGallery
 
                 case LightingTypes.SpotLightDiffuse:
                 case LightingTypes.SpotLightSpecular:
-                    _spotLight.Offset = new Vector3(offset.X, offset.Y, 100);
+                    _spotLight.Offset = new Vector3(offset.X, offset.Y, 150);
                     break;
 
                 case LightingTypes.DistantDiffuse:
