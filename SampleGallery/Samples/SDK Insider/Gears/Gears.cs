@@ -190,26 +190,30 @@ namespace CompositionSampleGallery
 
         private void AddXGearsButton_Click(object sender, RoutedEventArgs e)
         {
-            var amount = int.Parse(NumberOfGears.Text) + _gearVisuals.Count - 1;
+            int gearsToAdd;
 
-            Setup();
-
-            var maxAreaPerTile = Math.Sqrt((Container.ActualWidth * Container.ActualHeight) / (amount + Container.Children.Count));
-
-            if (maxAreaPerTile < _width)
+            if (int.TryParse(NumberOfGears.Text, out gearsToAdd))
             {
-                var wholeTilesHeight = Math.Floor(Container.ActualHeight / maxAreaPerTile);
-                var wholeTileWidth = Math.Floor(Container.ActualWidth / maxAreaPerTile);
+                int amount = gearsToAdd + _gearVisuals.Count - 1;
+                Setup();
 
-                FirstGear.Width = FirstGear.Height = maxAreaPerTile;
-                _width = _height = maxAreaPerTile;
+                var maxAreaPerTile = Math.Sqrt((Container.ActualWidth * Container.ActualHeight) / (amount + Container.Children.Count));
 
-                _x = _gearDimension = _width * 0.87;
-            }
+                if (maxAreaPerTile < _width)
+                {
+                    var wholeTilesHeight = Math.Floor(Container.ActualHeight / maxAreaPerTile);
+                    var wholeTileWidth = Math.Floor(Container.ActualWidth / maxAreaPerTile);
 
-            for (int i = 0; i < amount; i++)
-            {
-                AddGear_Click(sender, e);
+                    FirstGear.Width = FirstGear.Height = maxAreaPerTile;
+                    _width = _height = maxAreaPerTile;
+
+                    _x = _gearDimension = _width * 0.87;
+                }
+
+                for (int i = 0; i < amount; i++)
+                {
+                    AddGear_Click(sender, e);
+                }
             }
         }
 
