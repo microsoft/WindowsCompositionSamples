@@ -136,7 +136,7 @@ namespace CompositionSampleGallery
             _textSprite.StartAnimation("Offset", offsetAnimation);
         }
 
-        private async void CreateImageAndLights(Vector2 sizeLightBounds)
+        private void CreateImageAndLights(Vector2 sizeLightBounds)
         {
             //
             // Image and effect setup
