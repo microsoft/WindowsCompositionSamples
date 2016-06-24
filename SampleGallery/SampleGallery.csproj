@@ -138,6 +138,7 @@
       <DependentUpon>Photos.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\SDK Insider\PullToAnimate\PullToAnimate.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\ShadowInterop\ShadowInterop.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\ShadowPlayground\ShadowPlayground.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>ShadowPlayground.xaml</DependentUpon>
     </Compile>
@@ -222,6 +223,14 @@
     <Content Include="Assets\PullToAnimate.jpg" />
     <Content Include="Assets\ThumbnailLighting.jpg" />
     <Content Include="Assets\WeatherInfo.png" />
+    <Content Include="Assets\WindowsInsiders\Bacon.png" />
+    <Content Include="Assets\WindowsInsiders\Flag.png" />
+    <Content Include="Assets\WindowsInsiders\Narwhal.png" />
+    <Content Include="Assets\WindowsInsiders\Ninjacat-1.png" />
+    <Content Include="Assets\WindowsInsiders\Ninjacat-2.png" />
+    <Content Include="Assets\WindowsInsiders\Ninjacat-3.png" />
+    <Content Include="Assets\WindowsInsiders\Trex.png" />
+    <Content Include="Assets\WindowsInsiders\Unicorn.png" />
     <Content Include="Assets\ZoomPerspective.jpg" />
     <Content Include="Assets\ZOrderScrolling.jpg" />
     <Content Include="Samples\SDK 10586\Perspective\jellyfish.jpg" />
@@ -396,6 +405,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\SDK Insider\PullToAnimate\PullToAnimate.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK Insider\ShadowInterop\ShadowInterop.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

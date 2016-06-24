@@ -83,6 +83,7 @@ namespace CompositionSampleGallery
             new SampleDefinition(PhotoViewer.StaticSampleName,                  typeof(PhotoViewer),                    SampleType.EndToEnd,  SampleCategory.Effects),
             new SampleDefinition(PullToAnimate.StaticSampleName,                typeof(PullToAnimate),                  SampleType.EndToEnd,  SampleCategory.Interactions),
             new SampleDefinition(ShadowPlayground.StaticSampleName,             typeof(ShadowPlayground),               SampleType.Reference, SampleCategory.Visuals),
+            new SampleDefinition(ShadowInterop.StaticSampleName,                typeof(ShadowInterop),                  SampleType.Reference, SampleCategory.Visuals),
             new SampleDefinition(TextShimmer.StaticSampleName,                  typeof(TextShimmer),                    SampleType.EndToEnd,  SampleCategory.Effects),
             new SampleDefinition(ThumbnailLighting.StaticSampleName,            typeof(ThumbnailLighting),              SampleType.EndToEnd,  SampleCategory.Effects),
             new SampleDefinition(BlurPlayground.StaticSampleName,               typeof(BlurPlayground),                 SampleType.Reference, SampleCategory.Effects),
