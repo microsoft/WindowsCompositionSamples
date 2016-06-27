@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid x:Name="RootGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="RootGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="15,5,15,5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -19,14 +19,12 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Button Style="{StaticResource SplitViewTogglePaneButtonStyle}"
-                Click="ShowSplitView"/>
-
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
             <TextBlock Text="Windows UI Dev Labs" 
                            VerticalAlignment="Center"
                            Style="{ThemeResource TitleTextBlockStyle}"
                            Margin="0,0,0,10"
+                           Padding="45,0,0,0"
                            FontWeight="Bold"
                            FontSize="24"
                            Grid.Column="1"/>
@@ -82,9 +80,6 @@
                 <LineBreak/> Copyright (c) Microsoft Corporation. All rights
             </Paragraph>
         </RichTextBlock>
-
-
-        <local:SampleListControl x:Name="MySampleListControl" Grid.ColumnSpan="2" Grid.RowSpan="3" />
     </Grid>
 
 </Page>

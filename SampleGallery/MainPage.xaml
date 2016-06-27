@@ -10,6 +10,18 @@
     Loaded="Page_Loaded"
     >
 
-    <Frame x:Name="MainFrame" ></Frame>
+    <Grid x:Name="RootGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        <Frame x:Name="MainFrame" Navigated="MainFrame_Navigated"/>
+        
+        <StackPanel Grid.Column="0">
+            <Button Style="{StaticResource SplitViewTogglePaneButtonStyle}"
+                    Click="ShowSplitView"/>
+            <Button Style="{StaticResource SplitViewTogglePaneButtonStyle}" Content=""
+                    x:Name="HomeButton" Click="NavigateHome"/>
+        </StackPanel>
+
+
+        <local:SampleListControl x:Name="MySampleListControl"/>
+    </Grid>
 </Page>

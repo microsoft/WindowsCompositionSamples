@@ -18,14 +18,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0">
-            <Button Style="{StaticResource SplitViewTogglePaneButtonStyle}"
-                    Click="ShowSplitView"/>
-            <Button Style="{StaticResource SplitViewTogglePaneButtonStyle}" Content=""
-                    Click="NavigateHome"/>
-        </StackPanel>
-
-        <StackPanel Grid.Column="1" Margin="5">
+        <StackPanel Grid.Column="1" Padding="50,5,5,5">
             <TextBlock 
                 x:Name="SampleName" 
                 x:FieldModifier="public"
@@ -45,9 +38,7 @@
                 Content="Click here to see the sample code on GitHub"
                 Margin="5,5,5,5"/>
         </StackPanel>
-        
-        <Frame x:Name="ContentFrame" x:FieldModifier="Public" Grid.Row="1" Grid.ColumnSpan="2"/>
 
-        <local:SampleListControl x:Name="MySampleListControl" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        <Frame x:Name="ContentFrame" x:FieldModifier="Public" Grid.Row="1" Grid.ColumnSpan="2"/>
     </Grid>
 </Page>

@@ -67,11 +67,6 @@ namespace CompositionSampleGallery
             FeaturedSampleList.ItemsSource = featuredSamples;
         }
 
-        private void ShowSplitView(object sender, RoutedEventArgs e)
-        {
-            MySampleListControl.SamplesSplitView.IsPaneOpen = !MySampleListControl.SamplesSplitView.IsPaneOpen;
-        }
-
         private void FeaturedSampleList_ItemClick(object sender, ItemClickEventArgs e)
         {
             FeaturedSample sample = (FeaturedSample)e.ClickedItem;

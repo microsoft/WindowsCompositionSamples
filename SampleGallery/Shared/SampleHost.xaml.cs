@@ -35,15 +35,5 @@ namespace CompositionSampleGallery
             SampleDefinition definition = (SampleDefinition)e.Parameter;
             ContentFrame.Navigate(definition.Type, this);
         }
-
-        private void ShowSplitView(object sender, RoutedEventArgs e)
-        {
-            MySampleListControl.SamplesSplitView.IsPaneOpen = !MySampleListControl.SamplesSplitView.IsPaneOpen;
-        }
-
-        private void NavigateHome(object sender, RoutedEventArgs e)
-        {
-            ((Frame)Window.Current.Content).Navigate(typeof(HomePage));
-        }
     }
 }
