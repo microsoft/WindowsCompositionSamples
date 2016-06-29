@@ -91,6 +91,8 @@ namespace CompositionSampleGallery
             new SampleDefinition(LayerDepth.StaticSampleName,                   typeof(LayerDepth),                     SampleType.EndToEnd,  SampleCategory.Effects),
             new SampleDefinition(Photos.StaticSampleName,                       typeof(Photos),                         SampleType.EndToEnd, SampleCategory.Animations),
             new SampleDefinition(Interactions3D.StaticSampleName,               typeof(Interactions3D),                 SampleType.EndToEnd, SampleCategory.Interactions),
+            new SampleDefinition(TreeEffects.StaticSampleName,                  typeof(TreeEffects),                    SampleType.Reference, SampleCategory.Effects),
+
 #endif
 
 #if SDKVERSION_10586
