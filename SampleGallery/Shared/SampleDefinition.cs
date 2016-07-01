@@ -40,7 +40,6 @@ namespace CompositionSampleGallery
         private SampleType  _sampleType;
         private SampleCategory  _sampleCategory;
 
-
         public SampleDefinition(string name, Type pageType, SampleType sampleType, SampleCategory sampleArea)
         {
             _name           = name;
@@ -92,7 +91,7 @@ namespace CompositionSampleGallery
             new SampleDefinition(Photos.StaticSampleName,                       typeof(Photos),                         SampleType.EndToEnd, SampleCategory.Animations),
             new SampleDefinition(Interactions3D.StaticSampleName,               typeof(Interactions3D),                 SampleType.EndToEnd, SampleCategory.Interactions),
             new SampleDefinition(TreeEffects.StaticSampleName,                  typeof(TreeEffects),                    SampleType.Reference, SampleCategory.Effects),
-
+            new SampleDefinition(LayerVisualAnd3DTransform.StaticSampleName,    typeof(LayerVisualAnd3DTransform),      SampleType.EndToEnd, SampleCategory.Effects),
 #endif
 
 #if SDKVERSION_10586
