@@ -22,7 +22,4 @@
     <ClInclude Include="CompositionImage.h" />
     <ClInclude Include="CompositionGraphicsDevice.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
 </Project>

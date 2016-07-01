@@ -28,6 +28,11 @@ namespace Toolkit {
             StorageFile^ file,
             CompositionImageOptions^ options);
 
+        CompositionImage^ CreateImageFromPixels(
+            const Array<byte>^ pixels,
+            int pixelWidth,
+            int pixelHeight);
+
     private:
         CompositionImageFactory(
             Compositor^ compositor,
