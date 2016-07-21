@@ -53,13 +53,20 @@ namespace CompositionSampleGallery
             SystemNavigationManager.GetForCurrentView().BackRequested += CustomConnectedAnimationDetail_BackRequested;
         }
 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            // Unregister the handler
+            SystemNavigationManager manager = SystemNavigationManager.GetForCurrentView();
+            manager.BackRequested -= CustomConnectedAnimationDetail_BackRequested;
+            manager.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+        }
+
         private void CustomConnectedAnimationDetail_BackRequested(object sender, BackRequestedEventArgs e)
         {
             if (!e.Handled)
             {
-                // Unregister the handler
-                SystemNavigationManager.GetForCurrentView().BackRequested -= CustomConnectedAnimationDetail_BackRequested;
-
                 // We are about to transition to a new page.  Cancel any outstanding transitions.
                 if (_currentTransition != null)
                 {
