@@ -115,10 +115,10 @@ namespace CompositionSampleGallery
         private void CustomParametersCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             var connectedAnimationService = ConnectedAnimationService.GetForCurrentView();
-            connectedAnimationService.DefaultDuration = TimeSpan.FromSeconds(0.5);
+            connectedAnimationService.DefaultDuration = TimeSpan.FromSeconds(0.8);
             connectedAnimationService.DefaultEasingFunction = _compositor.CreateCubicBezierEasingFunction(
-                new Vector2(0.42f, 0.0f),
-                new Vector2(0.58f, 1.0f)
+                new Vector2(0.41f, 0.52f),
+                new Vector2(0.00f, 0.94f)
                 );
 
             _usingCustomParameters = true;

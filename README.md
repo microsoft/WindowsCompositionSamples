@@ -50,3 +50,5 @@ There are also a number of blogs and blog posts from members of our community th
 - Mike Taulty has [a number of blog posts](https://mtaulty.com/category/composition/) experimenting with the Windows.UI.Composition APIs, with topics relating to effects and performance.
 - Microsoft Windows UI team member Robert Mikhayelyan talks about UWP development and the basics of the Composition APIs in [his personal blog](http://blog.robmikh.com/).
 - XAML Brewer Diederik Krols has many [in-depth posts on Effects and custom Windows UI controls](https://xamlbrewer.wordpress.com/category/composition-api/).
+
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.

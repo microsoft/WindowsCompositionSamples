@@ -135,10 +135,35 @@ namespace CompositionSampleGallery
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            MySampleListControl.NavigationFrame = MainFrame;
+
             MainFrame.Navigate(typeof(HomePage));
 
             // Now that loading is complete, dismiss the custom splash screen
             HideCustomSplashScreen();
+        }
+
+        private void ShowSplitView(object sender, RoutedEventArgs e)
+        {
+            MySampleListControl.SamplesSplitView.IsPaneOpen = !MySampleListControl.SamplesSplitView.IsPaneOpen;
+        }
+
+        private void NavigateHome(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(typeof(HomePage));
+            HomeButton.Visibility = Visibility.Collapsed;
+        }
+
+        private void MainFrame_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        {
+            if (e.SourcePageType == typeof(HomePage))
+            {
+                HomeButton.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                HomeButton.Visibility = Visibility.Visible;
+            }
         }
     }
 }

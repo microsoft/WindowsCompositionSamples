@@ -121,6 +121,9 @@
     <Compile Include="ImageLoader\ImageLoader.cs" />
     <Compile Include="ImageLoader\ManagedSurface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CompositionShadow.xaml.cs">
+      <DependentUpon>CompositionShadow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SurfaceLoader.cs" />
     <Compile Include="SwipeDismissPanel.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="UIElementExtensionMethods.cs" />
@@ -131,6 +134,10 @@
     <Page Include="ColorMixer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CompositionShadow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

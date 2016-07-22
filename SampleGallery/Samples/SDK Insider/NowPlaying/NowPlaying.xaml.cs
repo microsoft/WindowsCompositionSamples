@@ -136,7 +136,7 @@ namespace CompositionSampleGallery
             _textSprite.StartAnimation("Offset", offsetAnimation);
         }
 
-        private async void CreateImageAndLights(Vector2 sizeLightBounds)
+        private void CreateImageAndLights(Vector2 sizeLightBounds)
         {
             //
             // Image and effect setup
@@ -158,22 +158,15 @@ namespace CompositionSampleGallery
                     {
                         Name = "Light1",
                         DiffuseAmount = 1f,
-                        Source = new CompositionEffectSourceParameter("NormalMap"),
                     },
 
                     new PointDiffuseEffect()
                     {
                         Name = "Light2",
                         DiffuseAmount = 1f,
-                        Source = new CompositionEffectSourceParameter("NormalMap"),
                     },
                 }
             };
-
-            // Create the normal map.  For this sample, we want a flat surface with no bumps
-            CompositionDrawingSurface normalMap = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Samples/SDK Insider/NowPlaying/NormalMap.jpg"));
-            CompositionSurfaceBrush surfaceBrush = _compositor.CreateSurfaceBrush(normalMap);
-            surfaceBrush.Stretch = CompositionStretch.Fill;
 
             // Create the effect factory, we're going to animate the light positions and colors
             CompositionEffectFactory effectFactory = _compositor.CreateEffectFactory(graphicsEffect, 
@@ -182,7 +175,6 @@ namespace CompositionSampleGallery
 
             // Create the effect brush and bind the normal map
             CompositionEffectBrush brush = effectFactory.CreateBrush();         
-            brush.SetSourceParameter("NormalMap", surfaceBrush);
 
             // Update the CompositionImage to use the custom effect brush
             ArtistImage.Brush = brush;

@@ -51,13 +51,24 @@ namespace CompositionSampleGallery
             _systemNavigationManager.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
         }
 
-        private void ConnectedAnimationDetail_BackRequested(object sender, BackRequestedEventArgs e)
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            base.OnNavigatedFrom(e);
+
             _systemNavigationManager.BackRequested -= ConnectedAnimationDetail_BackRequested;
             _systemNavigationManager.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+        }
+
+        private void ConnectedAnimationDetail_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (e.Handled)
+            {
+                return;
+            }
 
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("Image", PhotoImage);
 
+            e.Handled = true;
             Frame.GoBack();
         }
     }

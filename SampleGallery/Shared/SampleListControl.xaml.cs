@@ -32,15 +32,14 @@ namespace CompositionSampleGallery
             SampleViewSource.Source = result;
         }
 
+        public Frame NavigationFrame { get; internal set; }
+
         private void SampleList_ItemClick(object sender, ItemClickEventArgs e)
         {
             SampleDefinition definition = e.ClickedItem as SampleDefinition;
-            ((Frame)Window.Current.Content).Navigate(typeof(SampleHost), definition);
-        }
+            NavigationFrame.Navigate(typeof(SampleHost), definition);
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
+            SamplesSplitView.IsPaneOpen = false; 
         }
     }
 }

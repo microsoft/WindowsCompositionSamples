@@ -99,13 +99,11 @@ namespace CompositionSampleGallery
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             // Dispose the sprite and unparent it
-            // TODO: Remove this workaround after 14332
-            //ElementCompositionPreview.SetElementChildVisual(ThumbnailList, null);
+            ElementCompositionPreview.SetElementChildVisual(ThumbnailList, null);
 
             if (_destinationSprite != null)
             {
-                // TODO: Remove this workaround after 14332
-                //_destinationSprite.Dispose();
+                _destinationSprite.Dispose();
                 _destinationSprite = null;
             }
         }
@@ -125,6 +123,20 @@ namespace CompositionSampleGallery
             if (_destinationSprite != null)
             {
                 _destinationSprite.Size = e.NewSize.ToVector2();
+
+                ComboBoxItem item = EffectSelection.SelectedValue as ComboBoxItem;
+                switch ((EffectTypes)item.Tag)
+                {
+                    case EffectTypes.Mask:
+                        {
+                            CompositionEffectBrush brush = (CompositionEffectBrush)_destinationSprite.Brush;
+                            CompositionSurfaceBrush surfaceBrush = (CompositionSurfaceBrush)brush.GetSourceParameter("SecondSource");
+                            surfaceBrush.CenterPoint = e.NewSize.ToVector2() * .5f;
+                            break;
+                        }
+                    default:
+                        break;
+                }
             }
         }
 
@@ -347,7 +359,7 @@ namespace CompositionSampleGallery
 
                             CompositionSurfaceBrush maskBrush = _compositor.CreateSurfaceBrush(backgroundSurface);
                             maskBrush.Stretch = CompositionStretch.UniformToFill;
-                            maskBrush.CenterPoint = backgroundSurface.Size.ToVector2() / 2;
+                            maskBrush.CenterPoint = _destinationSprite.Size * .5f;
                             secondaryBrush = maskBrush;
                         }
                         break;

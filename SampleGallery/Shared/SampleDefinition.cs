@@ -40,7 +40,6 @@ namespace CompositionSampleGallery
         private SampleType  _sampleType;
         private SampleCategory  _sampleCategory;
 
-
         public SampleDefinition(string name, Type pageType, SampleType sampleType, SampleCategory sampleArea)
         {
             _name           = name;
@@ -78,12 +77,12 @@ namespace CompositionSampleGallery
             new SampleDefinition(Curtain.StaticSampleName,                      typeof(Curtain),                        SampleType.Reference, SampleCategory.Interactions),
             new SampleDefinition(ForegroundFocusEffects.StaticSampleName,       typeof(ForegroundFocusEffects),         SampleType.EndToEnd,  SampleCategory.Effects),
             new SampleDefinition(Gears.StaticSampleName,                        typeof(Gears),                          SampleType.EndToEnd,  SampleCategory.ExpressionAnimations),
-            new SampleDefinition(ImageLightingPlayground.StaticSampleName,      typeof(ImageLightingPlayground),        SampleType.Reference, SampleCategory.Effects),
             new SampleDefinition(ImplicitAnimationTransformer.StaticSampleName, typeof(ImplicitAnimationTransformer),   SampleType.Reference, SampleCategory.Animations),
             new SampleDefinition(NowPlaying.StaticSampleName,                   typeof(NowPlaying),                     SampleType.EndToEnd,  SampleCategory.Effects),
             new SampleDefinition(PhotoViewer.StaticSampleName,                  typeof(PhotoViewer),                    SampleType.EndToEnd,  SampleCategory.Effects),
             new SampleDefinition(PullToAnimate.StaticSampleName,                typeof(PullToAnimate),                  SampleType.EndToEnd,  SampleCategory.Interactions),
             new SampleDefinition(ShadowPlayground.StaticSampleName,             typeof(ShadowPlayground),               SampleType.Reference, SampleCategory.Visuals),
+            new SampleDefinition(ShadowInterop.StaticSampleName,                typeof(ShadowInterop),                  SampleType.Reference, SampleCategory.Visuals),
             new SampleDefinition(TextShimmer.StaticSampleName,                  typeof(TextShimmer),                    SampleType.EndToEnd,  SampleCategory.Effects),
             new SampleDefinition(ThumbnailLighting.StaticSampleName,            typeof(ThumbnailLighting),              SampleType.EndToEnd,  SampleCategory.Effects),
             new SampleDefinition(BlurPlayground.StaticSampleName,               typeof(BlurPlayground),                 SampleType.Reference, SampleCategory.Effects),
@@ -91,6 +90,8 @@ namespace CompositionSampleGallery
             new SampleDefinition(LayerDepth.StaticSampleName,                   typeof(LayerDepth),                     SampleType.EndToEnd,  SampleCategory.Effects),
             new SampleDefinition(Photos.StaticSampleName,                       typeof(Photos),                         SampleType.EndToEnd, SampleCategory.Animations),
             new SampleDefinition(Interactions3D.StaticSampleName,               typeof(Interactions3D),                 SampleType.EndToEnd, SampleCategory.Interactions),
+            new SampleDefinition(TreeEffects.StaticSampleName,                  typeof(TreeEffects),                    SampleType.Reference, SampleCategory.Effects),
+            new SampleDefinition(LayerVisualAnd3DTransform.StaticSampleName,    typeof(LayerVisualAnd3DTransform),      SampleType.EndToEnd, SampleCategory.Effects),
 #endif
 
 #if SDKVERSION_10586

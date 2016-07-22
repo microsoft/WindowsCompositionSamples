@@ -12,28 +12,18 @@
 //
 //*********************************************************
 
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
-
 namespace CompositionSampleGallery
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class SampleHost : Page
+    public sealed partial class ShadowInterop : SamplePage
     {
-        public SampleHost()
+        public ShadowInterop()
         {
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-
-            SampleDefinition definition = (SampleDefinition)e.Parameter;
-            ContentFrame.Navigate(definition.Type, this);
-        }
+        public static string        StaticSampleName    { get { return "Shadow Interop"; } }
+        public override string      SampleName          { get { return StaticSampleName; } }
+        public override string      SampleDescription   { get { return "Demonstrates how to apply drop shadows to Xaml elements."; } }
+        public override string      SampleCodeUri       { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761171"; } }
     }
 }

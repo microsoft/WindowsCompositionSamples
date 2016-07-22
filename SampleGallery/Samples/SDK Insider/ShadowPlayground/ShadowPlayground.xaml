@@ -25,9 +25,6 @@
             <StackPanel Orientation="Vertical" Grid.Row="0">
                 <Button x:Name="MaskButton" Click="MaskButton_Click" HorizontalAlignment="Center"
                     Margin="0, 10">Toggle Mask</Button>
-                <CheckBox x:Name="AnimationCheckBox" Click="AnimationCheckBox_Click" 
-                          HorizontalAlignment="Center" Content="Animated Interpolation"
-                          Margin="0, 10"/>
             </StackPanel>
 
             <ScrollViewer x:Name="SliderList"  Grid.Row="1"
@@ -36,40 +33,34 @@
                 <StackPanel Orientation="Vertical"
                             Margin="10">
                     <TextBlock HorizontalAlignment="Center">Blur Radius</TextBlock>
-                    <Slider x:Name="BlurRadiusSlider" ValueChanged="BlurRadiusSlider_ValueChanged"  
-                            PointerCaptureLost="BlurRadiusSlider_PointerCaptureLost"
+                    <Slider
+                            Value="{x:Bind Shadow.BlurRadius, Mode=TwoWay}"
                             HorizontalAlignment="Stretch"
                             Minimum="0" Maximum="100"
                             Margin="0, 20, 10, 0"/>
+                    <TextBlock HorizontalAlignment="Center">Opacity</TextBlock>
+                    <Slider
+                            Value="{x:Bind Shadow.ShadowOpacity, Mode=TwoWay}"
+                            HorizontalAlignment="Stretch"
+                            Minimum="0" Maximum="1"
+                            StepFrequency=".1"
+                            Margin="0, 20, 10, 0"/>
                     <TextBlock HorizontalAlignment="Center">Offset - X</TextBlock>
-                    <Slider x:Name="OffsetXSlider" ValueChanged="OffsetXSlider_ValueChanged" 
-                            PointerCaptureLost="OffsetXSlider_PointerCaptureLost"
+                    <Slider
+                            Value="{x:Bind Shadow.OffsetX, Mode=TwoWay}"
                             HorizontalAlignment="Stretch"
                             Minimum="-200" Maximum="200" 
                             Margin="0, 20, 10, 0"/>
                     <TextBlock HorizontalAlignment="Center">Offset - Y</TextBlock>
-                    <Slider x:Name="OffsetYSlider" ValueChanged="OffsetYSlider_ValueChanged" 
-                            PointerCaptureLost="OffsetYSlider_PointerCaptureLost"
+                    <Slider
+                            Value="{x:Bind Shadow.OffsetY, Mode=TwoWay}"
                             HorizontalAlignment="Stretch"
                             Minimum="-200" Maximum="200"  
                             Margin="0, 20, 10, 0"/>
-                    <TextBlock HorizontalAlignment="Center">Shadow Color - Red</TextBlock>
-                    <Slider x:Name="RedSlider" ValueChanged="RedSlider_ValueChanged" 
-                            PointerCaptureLost="RedSlider_PointerCaptureLost"
+                    <TextBlock HorizontalAlignment="Center">Shadow Color</TextBlock>
+                    <common:ColorMixer
+                            Color="{Binding ElementName=Shadow, Path=Color, Mode=TwoWay}"
                             HorizontalAlignment="Stretch"
-                            Maximum="255"
-                            Margin="0, 20, 10, 0"/>
-                    <TextBlock HorizontalAlignment="Center">Shadow Color - Green</TextBlock>
-                    <Slider x:Name="GreenSlider" ValueChanged="GreenSlider_ValueChanged" 
-                            PointerCaptureLost="GreenSlider_PointerCaptureLost"
-                            HorizontalAlignment="Stretch"
-                            Maximum="255"
-                            Margin="0, 20, 10, 0"/>
-                    <TextBlock HorizontalAlignment="Center">Shadow Color - Blue</TextBlock>
-                    <Slider x:Name="BlueSlider" ValueChanged="BlueSlider_ValueChanged" 
-                            PointerCaptureLost="BlueSlider_PointerCaptureLost"
-                            HorizontalAlignment="Stretch"
-                            Maximum="255"
                             Margin="0, 20, 10, 0"/>
                 </StackPanel>
             </ScrollViewer>
@@ -77,14 +68,15 @@
 
         <Grid x:Name="ShadowContainer" Grid.Column="1"
               HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-
-            <common:CompositionImage x:Name="Image"
-                                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                                    Source="ms-appx:///Samples/SDK Insider/ShadowPlayground/win11_-15607.jpg"
-                                    Width="400"
-                                    Height="267"
-                                    Stretch="Fill">
-            </common:CompositionImage>
+            <common:CompositionShadow x:Name="Shadow"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <common:CompositionImage x:Name="Image"
+                        Width="400" Height="267"
+                        Source="ms-appx:///Samples/SDK Insider/ShadowPlayground/win11_-15607.jpg"
+                        Stretch="Fill">
+                </common:CompositionImage>
+            </common:CompositionShadow>
         </Grid>
     </Grid>
 </local:SamplePage>
