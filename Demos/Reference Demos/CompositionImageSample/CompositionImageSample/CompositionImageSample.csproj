@@ -113,7 +113,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Microsoft.UI.Composition.Toolkit\Microsoft.UI.Composition.Toolkit.vcxproj">
+    <ProjectReference Include="..\..\Microsoft.UI.Composition.Toolkit\Microsoft.UI.Composition.Toolkit.vcxproj">
       <Project>{08a7d060-593a-4978-8dcc-b2029aca7c95}</Project>
       <Name>Microsoft.UI.Composition.Toolkit</Name>
     </ProjectReference>

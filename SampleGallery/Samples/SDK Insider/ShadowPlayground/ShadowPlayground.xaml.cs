@@ -28,15 +28,11 @@ namespace CompositionSampleGallery
         private Visual _shadowContainer;
         private Compositor _compositor;
         private SpriteVisual _imageVisual;
-        private DropShadow _shadow;
         private CompositionImage _image;
         private IImageLoader _imageLoader;
         private IManagedSurface _imageMaskSurface;
         private CompositionMaskBrush _maskBrush;
         private bool _isMaskEnabled;
-        private bool _isAnimationEnabled;
-
-        private const int ANIMATION_DURATION = 1; //animation duration in seconds
 
         public ShadowPlayground()
         {
@@ -57,18 +53,6 @@ namespace CompositionSampleGallery
             // Get CompositionImage, its sprite visual
             _image = VisualTreeHelperExtensions.GetFirstDescendantOfType<CompositionImage>(ShadowContainer);
             _imageVisual = _image.SpriteVisual;
-           
-            // Add drop shadow to image visual
-            _shadow = _compositor.CreateDropShadow();
-            _imageVisual.Shadow = _shadow;
-
-            // Initialize sliders to shadow defaults - with the exception of offset
-            BlurRadiusSlider.Value  = _shadow.BlurRadius;   //defaults to 9.0f
-            OffsetXSlider.Value     = _shadow.Offset.X;     //defaults to 0
-            OffsetYSlider.Value     = _shadow.Offset.Y;     //defaults to 0
-            RedSlider.Value         = _shadow.Color.R;      //defaults to 0 (black.R)
-            GreenSlider.Value       = _shadow.Color.G;      //defaults to 0 (black.G) 
-            BlueSlider.Value        = _shadow.Color.B;      //defaults to 0 (black.B) 
 
             // Load mask asset onto surface using helpers in SamplesCommon
             _imageLoader = ImageLoaderFactory.CreateImageLoader(_compositor);
@@ -86,10 +70,8 @@ namespace CompositionSampleGallery
             _maskBrush.Mask = mask;
             _maskBrush.Source = source;
 
-            // Initialize toggle mask and animation to false
+            // Initialize toggle mask
             _isMaskEnabled = false;
-            _isAnimationEnabled = false;
-          
         }
 
         private void SamplePage_Unloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -107,182 +89,19 @@ namespace CompositionSampleGallery
 
         private void MaskButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-
             if (_isMaskEnabled) //then remove mask
             {
                 _image.Brush = _maskBrush.Source; //set set composition image's brush to (the initial) surfacebrush (source) 
-                _shadow.Mask = null; //remove mask from shadow
-
+                Shadow.Mask = null; //remove mask from shadow
             }
             else //add mask
             {
                 _image.Brush = _maskBrush; //set composition image's brush to maskbrush
-                _shadow.Mask = _maskBrush.Mask; //add mask to shadow
-
+                Shadow.Mask = _maskBrush.Mask; //add mask to shadow
             }
 
             // Update bool
             _isMaskEnabled = !_isMaskEnabled;
-        }
-
-        private void RedSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            // Set shadow's red color component to slider value
-            if(!_isAnimationEnabled)
-            {
-                byte red = (byte)e.NewValue;
-                _shadow.Color = Color.FromArgb(255, red, _shadow.Color.G, _shadow.Color.B);
-            }
-        }
-
-        private void GreenSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            // Set shadow's green color component to slider value
-            if (!_isAnimationEnabled)
-            {
-                byte green = (byte)e.NewValue;
-                _shadow.Color = Color.FromArgb(255, _shadow.Color.R, green, _shadow.Color.B);
-            }  
-        }
-
-        private void BlueSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            // Set shadow's blue color component to slider value
-            if (!_isAnimationEnabled)
-            {
-                byte blue = (byte)e.NewValue;
-                _shadow.Color = Color.FromArgb(255, _shadow.Color.R, _shadow.Color.G, blue);
-            }
-        }
-
-        private void OffsetXSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            // Change shadow's horizontal offset based on slider value
-            if (!_isAnimationEnabled)
-            {
-                var offset_x = (float)e.NewValue;
-                _shadow.Offset = new Vector3(offset_x, _shadow.Offset.Y, _shadow.Offset.Z);
-            }
-        }
-
-        private void OffsetYSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            // Change shadow's vertical offset based on slider value
-            if (!_isAnimationEnabled)
-            {
-                var offset_y = (float)e.NewValue;
-                _shadow.Offset = new Vector3(_shadow.Offset.X, offset_y, _shadow.Offset.Z);
-            }
-        }
-
-        private void BlurRadiusSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            // Set shadow's blur radius to slider value
-            if (!_isAnimationEnabled)
-            {
-                var blur_radius = (float)e.NewValue;
-                _shadow.BlurRadius = blur_radius;
-            }
-        }
-
-        private void AnimationCheckBox_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            // Enable or disable animation depending on whether box is checked
-            CheckBox cb = (CheckBox)sender;
-            if (cb.IsChecked.HasValue)
-            {
-                _isAnimationEnabled = (bool)cb.IsChecked;
-            }
-        }
-
-        
-        /** Event Handlers for Animation **/
-
-        private void BlurRadiusSlider_PointerCaptureLost(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            // Animate blur radius from current value to slider value
-            if (_isAnimationEnabled)
-            {
-                Slider sliderControl = (Slider)sender;
-
-                ScalarKeyFrameAnimation blurAnimation = _compositor.CreateScalarKeyFrameAnimation();
-                blurAnimation.InsertKeyFrame(1.0f, (float)sliderControl.Value);
-                blurAnimation.Duration = new TimeSpan(0, 0, ANIMATION_DURATION);
-                _shadow.StartAnimation("BlurRadius", blurAnimation);
-            }
-        }
-
-        private void StartVector3Animation(String propertyName, Vector3 endValue)
-        {
-            // Create and start a Vector3 KeyFrame animation on shadow with given begin and end values
-            Vector3KeyFrameAnimation animation = _compositor.CreateVector3KeyFrameAnimation();
-            animation.InsertKeyFrame(1.0f, endValue);
-            animation.Duration = new TimeSpan(0, 0, ANIMATION_DURATION);
-            _shadow.StartAnimation(propertyName, animation);
-        }
-
-        private void OffsetXSlider_PointerCaptureLost(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            // Animate shadow's x-offset from current value to slider value
-            if (_isAnimationEnabled)
-            {
-                Slider sliderControl = (Slider)sender;
-                StartVector3Animation("Offset",
-                    new Vector3((float)sliderControl.Value, _shadow.Offset.Y, _shadow.Offset.Z));
-            }
-        }
-
-        private void OffsetYSlider_PointerCaptureLost(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            // Animate shadow's y-offset from current value to slider value
-            if (_isAnimationEnabled)
-            {
-                Slider sliderControl = (Slider)sender;
-                StartVector3Animation("Offset",
-                    new Vector3(_shadow.Offset.X, (float)sliderControl.Value, _shadow.Offset.Z));
-            }
-        }
-
-        private void StartColorAnimation(Color endValue)
-        {
-            // Create and start a color animation from begin to end values
-            ColorKeyFrameAnimation animation = _compositor.CreateColorKeyFrameAnimation();
-            animation.InsertKeyFrame(1.0f, endValue);
-            animation.Duration = new TimeSpan(0, 0, ANIMATION_DURATION);
-            _shadow.StartAnimation("Color", animation);
-        }
-
-        private void RedSlider_PointerCaptureLost(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            // Animate shadow's red color channel from current value to slider value
-            if (_isAnimationEnabled)
-            {
-                Slider sliderControl = (Slider)sender;
-                StartColorAnimation(
-                    Color.FromArgb(255, (byte)sliderControl.Value, _shadow.Color.G, _shadow.Color.B));
-            }
-        }
-
-        private void GreenSlider_PointerCaptureLost(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            // Animate shadow's green color channel from current value to slider value
-            if (_isAnimationEnabled)
-            {
-                Slider sliderControl = (Slider)sender;
-                StartColorAnimation(
-                    Color.FromArgb(255, _shadow.Color.R, (byte)sliderControl.Value, _shadow.Color.B));
-            }
-        }
-
-        private void BlueSlider_PointerCaptureLost(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            // Animate shadow's blue color channel from current value to slider value
-            if (_isAnimationEnabled)
-            {
-                Slider sliderControl = (Slider)sender;
-                StartColorAnimation(
-                    Color.FromArgb(255, _shadow.Color.R, _shadow.Color.G, (byte)sliderControl.Value));
-            }
         }
     }
 }

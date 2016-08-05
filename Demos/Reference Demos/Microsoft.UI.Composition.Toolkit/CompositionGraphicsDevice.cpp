@@ -139,7 +139,7 @@ HRESULT CompositionGraphicsDevice::InitializeDX()
     IFC(d3dDevice.As(&d3dDevice1));
 
     // We're using our own synchronization so we can create the D2D factory in single threaded mode.
-    IFC(D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, __uuidof(ID2D1Factory1), &d2dFactory));
+    IFC(D2D1CreateFactory(D2D1_FACTORY_TYPE_MULTI_THREADED, __uuidof(ID2D1Factory1), &d2dFactory));
     IFC(d3dDevice.As(&dxgiDevice));
     IFC(d2dFactory->CreateDevice(dxgiDevice.Get(), &d2d1Device));
 

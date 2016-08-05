@@ -92,6 +92,11 @@ namespace CompositionSampleGallery
             {
                 _currentTransition = (ConnectedTransition)e.Parameter;
             }
+            else
+            {
+                // Should not run ConnectedTransition
+                _currentTransition = null;
+            }
 
             //Hide the back button on the list page as there is no where to go back to. 
             Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Windows.UI.Core.AppViewBackButtonVisibility.Collapsed;
