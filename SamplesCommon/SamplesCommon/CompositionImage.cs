@@ -460,7 +460,7 @@ namespace SamplesCommon
             Visual loadingVisual = _sprite.Children.LastOrDefault();
             loadingVisual.StartAnimation("Opacity", _fadeOutAnimation);
 
-#if SDKVERSION_INSIDER
+#if SDKVERSION_14393
             Vector2 visualSize = _sprite.Size;
             _surfaceBrush.CenterPoint = new Vector2(visualSize.X *.5f, visualSize.Y * .5f);
 

@@ -49,7 +49,7 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
 
             FeaturedSample[] featuredSamples = null;
-#if SDKVERSION_INSIDER
+#if SDKVERSION_14393
             featuredSamples = new FeaturedSample[] 
                 {
                     new FeaturedSample(ThumbnailLighting.StaticSampleName,  "Demonstrates how to apply Image Lighting to ListView Items.  Switch between different combinations of light types(point, spot, distant) and lighting properties such as diffuse and specular.", "ms-appx:///Assets/ThumbnailLighting.jpg" ),
