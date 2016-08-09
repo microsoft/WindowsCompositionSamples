@@ -11,6 +11,6 @@
         <Grid.Clip>
             <RectangleGeometry x:Name="GridClip" />
         </Grid.Clip>
-        <Image x:Name ="Stage" Source="ms-appx:///Samples/SDK Insider/Interactions3D/stage.jpg" Stretch="UniformToFill" PointerPressed="Stage_PointerPressed"/>
+        <Image x:Name ="Stage" Source="ms-appx:///Samples/SDK 14393/Interactions3D/stage.jpg" Stretch="UniformToFill" PointerPressed="Stage_PointerPressed"/>
     </Grid>
 </local:SamplePage>

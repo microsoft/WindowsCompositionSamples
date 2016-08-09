@@ -27,8 +27,12 @@ namespace CompositionSampleGallery
 {
     public sealed partial class MainPage : Page
     {
+        private static MainPage _instance;
+
         public MainPage(Rect imageBounds)
         {
+            _instance = this;
+
             this.InitializeComponent();
 
             // Initialize the surface loader
@@ -36,6 +40,11 @@ namespace CompositionSampleGallery
 
             // Show the custome splash screen
             ShowCustomSplashScreen(imageBounds);
+        }
+
+        public static MainPage Instance
+        {
+            get { return _instance; }
         }
 
         private async void ShowCustomSplashScreen(Rect imageBounds)
@@ -135,9 +144,7 @@ namespace CompositionSampleGallery
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            MySampleListControl.NavigationFrame = MainFrame;
-
-            MainFrame.Navigate(typeof(HomePage));
+            NavigateToPage(typeof(HomePage));
 
             // Now that loading is complete, dismiss the custom splash screen
             HideCustomSplashScreen();
@@ -150,13 +157,12 @@ namespace CompositionSampleGallery
 
         private void NavigateHome(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(typeof(HomePage));
-            HomeButton.Visibility = Visibility.Collapsed;
+            NavigateToPage(typeof(HomePage));
         }
-
-        private void MainFrame_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        
+        public void NavigateToPage(Type page, object parameter = null)
         {
-            if (e.SourcePageType == typeof(HomePage))
+            if (page == typeof(HomePage))
             {
                 HomeButton.Visibility = Visibility.Collapsed;
             }
@@ -164,6 +170,8 @@ namespace CompositionSampleGallery
             {
                 HomeButton.Visibility = Visibility.Visible;
             }
+
+            MainFrame.Navigate(page, parameter);
         }
     }
 }

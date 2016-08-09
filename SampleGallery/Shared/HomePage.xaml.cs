@@ -75,7 +75,7 @@ namespace CompositionSampleGallery
             {
                 if (sample.Name == definition.Name)
                 {
-                    ((Frame)Window.Current.Content).Navigate(typeof(SampleHost), definition);
+                    MainPage.Instance.NavigateToPage(typeof(SampleHost), definition);
                     break;
                 }
             }

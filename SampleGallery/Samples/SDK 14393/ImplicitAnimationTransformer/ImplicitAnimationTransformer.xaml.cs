@@ -100,7 +100,7 @@ namespace CompositionSampleGallery
             IImageLoader imageFactory = ImageLoaderFactory.CreateImageLoader(_compositor);
             for (int k = 0; k < imageNames.Length; k++)
             {
-                var surface = imageFactory.LoadImageFromUri(new Uri("ms-appx:///Samples/SDK Insider/ImplicitAnimationTransformer/" + imageNames[k]));
+                var surface = imageFactory.LoadImageFromUri(new Uri("ms-appx:///Samples/SDK 14393/ImplicitAnimationTransformer/" + imageNames[k]));
                 imageBrushList.Add(_compositor.CreateSurfaceBrush(surface));
             }
 
