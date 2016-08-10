@@ -100,7 +100,7 @@ namespace CompositionSampleGallery
             // for masking off the rectangular edges.
             //
 
-            CompositionDrawingSurface normalMap = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Samples/SDK Insider/ThumbnailLighting/SphericalWithMask.png"));
+            CompositionDrawingSurface normalMap = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Samples/SDK 14393/ThumbnailLighting/SphericalWithMask.png"));
             _circleNormalsBrush = _compositor.CreateSurfaceBrush(normalMap);
             _circleNormalsBrush.Stretch = CompositionStretch.Fill;
 
@@ -110,7 +110,7 @@ namespace CompositionSampleGallery
             // the edges, flat in the middle.
             //
 
-            normalMap = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Samples/SDK Insider/ThumbnailLighting/BeveledEdges.jpg"));
+            normalMap = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Samples/SDK 14393/ThumbnailLighting/BeveledEdges.jpg"));
             _flatNormalsBrush = _compositor.CreateSurfaceBrush(normalMap);
             _flatNormalsBrush.Stretch = CompositionStretch.Fill;
        
