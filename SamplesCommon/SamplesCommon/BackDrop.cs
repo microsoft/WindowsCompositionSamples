@@ -15,7 +15,7 @@ namespace SamplesCommon
         CompositionBrush m_blurBrush;
         Visual m_rootVisual;
 
-#if SDKVERSION_INSIDER
+#if SDKVERSION_14393
         bool m_setUpExpressions;
         CompositionSurfaceBrush m_noiseBrush;
 #endif
@@ -27,7 +27,7 @@ namespace SamplesCommon
 
             m_blurVisual = Compositor.CreateSpriteVisual();
 
-#if SDKVERSION_INSIDER
+#if SDKVERSION_14393
             m_noiseBrush = Compositor.CreateSurfaceBrush();
 
             CompositionEffectBrush brush = BuildBlurBrush();
@@ -55,14 +55,14 @@ namespace SamplesCommon
             get
             {
                 float value = 0;
-#if SDKVERSION_INSIDER
+#if SDKVERSION_14393
                 m_rootVisual.Properties.TryGetScalar(BlurAmountProperty, out value);
 #endif
                 return value;
             }
             set
             {
-#if SDKVERSION_INSIDER
+#if SDKVERSION_14393
                 if (!m_setUpExpressions)
                 {
                     m_blurBrush.Properties.InsertScalar("Blur.BlurAmount", (float)value);
@@ -77,7 +77,7 @@ namespace SamplesCommon
             get
             {
                 Color value;
-#if SDKVERSION_INSIDER
+#if SDKVERSION_14393
                 m_rootVisual.Properties.TryGetColor("TintColor", out value);
 #else
                 value = ((CompositionColorBrush)m_blurBrush).Color;
@@ -86,7 +86,7 @@ namespace SamplesCommon
             }
             set
             {
-#if SDKVERSION_INSIDER
+#if SDKVERSION_14393
                 if (!m_setUpExpressions)
                 {
                     m_blurBrush.Properties.InsertColor("Color.Color", value);
@@ -117,7 +117,7 @@ namespace SamplesCommon
             this.SizeChanged += OnSizeChanged;
             OnSizeChanged(this, null);
 
-#if SDKVERSION_INSIDER
+#if SDKVERSION_14393
             m_noiseBrush.Surface = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Assets/Noise.jpg"));
             m_noiseBrush.Stretch = CompositionStretch.UniformToFill;
 #endif
@@ -137,7 +137,7 @@ namespace SamplesCommon
             }
         }
 
-#if SDKVERSION_INSIDER
+#if SDKVERSION_14393
         private void SetUpPropertySetExpressions()
         {
             m_setUpExpressions = true;

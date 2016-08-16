@@ -12,7 +12,7 @@
 
     <Grid x:Name="RootGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-        <Frame x:Name="MainFrame" Navigated="MainFrame_Navigated"/>
+        <Frame x:Name="MainFrame"/>
         
         <StackPanel Grid.Column="0">
             <Button Style="{StaticResource SplitViewTogglePaneButtonStyle}"

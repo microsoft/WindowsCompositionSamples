@@ -27,7 +27,7 @@ namespace CompositionSampleGallery
         {
             InitializeComponent();
 
-#if SDKVERSION_INSIDER
+#if SDKVERSION_14393
             SampleComboBox.ItemsSource = new[] { "XAML Connected Animation", "Custom Connected Animation" };
 #else
             SampleComboBox.ItemsSource = new[] { "Custom Connected Animation" };
@@ -37,7 +37,7 @@ namespace CompositionSampleGallery
 
         private void SampleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-#if SDKVERSION_INSIDER
+#if SDKVERSION_14393
             if (SampleComboBox.SelectedIndex == 0)
             {
                 SamplesFrame.Navigate(typeof(ConnectedAnimationSample));

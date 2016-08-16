@@ -355,7 +355,7 @@ namespace CompositionSampleGallery
                                 }
                             };
 
-                            CompositionDrawingSurface backgroundSurface = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Samples/SDK Insider/ForegroundFocusEffects/mask.png"));
+                            CompositionDrawingSurface backgroundSurface = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Samples/SDK 14393/ForegroundFocusEffects/mask.png"));
 
                             CompositionSurfaceBrush maskBrush = _compositor.CreateSurfaceBrush(backgroundSurface);
                             maskBrush.Stretch = CompositionStretch.UniformToFill;

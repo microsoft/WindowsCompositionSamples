@@ -72,7 +72,7 @@ namespace CompositionSampleGallery
     {
         static SampleDefinition[] definitions =
         {
-#if SDKVERSION_INSIDER
+#if SDKVERSION_14393
             new SampleDefinition(BackDropSample.StaticSampleName,               typeof(BackDropSample),                 SampleType.Reference, SampleCategory.Effects),
             new SampleDefinition(Curtain.StaticSampleName,                      typeof(Curtain),                        SampleType.Reference, SampleCategory.Interactions),
             new SampleDefinition(ForegroundFocusEffects.StaticSampleName,       typeof(ForegroundFocusEffects),         SampleType.EndToEnd,  SampleCategory.Effects),
