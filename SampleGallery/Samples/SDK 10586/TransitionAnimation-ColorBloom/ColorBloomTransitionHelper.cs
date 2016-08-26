@@ -19,6 +19,7 @@ using System;
 using System.Linq;
 using System.Numerics;
 using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
@@ -28,7 +29,7 @@ namespace CompositionSampleGallery
     /// <summary>
     /// A helper class encapsulating the function and visuals for a Color Bloom transition animation.
     /// </summary>
-    public class ColorBloomTransitionHelper
+    public class ColorBloomTransitionHelper : IDisposable
     {
         #region Member variables
 
@@ -37,7 +38,7 @@ namespace CompositionSampleGallery
         ContainerVisual _containerForVisuals;
         ScalarKeyFrameAnimation _bloomAnimation;
         IImageLoader _imageLoader;
-        IManagedSurface _circleMaskSurface;
+        ICircleSurface _circleMaskSurface;
 
         #endregion
 
@@ -63,7 +64,7 @@ namespace CompositionSampleGallery
 
             // initialize the ImageLoader and create the circle mask
             _imageLoader = ImageLoaderFactory.CreateImageLoader(_compositor);
-            _circleMaskSurface = _imageLoader.CreateManagedSurfaceFromUri(new Uri("ms-appx:///Samples/SDK 10586/TransitionAnimation-ColorBloom/CircleOpacityMask.png"));
+            _circleMaskSurface = _imageLoader.CreateCircleSurface(200, Colors.White);
         }
         #endregion
 
@@ -102,9 +103,10 @@ namespace CompositionSampleGallery
         /// <summary>
         /// Cleans up any remaining surfaces.
         /// </summary>
-        public void DisposeSurfaces()
+        public void Dispose()
         {
             _circleMaskSurface.Dispose();
+            _imageLoader.Dispose();
         }
 
         #endregion

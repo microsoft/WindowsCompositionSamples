@@ -115,6 +115,7 @@
     <Compile Include="ColorMixer.xaml.cs">
       <DependentUpon>ColorMixer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ImageLoader\CircleSurface.cs" />
     <Compile Include="PennerEquationBuilder.cs" />
     <Compile Include="PerspectivePanel.cs" />
     <Compile Include="CompositionImage.cs" />

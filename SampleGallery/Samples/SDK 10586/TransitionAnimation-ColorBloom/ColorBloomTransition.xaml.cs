@@ -166,7 +166,7 @@ namespace CompositionSampleGallery
         /// </summary>
         private void ColorBloomTransition_Unloaded(object sender, RoutedEventArgs e)
         {
-            transition.DisposeSurfaces();
+            transition.Dispose();
         }
 
         #endregion

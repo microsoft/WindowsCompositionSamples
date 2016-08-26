@@ -30,7 +30,7 @@ namespace CompositionSampleGallery
         private SpriteVisual _imageVisual;
         private CompositionImage _image;
         private IImageLoader _imageLoader;
-        private IManagedSurface _imageMaskSurface;
+        private ICircleSurface _imageMaskSurface;
         private CompositionMaskBrush _maskBrush;
         private bool _isMaskEnabled;
 
@@ -56,7 +56,7 @@ namespace CompositionSampleGallery
 
             // Load mask asset onto surface using helpers in SamplesCommon
             _imageLoader = ImageLoaderFactory.CreateImageLoader(_compositor);
-            _imageMaskSurface = _imageLoader.CreateManagedSurfaceFromUri(new Uri("ms-appx:///Assets/CircleMask.png"));
+            _imageMaskSurface = _imageLoader.CreateCircleSurface(200, Colors.White);
 
             // Create surface brush for mask
             CompositionSurfaceBrush mask = _compositor.CreateSurfaceBrush();
