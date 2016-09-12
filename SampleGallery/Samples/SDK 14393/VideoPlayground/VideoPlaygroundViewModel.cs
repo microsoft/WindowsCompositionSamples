@@ -20,6 +20,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using SamplesCommon.ImageLoader;
+using Windows.UI;
 
 namespace CompositionSampleGallery
 {
@@ -52,7 +53,6 @@ namespace CompositionSampleGallery
     {
         #region Statics
         private static readonly int MaxNumberOfLights = 2;
-        private static readonly string CircleImagePath = "ms-appx:///Assets/CircleMask.png";
         #endregion
 
         #region Private Members
@@ -69,7 +69,7 @@ namespace CompositionSampleGallery
         // Composition - Lighting
         private LightMode _lightMode;
         private List<Light> _lights;
-        private IManagedSurface _circleSurface;
+        private ICircleSurface _circleSurface;
         private CompositionSurfaceBrush _circleBrush;
 
         // Page specific objects/variables.
@@ -649,7 +649,7 @@ namespace CompositionSampleGallery
             if (_circleBrush == null)
             {
                 _imageLoader = ImageLoaderFactory.CreateImageLoader(_compositor);
-                _circleSurface = _imageLoader.CreateManagedSurfaceFromUri(new Uri(CircleImagePath));
+                _circleSurface = _imageLoader.CreateCircleSurface(200, Colors.White);
                 _circleBrush = _compositor.CreateSurfaceBrush(_circleSurface.Surface);
             }
         }
