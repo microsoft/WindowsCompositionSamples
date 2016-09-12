@@ -10,6 +10,7 @@ using Windows.Foundation;
 using Windows.Foundation.Metadata;
 using Windows.Graphics.DirectX;
 using Windows.Graphics.Display;
+using Windows.UI;
 using Windows.UI.Composition;
 
 namespace SamplesCommon.ImageLoader
@@ -25,6 +26,7 @@ namespace SamplesCommon.ImageLoader
         IManagedSurface CreateManagedSurfaceFromUri(Uri uri, Size size);
         IAsyncOperation<IManagedSurface> CreateManagedSurfaceFromUriAsync(Uri uri);
         IAsyncOperation<IManagedSurface> CreateManagedSurfaceFromUriAsync(Uri uri, Size size);
+        ICircleSurface CreateCircleSurface(float radius, Color color);
     }
 
     interface IImageLoaderInternal : IImageLoader
@@ -32,6 +34,7 @@ namespace SamplesCommon.ImageLoader
         CompositionDrawingSurface CreateSurface(Size size);
         void ResizeSurface(CompositionDrawingSurface surface, Size size);
         Task DrawSurface(CompositionDrawingSurface surface, Uri uri, Size size);
+        void DrawIntoSurface(CompositionDrawingSurface surface, DrawingCallback callback);
     }
 
     public static class ImageLoaderFactory
@@ -51,6 +54,8 @@ namespace SamplesCommon.ImageLoader
             return imageLoader;
         }
     }
+
+    delegate void DrawingCallback(CompositionDrawingSurface surface, CompositionGraphicsDevice device);
 
     class ImageLoader : IImageLoaderInternal
     {
@@ -101,7 +106,7 @@ namespace SamplesCommon.ImageLoader
             {
                 if (_canvasDevice == null)
                 {
-                    _canvasDevice = CanvasDevice.GetSharedDevice();
+                    _canvasDevice = new CanvasDevice();
                     _canvasDevice.DeviceLost += DeviceLost;
                 }
 
@@ -212,6 +217,14 @@ namespace SamplesCommon.ImageLoader
             return CreateManagedSurfaceFromUriAsyncWorker(uri, size).AsAsyncOperation<IManagedSurface>();
         }
 
+        public ICircleSurface CreateCircleSurface(float radius, Color color)
+        {
+            var circleSurface = new CircleSurface(this, radius, color);
+            circleSurface.RedrawSurface();
+
+            return circleSurface;
+        }
+
         public async Task DrawSurface(CompositionDrawingSurface surface, Uri uri, Size size)
         {
             var canvasDevice = CanvasComposition.GetCanvasDevice(_graphicsDevice);
@@ -269,6 +282,14 @@ namespace SamplesCommon.ImageLoader
                 {
                     CanvasComposition.Resize(surface, size);
                 }
+            }
+        }
+
+        public void DrawIntoSurface(CompositionDrawingSurface surface, DrawingCallback callback)
+        {
+            lock(_drawingLock)
+            {
+                callback(surface, _graphicsDevice);
             }
         }
 

@@ -39,7 +39,7 @@ namespace CompositionSampleGallery
         private void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             Compositor compositor = ElementCompositionPreview.GetElementVisual(MyGrid).Compositor;
-            IImageLoader imageLoader = ImageLoaderFactory.CreateImageLoader(compositor);
+            _imageLoader = ImageLoaderFactory.CreateImageLoader(compositor);
             ContainerVisual container = compositor.CreateContainerVisual();
             ElementCompositionPreview.SetElementChildVisual(MyGrid, container);
 
@@ -49,11 +49,11 @@ namespace CompositionSampleGallery
             //
 
             CompositionSurfaceBrush redBrush = compositor.CreateSurfaceBrush();
-            _redBallSurface = imageLoader.CreateManagedSurfaceFromUri(new Uri("ms-appx:///Samples/SDK 10586/PropertySets/RedBall.png"));
+            _redBallSurface = _imageLoader.CreateManagedSurfaceFromUri(new Uri("ms-appx:///Samples/SDK 10586/PropertySets/RedBall.png"));
             redBrush.Surface = _redBallSurface.Surface;
 
             CompositionSurfaceBrush blueBrush = compositor.CreateSurfaceBrush();
-            _blueBallSurface = imageLoader.CreateManagedSurfaceFromUri(new Uri("ms-appx:///Samples/SDK 10586/PropertySets/BlueBall.png"));
+            _blueBallSurface = _imageLoader.CreateManagedSurfaceFromUri(new Uri("ms-appx:///Samples/SDK 10586/PropertySets/BlueBall.png"));
             blueBrush.Surface = _blueBallSurface.Surface;
 
 
@@ -124,8 +124,10 @@ namespace CompositionSampleGallery
         {
             _redBallSurface.Dispose();
             _blueBallSurface.Dispose();
+            _imageLoader.Dispose();
         }
 
+        private IImageLoader _imageLoader;
         private IManagedSurface _redBallSurface;
         private IManagedSurface _blueBallSurface;
     }

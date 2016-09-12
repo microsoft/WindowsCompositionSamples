@@ -22,6 +22,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Graphics.DirectX;
+using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -78,6 +79,7 @@ namespace CompositionSampleGallery
         {
             _profilePictureSurface.Dispose();
             _circleMaskSurface.Dispose();
+            _imageLoader.Dispose();
         }
 
         /// <summary>
@@ -352,7 +354,7 @@ namespace CompositionSampleGallery
             // Load in the circular mask picture asx a brush using the composition Toolkit.
             //
             CompositionSurfaceBrush maskBrush = _compositor.CreateSurfaceBrush();
-            _circleMaskSurface = _imageLoader.CreateManagedSurfaceFromUri(new Uri("ms-appx:///Assets/CircleMask.png"));
+            _circleMaskSurface = _imageLoader.CreateCircleSurface(200, Colors.White);
             maskBrush.Surface = _circleMaskSurface.Surface;
             brush.SetSourceParameter("mask", maskBrush);
 
@@ -436,7 +438,7 @@ namespace CompositionSampleGallery
         private ExpressionAnimation _profileContentTranslationAnimation;
         private ExpressionAnimation _profileContentScaleAnimation;
 
-        private IManagedSurface _circleMaskSurface;
+        private ICircleSurface _circleMaskSurface;
         private IManagedSurface _profilePictureSurface;
 
         private float _initialScaleAmount = .8f;

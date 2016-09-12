@@ -47,6 +47,8 @@ namespace CompositionSampleGallery
         // Windows.UI.Composition
         private Compositor _compositor;
         private ContainerVisual _root;
+        private List<CompositionSurfaceBrush> _imageBrushList;
+        private IImageLoader _imageLoader;
 
         // Constants
         private const float _posX = 600;
@@ -96,12 +98,12 @@ namespace CompositionSampleGallery
 
             //Create a list of image brushes that can be applied to a visual
             string[] imageNames = { "60Banana.png", "60Lemon.png", "60Vanilla.png", "60Mint.png", "60Orange.png", "110Strawberry.png", "60SprinklesRainbow.png" };
-            List<CompositionSurfaceBrush> imageBrushList = new List<CompositionSurfaceBrush>();
-            IImageLoader imageFactory = ImageLoaderFactory.CreateImageLoader(_compositor);
+            _imageBrushList = new List<CompositionSurfaceBrush>();
+            _imageLoader = ImageLoaderFactory.CreateImageLoader(_compositor);
             for (int k = 0; k < imageNames.Length; k++)
             {
-                var surface = imageFactory.LoadImageFromUri(new Uri("ms-appx:///Samples/SDK 14393/ImplicitAnimationTransformer/" + imageNames[k]));
-                imageBrushList.Add(_compositor.CreateSurfaceBrush(surface));
+                var surface = _imageLoader.LoadImageFromUri(new Uri("ms-appx:///Samples/SDK 14393/ImplicitAnimationTransformer/" + imageNames[k]));
+                _imageBrushList.Add(_compositor.CreateSurfaceBrush(surface));
             }
 
             // Create nxn matrix of visuals where n=row/ColumnCount-1 and passes random image brush to the function
@@ -111,7 +113,7 @@ namespace CompositionSampleGallery
                 posXUpdated = i * _distance;
                 for (int j = 1; j < _columnCount; j++)
                 {
-                    CompositionSurfaceBrush brush = imageBrushList[randomBrush.Next(imageBrushList.Count)];
+                    CompositionSurfaceBrush brush = _imageBrushList[randomBrush.Next(_imageBrushList.Count)];
 
                     posYUpdated = j * _distance;
                     _root.Children.InsertAtTop(CreateChildElement(brush, posXUpdated, posYUpdated));
@@ -371,6 +373,15 @@ namespace CompositionSampleGallery
                     child.ImplicitAnimations = null;
                 }
             }
+        }
+
+        private void ImplicitAnimationTransformer_Unloaded(object sender, RoutedEventArgs e)
+        {
+            foreach(var brush in _imageBrushList)
+            {
+                brush.Dispose();
+            }
+            _imageLoader.Dispose();
         }
     }
 }
