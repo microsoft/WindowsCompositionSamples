@@ -71,6 +71,12 @@ namespace CompositionSampleGallery
 
             _scaleTracker.Dispose();
             _scaleTracker = null;
+
+            foreach(var brush in _imageBrushes)
+            {
+                brush.Dispose();
+            }
+            _imageLoader.Dispose();
         }
 
 

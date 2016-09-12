@@ -556,6 +556,15 @@ namespace CompositionSampleGallery
             }
         }
 
+        private void SamplePage_Unloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            foreach(var brush in _imageSurfaces)
+            {
+                brush.Dispose();
+            }
+            _imageLoader.Dispose();
+        }
+
         private const int _fColumnCount = 3;
         private Compositor _compositor;
         private Visual _roomVisual;

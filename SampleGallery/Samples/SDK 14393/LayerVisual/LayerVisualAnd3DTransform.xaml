@@ -6,7 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Loaded="Page_Loaded" SizeChanged="SamplePage_SizeChanged">
+    Loaded="Page_Loaded" 
+    Unloaded="SamplePage_Unloaded"
+    SizeChanged="SamplePage_SizeChanged">
 
     <Grid x:Name="RoomGrid" Width="612" Height="600" VerticalAlignment="Top" HorizontalAlignment="Left">
         <Grid.ColumnDefinitions>
