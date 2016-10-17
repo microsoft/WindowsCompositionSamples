@@ -1,0 +1,96 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.NineGridResizing"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:localNineGrid="using:CompositionSampleGallery.Samples.SDK_14393.NineGridResizing"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:triggers="using:SamplesCommon"
+    Unloaded="SamplePage_Unloaded"
+    mc:Ignorable="d">
+
+    <Grid x:Name="MainGrid" Background="DimGray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="ControlsGrid" Grid.Column="0" Grid.Row="0">
+            <ScrollViewer VerticalScrollMode="Auto" VerticalScrollBarVisibility="Hidden" Background="Gray">
+                <StackPanel Orientation="Vertical" Margin="0" Width="250">
+                    <TextBlock HorizontalAlignment="Center" Margin="10, 20, 10, 0">NineGridBrush Options</TextBlock>
+                    <ComboBox ItemsSource="{x:Bind _nineGridBrushScenarios}"
+                              HorizontalAlignment="Stretch" Margin="10, 10, 10, 30"
+                              SelectedItem="{Binding BrushScenarioSelected, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate x:DataType="localNineGrid:INineGridScenario">
+                                <TextBlock Text="{x:Bind Text}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ToggleSwitch IsOn="{x:Bind IsAnimatedInterpolation, Mode=TwoWay}" Margin="10, 20, 10, 30">Animated Interpolation</ToggleSwitch>
+                    <TextBlock HorizontalAlignment="Center">Visual Size.X %</TextBlock>
+                    <Slider x:Name="SizeXSlider"
+                            HorizontalAlignment="Stretch" Value="100"
+                            Minimum="0" Maximum="150"
+                            Margin="10, 20, 10, 30"
+                            ValueChanged="SizeXSlider_ValueChanged"/>
+                    <TextBlock HorizontalAlignment="Center">Visual Size.Y %</TextBlock>
+                    <Slider x:Name="SizeYSlider" 
+                            HorizontalAlignment="Stretch" Value="100"
+                            Minimum="1" Maximum="150"
+                            Margin="10, 20, 10, 30"
+                            ValueChanged="SizeYSlider_ValueChanged"/>
+                    <TextBlock HorizontalAlignment="Center">Scale %</TextBlock>
+                    <Slider x:Name="ScaleSlider"
+                            HorizontalAlignment="Stretch" Value="100"
+                            Minimum="1" Maximum="150"
+                            Margin="10, 20, 10, 30"
+                            ValueChanged="ScaleSlider_ValueChanged"/>
+                    <Button x:Name="ResetButton" Click="ResetButton_Click" HorizontalAlignment="Center" >Reset Defaults</Button>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid x:Name="CompGrid" SizeChanged="CompGrid_SizeChanged" Grid.Column="1" Grid.Row="0">
+            <Grid x:Name="bkgHost" Background="LightGray"/>
+            <Grid x:Name="ngHost" />
+        </Grid>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <triggers:OrientationTrigger Orientation="Landscape" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainGrid.RowDefinitions[1].Height" Value="auto"/>
+                        <Setter Target="MainGrid.RowDefinitions[0].Height" Value="*"/>
+                        <Setter Target="MainGrid.ColumnDefinitions[1].Width" Value="*"/>
+                        <Setter Target="ControlsGrid.(Grid.Column)" Value="0"/>
+                        <Setter Target="ControlsGrid.(Grid.Row)" Value="0"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <triggers:OrientationTrigger Orientation="Portrait" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainGrid.RowDefinitions[0].Height" Value="*"/>
+                        <Setter Target="MainGrid.RowDefinitions[1].Height" Value="*"/>
+                        <Setter Target="MainGrid.ColumnDefinitions[1].Width" Value="*"/>
+                        <Setter Target="ControlsGrid.(Grid.Row)" Value="1"/>
+                        <Setter Target="ControlsGrid.(Grid.Column)" Value="1"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
+    </Grid>
+</local:SamplePage>

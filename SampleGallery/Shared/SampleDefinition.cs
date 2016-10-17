@@ -92,6 +92,7 @@ namespace CompositionSampleGallery
             new SampleDefinition(Interactions3D.StaticSampleName,               typeof(Interactions3D),                 SampleType.EndToEnd, SampleCategory.Interactions),
             new SampleDefinition(TreeEffects.StaticSampleName,                  typeof(TreeEffects),                    SampleType.Reference, SampleCategory.Effects),
             new SampleDefinition(LayerVisualAnd3DTransform.StaticSampleName,    typeof(LayerVisualAnd3DTransform),      SampleType.EndToEnd, SampleCategory.Effects),
+            new SampleDefinition(NineGridResizing.StaticSampleName,             typeof(NineGridResizing),               SampleType.Reference, SampleCategory.Visuals),
 #endif
 
 #if SDKVERSION_10586

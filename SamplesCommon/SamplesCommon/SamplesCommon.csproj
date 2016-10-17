@@ -116,6 +116,7 @@
       <DependentUpon>ColorMixer.xaml</DependentUpon>
     </Compile>
     <Compile Include="ImageLoader\CircleSurface.cs" />
+    <Compile Include="OrientationTrigger.cs" />
     <Compile Include="PennerEquationBuilder.cs" />
     <Compile Include="PerspectivePanel.cs" />
     <Compile Include="CompositionImage.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="SurfaceLoader.cs" />
     <Compile Include="SwipeDismissPanel.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="UIElementExtensionMethods.cs" />
+    <Compile Include="ValueTimer.cs" />
     <Compile Include="VisualTreeHelperExtensions.cs" />
     <EmbeddedResource Include="Properties\SamplesCommon.rd.xml" />
   </ItemGroup>
