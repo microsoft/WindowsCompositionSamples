@@ -92,6 +92,7 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
+    <Compile Include="Samples\SDK 14393\NineGridResizing\INineGridScenario.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -138,6 +139,14 @@
     <Compile Include="Samples\SDK 14393\LayoutAnimations\Photos.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>Photos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\SDK 14393\NineGridResizing\NineGridResizing.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
+      <DependentUpon>NineGridResizing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\SDK 14393\NineGridResizing\NineGridScenarios\BorderNineGridScenario.cs" />
+    <Compile Include="Samples\SDK 14393\NineGridResizing\NineGridScenarios\ColorNineGridScenario.cs" />
+    <Compile Include="Samples\SDK 14393\NineGridResizing\NineGridScenarios\EffectNineGridScenario.cs" />
+    <Compile Include="Samples\SDK 14393\NineGridResizing\NineGridScenarios\MaskNineGridScenario.cs" />
+    <Compile Include="Samples\SDK 14393\NineGridResizing\NineGridScenarios\SurfaceNineGridScenario.cs" />
     <Compile Include="Samples\SDK 14393\PullToAnimate\PullToAnimate.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\ShadowInterop\ShadowInterop.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\ShadowPlayground\ShadowPlayground.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
@@ -160,7 +169,6 @@
     <Compile Include="Samples\SDK 14393\VideoPlayground\Converters\NullToVisibilityConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\VideoPlayground\Converters\StringApenderConverter.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\VideoPlayground\EffectItem.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
-    <Compile Include="Samples\SDK 14393\VideoPlayground\StateTriggers\OrientationTrigger.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\VideoPlayground\VideoPlayground.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>VideoPlayground.xaml</DependentUpon>
     </Compile>
@@ -328,6 +336,7 @@
     <Content Include="Samples\SDK 14393\LayoutAnimations\7.jpg" />
     <Content Include="Samples\SDK 14393\LayoutAnimations\8.jpg" />
     <Content Include="Samples\SDK 14393\LayoutAnimations\9.jpg" />
+    <Content Include="Samples\SDK 14393\NineGridResizing\RoundedRect.png" />
     <Content Include="Samples\SDK 14393\ShadowPlayground\win11_-15607.jpg" />
     <Content Include="Samples\SDK 14393\ThumbnailLighting\BeveledEdges.jpg" />
     <Content Include="Samples\SDK 14393\ThumbnailLighting\SphericalWithMask.png" />
@@ -407,6 +416,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\SDK 14393\LayoutAnimations\Photos.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK 14393\NineGridResizing\NineGridResizing.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
