@@ -9,13 +9,17 @@
 
     <Grid x:Name="MainGrid" Background="Black">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition MaxWidth="300"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <StackPanel x:Name="ButtonPanel" Grid.Column="0" Background="SlateGray">
-            <ToggleSwitch x:Name="ForegroundToggle" IsOn="{x:Bind ForegroundSwitch,Mode=TwoWay}" Margin="20,100,20,40">Desaturate Foreground Visuals</ToggleSwitch>
-            <ToggleSwitch x:Name="BackgroundToggle" IsOn="{x:Bind BackgroundSwitch,Mode=TwoWay}" Margin="20">Blur Background Visuals</ToggleSwitch>
+            <ToggleSwitch x:Name="ForegroundToggle" IsOn="{x:Bind ForegroundSwitch,Mode=TwoWay}" Margin="10">
+                <TextBlock TextWrapping="Wrap" Text="Desaturate Foreground Visuals"/>
+            </ToggleSwitch>
+            <ToggleSwitch x:Name="BackgroundToggle" IsOn="{x:Bind BackgroundSwitch,Mode=TwoWay}" Margin="10">
+                <TextBlock TextWrapping="Wrap" Text="Blur Background Visuals"/>
+            </ToggleSwitch>
         </StackPanel>
 
         <Grid x:Name="CompGrid" Grid.Column="1" >
