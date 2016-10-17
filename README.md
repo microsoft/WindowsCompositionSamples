@@ -43,7 +43,7 @@ We will be frequently iterating and updating code samples in this repository, so
 ##Learning More about Windows UI APIs
 Want to learn about all the exciting features that the Windows UI APIs can bring to your app? Check out the BUILD 2016 session recordings for Windows UI.
 
-[List of talks for BUILD 2016 that can be watched on Channel9](https://github.com/Microsoft/WindowsUIDevLabs/wiki/Windows-UI-Newsletter---May-Edition#build-sessions)
+[List of talks for BUILD 2016 that can be watched on Channel9](https://github.com/Microsoft/WindowsUIDevLabs/wiki/Windows-UI-Newsletter---Volume-1#build-sessions)
 
 There are also a number of blogs and blog posts from members of our community that go into the specifics of using the Windows.UI.Composition APIs. A few of them are listed below.
 - Kenny Kerr has [a detailed introduction to graphics and animation using the Windows Composition APIs](https://msdn.microsoft.com/en-us/magazine/mt590968) in MSDN magazine
