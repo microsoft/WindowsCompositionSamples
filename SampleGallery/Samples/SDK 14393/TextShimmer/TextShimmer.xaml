@@ -8,9 +8,11 @@
     mc:Ignorable="d">
 
     <Grid Background="Black">
-        <TextBlock Name="TextBlock" FontSize="100" Foreground="DimGray" FontFamily="SegoeUI" FontWeight="Thin" 
+        <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Margin="20, 0, 20, 0">
+            <TextBlock Name="TextBlock" FontSize="100" Foreground="DimGray" FontFamily="SegoeUI" FontWeight="Thin" 
                    TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"> 
             Text Shimmer
-        </TextBlock>
+            </TextBlock>
+        </Viewbox>
     </Grid>
 </local:SamplePage>

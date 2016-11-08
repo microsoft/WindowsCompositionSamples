@@ -35,8 +35,6 @@ namespace CompositionSampleGallery
         {
             this.InitializeComponent();
             this.Loaded += MainPage_Loaded;
-            _foregroundSwitch = false;
-            _backgroundSwitch = false;
         }
 
         #region Background Toggle
@@ -101,56 +99,24 @@ namespace CompositionSampleGallery
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             
-            // Set up scene: get interop compositor, add comp root with clip, insert sceneContainer
+            // Set up scene: get interop compositor, create comp root and initialize scene
             _compositor = ElementCompositionPreview.GetElementVisual(CompGrid).Compositor;
-            var root = _compositor.CreateContainerVisual();
-            root.Size = CompGrid.RenderSize.ToVector2();
-            root.Clip = _compositor.CreateInsetClip();
-            ElementCompositionPreview.SetElementChildVisual(CompGrid, root);
+            _root = _compositor.CreateContainerVisual();
+            ElementCompositionPreview.SetElementChildVisual(CompGrid, _root);
 
-            // Populate screen with visuals based on container size
-            var smallerSize = Math.Min(root.Size.X, root.Size.Y);
-            _spriteSize = new Vector2(smallerSize / 10);
-            _numVisuals = (root.Size.X * root.Size.Y) * 100 / (smallerSize * smallerSize);
-
+            // Compute root size and scene container transforms; insert clip
             _sceneContainer = _compositor.CreateContainerVisual();
-            _sceneContainer.Size = root.Size - _spriteSize;
-            _sceneContainer.Offset = new Vector3(_spriteSize / 2, 0);
-            root.Children.InsertAtTop(_sceneContainer);     
+            ComputeSceneLayout();
+            _root.Children.InsertAtTop(_sceneContainer);
 
-            // Apply perspective transform to sceneContainer
-            float perspectiveOriginPercent = 0.5f;
-            Vector3 perspectiveOrigin = new Vector3(perspectiveOriginPercent * _sceneContainer.Size, 0);
-            float perspectiveDepth = -1000;
-            _sceneContainer.TransformMatrix = Matrix4x4.CreateTranslation(-perspectiveOrigin) *
-                    new Matrix4x4(1, 0, 0, 0, 
-                                  0, 1, 0, 0, 
-                                  0, 0, 1, 1 / perspectiveDepth, 
-                                  0, 0, 0, 1) *
-                    Matrix4x4.CreateTranslation(perspectiveOrigin);
+            
+            // Initialize layervisuals; specify size 
+            _foregroundLayerVisual = _compositor.CreateLayerVisual();    
+            _backgroundLayerVisual = _compositor.CreateLayerVisual();
 
             // Create SpriteVisuals and add to lists
             PopulateSpriteVisuals();
 
-            // Initialize layervisuals; specify size 
-            _foregroundLayerVisual = _compositor.CreateLayerVisual();
-            _foregroundLayerVisual.Size = root.Size;
-            _backgroundLayerVisual = _compositor.CreateLayerVisual();
-            _backgroundLayerVisual.Size = root.Size;
-            
-            // Sort the lists by z offset so drawing order matches z order
-            _listOfForegroundVisuals.Sort(CompareZOffset);
-            _listOfBackgroundVisuals.Sort(CompareZOffset);
-
-            // Insert spritevisuals into layervisuals
-            foreach (var visual in _listOfForegroundVisuals)
-            {
-                _foregroundLayerVisual.Children.InsertAtTop(visual);
-            }
-            foreach (var visual in _listOfBackgroundVisuals)
-            {
-                _backgroundLayerVisual.Children.InsertAtTop(visual);
-            }
 
             // Insert layervisuals in visual tree
             _sceneContainer.Children.InsertAtTop(_foregroundLayerVisual);
@@ -158,6 +124,44 @@ namespace CompositionSampleGallery
 
             // Initialize effects and their animations 
             CreateEffectAnimations();
+
+            // CompGrid_SizeChanged event fired after MainPage_Loaded
+            CompGrid.SizeChanged += CompGrid_SizeChanged;
+        }
+
+        private void CompGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            _foregroundLayerVisual.Children.RemoveAll();
+            _backgroundLayerVisual.Children.RemoveAll();
+            ComputeSceneLayout();
+            PopulateSpriteVisuals();
+        }
+
+        #region Compute Layout and Populate Visuals
+        private void ComputeSceneLayout()
+        {
+            // Compute root size and add clip
+            _root.Size = CompGrid.RenderSize.ToVector2();
+            _root.Clip = _compositor.CreateInsetClip();
+
+            // Populate screen with visuals based on container size
+            var smallerSize = Math.Min(_root.Size.X, _root.Size.Y);
+            _spriteSize = new Vector2(smallerSize / 10);
+            _numVisuals = (_root.Size.X * _root.Size.Y) * 100 / (smallerSize * smallerSize);
+
+            _sceneContainer.Size = _root.Size - _spriteSize;
+            _sceneContainer.Offset = new Vector3(_spriteSize / 2, 0);          
+
+            // Apply perspective transform to sceneContainer
+            float perspectiveOriginPercent = 0.5f;
+            Vector3 perspectiveOrigin = new Vector3(perspectiveOriginPercent * _sceneContainer.Size, 0);
+            float perspectiveDepth = -1000;
+            _sceneContainer.TransformMatrix = Matrix4x4.CreateTranslation(-perspectiveOrigin) *
+                    new Matrix4x4(1, 0, 0, 0,
+                                  0, 1, 0, 0,
+                                  0, 0, 1, 1 / perspectiveDepth,
+                                  0, 0, 0, 1) *
+                    Matrix4x4.CreateTranslation(perspectiveOrigin);
         }
 
         private void PopulateSpriteVisuals()
@@ -166,6 +170,9 @@ namespace CompositionSampleGallery
             int count = 0;
             var rand = new Random();
             float z_depth = -1000.0f;
+
+            var listOfForegroundVisuals = new List<SpriteVisual>();
+            var listOfBackgroundVisuals = new List<SpriteVisual>();  
 
             while (count < _numVisuals)
             {
@@ -183,16 +190,36 @@ namespace CompositionSampleGallery
                 // Partition into two lists
                 if (sprite.Offset.Z > z_depth / 2)
                 {
-                    _listOfForegroundVisuals.Add(sprite);
+                    listOfForegroundVisuals.Add(sprite);
                 }
                 else
                 {
-                    _listOfBackgroundVisuals.Add(sprite);
+                    listOfBackgroundVisuals.Add(sprite);
                 }
                 count++;
             }
+
+            _foregroundLayerVisual.Size = _root.Size;
+            _backgroundLayerVisual.Size = _root.Size;
+
+            // Sort the lists by z offset so drawing order matches z order
+            listOfForegroundVisuals.Sort(CompareZOffset);
+            listOfBackgroundVisuals.Sort(CompareZOffset);
+
+            // Insert spritevisuals into layervisuals
+            foreach (var visual in listOfForegroundVisuals)
+            {
+                _foregroundLayerVisual.Children.InsertAtTop(visual);
+            }
+            foreach (var visual in listOfBackgroundVisuals)
+            {
+                _backgroundLayerVisual.Children.InsertAtTop(visual);
+            }
         }
 
+        #endregion
+
+        #region Initialize Effects and Animations
         private void CreateEffectAnimations()
         {
             // Create saturation effect
@@ -238,14 +265,16 @@ namespace CompositionSampleGallery
             _blurAnimation.Duration = _duration;
         }
 
+        #endregion
+
         private Compositor _compositor;
+        private ContainerVisual _root;
         private ContainerVisual _sceneContainer;
         private LayerVisual _foregroundLayerVisual;
         private LayerVisual _backgroundLayerVisual;
         private float _numVisuals;
         private Vector2 _spriteSize;
-        private readonly List<SpriteVisual> _listOfForegroundVisuals = new List<SpriteVisual>();
-        private readonly List<SpriteVisual> _listOfBackgroundVisuals = new List<SpriteVisual>();  
+        
         private ScalarKeyFrameAnimation _saturationAnimation;
         private ScalarKeyFrameAnimation _blurAnimation;
         private CompositionEffectBrush _saturationBrush;
@@ -255,3 +284,4 @@ namespace CompositionSampleGallery
         private bool _foregroundSwitch;
     }
 }
+
