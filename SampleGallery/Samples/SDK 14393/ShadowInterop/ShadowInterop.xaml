@@ -26,16 +26,18 @@
             <TextBlock Style="{StaticResource TitleText}" >TextBlock</TextBlock>
             <Border Style="{StaticResource DividingBorder}"/>
 
-            <common:CompositionShadow BlurRadius="5" ShadowOpacity=".7" OffsetX="1" OffsetY="1"
+            <common:CompositionShadow BlurRadius="6" ShadowOpacity=".7" OffsetX="2" OffsetY="2"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
-                <TextBlock TextWrapping="Wrap">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget sem luctus, gravida diam cursus, rutrum ipsum.
-                        Pellentesque semper magna nec sapien ornare tincidunt. Sed pellentesque, turpis quis laoreet pellentesque, urna sapien efficitur nulla,
-                        at interdum dolor sapien ut odio. Sed ullamcorper sapien velit, id finibus risus gravida vitae. Morbi ac ultrices lectus. Aenean felis
-                        justo, aliquet a risus ut, condimentum malesuada metus. Duis vehicula pharetra dolor vel finibus. Nunc auctor tortor nunc, in varius velit
-                        lobortis vel. Duis viverra, ante id mollis mattis, sem mauris ullamcorper dolor, sed rhoncus est erat eget ligula. Aliquam rutrum velit et
-                        felis sollicitudin, eget dapibus dui accumsan.
+                    HorizontalAlignment="Left">
+                <TextBlock TextWrapping="Wrap" FontSize="30" FontWeight="SemiBold">
+                        Here’s a custom control that allows you to apply DropShadows through Markup on XAML Text, Images, or Shapes
+                </TextBlock>
+            </common:CompositionShadow>
+            <common:CompositionShadow BlurRadius="4" ShadowOpacity=".7" OffsetX="1" OffsetY="1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left">
+                <TextBlock TextWrapping="Wrap" FontSize="16">
+                        Here’s a custom control that allows you to apply DropShadows through Markup on XAML Text, Images, or Shapes
                 </TextBlock>
             </common:CompositionShadow>
 
@@ -43,9 +45,8 @@
             <Border Style="{StaticResource DividingBorder}"/>
 
             <StackPanel Orientation="Horizontal">
-                <common:CompositionShadow OffsetX="10" OffsetY="15" Margin="20">
-                    <Polygon Points="50,0 0,50 50,50"
-                            Stroke="Red" StrokeThickness="2" Fill="Blue"/>
+                <common:CompositionShadow OffsetX="8" OffsetY="12" Margin="20" Color="Gray" BlurRadius="10">
+                    <Polygon Points="50,0 0,50 50,50" Fill="Blue"/>
                 </common:CompositionShadow>
 
                 <common:CompositionShadow OffsetX="10" OffsetY="10" Margin="20">
@@ -68,37 +69,61 @@
                     HorizontalScrollMode="Enabled"
                     HorizontalScrollBarVisibility="Auto">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="ms-appx:///Assets/WindowsInsiders/Unicorn.png"
+                    <RelativePanel Margin="10" Padding="0">
+                        <Image x:Name="Image1" Source="ms-appx:///Assets/WindowsInsiders/Unicorn.png"
+                               Width="200" Height="200"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"/>
+                        <TextBlock HorizontalAlignment="Center" 
+                                   VerticalAlignment="Top" 
+                                   FontStyle="Italic" 
+                                   RelativePanel.Below="Image1" 
+                                   RelativePanel.AlignHorizontalCenterWith="Image1">Before</TextBlock>
+                    </RelativePanel>
+
+                    <RelativePanel Margin="10" Padding="0">
+                        <common:CompositionShadow x:Name="Image2" Color="HotPink" BlurRadius="12"
+                                                  Width="200" Height="200"
+                                                  HorizontalAlignment="Left"
+                                                  VerticalAlignment="Top">
+                            <Image Source="ms-appx:///Assets/WindowsInsiders/Unicorn.png" 
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"/>
+                        </common:CompositionShadow>
+                        <TextBlock HorizontalAlignment="Center" 
+                                   VerticalAlignment="Top" 
+                                   FontStyle="Italic" 
+                                   RelativePanel.Below="Image2" 
+                                   RelativePanel.AlignHorizontalCenterWith="Image2">After</TextBlock>
+                    </RelativePanel>
+
+                    <RelativePanel Margin="10" Padding="0">
+                        <Image x:Name="Image3" Source="ms-appx:///Assets/WindowsInsiders/Ninjacat-3.png"
+                               Width="200" Height="200"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"/>
+                        <TextBlock HorizontalAlignment="Center" 
+                                   VerticalAlignment="Top" 
+                                   FontStyle="Italic" 
+                                   RelativePanel.Below="Image3" 
+                                   RelativePanel.AlignHorizontalCenterWith="Image3">Before</TextBlock>
+                    </RelativePanel>
+
+                    <RelativePanel Margin="10" Padding="0">
+                        <common:CompositionShadow x:Name="Image4" OffsetY="5" OffsetX="2"
                             Width="200" Height="200"
                             HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Margin="10"/>
-
-                    <common:CompositionShadow Color="HotPink" BlurRadius="12"
-                            Width="200" Height="200"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Margin="10">
-                        <Image Source="ms-appx:///Assets/WindowsInsiders/Unicorn.png"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Top"/>
-                    </common:CompositionShadow>
-
-                    <Image Source="ms-appx:///Assets/WindowsInsiders/Ninjacat-3.png"
-                        Width="200" Height="200"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Margin="10"/>
-
-                    <common:CompositionShadow OffsetY="5" OffsetX="2"
-                            Width="200" Height="200"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Margin="10">
-                        <Image Source="ms-appx:///Assets/WindowsInsiders/Ninjacat-3.png"
+                            VerticalAlignment="Top">
+                            <Image Source="ms-appx:///Assets/WindowsInsiders/Ninjacat-3.png"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"/>
-                    </common:CompositionShadow>
+                        </common:CompositionShadow>
+                        <TextBlock HorizontalAlignment="Center" 
+                                   VerticalAlignment="Top" 
+                                   FontStyle="Italic" 
+                                   RelativePanel.Below="Image4" 
+                                   RelativePanel.AlignHorizontalCenterWith="Image4">After</TextBlock>
+                    </RelativePanel>
                 </StackPanel>
             </ScrollViewer>
         </StackPanel>
