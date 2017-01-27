@@ -72,6 +72,11 @@ namespace CompositionSampleGallery
     {
         static SampleDefinition[] definitions =
         {
+
+#if SDKVERSION_INSIDER
+            new SampleDefinition(CompCapabilities.StaticSampleName,             typeof(CompCapabilities),               SampleType.Reference, SampleCategory.Effects),
+#endif
+
 #if SDKVERSION_14393
             new SampleDefinition(BackDropSample.StaticSampleName,               typeof(BackDropSample),                 SampleType.Reference, SampleCategory.Effects),
             new SampleDefinition(Curtain.StaticSampleName,                      typeof(Curtain),                        SampleType.Reference, SampleCategory.Interactions),
@@ -109,6 +114,8 @@ namespace CompositionSampleGallery
             new SampleDefinition(ConnectedAnimationShell.StaticSampleName,      typeof(ConnectedAnimationShell),    SampleType.EndToEnd,  SampleCategory.Transitions),
             new SampleDefinition(BasicLayoutAndTransforms.StaticSampleName,     typeof(BasicLayoutAndTransforms),   SampleType.Reference, SampleCategory.Visuals),
 #endif
+
+
         };
 
         public static SampleDefinition[] Definitions { get { return definitions; } }
