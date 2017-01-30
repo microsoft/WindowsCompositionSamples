@@ -101,20 +101,70 @@ namespace CompositionSampleGallery
 
         private void ActivateGravityForce()
         {
-            var gravity = -700;
-            var bounce = -150f;
+            //
+            // Setup the gravity+bounce inertia modifier.
+            //
+
+            string posY = "this.target.Position.Y";
+            string velY = "this.target.PositionVelocityInPixelsPerSecond.Y";
+
+
+            //
+            // Gravity Force
+            // 
+
+            // Adding a factor of 100 since -9.8 pixels / second ^2 is not very fast.
+            var gravity = -9.8f * 100;
+
+            // Always on.
+            string gravityForce = "gravity";
+
+            //
+            // Floor Force
+            //
+            // This is the force that resists gravity and causes the bouncing. It's defined as:
+            // 1. Zero if above the floor,
+            // 2. Equal and opposite to gravity if "on" the floor (1 pixel above floor or below),
+            // 3. The effects of 2., plus a reflective force if the direction of motion is still downward and the tracker is below the floor.
+            //        This force is at its strongest (-1.8 * 100 * V) if the tracker is 5 or more
+            //        pixels below floor, and weakest (-1.0 * 100 * V) if the tracker is "at" the
+            //        floor.
+            //
+
+            // The amount the tracker is below the floor, capped to at most 5 below.
+            string amountBelowFloor = $"clamp(0, ({0} - {posY}), 5)";
+
+            // The time slice our force engine uses.
+            float dt = .01f;
+
+            //
+            // Defining bounce constants.
+            // -2 would cause perfectly inellastic reflection, bouncing as high as it fell from.
+            // -1 would cause perfectly ellastic reflection, freezing motion.
+            // We want some bounce, but we also want the bouncing to decay, so choose
+            // bounce factors between -1 and -2.
+            //
+            // Also, divide by the time slice width to make this reflective force apply entirely
+            // all at once.
+            //
+            var weakestBounce = -1.1f / dt;
+            var strongestBounce = -1.8f / dt;
+
+            string floorForce =
+                /*2.*/ $"(({posY} < ({0} + 1)) ? -gravity : 0) + " +
+                /*3.*/ $"((({velY} < 0) && ({posY} < {0})) ? lerp({weakestBounce}, {strongestBounce}, ({amountBelowFloor} / 5)) * {velY} : 0)";
+
+            //
+            // Apply the forces to the modifier
+            //
 
             var modifier = InteractionTrackerInertiaMotion.Create(_compositor);
 
             modifier.Condition = _compositor.CreateExpressionAnimation("true");
 
-            modifier.Motion = _compositor.CreateExpressionAnimation(
-                "(this.target.Position.Y > 0) ? (gravity) :" +
-                    "((this.target.PositionVelocityInPixelsPerSecond.Y <= 0) ?" +
-                        "(bounce * this.target.PositionVelocityInPixelsPerSecond.Y) : (0))");
+            modifier.Motion = _compositor.CreateExpressionAnimation($"{gravityForce} + {floorForce}");
 
             modifier.Motion.SetScalarParameter("gravity", gravity);
-            modifier.Motion.SetScalarParameter("bounce", bounce);
 
             _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
         }
