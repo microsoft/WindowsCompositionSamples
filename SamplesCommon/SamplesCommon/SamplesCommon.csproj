@@ -116,6 +116,7 @@
       <DependentUpon>ColorMixer.xaml</DependentUpon>
     </Compile>
     <Compile Include="ImageLoader\CircleSurface.cs" />
+    <Compile Include="LightControl.xaml.cs" />
     <Compile Include="OrientationTrigger.cs" />
     <Compile Include="PennerEquationBuilder.cs" />
     <Compile Include="PerspectivePanel.cs" />
@@ -141,6 +142,10 @@
     <Page Include="CompositionShadow.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LightControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

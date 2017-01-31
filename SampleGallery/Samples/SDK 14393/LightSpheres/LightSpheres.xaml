@@ -1,0 +1,73 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.LightSphere"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:common="using:SamplesCommon"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="SamplePage_Loaded">
+
+    <Grid x:Name="RootGrid" SizeChanged="RootGrid_SizeChanged">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Clip>
+            <RectangleGeometry x:Name="GridClip" />
+        </Grid.Clip>
+
+        <RelativePanel x:Name="EnvironmentPanel" Grid.ColumnSpan="2"/>
+
+        <StackPanel Orientation="Horizontal">
+            <Button Style="{StaticResource SplitViewTogglePaneButtonStyle}" Content=""
+                        Click="ToggleLightMenu"/>
+            <TextBlock Text="Settings" 
+                       Style="{ThemeResource TitleTextBlockStyle}"
+                       Padding="5,12,0,0"
+                       FontSize="18"/>
+        </StackPanel>
+
+        <Grid x:Name="LightMenu" Grid.Column="0" Visibility="Collapsed" Margin="0,50,0,0">
+            <common:BackDrop TintColor="#10FFFFFF" BlurAmount="30"/>
+            <ScrollViewer Padding="20">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                    <CheckBox x:Name="AnimateCheckBox" Click="AnimateCheckBox_CheckChanged" IsChecked="True">Animate spheres</CheckBox>
+                    <TextBlock Text="Light #1:" Style="{ThemeResource TitleTextBlockStyle}" FontSize="16" FontWeight="Bold" Margin="0,0,0,5"/>
+                    <common:LightControl x:Name="LightControl1" Margin="0,0,0,20"/>
+                    <TextBlock Text="Light #2:" Style="{ThemeResource TitleTextBlockStyle}" FontSize="16" FontWeight="Bold" Margin="0,0,0,5"/>
+                    <common:LightControl x:Name="LightControl2" Margin="0,0,0,20"/>
+
+                    <TextBlock Text="Material:" Style="{ThemeResource TitleTextBlockStyle}" FontSize="16" FontWeight="Bold" Margin="0,0,0,5"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Specular Amount:" Grid.Column="0" Grid.Row="0"/>
+                        <Slider x:Name="SpecularAmount" Minimum="0" Maximum="200" Value="10" ValueChanged="Slider_ValueChanged"  Grid.Column="1" Grid.Row="0"/>
+
+                        <TextBlock Text="Specular Shine:" Grid.Column="0" Grid.Row="1"/>
+                        <Slider x:Name="SpecularShine" Minimum="0" Maximum="100" Value="5" ValueChanged="Slider_ValueChanged"  Grid.Column="1" Grid.Row="1"/>
+
+                        <TextBlock Text="Ambient Amount:" Grid.Column="0" Grid.Row="2"/>
+                        <Slider x:Name="AmbientAmount" Minimum="0" Maximum="100" Value="100" ValueChanged="Slider_ValueChanged" Grid.Column="1" Grid.Row="2"/>
+
+                        <TextBlock Text="Diffuse Amount:" Grid.Column="0" Grid.Row="3"/>
+                        <Slider x:Name="DiffuseAmount" Minimum="0" Maximum="200" Value="100" ValueChanged="Slider_ValueChanged"  Grid.Column="1" Grid.Row="3"/>
+
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</local:SamplePage>

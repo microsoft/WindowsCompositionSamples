@@ -139,6 +139,17 @@ namespace SamplesCommon
         }
 
         /// <summary>
+        /// Exposes the underlying SpriteVisual to allow custom animations and transforms.
+        /// </summary>
+        public SpriteVisual Visual
+        {
+            get
+            {
+                return _shadowVisual;
+            }
+        }
+
+        /// <summary>
         /// The mask of the underlying <see cref="Windows.UI.Composition.DropShadow"/>.
         /// Allows for a custom <see cref="Windows.UI.Composition.CompositionBrush"/> to be set.
         /// </summary>
@@ -324,7 +335,7 @@ namespace SamplesCommon
         
         private void UpdateShadowSize()
         {
-            Vector2 newSize = new Vector2(0, 0);
+            Vector2 newSize = new Vector2((float)ActualWidth, (float)ActualHeight);
             if (_castingElement != null)
             {
                 newSize = new Vector2((float)_castingElement.ActualWidth, (float)_castingElement.ActualHeight);

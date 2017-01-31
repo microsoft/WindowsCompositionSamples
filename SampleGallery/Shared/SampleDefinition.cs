@@ -1,8 +1,8 @@
-Ôªø//*********************************************************
+//*********************************************************
 //
 // Copyright (c) Microsoft. All rights reserved.
 // This code is licensed under the MIT License (MIT).
-// THE SOFTWARE IS PROVIDED ‚ÄúAS IS‚Äù, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+// THE SOFTWARE IS PROVIDED ìAS ISî, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
 // INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
 // IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
@@ -18,7 +18,7 @@ using System.ComponentModel;
 namespace CompositionSampleGallery
 {
     public enum SampleType
-    { 
+    {
         Reference,
         EndToEnd
     };
@@ -35,22 +35,22 @@ namespace CompositionSampleGallery
 
     public class SampleDefinition
     {
-        private string      _name;
-        private Type        _pageType;
-        private SampleType  _sampleType;
-        private SampleCategory  _sampleCategory;
+        private string _name;
+        private Type _pageType;
+        private SampleType _sampleType;
+        private SampleCategory _sampleCategory;
 
         public SampleDefinition(string name, Type pageType, SampleType sampleType, SampleCategory sampleArea)
         {
-            _name           = name;
-            _pageType       = pageType;
-            _sampleType     = sampleType;
+            _name = name;
+            _pageType = pageType;
+            _sampleType = sampleType;
             _sampleCategory = sampleArea;
         }
 
         public string Name { get { return _name; } }
         public Type Type { get { return _pageType; } }
-        public SampleType SampleType {  get { return _sampleType; } }
+        public SampleType SampleType { get { return _sampleType; } }
         public SampleCategory SampleCategory { get { return _sampleCategory; } }
         public string DisplayName
         {
@@ -72,9 +72,10 @@ namespace CompositionSampleGallery
     {
         static SampleDefinition[] definitions =
         {
-
 #if SDKVERSION_INSIDER
+            new SampleDefinition(BorderPlayground.StaticSampleName,             typeof(BorderPlayground),               SampleType.Reference, SampleCategory.Effects),
             new SampleDefinition(CompCapabilities.StaticSampleName,             typeof(CompCapabilities),               SampleType.Reference, SampleCategory.Effects),
+            new SampleDefinition(TransparentWindow.StaticSampleName,            typeof(TransparentWindow),              SampleType.EndToEnd,  SampleCategory.Effects),
 #endif
 
 #if SDKVERSION_14393
@@ -88,6 +89,7 @@ namespace CompositionSampleGallery
             new SampleDefinition(PullToAnimate.StaticSampleName,                typeof(PullToAnimate),                  SampleType.EndToEnd,  SampleCategory.Interactions),
             new SampleDefinition(ShadowPlayground.StaticSampleName,             typeof(ShadowPlayground),               SampleType.Reference, SampleCategory.Visuals),
             new SampleDefinition(ShadowInterop.StaticSampleName,                typeof(ShadowInterop),                  SampleType.Reference, SampleCategory.Visuals),
+            new SampleDefinition(ShadowsAdvanced.StaticSampleName,              typeof(ShadowsAdvanced),                SampleType.Reference, SampleCategory.Visuals),
             new SampleDefinition(TextShimmer.StaticSampleName,                  typeof(TextShimmer),                    SampleType.EndToEnd,  SampleCategory.Effects),
             new SampleDefinition(ThumbnailLighting.StaticSampleName,            typeof(ThumbnailLighting),              SampleType.EndToEnd,  SampleCategory.Effects),
             new SampleDefinition(BlurPlayground.StaticSampleName,               typeof(BlurPlayground),                 SampleType.Reference, SampleCategory.Effects),
@@ -98,6 +100,7 @@ namespace CompositionSampleGallery
             new SampleDefinition(TreeEffects.StaticSampleName,                  typeof(TreeEffects),                    SampleType.Reference, SampleCategory.Effects),
             new SampleDefinition(LayerVisualAnd3DTransform.StaticSampleName,    typeof(LayerVisualAnd3DTransform),      SampleType.EndToEnd, SampleCategory.Effects),
             new SampleDefinition(NineGridResizing.StaticSampleName,             typeof(NineGridResizing),               SampleType.Reference, SampleCategory.Visuals),
+            new SampleDefinition(LightSphere.StaticSampleName,                  typeof(LightSphere),                    SampleType.Reference, SampleCategory.Effects),
 #endif
 
 #if SDKVERSION_10586
@@ -114,8 +117,6 @@ namespace CompositionSampleGallery
             new SampleDefinition(ConnectedAnimationShell.StaticSampleName,      typeof(ConnectedAnimationShell),    SampleType.EndToEnd,  SampleCategory.Transitions),
             new SampleDefinition(BasicLayoutAndTransforms.StaticSampleName,     typeof(BasicLayoutAndTransforms),   SampleType.Reference, SampleCategory.Visuals),
 #endif
-
-
         };
 
         public static SampleDefinition[] Definitions { get { return definitions; } }
