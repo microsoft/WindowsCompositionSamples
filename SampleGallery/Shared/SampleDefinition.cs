@@ -76,6 +76,7 @@ namespace CompositionSampleGallery
             new SampleDefinition(BorderPlayground.StaticSampleName,             typeof(BorderPlayground),               SampleType.Reference, SampleCategory.Effects),
             new SampleDefinition(CompCapabilities.StaticSampleName,             typeof(CompCapabilities),               SampleType.Reference, SampleCategory.Effects),
             new SampleDefinition(TransparentWindow.StaticSampleName,            typeof(TransparentWindow),              SampleType.EndToEnd,  SampleCategory.Effects),
+            new SampleDefinition(NavigationFlow.StaticSampleName,               typeof(NavigationFlow),                 SampleType.EndToEnd,  SampleCategory.Transitions),
 #endif
 
 #if SDKVERSION_14393
