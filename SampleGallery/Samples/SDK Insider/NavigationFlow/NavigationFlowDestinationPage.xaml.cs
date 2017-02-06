@@ -19,6 +19,7 @@ namespace CompositionSampleGallery
 
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
 
+            // Add a translation animation that will play when this element is shown
             var topBorderOffsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
             topBorderOffsetAnimation.Duration = TimeSpan.FromSeconds(0.45);
             topBorderOffsetAnimation.Target = "Translation.Y";
@@ -28,36 +29,39 @@ namespace CompositionSampleGallery
             ElementCompositionPreview.SetIsTranslationEnabled(TopBorder, true);
             ElementCompositionPreview.SetImplicitShowAnimation(TopBorder, topBorderOffsetAnimation);
 
-            var listContentOffsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            listContentOffsetAnimation.DelayBehavior = AnimationDelayBehavior.SetInitialValueBeforeDelay;
-            listContentOffsetAnimation.DelayTime = TimeSpan.FromSeconds(0.2);
-            listContentOffsetAnimation.Duration = TimeSpan.FromSeconds(0.45);
-            listContentOffsetAnimation.Target = "Translation.Y";
-            listContentOffsetAnimation.InsertKeyFrame(0, 50.0f);
-            listContentOffsetAnimation.InsertKeyFrame(1, 0);
+            // Add an opacity and translation animation that will play when this element is shown
+            var mainContentTranslationAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            mainContentTranslationAnimation.DelayBehavior = AnimationDelayBehavior.SetInitialValueBeforeDelay;
+            mainContentTranslationAnimation.DelayTime = TimeSpan.FromSeconds(0.2);
+            mainContentTranslationAnimation.Duration = TimeSpan.FromSeconds(0.45);
+            mainContentTranslationAnimation.Target = "Translation.Y";
+            mainContentTranslationAnimation.InsertKeyFrame(0, 50.0f);
+            mainContentTranslationAnimation.InsertKeyFrame(1, 0);
 
-            var listContentOpacityAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            listContentOpacityAnimation.Duration = TimeSpan.FromSeconds(0.4);
-            listContentOpacityAnimation.Target = "Opacity";
-            listContentOpacityAnimation.InsertKeyFrame(0, 0);
-            listContentOpacityAnimation.InsertKeyFrame(0.25f, 0);
-            listContentOpacityAnimation.InsertKeyFrame(1, 1);
+            var mainContentOpacityAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            mainContentOpacityAnimation.Duration = TimeSpan.FromSeconds(0.4);
+            mainContentOpacityAnimation.Target = "Opacity";
+            mainContentOpacityAnimation.InsertKeyFrame(0, 0);
+            mainContentOpacityAnimation.InsertKeyFrame(0.25f, 0);
+            mainContentOpacityAnimation.InsertKeyFrame(1, 1);
 
-            var listContentShowAnimations = _compositor.CreateAnimationGroup();
-            listContentShowAnimations.Add(listContentOffsetAnimation);
-            listContentShowAnimations.Add(listContentOpacityAnimation);
+            var mainContentShowAnimations = _compositor.CreateAnimationGroup();
+            mainContentShowAnimations.Add(mainContentTranslationAnimation);
+            mainContentShowAnimations.Add(mainContentOpacityAnimation);
 
-            ElementCompositionPreview.SetIsTranslationEnabled(ListContent, true);
-            ElementCompositionPreview.SetImplicitShowAnimation(ListContent, listContentShowAnimations);
+            ElementCompositionPreview.SetIsTranslationEnabled(MainContent, true);
+            ElementCompositionPreview.SetImplicitShowAnimation(MainContent, mainContentShowAnimations);
 
-            var listContentExitAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            listContentExitAnimation.Target = "Translation.Y";
-            listContentExitAnimation.InsertKeyFrame(1, 30);
-            listContentExitAnimation.Duration = TimeSpan.FromSeconds(0.4);
+            // Add a translation animation that will play when this element exits the scene
+            var mainContentExitAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            mainContentExitAnimation.Target = "Translation.Y";
+            mainContentExitAnimation.InsertKeyFrame(1, 30);
+            mainContentExitAnimation.Duration = TimeSpan.FromSeconds(0.4);
 
-            ElementCompositionPreview.SetIsTranslationEnabled(ListContent, true);
-            ElementCompositionPreview.SetImplicitHideAnimation(ListContent, listContentExitAnimation);
+            ElementCompositionPreview.SetIsTranslationEnabled(MainContent, true);
+            ElementCompositionPreview.SetImplicitHideAnimation(MainContent, mainContentExitAnimation);
 
+            // Add a translation animation that will play when this element exits the scene
             var topBorderExitAnimation = _compositor.CreateScalarKeyFrameAnimation();
             topBorderExitAnimation.Target = "Translation.Y";
             topBorderExitAnimation.InsertKeyFrame(1, -30);
@@ -66,6 +70,7 @@ namespace CompositionSampleGallery
             ElementCompositionPreview.SetIsTranslationEnabled(TopBorder, true);
             ElementCompositionPreview.SetImplicitHideAnimation(TopBorder, topBorderExitAnimation);
 
+            // Add an opacity animation that will play when the page exits the scene
             var fadeOut = _compositor.CreateScalarKeyFrameAnimation();
             fadeOut.Target = "Opacity";
             fadeOut.InsertKeyFrame(1, 0);

@@ -30,7 +30,7 @@
         </Grid>
 
         <Border Margin="20" Grid.Row="1">
-            <Rectangle x:Name="ListContent" Fill="#EEE" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+            <Rectangle x:Name="MainContent" Fill="#EEE" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
         </Border>
     </Grid>
 </Page>

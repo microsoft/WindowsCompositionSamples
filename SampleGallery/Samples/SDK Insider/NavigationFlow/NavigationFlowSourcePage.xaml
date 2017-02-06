@@ -10,6 +10,7 @@
     <Grid Background="#DDD">
         <GridView x:Name="ItemsGridView" Padding="30" IsItemClickEnabled="True" ItemClick="ItemsGridView_ItemClick" SelectionMode="None">
             <GridView.ItemContainerTransitions>
+                <!-- Transition collection should be empty if you are using ConnectedAnimationService and/or implicit animations -->
                 <TransitionCollection />
             </GridView.ItemContainerTransitions>
             <GridView.ItemContainerStyle>

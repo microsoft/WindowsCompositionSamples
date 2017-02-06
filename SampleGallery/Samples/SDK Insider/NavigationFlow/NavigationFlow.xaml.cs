@@ -30,6 +30,7 @@ namespace CompositionSampleGallery
         public NavigationFlow()
         {
             InitializeComponent();
+            // Inner frame used to contain source and destination pages
             InnerFrame.Navigate(typeof(NavigationFlowSourcePage));
         }
 
