@@ -14,7 +14,6 @@
 
 using SamplesCommon;
 using System;
-using System.Collections.Generic;
 using System.Numerics;
 using Windows.Foundation;
 using Windows.UI;
@@ -27,12 +26,27 @@ namespace CompositionSampleGallery
 {
     public sealed partial class MainPage : Page
     {
-        private static MainPage _instance;
+        private static MainPage                 _instance;
+#if SDKVERSION_INSIDER
+        private static CompositionCapabilities  _capabilities;
+#endif
+        private static bool                     _areEffectsSupported;
+        private static bool                     _areEffectsFast;
 
         public MainPage(Rect imageBounds)
         {
             _instance = this;
 
+            // Get hardware capabilities and register changed event listener
+#if SDKVERSION_INSIDER
+            _capabilities = CompositionCapabilities.GetForCurrentView();
+            _capabilities.Changed += HandleCapabilitiesChangedAsync;
+            _areEffectsSupported = _capabilities.AreEffectsSupported();
+            _areEffectsFast = _capabilities.AreEffectsFast();
+#else
+            _areEffectsSupported = true;
+            _areEffectsFast = true;
+#endif
             this.InitializeComponent();
 
             // Initialize the surface loader
@@ -46,6 +60,58 @@ namespace CompositionSampleGallery
         {
             get { return _instance; }
         }
+
+        public static bool AreEffectsSupported
+        {
+            get { return _areEffectsSupported; }
+        }
+
+        public static bool AreEffectsFast
+        {
+            get { return _areEffectsFast; }
+        }
+
+#if SDKVERSION_INSIDER
+        private async void HandleCapabilitiesChangedAsync(CompositionCapabilities sender, object args)
+        {
+            _areEffectsSupported = _capabilities.AreEffectsSupported();
+            _areEffectsFast = _capabilities.AreEffectsFast();
+
+            if (MainFrame.Content is SampleHost host)
+            {
+                SamplePage page = (SamplePage)host.ContentFrame.Content;
+                page.OnCapabiliesChanged(_areEffectsSupported, _areEffectsFast);
+            }
+
+            MySampleListControl.RefreshSampleList();
+
+
+            //
+            // Let the user know that the display config has changed and some samples may or may
+            // not be available
+            //
+
+            if (!_areEffectsSupported || !_areEffectsFast)
+            {
+                string message;
+
+                if (!_areEffectsSupported)
+                {
+                    message = "Your display configuration may have changed.  Your current graphics hardware does not support effects.  Some samples will not be available";
+                }
+                else
+                {
+                    message = "Your display configuration may have changed. Your current graphics hardware does not support advanced effects.  Some samples will not be available";
+                }
+
+                var messageDialog = new MessageDialog(message);
+                messageDialog.Commands.Add(new UICommand("Close"));
+
+                // Show the message dialog
+                await messageDialog.ShowAsync();
+            }
+        }
+#endif
 
         private async void ShowCustomSplashScreen(Rect imageBounds)
         {

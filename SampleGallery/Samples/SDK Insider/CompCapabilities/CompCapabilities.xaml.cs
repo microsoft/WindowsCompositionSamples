@@ -58,7 +58,6 @@ namespace CompositionSampleGallery
 
             // Get hardware capabilities and register changed event listener
             _capabilities = CompositionCapabilities.GetForCurrentView();
-            _capabilities.Changed += HandleCapabilitiesChanged;
         }
 
         /// <summary>
@@ -95,6 +94,7 @@ namespace CompositionSampleGallery
             _backgroundImageVisual = _compositor.CreateSpriteVisual();
             _imageContainer = _compositor.CreateContainerVisual();
             _imageSurfaceBrush = _compositor.CreateSurfaceBrush();
+            _capabilities.Changed += HandleCapabilitiesChanged;
 
             ElementCompositionPreview.SetElementChildVisual(ImageCanvas, _imageContainer);
 
@@ -250,6 +250,8 @@ namespace CompositionSampleGallery
         /// </summary>
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
+            _capabilities.Changed -= HandleCapabilitiesChanged;
+
             if (_imageSurfaceBrush != null)
             {
                 _imageLoader.Dispose();

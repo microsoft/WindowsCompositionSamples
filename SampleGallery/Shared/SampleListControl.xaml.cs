@@ -15,6 +15,7 @@
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 
 namespace CompositionSampleGallery
 {
@@ -24,12 +25,7 @@ namespace CompositionSampleGallery
         {
             this.InitializeComponent();
 
-            var result = from sampleDef in SampleDefinitions.Definitions
-                         orderby sampleDef.DisplayName
-                         group sampleDef by sampleDef.SampleCategory into sampleGroup
-                         orderby sampleGroup.Key
-                         select sampleGroup;
-            SampleViewSource.Source = result;
+            RefreshSampleList();
         }
 
         private void SampleList_ItemClick(object sender, ItemClickEventArgs e)
@@ -38,6 +34,40 @@ namespace CompositionSampleGallery
             MainPage.Instance.NavigateToPage(typeof(SampleHost), definition);
 
             SamplesSplitView.IsPaneOpen = false; 
+        }
+
+        public void RefreshSampleList()
+        {
+            IOrderedEnumerable<IGrouping<SampleCategory, SampleDefinition>> result;
+
+            if (MainPage.AreEffectsFast)
+            {
+                result = from sampleDef in SampleDefinitions.Definitions
+                         orderby sampleDef.DisplayName
+                         group sampleDef by sampleDef.SampleCategory into sampleGroup
+                         orderby sampleGroup.Key
+                         select sampleGroup;
+            }
+            else if (MainPage.AreEffectsSupported)
+            {
+                result = from sampleDef in SampleDefinitions.Definitions
+                         where !sampleDef.RequiresFastEffects
+                         orderby sampleDef.DisplayName
+                         group sampleDef by sampleDef.SampleCategory into sampleGroup
+                         orderby sampleGroup.Key
+                         select sampleGroup;
+            }
+            else
+            {
+                result = from sampleDef in SampleDefinitions.Definitions
+                         where !sampleDef.RequiresEffects
+                         orderby sampleDef.DisplayName
+                         group sampleDef by sampleDef.SampleCategory into sampleGroup
+                         orderby sampleGroup.Key
+                         select sampleGroup;
+            }
+
+            SampleViewSource.Source = result;
         }
     }
 }
