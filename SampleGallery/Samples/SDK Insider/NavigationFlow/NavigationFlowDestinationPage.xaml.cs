@@ -76,12 +76,6 @@ namespace CompositionSampleGallery
             ElementCompositionPreview.SetImplicitHideAnimation(this, fadeOut);
         }
 
-        private void DestinationPage_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("BorderDest", BorderDest);
-            Frame.GoBack();
-        }
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
