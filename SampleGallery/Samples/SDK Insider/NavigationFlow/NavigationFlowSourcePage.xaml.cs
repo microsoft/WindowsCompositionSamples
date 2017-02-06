@@ -30,10 +30,10 @@ namespace CompositionSampleGallery
 
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
 
-            var listItems = new List<NavigationFlowListItem>();
+            var listItems = new List<string>();
             for (int i = 0; i < 300; i++)
             {
-                listItems.Add(new NavigationFlowListItem { Title = $"Item {i}" });
+                listItems.Add($"Item {i}");
             }
             ItemsGridView.ItemsSource = listItems;
 

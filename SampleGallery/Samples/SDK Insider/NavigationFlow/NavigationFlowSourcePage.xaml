@@ -18,9 +18,9 @@
                 </Style>
             </GridView.ItemContainerStyle>
             <GridView.ItemTemplate>
-                <DataTemplate x:DataType="local:NavigationFlowListItem">
+                <DataTemplate x:DataType="x:String">
                     <Border x:Name="BorderSource" Width="160" Height="160" Background="CornflowerBlue">
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="18" Text="{x:Bind Title}" />
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="18" Text="{x:Bind}" />
                     </Border>
                 </DataTemplate>
             </GridView.ItemTemplate>
