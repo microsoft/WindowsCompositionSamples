@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -177,6 +177,16 @@
     <Compile Include="Samples\SDK 14393\VideoPlayground\VideoPlaygroundViewModel.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\LayerDepth\LayerDepth.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>LayerDepth.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\SDK Insider\NavigationFlow\NavigationFlow.xaml.cs">
+      <DependentUpon>NavigationFlow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\SDK Insider\NavigationFlow\NavigationFlowDestinationPage.xaml.cs">
+      <DependentUpon>NavigationFlowDestinationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\SDK Insider\NavigationFlow\NavigationFlowListItem.cs" />
+    <Compile Include="Samples\SDK Insider\NavigationFlow\NavigationFlowSourcePage.xaml.cs">
+      <DependentUpon>NavigationFlowSourcePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\SDK Insider\TransparentWindow\TransparentWindow.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK Insider\BorderPlayground\BorderPlayground.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
@@ -476,6 +486,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\SDK 14393\LayerDepth\LayerDepth.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK Insider\NavigationFlow\NavigationFlow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK Insider\NavigationFlow\NavigationFlowDestinationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK Insider\NavigationFlow\NavigationFlowSourcePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

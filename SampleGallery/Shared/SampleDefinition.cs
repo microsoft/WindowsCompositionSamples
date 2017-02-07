@@ -2,7 +2,7 @@
 //
 // Copyright (c) Microsoft. All rights reserved.
 // This code is licensed under the MIT License (MIT).
-// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+// THE SOFTWARE IS PROVIDED ï¿½AS ISï¿½, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
 // INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
 // IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
@@ -80,9 +80,10 @@ namespace CompositionSampleGallery
         static SampleDefinition[] definitions =
         {
 #if SDKVERSION_INSIDER
-            new SampleDefinition(BorderPlayground.StaticSampleName,             typeof(BorderPlayground),               SampleType.Reference, SampleCategory.Effects, false, true),
-            new SampleDefinition(CompCapabilities.StaticSampleName,             typeof(CompCapabilities),               SampleType.Reference, SampleCategory.Effects, false, false),
-            new SampleDefinition(TransparentWindow.StaticSampleName,            typeof(TransparentWindow),              SampleType.EndToEnd,  SampleCategory.Effects, true, true),
+            new SampleDefinition(BorderPlayground.StaticSampleName,             typeof(BorderPlayground),               SampleType.Reference, SampleCategory.Effects),
+            new SampleDefinition(CompCapabilities.StaticSampleName,             typeof(CompCapabilities),               SampleType.Reference, SampleCategory.Effects),
+            new SampleDefinition(TransparentWindow.StaticSampleName,            typeof(TransparentWindow),              SampleType.EndToEnd,  SampleCategory.Effects),
+            new SampleDefinition(NavigationFlow.StaticSampleName,               typeof(NavigationFlow),                 SampleType.EndToEnd,  SampleCategory.Transitions),
 #endif
 
 #if SDKVERSION_14393
