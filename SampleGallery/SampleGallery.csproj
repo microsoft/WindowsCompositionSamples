@@ -178,13 +178,13 @@
     <Compile Include="Samples\SDK 14393\LayerDepth\LayerDepth.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>LayerDepth.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\SDK Insider\NavigationFlow\NavigationFlow.xaml.cs">
+    <Compile Include="Samples\SDK Insider\NavigationFlow\NavigationFlow.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393">
       <DependentUpon>NavigationFlow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\SDK Insider\NavigationFlow\NavigationFlowDestinationPage.xaml.cs">
+    <Compile Include="Samples\SDK Insider\NavigationFlow\NavigationFlowDestinationPage.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393">
       <DependentUpon>NavigationFlowDestinationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\SDK Insider\NavigationFlow\NavigationFlowSourcePage.xaml.cs">
+    <Compile Include="Samples\SDK Insider\NavigationFlow\NavigationFlowSourcePage.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393">
       <DependentUpon>NavigationFlowSourcePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\SDK Insider\TransparentWindow\TransparentWindow.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
@@ -488,15 +488,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK Insider\NavigationFlow\NavigationFlow.xaml">
+    <Page Include="Samples\SDK Insider\NavigationFlow\NavigationFlow.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK Insider\NavigationFlow\NavigationFlowDestinationPage.xaml">
+    <Page Include="Samples\SDK Insider\NavigationFlow\NavigationFlowDestinationPage.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK Insider\NavigationFlow\NavigationFlowSourcePage.xaml">
+    <Page Include="Samples\SDK Insider\NavigationFlow\NavigationFlowSourcePage.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
