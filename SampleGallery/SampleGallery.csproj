@@ -184,7 +184,6 @@
     <Compile Include="Samples\SDK Insider\NavigationFlow\NavigationFlowDestinationPage.xaml.cs">
       <DependentUpon>NavigationFlowDestinationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\SDK Insider\NavigationFlow\NavigationFlowListItem.cs" />
     <Compile Include="Samples\SDK Insider\NavigationFlow\NavigationFlowSourcePage.xaml.cs">
       <DependentUpon>NavigationFlowSourcePage.xaml</DependentUpon>
     </Compile>
