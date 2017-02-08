@@ -27,7 +27,7 @@ namespace CompositionSampleGallery
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
+            
             if (e.Parameter is SampleHost)
             {
                 SampleHost host = (SampleHost)e.Parameter;
@@ -36,6 +36,11 @@ namespace CompositionSampleGallery
                 host.SampleName.Text = SampleName;
                 host.SampleCode.NavigateUri = new Uri(SampleCodeUri);
             }
+        }
+
+        public virtual void OnCapabiliesChanged(bool areEffectSupported, bool areEffectsFast)
+        {
+
         }
     }
 }

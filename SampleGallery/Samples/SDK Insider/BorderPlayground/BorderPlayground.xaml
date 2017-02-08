@@ -1,0 +1,112 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.BorderPlayground"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Visible"  HorizontalScrollMode="Disabled">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10">
+                <TextBlock Text="Mode - X" 
+                           FontWeight="Bold"
+                           Margin="10,0,10,0"/>
+                <ComboBox x:Name="ExtendXBox"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          SelectionChanged="Extend_SelectionChanged"
+                          PlaceholderText="ExtendX"
+                          Margin="10,0,10,10"/>
+            
+                <TextBlock Text="Mode - Y" 
+                           FontWeight="Bold"
+                           Margin="10,0,10,0"/>
+                <ComboBox x:Name="ExtendYBox"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          SelectionChanged="Extend_SelectionChanged"
+                          PlaceholderText="ExtendY"
+                          Margin="10,0,10,10"/>
+
+                <TextBlock Text="Image Selector" 
+                           FontWeight="Bold"
+                           Margin="10,0,10,0"/>
+                <ComboBox x:Name="ImageSelector"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          SelectionChanged="ImageSelector_SelectionChanged"
+                          PlaceholderText="ImageSelector"
+                          Margin="10,0,10,10"/>
+            
+                <Image  x:Name="ImagePreview"
+                        MaxHeight="40"
+                        Margin="10,0,10,10"/>
+            
+                <TextBlock Text="Scale X" 
+                           FontWeight="Bold"
+                           Margin="10,0,10,0"/>
+                <Slider    x:Name="ScaleX"
+                           Margin="10,0,10,10"
+                           Minimum="1" 
+                           Maximum="100" 
+                           Value="1" 
+                           ValueChanged="Slider_ValueChanged"/>
+
+                <TextBlock Text="Scale Y" 
+                           FontWeight="Bold"
+                           Margin="10,0,10,0"/>
+                <Slider    x:Name="ScaleY"
+                           Margin="10,0,10,10"
+                           Minimum="1" 
+                           Maximum="100" 
+                           Value="1" 
+                           ValueChanged="Slider_ValueChanged"/>
+
+                <TextBlock Text="Offset X" 
+                           FontWeight="Bold"
+                           Margin="10,0,10,0"/>
+                <Slider    x:Name="OffsetX"
+                           Margin="10,0,10,10"
+                           Minimum="0" 
+                           Maximum="1000" 
+                           Value="1" 
+                           ValueChanged="Slider_ValueChanged"/>
+
+                <TextBlock Text="Offset Y" 
+                           FontWeight="Bold"
+                           Margin="10,0,10,0"/>
+                <Slider    x:Name="OffsetY"
+                           Margin="10,0,10,10"
+                           Minimum="0" 
+                           Maximum="1000" 
+                           Value="1" 
+                           ValueChanged="Slider_ValueChanged"/>
+
+                <TextBlock Text="Rotation" 
+                           FontWeight="Bold"
+                           Margin="10,0,10,0"/>
+                <Slider    x:Name="Rotation"
+                           Margin="10,0,10,10"
+                           Minimum="0" 
+                           Maximum="360" 
+                           Value="0" 
+                           ValueChanged="Slider_ValueChanged"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid x:Name="BorderImage" Grid.Column="1" SizeChanged="BorderImage_SizeChanged"/>
+
+    </Grid>
+</local:SamplePage>

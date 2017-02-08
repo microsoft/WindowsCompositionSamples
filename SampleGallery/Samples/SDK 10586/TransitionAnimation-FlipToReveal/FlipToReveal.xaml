@@ -12,11 +12,11 @@
           Tapped="MainPanel_Tapped">
         
         <!-- ImageTile and CaptionTile occupy the same cell in the Grid -->
-        <Image Source="Image.jpg" Width="400" Height="220"
+        <Image Source="Image.jpg" Width="350" Height="192"
                 HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ImageTile" />
         
         <Border BorderThickness="2" BorderBrush="#B91C8D" Background="#250E35" x:Name="CaptionTile"
-                Width="400" Height="220" Opacity="0.8" 
+                Width="350" Height="192" Opacity="0.8" 
                 HorizontalAlignment="Center" VerticalAlignment="Center">
             
             <StackPanel Padding="10" VerticalAlignment="Bottom" Background="#250E35" Opacity="1">

@@ -17,6 +17,7 @@ using System;
 using System.Numerics;
 using Windows.UI;
 using Windows.UI.Composition;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
 
 namespace CompositionSampleGallery
@@ -64,13 +65,13 @@ namespace CompositionSampleGallery
             SpriteVisual redSprite = compositor.CreateSpriteVisual();
             redSprite.Brush = redBrush;
             redSprite.Size = new Vector2(100f, 100f);
-            redSprite.Offset = new Vector3(200f, 200f, 0f);
+            redSprite.Offset = new Vector3((float)Window.Current.Bounds.Width / 2 - redSprite.Size.X/2, 150f, 0f);
             container.Children.InsertAtTop(redSprite);
 
             SpriteVisual blueSprite = compositor.CreateSpriteVisual();
             blueSprite.Brush = blueBrush;
             blueSprite.Size = new Vector2(25f, 25f);
-            blueSprite.Offset = new Vector3(0f, 0f, 0f);
+            blueSprite.Offset = new Vector3((float)Window.Current.Bounds.Width / 2 - redSprite.Size.X / 2, 50f, 0f);
             container.Children.InsertAtTop(blueSprite);
 
             //
@@ -89,13 +90,13 @@ namespace CompositionSampleGallery
             // animation these property leading to the expression being re-evaluated per frame.
             //
 
-            CompositionPropertySet propertySet = compositor.CreatePropertySet();
-            propertySet.InsertScalar("Rotation", 0f);
-            propertySet.InsertVector3("CenterPointOffset", new Vector3(redSprite.Size.X / 2 - blueSprite.Size.X / 2, 
+            _propertySet = compositor.CreatePropertySet();
+            _propertySet.InsertScalar("Rotation", 0f);
+            _propertySet.InsertVector3("CenterPointOffset", new Vector3(redSprite.Size.X / 2 - blueSprite.Size.X / 2, 
                                                                        redSprite.Size.Y / 2 - blueSprite.Size.Y / 2, 0));
 
             // Set the parameters of the expression animation
-            expressionAnimation.SetReferenceParameter("propertySet", propertySet);
+            expressionAnimation.SetReferenceParameter("propertySet", _propertySet);
             expressionAnimation.SetReferenceParameter("visual", redSprite);
 
             // Start the expression animation!
@@ -108,16 +109,16 @@ namespace CompositionSampleGallery
             rotAnimation.InsertKeyFrame(1.0f, 360f, linear);
             rotAnimation.Duration = TimeSpan.FromMilliseconds(4000);
             rotAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
-            propertySet.StartAnimation("Rotation", rotAnimation);
+            _propertySet.StartAnimation("Rotation", rotAnimation);
 
             // Lastly, animation the Offset of the red sprite to see the expression track appropriately
-            var offsetAnimation = compositor.CreateVector3KeyFrameAnimation();
-            offsetAnimation.InsertKeyFrame(0f, new Vector3(125f, 50f, 0f));
-            offsetAnimation.InsertKeyFrame(.5f, new Vector3(125f, 200f, 0f));
-            offsetAnimation.InsertKeyFrame(1f, new Vector3(125f, 50f, 0f));
+            var offsetAnimation = compositor.CreateScalarKeyFrameAnimation();
+            offsetAnimation.InsertKeyFrame(0f, 50f);
+            offsetAnimation.InsertKeyFrame(.5f, 150f);
+            offsetAnimation.InsertKeyFrame(1f, 50f);
             offsetAnimation.Duration = TimeSpan.FromMilliseconds(4000);
             offsetAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
-            redSprite.StartAnimation("Offset", offsetAnimation);
+            redSprite.StartAnimation("Offset.Y", offsetAnimation);
         }
 
         private void SamplePage_Unloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -130,5 +131,6 @@ namespace CompositionSampleGallery
         private IImageLoader _imageLoader;
         private IManagedSurface _redBallSurface;
         private IManagedSurface _blueBallSurface;
+        private CompositionPropertySet _propertySet;
     }
 }

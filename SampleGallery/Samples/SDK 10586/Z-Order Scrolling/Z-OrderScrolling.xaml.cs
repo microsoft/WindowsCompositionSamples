@@ -261,7 +261,7 @@ namespace CompositionSampleGallery
             // Push the text content down to make room for the image overhanging.
             //
             ContentPanel.Margin = new Thickness(5, (float)ParallaxingImage.ActualHeight + profileImageSize.Y / 2, 5, 5);
-
+            
             //
             // Resolve all of the property parameters and references on the frontVisual animations and start them.
             //
@@ -311,7 +311,6 @@ namespace CompositionSampleGallery
             // Resolve all property parameters and references on _profileContentVisual
             //
             _profileContentVisual.Size = new Vector2((float)ProfileContent.ActualWidth, (float)ProfileContent.ActualHeight);
-            _profileContentVisual.AnchorPoint = new Vector2(0.5f, 0f);
             _profileContentVisual.Offset = new Vector3(0);
             _profileContentVisual.Offset = new Vector3(_profileContentVisual.Size / 2, 0);
             _profileContentScaleAnimation.SetScalarParameter("BackgroundPeekSize", backgroundPeekSize);

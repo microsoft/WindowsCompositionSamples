@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="CompositionSampleGallery.NavigationFlowDestinationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="TopBorder" VerticalAlignment="Top" Height="450" Background="LightSlateGray">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border x:Name="BorderDest" Width="300" Height="300" Margin="75,75,50,75" VerticalAlignment="Top" HorizontalAlignment="Left" Background="CornflowerBlue">
+                <TextBlock x:Name="ItemTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="18" Text="Item Title" />
+            </Border>
+
+            <StackPanel x:Name="DescriptionRoot" Grid.Column="1" Margin="0,80">
+                <TextBlock Foreground="White" FontSize="18">Caption Text</TextBlock>
+                <TextBlock Margin="0,10,0,0" Foreground="White" HorizontalAlignment="Left" FontSize="14" MaxWidth="500" TextWrapping="Wrap">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lobortis nulla sit amet aliquet viverra. Etiam gravida luctus orci, at egestas leo auctor sed.</TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Border Margin="20" Grid.Row="1">
+            <Rectangle x:Name="MainContent" Fill="#EEE" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+        </Border>
+    </Grid>
+</Page>

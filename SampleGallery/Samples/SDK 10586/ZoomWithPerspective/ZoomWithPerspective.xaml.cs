@@ -30,6 +30,7 @@ namespace CompositionSampleGallery
     public sealed partial class ZoomWithPerspective : SamplePage
     {
         private Compositor          _compositor;
+        private bool                _zoomed;
 
         public ZoomWithPerspective()
         {
@@ -59,83 +60,81 @@ namespace CompositionSampleGallery
             image.Source = new Uri(thumbnail.ImageUrl);
         }
 
-        private async void ThumbnailList_ItemClick(object sender, ItemClickEventArgs e)
+        private void ThumbnailList_ItemClick(object sender, ItemClickEventArgs e)
         {
             Thumbnail thumbnail = (Thumbnail)e.ClickedItem;
             ListView listView = (ListView)sender;
             ListViewItem listItem = (ListViewItem)listView.ContainerFromItem(e.ClickedItem);
 
+            if (_zoomed)
+            {
+                Visual root = ElementCompositionPreview.GetElementVisual(ThumbnailList);
 
-            //
-            // Calculate the absolute offset to the item that was clicked.  We will use that for centering
-            // the zoom in.
-            //
+                //
+                // Animate the rotation and offset back to the starting values
+                //
 
-            GeneralTransform coordinate = listItem.TransformToVisual(listView);
-            Vector2 clickedItemCenterPosition = coordinate.TransformPoint(new Point(0, 0)).ToVector2() +
-                                                new Vector2((float)listItem.ActualWidth / 2, (float)listItem.ActualHeight / 2);
+                ScalarKeyFrameAnimation rotationAnimation = _compositor.CreateScalarKeyFrameAnimation();
+                rotationAnimation.InsertKeyFrame(1, 0f);
+                rotationAnimation.Duration = TimeSpan.FromMilliseconds(1000);
+                root.StartAnimation("RotationAngleInDegrees", rotationAnimation);
+
+                Vector3KeyFrameAnimation offsetAnimaton = _compositor.CreateVector3KeyFrameAnimation();
+                offsetAnimaton.InsertKeyFrame(1, new Vector3(0, 0, 0));
+                offsetAnimaton.Duration = TimeSpan.FromMilliseconds(1000);
+                root.StartAnimation("Offset", offsetAnimaton);
+
+                _zoomed = false;
+            }
+            else
+            {
+                //
+                // Calculate the absolute offset to the item that was clicked.  We will use that for centering
+                // the zoom in.
+                //
+
+                GeneralTransform coordinate = listItem.TransformToVisual(listView);
+                Vector2 clickedItemCenterPosition = coordinate.TransformPoint(new Point(0, 0)).ToVector2() +
+                                                    new Vector2((float)listItem.ActualWidth / 2, (float)listItem.ActualHeight / 2);
 
 
-            //
-            // Calculate the offset we want to animate up/down/in for the zoom based on the center point of the target and the 
-            // size of the panel/viewport.
-            //
+                //
+                // Calculate the offset we want to animate up/down/in for the zoom based on the center point of the target and the 
+                // size of the panel/viewport.
+                //
 
-            Vector2 targetOffset = new Vector2((float)listView.ActualWidth / 2, (float)listView.ActualHeight / 2) - clickedItemCenterPosition;
+                Vector2 targetOffset = new Vector2((float)listView.ActualWidth / 2, (float)listView.ActualHeight / 2) - clickedItemCenterPosition;
 
 
-            //
-            // Get the root panel and set it up for the rotation animation.  We're rotating the listview around the Y-axis relative
-            // to the center point of the panel.
-            //
+                //
+                // Get the root panel and set it up for the rotation animation.  We're rotating the listview around the Y-axis relative
+                // to the center point of the panel.
+                //
 
-            Visual root = ElementCompositionPreview.GetElementVisual(ThumbnailList);
-            root.Size = new Vector2((float)ThumbnailList.ActualWidth, (float)ThumbnailList.ActualHeight);
-            root.CenterPoint = new Vector3(root.Size.X / 2, root.Size.Y / 2, 0);
-            root.RotationAxis = new Vector3(0, 1, 0);
+                Visual root = ElementCompositionPreview.GetElementVisual(ThumbnailList);
+                root.Size = new Vector2((float)ThumbnailList.ActualWidth, (float)ThumbnailList.ActualHeight);
+                root.CenterPoint = new Vector3(root.Size.X / 2, root.Size.Y / 2, 0);
+                root.RotationAxis = new Vector3(0, 1, 0);
 
-            // Kick off the rotation animation
-            ScalarKeyFrameAnimation rotationAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            rotationAnimation.InsertKeyFrame(0, 0);
-            rotationAnimation.InsertKeyFrame(1, targetOffset.X > 0 ? -45f : 45f);
-            rotationAnimation.Duration = TimeSpan.FromMilliseconds(1000);
-            root.StartAnimation("RotationAngleInDegrees", rotationAnimation);
+                // Kick off the rotation animation
+                ScalarKeyFrameAnimation rotationAnimation = _compositor.CreateScalarKeyFrameAnimation();
+                rotationAnimation.InsertKeyFrame(0, 0);
+                rotationAnimation.InsertKeyFrame(1, targetOffset.X > 0 ? -45f : 45f);
+                rotationAnimation.Duration = TimeSpan.FromMilliseconds(1000);
+                root.StartAnimation("RotationAngleInDegrees", rotationAnimation);
 
-            // Calcuate the offset for the point we are zooming towards
-            const float zoomFactor = .8f;
-            Vector3 zoomedOffset = new Vector3(targetOffset.X, targetOffset.Y, (float)PerspectivePanel.ActualWidth * zoomFactor) * zoomFactor;
+                // Calcuate the offset for the point we are zooming towards
+                const float zoomFactor = .8f;
+                Vector3 zoomedOffset = new Vector3(targetOffset.X, targetOffset.Y, (float)PerspectivePanel.ActualWidth * zoomFactor) * zoomFactor;
 
-            Vector3KeyFrameAnimation offsetAnimaton = _compositor.CreateVector3KeyFrameAnimation();
-            offsetAnimaton.InsertKeyFrame(0, new Vector3(0, 0, 0));
-            offsetAnimaton.InsertKeyFrame(1, zoomedOffset);
-            offsetAnimaton.Duration = TimeSpan.FromMilliseconds(1000);
-            root.StartAnimation("Offset", offsetAnimaton);
+                Vector3KeyFrameAnimation offsetAnimaton = _compositor.CreateVector3KeyFrameAnimation();
+                offsetAnimaton.InsertKeyFrame(0, new Vector3(0, 0, 0));
+                offsetAnimaton.InsertKeyFrame(1, zoomedOffset);
+                offsetAnimaton.Duration = TimeSpan.FromMilliseconds(1000);
+                root.StartAnimation("Offset", offsetAnimaton);
 
-            // Create the dialog
-            var messageDialog = new MessageDialog(thumbnail.Name);
-            messageDialog.Commands.Add(new UICommand("Close", new UICommandInvokedHandler(DialogDismissedHandler)));
-
-            // Show the message dialog
-            await messageDialog.ShowAsync();
-        }
-
-        private void DialogDismissedHandler(IUICommand command)
-        {
-            Visual root = ElementCompositionPreview.GetElementVisual(ThumbnailList);
-
-            //
-            // Animate the rotation and offset back to the starting values
-            //
-
-            ScalarKeyFrameAnimation rotationAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            rotationAnimation.InsertKeyFrame(1, 0f);
-            rotationAnimation.Duration = TimeSpan.FromMilliseconds(1000);
-            root.StartAnimation("RotationAngleInDegrees", rotationAnimation);
-
-            Vector3KeyFrameAnimation offsetAnimaton = _compositor.CreateVector3KeyFrameAnimation();
-            offsetAnimaton.InsertKeyFrame(1, new Vector3(0, 0, 0));
-            offsetAnimaton.Duration = TimeSpan.FromMilliseconds(1000);
-            root.StartAnimation("Offset", offsetAnimaton);
+                _zoomed = true;
+            }
         }
 
         private void RootPanel_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -144,17 +143,6 @@ namespace CompositionSampleGallery
             MyClip.Rect = new Rect(0, 0, e.NewSize.Width, e.NewSize.Height);
 
             PerspectivePanel.PerspectiveDepth = e.NewSize.Width;
-
-            /*
-            var depthAnimation = _compositor.CreateScalarKeyFrameAnimation();
-            var linearEasing = _compositor.CreateLinearEasingFunction();
-            depthAnimation.InsertKeyFrame(0, (float)e.NewSize.Width, linearEasing);
-            depthAnimation.InsertKeyFrame(0.5f, (float)e.NewSize.Width * 3, linearEasing);
-            depthAnimation.InsertKeyFrame(1, (float)e.NewSize.Width, linearEasing);
-            depthAnimation.Duration = TimeSpan.FromSeconds(10);
-            depthAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
-            PerspectivePanel.VisualProperties.StartAnimation(PerspectivePanel.PerspectiveDepthProperty, depthAnimation);
-            */
         }
     }
 }
