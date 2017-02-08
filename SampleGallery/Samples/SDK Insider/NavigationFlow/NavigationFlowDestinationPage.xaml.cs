@@ -1,4 +1,18 @@
-﻿using System;
+﻿//*********************************************************
+//
+// Copyright (c) Microsoft. All rights reserved.
+// This code is licensed under the MIT License (MIT).
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+// IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH 
+// THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//
+//*********************************************************
+
+using System;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
@@ -27,6 +41,8 @@ namespace CompositionSampleGallery
             topBorderOffsetAnimation.InsertKeyFrame(1, 0);
 
             ElementCompositionPreview.SetIsTranslationEnabled(TopBorder, true);
+            // Call GetElementVisual() to work around a bug in Insider Build 15025
+            ElementCompositionPreview.GetElementVisual(TopBorder);
             ElementCompositionPreview.SetImplicitShowAnimation(TopBorder, topBorderOffsetAnimation);
 
             // Add an opacity and translation animation that will play when this element is shown
@@ -50,6 +66,7 @@ namespace CompositionSampleGallery
             mainContentShowAnimations.Add(mainContentOpacityAnimation);
 
             ElementCompositionPreview.SetIsTranslationEnabled(MainContent, true);
+            ElementCompositionPreview.GetElementVisual(MainContent);
             ElementCompositionPreview.SetImplicitShowAnimation(MainContent, mainContentShowAnimations);
 
             // Add a translation animation that will play when this element exits the scene
@@ -68,6 +85,7 @@ namespace CompositionSampleGallery
             topBorderExitAnimation.Duration = TimeSpan.FromSeconds(0.4);
 
             ElementCompositionPreview.SetIsTranslationEnabled(TopBorder, true);
+            ElementCompositionPreview.GetElementVisual(TopBorder);
             ElementCompositionPreview.SetImplicitHideAnimation(TopBorder, topBorderExitAnimation);
 
             // Add an opacity animation that will play when the page exits the scene
@@ -78,6 +96,7 @@ namespace CompositionSampleGallery
 
             // Set Z index to force this page to the top during the hide animation
             Canvas.SetZIndex(this, 1);
+            ElementCompositionPreview.GetElementVisual(this);
             ElementCompositionPreview.SetImplicitHideAnimation(this, fadeOut);
         }
 
