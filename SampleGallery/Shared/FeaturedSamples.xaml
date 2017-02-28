@@ -1,0 +1,111 @@
+﻿<UserControl
+    x:Class="CompositionSampleGallery.FeaturedSamples"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:common="using:SamplesCommon"
+    Loaded="UserControl_Loaded"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <Style x:Key="test" TargetType="ListViewItem">
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Need to load shared resource dictionaries as a mergeddictionary -->
+                <local:SharedResourceDictionaries />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="MainGrid"
+          Background="{x:Bind Background}" 
+          MaxHeight="{x:Bind MaxHeight}" >
+    <Grid.RowDefinitions>
+            <RowDefinition x:Name="Row0" />
+            <RowDefinition x:Name="Row1" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition x:Name="Col1" Width="2*"/>
+        </Grid.ColumnDefinitions>
+        
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                
+                <!-- WIDE -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideScreenWidthTrigger}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="DescriptionTextBlock.Visibility" Value="Visible" />
+                        <Setter Target="NewSamplesList.ItemTemplate" Value="{StaticResource FeaturedSampleDataTemplateWide}" />
+                        <Setter Target="SV.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="SV.(Grid.RowSpan)" Value="2" />
+                        <Setter Target="SV.(Grid.Column)" Value="1" />
+                        <Setter Target="SV.Padding" Value="0,80,0,0" />
+                        <Setter Target="TextStackPanel.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="TextStackPanel.(Grid.RowSpan)" Value="2" />
+                        <Setter Target="TextStackPanel.Padding" Value="24,0,27,0" />
+                        <Setter Target="NewSamplesList.Padding" Value="0" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <!-- Narrow -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowScreenWidthTrigger}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="DescriptionTextBlock.Visibility" Value="Collapsed" />
+                        <Setter Target="NewSamplesList.ItemTemplate" Value="{StaticResource FeaturedSampleDataTemplateNarrowForLightBackground}" />
+                        <Setter Target="SV.(Grid.Column)" Value="0" />
+                        <Setter Target="SV.(Grid.Row)" Value="1" />
+                        <Setter Target="SV.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="TextStackPanel.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="TextStackPanel.(Grid.RowSpan)" Value="1" />
+                        <Setter Target="TextStackPanel.Padding" Value="12,0,0,0" />
+                        <Setter Target="TextStackPanel.Margin" Value="0,25,0,23" />
+                        <Setter Target="NewSamplesList.Padding" Value="12,0,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <StackPanel x:Name="TextStackPanel" 
+                    Grid.Row="0" 
+                    Grid.Column="0" 
+                    Grid.RowSpan="2"
+                    VerticalAlignment="Center" >
+            <TextBlock x:Name="Title1TextBlock" 
+                       Style="{StaticResource SubSectionHeading}"                            
+                       Foreground="{x:Bind Foreground}"/>
+            <TextBlock x:Name="DescriptionTextBlock" 
+                       Style="{StaticResource BaseTextBlockStyleLight}"
+                       Foreground="{x:Bind Foreground}" />
+        </StackPanel>
+
+        <ScrollViewer
+            x:Name="SV"
+            Grid.Column="1"
+            Grid.Row="0"
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Disabled">
+            <ListView x:Name="NewSamplesList"
+                      Style="{StaticResource BaseSamplesListViewStyle}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="VerticalAlignment" Value="Top" />
+                        <Setter Property="Padding" Value="0" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+
+        </ScrollViewer>
+    </Grid>
+
+</UserControl>

@@ -12,15 +12,14 @@
 //
 //*********************************************************
 
+using Windows.Foundation.Metadata;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 namespace CompositionSampleGallery
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class SampleHost : Page
     {
         public SampleHost()
@@ -34,6 +33,18 @@ namespace CompositionSampleGallery
 
             SampleDefinition definition = (SampleDefinition)e.Parameter;
             ContentFrame.Navigate(definition.Type, this);
+
+#if SDKVERSION_14393
+            // perform a connected animation if runtime support is available
+            if (MainPage.RuntimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._14393))
+            {
+                ConnectedAnimation titleConnectedAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("SampleTitleConnectedAnimation");
+                if (titleConnectedAnimation != null)
+                {
+                    titleConnectedAnimation.TryStart(SampleName);
+                }
+            }
+#endif
         }
     }
 }

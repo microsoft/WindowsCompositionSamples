@@ -1,0 +1,94 @@
+﻿<UserControl
+    x:Class="CompositionSampleGallery.FeaturedSampleHomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:common="using:SamplesCommon"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ItemsPanelTemplate x:Key="HorizontalItemsPanelTemplate">
+            <StackPanel Orientation="Horizontal" />
+        </ItemsPanelTemplate>
+        <DataTemplate x:Key="FeaturedSampleWideDataTemplate" x:DataType="local:SampleDefinition">
+            <UserControl>
+                <StackPanel MaxWidth="260" Margin="0,0,50,0">
+                    <common:CompositionImage Width="260" Height="175" Source="{x:Bind ImageUrl}" Stretch="UniformToFill" />
+                    <TextBlock x:Name="SampleName"
+                            Text="{x:Bind Name}"
+                            Style="{ThemeResource FeaturedSampleTextBlockStyle}"
+                            Padding="0,25,0,28"/>
+                    <TextBlock
+                            Text="{x:Bind Description}"
+                            Style="{ThemeResource FeaturedSampleDescriptionTextBlockStyle}"
+                            Foreground="Black"/>
+                </StackPanel>
+            </UserControl>
+        </DataTemplate>
+        <DataTemplate x:Key="FeaturedSampleNarrowDataTemplate" x:DataType="local:SampleDefinition">
+            <StackPanel MaxWidth="140">
+                <common:CompositionImage Width="140" Height="140" Source="{x:Bind ImageUrl}" Stretch="UniformToFill" />
+                <TextBlock x:Name="SampleName"
+                        Text="{x:Bind Name}"
+                        Foreground="White"
+                        Style="{ThemeResource FeaturedSampleTextBlockStyle}"
+                        Padding="0,10,0,10"/>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+    <StackPanel>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+
+                <!-- WIDE -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideScreenWidthTrigger}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Header.Visibility" Value="Collapsed" />
+                        <Setter Target="FeaturedSampleList.ItemsPanel" Value="{StaticResource HorizontalItemsPanelTemplate}" />
+                        <Setter Target="FeaturedSampleList.ItemTemplate" Value="{StaticResource FeaturedSampleWideDataTemplate}" />
+                        <Setter Target="FeaturedSampleList.Margin" Value="0,47,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+                
+                <!-- NARROW -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowScreenWidthTrigger}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Header.Visibility" Value="Visible" />
+                        <Setter Target="FeaturedSampleList.ItemsPanel" Value="{StaticResource HorizontalItemsPanelTemplate}" />
+                        <Setter Target="FeaturedSampleList.ItemTemplate" Value="{StaticResource FeaturedSampleNarrowDataTemplate}" />
+                        <Setter Target="FeaturedSampleList.Margin" Value="0,27,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
+        <TextBlock x:Name="Header" 
+                   Style="{StaticResource Level2HeadingTextBlockStyle}" 
+                   OpticalMarginAlignment="TrimSideBearings" 
+                   Padding="15,28,0,0">Featured Samples</TextBlock>
+        <ScrollViewer x:Name="SV" 
+                      VerticalScrollBarVisibility="Hidden" 
+                      HorizontalScrollBarVisibility="Auto"
+                      Padding="0,0,0,10"
+                      Margin="0,0,0,85">
+            <ListView x:Name="FeaturedSampleList" 
+                          IsItemClickEnabled="True" 
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Top"
+                          VerticalContentAlignment="Top">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="VerticalAlignment" Value="Top" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </ScrollViewer>
+    </StackPanel>
+</UserControl>

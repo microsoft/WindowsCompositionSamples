@@ -14,14 +14,20 @@
 
 using SamplesCommon;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using Windows.Foundation;
+using Windows.Foundation.Metadata;
 using Windows.UI;
 using Windows.UI.Composition;
+using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace CompositionSampleGallery
 {
@@ -33,6 +39,7 @@ namespace CompositionSampleGallery
 #endif
         private static bool                     _areEffectsSupported;
         private static bool                     _areEffectsFast;
+        private static RuntimeSupportedSDKs      _runtimeCapabilities;
 
         public MainPage(Rect imageBounds)
         {
@@ -40,13 +47,14 @@ namespace CompositionSampleGallery
 
             // Get hardware capabilities and register changed event listener
 #if SDKVERSION_INSIDER
-            _capabilities = CompositionCapabilities.GetForCurrentView();
-            _capabilities.Changed += HandleCapabilitiesChangedAsync;
-            _areEffectsSupported = _capabilities.AreEffectsSupported();
-            _areEffectsFast = _capabilities.AreEffectsFast();
+            _capabilities           = CompositionCapabilities.GetForCurrentView();
+            _capabilities.Changed  += HandleCapabilitiesChangedAsync;
+            _areEffectsSupported    = _capabilities.AreEffectsSupported();
+            _areEffectsFast         = _capabilities.AreEffectsFast();
 #else
-            _areEffectsSupported = true;
-            _areEffectsFast = true;
+            _runtimeCapabilities    = new RuntimeSupportedSDKs();
+            _areEffectsSupported    = true;
+            _areEffectsFast         = true;
 #endif
             this.InitializeComponent();
 
@@ -55,6 +63,18 @@ namespace CompositionSampleGallery
 
             // Show the custome splash screen
             ShowCustomSplashScreen(imageBounds);
+
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+
+        }
+
+        private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (MainFrame.CanGoBack)
+            {
+                e.Handled = true;
+                MainFrame.GoBack();
+            }
         }
 
         public static MainPage Instance
@@ -72,6 +92,11 @@ namespace CompositionSampleGallery
             get { return _areEffectsFast; }
         }
 
+        public static RuntimeSupportedSDKs RuntimeCapabilities
+        {
+            get { return _runtimeCapabilities; }
+        }
+
 #if SDKVERSION_INSIDER
         private async void HandleCapabilitiesChangedAsync(CompositionCapabilities sender, object args)
         {
@@ -84,7 +109,7 @@ namespace CompositionSampleGallery
                 page.OnCapabiliesChanged(_areEffectsSupported, _areEffectsFast);
             }
 
-            MySampleListControl.RefreshSampleList();
+            //MySampleListControl.RefreshSampleList();
 
 
             //
@@ -146,10 +171,10 @@ namespace CompositionSampleGallery
             // exactly cover the Splash screen image so it will be a seamless transition between the two
             //
 
-            CompositionDrawingSurface surface = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Assets/SplashScreen.png"));
+            CompositionDrawingSurface surface = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Assets/StoreAssets/Wide.png"));
             SpriteVisual imageSprite = compositor.CreateSpriteVisual();
             imageSprite.Brush = compositor.CreateSurfaceBrush(surface);
-            imageSprite.Offset = new Vector3((float)imageBounds.X,(float)imageBounds.Y, 0f);
+            imageSprite.Offset = new Vector3((float)imageBounds.X, (float)imageBounds.Y, 0f);
             imageSprite.Size = new Vector2((float)imageBounds.Width, (float)imageBounds.Height);
             container.Children.InsertAtTop(imageSprite);
         }
@@ -157,7 +182,7 @@ namespace CompositionSampleGallery
         private void HideCustomSplashScreen()
         {
             ContainerVisual container = (ContainerVisual)ElementCompositionPreview.GetElementChildVisual(this);
-            Compositor compositor = container.Compositor; 
+            Compositor compositor = container.Compositor;
 
             // Setup some constants for scaling and animating
             const float ScaleFactor = 20f;
@@ -217,28 +242,156 @@ namespace CompositionSampleGallery
             HideCustomSplashScreen();
         }
 
-        private void ShowSplitView(object sender, RoutedEventArgs e)
+        public void ResetScrollViewer()
         {
-            MySampleListControl.SamplesSplitView.IsPaneOpen = !MySampleListControl.SamplesSplitView.IsPaneOpen;
+            this.SV.ChangeView(0, 0, null);
         }
 
-        private void NavigateHome(object sender, RoutedEventArgs e)
-        {
-            NavigateToPage(typeof(HomePage));
-        }
-        
         public void NavigateToPage(Type page, object parameter = null)
         {
-            if (page == typeof(HomePage))
+            MainFrame.Navigate(page, parameter);
+        }
+
+        private void MainFrame_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                ((Frame)sender).CanGoBack ?
+                AppViewBackButtonVisibility.Visible :
+                AppViewBackButtonVisibility.Collapsed;
+
+            // Close the SplitView if it's open
+            if (MainNavigationSplitView.IsPaneOpen)
             {
-                HomeButton.Visibility = Visibility.Collapsed;
+                MainNavigationSplitView.IsPaneOpen = false;
+            }
+        }
+
+        private void HamburgerButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainNavigationSplitView.IsPaneOpen = !MainNavigationSplitView.IsPaneOpen;
+
+            if (MainNavigationSplitView.IsPaneOpen)
+            {
+                MainNavigationSplitView.OpenPaneLength = this.ActualWidth;
+            }
+
+        }
+
+        private void CloseSplitViewPane()
+        {
+            MainNavigationSplitView.IsPaneOpen = false;
+        }
+
+        public static void FeaturedSampleList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            SampleDefinition sample = (SampleDefinition)e.ClickedItem;
+
+            foreach (SampleDefinition definition in SampleDefinitions.Definitions)
+            {
+                if (sample.Name == definition.Name)
+                {
+                    // obtain the textblock element for the clicked sample and initiate a connected animation
+                    var ClickedItem = ((ItemsControl)e.OriginalSource).ContainerFromItem(e.ClickedItem);
+                    if(ClickedItem != null)
+                    {
+                        FrameworkElement root = (FrameworkElement)((ContentControl)ClickedItem).ContentTemplateRoot;
+                        if (root != null)
+                        {
+                            var title = ((UIElement)root.FindName("SampleName"));
+                            if (title != null)
+                            {
+#if SDKVERSION_14393
+                                // perform a connected animation if runtime support is available
+                                if (RuntimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._14393))
+                                {
+                                    ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("SampleTitleConnectedAnimation", (title as UIElement));
+                                }
+#endif
+                            MainPage.Instance.NavigateToPage(typeof(SampleHost), definition);
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    // This class caches and provides information about the supported 
+    // Windows.Foundation.UniversalApiContract of the runtime
+    public class RuntimeSupportedSDKs
+    {
+        Dictionary<SDKVERSION, bool> _supportedSDKs;
+        List<SDKVERSION> _allSupportedSDKs;
+
+        public enum SDKVERSION
+        {
+            _10586 = 2,   // November Update (1511)
+            _14393,       // Anniversary Update (1607)
+            _INSIDER      // Creators Update
+        };
+
+        public RuntimeSupportedSDKs()
+        {
+            _supportedSDKs = new Dictionary<SDKVERSION, bool>();
+            _allSupportedSDKs = new List<SDKVERSION>();
+
+            // Determine which versions of the SDK are supported on the runtime
+            foreach(SDKVERSION v in Enum.GetValues(typeof(SDKVERSION)))
+            {
+                bool versionSupported = false;
+                if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", (ushort)v))
+                {
+                    versionSupported = true;
+                    _allSupportedSDKs.Add(v);
+                }
+                _supportedSDKs.Add(v, versionSupported);
+                _allSupportedSDKs.Add(v);
+            }
+        }
+
+        public bool IsSdkVersionRuntimeSupported(SDKVERSION sdkVersion)
+        {
+            if (_supportedSDKs.ContainsKey(sdkVersion))
+            {
+                return _supportedSDKs[sdkVersion];
             }
             else
             {
-                HomeButton.Visibility = Visibility.Visible;
+                return false;
             }
+        }
 
-            MainFrame.Navigate(page, parameter);
+        public List<SDKVERSION> AllSupportedSdkVersions
+        {
+            get
+            {
+                return _allSupportedSDKs;
+            }
+        }
+    }
+
+    public class IsPaneOpenToVisibilityConverter : Windows.UI.Xaml.Data.IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter,
+              string language)
+        {
+            bool IsOpen = (bool)value;
+
+            if (IsOpen)
+            {
+                return Visibility.Visible;
+            }
+            else
+            {
+                return Visibility.Collapsed;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType,
+            object parameter, string language)
+        {
+            return null;
         }
     }
 }
