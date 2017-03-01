@@ -21,7 +21,10 @@
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <PackageCertificateKeyFile>SampleGallery_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>DBDEA5A4965A489372FE8B038FABCEE56D691EB9</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>B3A5EDB57C0F21E52B5CFB1BDFD89039CD803898</PackageCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <Import Project="$(MSBuildThisFileDirectory)\..\SamplesCommon\SamplesCommon\CommonBuild.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -317,6 +320,11 @@
     <Content Include="Assets\SampleThumbnails\Z-OrderScrolling.PNG" />
     <Content Include="Assets\SampleThumbnails\ZoomWithPerspective.PNG" />
     <Content Include="Assets\Square71x71Logo.scale-200.png" />
+    <Content Include="Assets\StoreAssets\AppIcon.png" />
+    <Content Include="Assets\StoreAssets\AppIcon.scale-150.png" />
+    <Content Include="Assets\StoreAssets\AppIcon.scale-200.png" />
+    <Content Include="Assets\StoreAssets\AppIcon.scale-300.png" />
+    <Content Include="Assets\StoreAssets\AppIcon.scale-400.png" />
     <Content Include="Assets\StoreAssets\SplashScreen.png" />
     <Content Include="Assets\StoreAssets\SplashScreen.scale-150.png" />
     <Content Include="Assets\StoreAssets\SplashScreen.scale-200.png" />
@@ -347,7 +355,6 @@
     <Content Include="Assets\WindowsInsiders\Unicorn.png" />
     <Content Include="Assets\Windows_logo_Cyan_rgb_D.png" />
     <Content Include="Assets\ZOrderScrolling.jpg" />
-    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Samples\SDK 10586\Perspective\jellyfish.jpg" />
     <Content Include="Samples\SDK 10586\TransitionAnimation-FlipToReveal\Image.jpg" />
     <Content Include="Samples\SDK 14393\ForegroundFocusEffects\Mask.png" />

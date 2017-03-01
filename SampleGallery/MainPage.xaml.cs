@@ -52,10 +52,10 @@ namespace CompositionSampleGallery
             _areEffectsSupported    = _capabilities.AreEffectsSupported();
             _areEffectsFast         = _capabilities.AreEffectsFast();
 #else
-            _runtimeCapabilities    = new RuntimeSupportedSDKs();
             _areEffectsSupported    = true;
             _areEffectsFast         = true;
 #endif
+            _runtimeCapabilities = new RuntimeSupportedSDKs();
             this.InitializeComponent();
 
             // Initialize the surface loader
