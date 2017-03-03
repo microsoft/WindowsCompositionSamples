@@ -158,6 +158,7 @@ namespace CompositionSampleGallery
                 new SampleDefinition(CompCapabilities.StaticSampleName,             typeof(CompCapabilities),             SampleType.Reference, SampleCategory.Conceptual,                 false, false,  dateAdded: new DateTime(2017,08,02), imageUrl: "ms-appx:///Assets/SampleThumbnails/CompositionCapabilities.PNG", sdkVersion: RuntimeSupportedSDKs.SDKVERSION._INSIDER),
                 new SampleDefinition(TransparentWindow.StaticSampleName,            typeof(TransparentWindow),            SampleType.EndToEnd,  SampleCategory.RealWorldUI,                true,  true,   dateAdded: new DateTime(2017,08,02), imageUrl: "ms-appx:///Assets/SampleThumbnails/TransparentWindow.PNG",       sdkVersion: RuntimeSupportedSDKs.SDKVERSION._INSIDER),
                 new SampleDefinition(NavigationFlow.StaticSampleName,               typeof(NavigationFlow),               SampleType.EndToEnd,  SampleCategory.SeamlessTransitions,        false, false,  dateAdded: new DateTime(2017,08,02), imageUrl: "ms-appx:///Assets/SampleThumbnails/NavigationFlow.PNG",          sdkVersion: RuntimeSupportedSDKs.SDKVERSION._INSIDER),
+                new SampleDefinition(ShowHideImplicitWebview.StaticSampleName,      typeof(ShowHideImplicitWebview),      SampleType.EndToEnd,  SampleCategory.SeamlessTransitions,        false, false,  dateAdded: new DateTime(2017,02,28), imageUrl: "ms-appx:///Assets/SampleThumbnails/ShowHideImplicitWebview.PNG", sdkVersion: RuntimeSupportedSDKs.SDKVERSION._INSIDER),
 #endif
     };
 

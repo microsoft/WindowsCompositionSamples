@@ -99,6 +99,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Compile Include="Samples\SDK Insider\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml.cs" />
     <None Include="project.json" />
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -259,6 +260,10 @@
     <Content Include="Assets\BannerImages\PullToAnimateBanner.PNG" />
     <Content Include="Assets\Appointment.png" />
     <Content Include="Assets\Background.png" />
+    <Content Include="Assets\FB-f-Logo__blue_57.png" />
+    <Content Include="Assets\Landmarks\SpaceNeedle.png" />
+    <Content Include="Assets\Landmarks\PikePlaceMarket.png" />
+    <Content Include="Assets\Landmarks\FerrisWheel.png" />
     <Content Include="Assets\MainNavigationPointerOverBackgroundWide.png" />
     <Content Include="Assets\MissingThumbnail.png" />
     <Content Include="Assets\SampleThumbnails\AdvancedShadows.PNG" />
@@ -312,6 +317,7 @@
     <Content Include="Assets\Gear.png" />
     <Content Include="Assets\Gears_background.png" />
     <Content Include="Assets\SampleThumbnails\PullToAnimate.jpg" />
+    <Content Include="Assets\SampleThumbnails\ShowHideImplicitWebview.PNG" />
     <Content Include="Assets\SampleThumbnails\TextShimmer.png" />
     <Content Include="Assets\SampleThumbnails\ThumbnailLighting.jpg" />
     <Content Include="Assets\SampleThumbnails\TransparentWindow.PNG" />
@@ -692,6 +698,10 @@
     <Page Include="Shared\SampleHost.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\SDK Insider\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
