@@ -99,7 +99,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Compile Include="Samples\SDK Insider\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml.cs" />
+    <Compile Include="Samples\SDK Insider\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <None Include="project.json" />
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -184,6 +184,9 @@
     </Compile>
     <Compile Include="Samples\SDK 14393\LightSpheres\LightSpheres.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\PhotoViewer\PhotoViewer.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK 14393\SwipeScroller\Behaviors\InteractionBehavior.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK 14393\SwipeScroller\Models\PhotoModel.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK 14393\SwipeScroller\SwipeScroller.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\TextShimmer\TextShimmer.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\ThumbnailLighting\ThumbnailLighting.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\TreeEffects\TreeEffects.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
@@ -276,6 +279,18 @@
     <Content Include="Assets\SampleThumbnails\CompositionCapabilities.PNG" />
     <Content Include="Assets\SampleThumbnails\Connected_Animation.PNG" />
     <Content Include="Assets\SampleThumbnails\ContinuityAnimations.jpg" />
+    <Content Include="Assets\Cities\athens.jpg" />
+    <Content Include="Assets\Cities\barcelona.jpg" />
+    <Content Include="Assets\Cities\berlin.jpg" />
+    <Content Include="Assets\Cities\brussels.jpg" />
+    <Content Include="Assets\Cities\copenhagen.jpg" />
+    <Content Include="Assets\Cities\dubrovnik.jpg" />
+    <Content Include="Assets\Cities\london.jpg" />
+    <Content Include="Assets\Cities\lucerne.jpg" />
+    <Content Include="Assets\Cities\paris.jpg" />
+    <Content Include="Assets\Cities\prague.jpg" />
+    <Content Include="Assets\Cities\rome.jpg" />
+    <Content Include="Assets\ContinuityAnimations.jpg" />
     <Content Include="Assets\Noise.jpg" />
     <Content Include="Assets\SampleThumbnails\Curtain.PNG" />
     <Content Include="Assets\SampleThumbnails\ExpressionsAndPropertySets.PNG" />
@@ -318,6 +333,7 @@
     <Content Include="Assets\Gears_background.png" />
     <Content Include="Assets\SampleThumbnails\PullToAnimate.jpg" />
     <Content Include="Assets\SampleThumbnails\ShowHideImplicitWebview.PNG" />
+    <Content Include="Assets\SampleThumbnails\SwipeScroller.png" />
     <Content Include="Assets\SampleThumbnails\TextShimmer.png" />
     <Content Include="Assets\SampleThumbnails\ThumbnailLighting.jpg" />
     <Content Include="Assets\SampleThumbnails\TransparentWindow.PNG" />
@@ -587,6 +603,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\SDK 14393\SwipeScroller\SwipeScroller.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\SDK 14393\TextShimmer\TextShimmer.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -699,7 +719,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\SDK Insider\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml">
+    <Page Include="Samples\SDK Insider\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -711,6 +731,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
+      <Name>Behaviors SDK %28XAML%29</Name>
+    </SDKReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
