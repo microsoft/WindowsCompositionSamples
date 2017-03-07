@@ -15,7 +15,6 @@
 using CompositionSampleGallery.Samples.SDK_14393.NineGridResizing;
 using CompositionSampleGallery.Samples.SDK_14393.NineGridResizing.NineGridScenarios;
 using SamplesCommon;
-using SamplesCommon.ImageLoader;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -32,9 +31,9 @@ namespace CompositionSampleGallery
     public sealed partial class NineGridResizing : SamplePage, INotifyPropertyChanged
     {
         private readonly Compositor _compositor;
-        private readonly IImageLoader _imageLoader;
         private readonly Visual _backgroundContainer;
         private readonly SpriteVisual _ninegridVisual;
+        private readonly ManagedSurface _ninegridSurface;
         private readonly CompositionNineGridBrush _ninegridBrush;
         private readonly ObservableCollection<INineGridScenario> _nineGridBrushScenarios;
         private INineGridScenario _selectedBrushScenario;
@@ -54,7 +53,6 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
 
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
-            _imageLoader = ImageLoaderFactory.CreateImageLoader(_compositor);
 
             // Add page loaded event listener
             this.Loaded += NineGridResizing_Loaded;
@@ -68,6 +66,7 @@ namespace CompositionSampleGallery
             // Create ninegridbrush and paint on visual;
             _ninegridBrush = _compositor.CreateNineGridBrush();
             _ninegridVisual.Brush = _ninegridBrush;
+            _ninegridSurface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Samples/SDK 14393/NineGridResizing/RoundedRect.png"));
 
             // Clip compgrid 
             var compGrid = ElementCompositionPreview.GetElementVisual(CompGrid);
@@ -80,7 +79,7 @@ namespace CompositionSampleGallery
             ElementCompositionPreview.SetElementChildVisual(ngHost, _ninegridVisual);
 
             // Instatiate brush scenario list and fill with created brush scenarios
-            _nineGridBrushScenarios = new ObservableCollection<INineGridScenario>(CreateBrushes(_compositor, _imageLoader, _ninegridVisual.Size));
+            _nineGridBrushScenarios = new ObservableCollection<INineGridScenario>(CreateBrushes(_compositor, _ninegridSurface, _ninegridVisual.Size));
 
             // Set default combo box selection to first item
             BrushScenarioSelected = _nineGridBrushScenarios.FirstOrDefault();
@@ -139,22 +138,19 @@ namespace CompositionSampleGallery
         /// <summary>
         /// Instantiate brush scenarios to use on the visual; used in combobox BrushSelection changed event.
         /// </summary>
-        private static INineGridScenario[] CreateBrushes(Compositor compositor, IImageLoader imageLoader, Vector2 visualSize)
+        private static INineGridScenario[] CreateBrushes(Compositor compositor, ManagedSurface ninegridSurface, Vector2 visualSize)
         {
-            // Load image to surfaceBrush (this asset serves as the alpha mask as well) 
-            var surface = imageLoader.LoadImageFromUri(new Uri("ms-appx:///Samples/SDK 14393/NineGridResizing/RoundedRect.png"));
-            var imageBrush = compositor.CreateSurfaceBrush(surface);
-            imageBrush.Stretch = CompositionStretch.Fill;
+            ninegridSurface.Brush.Stretch = CompositionStretch.Fill;
 
             // Create INineGridScenario array to return. Surface scenario is special because it's used as input to another scenario
-            var surfaceNineGridScenario = new SurfaceNineGridScenario(compositor, imageBrush, "Source: SurfaceBrush");
+            var surfaceNineGridScenario = new SurfaceNineGridScenario(compositor, ninegridSurface.Brush, "Source: SurfaceBrush");
             return new INineGridScenario[]
             {
                 new ColorNineGridScenario(compositor, "Source: ColorBrush(hollow)"),
-                new BorderNineGridScenario(compositor, imageBrush, visualSize, "Source: ColorBrush(w/ content)"),
+                new BorderNineGridScenario(compositor, ninegridSurface.Brush, visualSize, "Source: ColorBrush(w/ content)"),
                 surfaceNineGridScenario,
                 new EffectNineGridScenario(compositor, (CompositionNineGridBrush)surfaceNineGridScenario.Brush, "Input to: EffectBrush"),
-                new MaskNineGridScenario(compositor, imageBrush, "Input to: MaskBrush")
+                new MaskNineGridScenario(compositor, ninegridSurface.Brush, "Input to: MaskBrush")
             };
         }
 
@@ -360,7 +356,6 @@ namespace CompositionSampleGallery
             _valueTimerXSlider.Dispose();
             _valueTimerYSlider.Dispose();
             _valueTimerScaleSlider.Dispose();
-            _imageLoader.Dispose();
         }
     }
 }

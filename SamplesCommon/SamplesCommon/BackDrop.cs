@@ -12,12 +12,12 @@ namespace SamplesCommon
     {
         Compositor m_compositor;
         SpriteVisual m_blurVisual;
-        CompositionBrush m_blurBrush;
+        CompositionEffectBrush m_blurBrush;
         Visual m_rootVisual;
 
 #if SDKVERSION_14393
         bool m_setUpExpressions;
-        CompositionSurfaceBrush m_noiseBrush;
+        ManagedSurface m_noiseSurface;
 #endif
 
         public BackDrop()
@@ -28,8 +28,6 @@ namespace SamplesCommon
             m_blurVisual = Compositor.CreateSpriteVisual();
 
 #if SDKVERSION_14393
-            m_noiseBrush = Compositor.CreateSurfaceBrush();
-
             CompositionEffectBrush brush = BuildBlurBrush();
             brush.SetSourceParameter("source", m_compositor.CreateBackdropBrush());
             m_blurBrush = brush;
@@ -118,8 +116,9 @@ namespace SamplesCommon
             OnSizeChanged(this, null);
 
 #if SDKVERSION_14393
-            m_noiseBrush.Surface = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Assets/Noise.jpg"));
-            m_noiseBrush.Stretch = CompositionStretch.UniformToFill;
+            m_noiseSurface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Assets/Noise.jpg"));
+            m_noiseSurface.Brush.Stretch = CompositionStretch.UniformToFill;
+            m_blurBrush.SetSourceParameter("NoiseImage", m_noiseSurface.Brush);
 #endif
         }
 
@@ -190,9 +189,7 @@ namespace SamplesCommon
                 new[] { "Blur.BlurAmount", "Color.Color" }
                 );
 
-            CompositionEffectBrush brush = factory.CreateBrush();
-            brush.SetSourceParameter("NoiseImage", m_noiseBrush);
-            return brush;
+            return factory.CreateBrush();
         }
 
         public CompositionPropertySet VisualProperties

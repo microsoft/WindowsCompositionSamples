@@ -115,9 +115,9 @@ namespace CompositionSampleGallery
 
             // Make the surface twice the height to give us room to scroll
             Vector2 surfaceSize = new Vector2(sizeLightBounds.X, 2f * sizeLightBounds.Y);
-            CompositionDrawingSurface textSurface = SurfaceLoader.LoadText(text, surfaceSize.ToSize(),
+            ManagedSurface textSurface = ImageLoader.Instance.LoadText(text, surfaceSize.ToSize(),
                                                                            textFormat, Colors.White, Colors.Transparent);
-            brush.SetSourceParameter("Text", _compositor.CreateSurfaceBrush(textSurface));
+            brush.SetSourceParameter("Text", textSurface.Brush);
 
             // Create the sprite and parent it to the panel with the clip
             _textSprite = _compositor.CreateSpriteVisual();

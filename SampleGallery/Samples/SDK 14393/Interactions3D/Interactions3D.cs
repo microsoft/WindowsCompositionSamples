@@ -20,7 +20,6 @@ using System.Numerics;
 using Windows.UI.Composition;
 using Windows.UI.Composition.Interactions;
 using Windows.UI.Xaml.Hosting;
-using SamplesCommon.ImageLoader;
 using Windows.Foundation;
 using Windows.UI.Xaml.Input;
 using SamplesCommon;
@@ -72,11 +71,10 @@ namespace CompositionSampleGallery
             _scaleTracker.Dispose();
             _scaleTracker = null;
 
-            foreach(var brush in _imageBrushes)
+            foreach(var surface in _managedSurfaces)
             {
-                brush.Dispose();
+                surface.Dispose();
             }
-            _imageLoader.Dispose();
         }
 
 
@@ -223,12 +221,9 @@ namespace CompositionSampleGallery
         }
 
 
-        async private void LoadImages()
+        private async void LoadImages()
         {
             int loadedImageCount = 0;
-
-            // Create the loader
-            _imageLoader = ImageLoaderFactory.CreateImageLoader(_compositor);
 
 
             //
@@ -240,10 +235,7 @@ namespace CompositionSampleGallery
                 var name = (NamedImage)i;
 
                 Uri uri = new Uri($"ms-appx:///Assets/Photos/{name.ToString()}.jpg");
-                _managedSurfaces[i] = _imageLoader.CreateManagedSurfaceFromUri(uri);
-
-                var surface = await _imageLoader.LoadImageFromUriAsync(uri);
-                _imageBrushes[i] = _compositor.CreateSurfaceBrush(surface);
+                _managedSurfaces[i] = await ImageLoader.Instance.LoadFromUriAsync(uri);
 
                 loadedImageCount++;
             }
@@ -259,9 +251,9 @@ namespace CompositionSampleGallery
             {
                 var textNode = _textNodes[i];
 
-                var textSurface = SurfaceLoader.LoadText(textNode.Text,  new Size(textNode.TextureSize.X, textNode.TextureSize.Y), textNode.TextFormat, Colors.Black, Colors.Transparent);
+                var textSurface = ImageLoader.Instance.LoadText(textNode.Text,  new Size(textNode.TextureSize.X, textNode.TextureSize.Y), textNode.TextFormat, Colors.Black, Colors.Transparent);
 
-                _textBrushes[i] = _compositor.CreateSurfaceBrush(textSurface);
+                _textBrushes[i] = _compositor.CreateSurfaceBrush(textSurface.Surface);
 
                 //
                 // Remember the index of the brush so that we can refer to it later.
@@ -279,7 +271,7 @@ namespace CompositionSampleGallery
             // Once we've loaded all of the images, we can continue populating the world.
             //
 
-            if (loadedImageCount == _imageBrushes.Length + _textBrushes.Length)
+            if (loadedImageCount == _managedSurfaces.Length + _textBrushes.Length)
             {
                 PopulateWorld();
             }
@@ -316,7 +308,7 @@ namespace CompositionSampleGallery
 
         private void AddImage(ImageNodeInfo imageNodeInfo)
         {
-            AddImage(_imageBrushes[(int)imageNodeInfo.NamedImage], imageNodeInfo);
+            AddImage(_managedSurfaces[(int)imageNodeInfo.NamedImage].Brush, imageNodeInfo);
         }
 
 
@@ -680,16 +672,13 @@ namespace CompositionSampleGallery
         private VisualInteractionSource _interactionSource2;
         private Visual                  _rootContainer;
         private Visual                  _rootContainer2;
-        private IImageLoader            _imageLoader;
         private List<NodeInfo>          _nodes;
         private Compositor              _compositor;
         private DispatcherTimer         _timer;
         private int                     _lastAmbientAnimationIndex = -1;
         private List<Tuple<AmbientAnimationTarget, CompositionAnimation>> 
                                         _ambientAnimations;
-        private IManagedSurface[]       _managedSurfaces = new IManagedSurface[(int)NamedImage.Count];
-        private CompositionSurfaceBrush[]   
-                                        _imageBrushes = new CompositionSurfaceBrush[(int)NamedImage.Count];
+        private ManagedSurface[]       _managedSurfaces = new ManagedSurface[(int)NamedImage.Count];
         
         private CompositionSurfaceBrush[]   
                                         _textBrushes;

@@ -43,7 +43,7 @@ namespace CompositionSampleGallery
         // Sample metadata
         public static string StaticSampleName { get { return "Advanced Shadows"; } }
         public override string SampleName { get { return StaticSampleName; } }
-        public override string SampleDescription { get { return "Demonstrates advanced shadow scenarios."; } }
+        public override string SampleDescription { get { return "Demonstrates advanced shadow scenario with a simulated light position."; } }
         public override string SampleCodeUri { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761171"; } }
 
         public ShadowsAdvanced()

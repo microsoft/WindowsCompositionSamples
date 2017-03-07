@@ -1,9 +1,5 @@
-﻿using SamplesCommon.ImageLoader;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Numerics;
-using Windows.UI.Text;
-using Windows.UI.Xaml.Media;
 using Microsoft.Graphics.Canvas.Text;
 
 namespace CompositionSampleGallery

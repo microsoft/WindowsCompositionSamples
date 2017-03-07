@@ -14,6 +14,7 @@
 
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Effects;
+using SamplesCommon;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -21,7 +22,6 @@ using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
-using SamplesCommon.ImageLoader;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace CompositionSampleGallery
@@ -30,9 +30,8 @@ namespace CompositionSampleGallery
     {
         private Compositor              _compositor;
         private SpriteVisual            _sprite;
-        private CompositionSurfaceBrush _imageBrush;
-        private IImageLoader            _imageLoader;
-        
+        private ManagedSurface          _image;
+
         enum ImageName
         {
             Checkerboard,
@@ -42,7 +41,6 @@ namespace CompositionSampleGallery
         public BorderPlayground()
         {
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
-            _imageLoader = ImageLoaderFactory.CreateImageLoader(_compositor);
 
             this.InitializeComponent();
         }
@@ -53,7 +51,6 @@ namespace CompositionSampleGallery
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            _imageBrush = _compositor.CreateSurfaceBrush();
             _sprite = _compositor.CreateSpriteVisual();
             _sprite.Size = new Vector2((float)BorderImage.ActualWidth, (float)BorderImage.ActualHeight);
             ElementCompositionPreview.SetElementChildVisual(BorderImage, _sprite);
@@ -74,10 +71,18 @@ namespace CompositionSampleGallery
             ExtendYBox.SelectedIndex = 0;
         }
 
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (_image != null)
+            {
+                _image.Dispose();
+                _image = null;
+            }
+        }
         private void SetImageBrush(string uri)
         {
             // Update the sprite
-            _imageBrush.Surface = _imageLoader.LoadImageFromUri(new Uri(uri));
+            _image = ImageLoader.Instance.LoadFromUri(new Uri(uri));
             UpdateImageBrush();
 
             // Update the preview image
@@ -119,7 +124,7 @@ namespace CompositionSampleGallery
             };
 
             var brush = _compositor.CreateEffectFactory(borderEffect).CreateBrush();
-            brush.SetSourceParameter("source", _imageBrush);
+            brush.SetSourceParameter("source", _image.Brush);
             _sprite.Brush = brush;
         }
 
@@ -142,16 +147,16 @@ namespace CompositionSampleGallery
 
         void UpdateImageBrush()
         {
-            _imageBrush.Scale = new Vector2((float)ScaleX.Value, (float)ScaleY.Value);
-            _imageBrush.Offset = new Vector2((float)OffsetX.Value, (float)OffsetY.Value);
-            _imageBrush.RotationAngleInDegrees = (float)Rotation.Value;
-            _imageBrush.Stretch = CompositionStretch.None;
-            _imageBrush.CenterPoint = new Vector2(_sprite.Size.X / 2f, _sprite.Size.Y / 2f);
+            _image.Brush.Scale = new Vector2((float)ScaleX.Value, (float)ScaleY.Value);
+            _image.Brush.Offset = new Vector2((float)OffsetX.Value, (float)OffsetY.Value);
+            _image.Brush.RotationAngleInDegrees = (float)Rotation.Value;
+            _image.Brush.Stretch = CompositionStretch.None;
+            _image.Brush.CenterPoint = new Vector2(_sprite.Size.X / 2f, _sprite.Size.Y / 2f);
         }
 
         private void Slider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
-            if (_imageBrush != null)
+            if (_image != null)
             {
                 UpdateImageBrush();
             }

@@ -34,6 +34,7 @@ namespace CompositionSampleGallery
     public sealed partial class MainPage : Page
     {
         private static MainPage                 _instance;
+        private ManagedSurface                  _splashSurface;
 #if SDKVERSION_INSIDER
         private static CompositionCapabilities  _capabilities;
 #endif
@@ -58,8 +59,8 @@ namespace CompositionSampleGallery
             _runtimeCapabilities = new RuntimeSupportedSDKs();
             this.InitializeComponent();
 
-            // Initialize the surface loader
-            SurfaceLoader.Initialize(ElementCompositionPreview.GetElementVisual(this).Compositor);
+            // Initialize the image loader
+            ImageLoader.Initialize(ElementCompositionPreview.GetElementVisual(this).Compositor);
 
             // Show the custome splash screen
             ShowCustomSplashScreen(imageBounds);
@@ -109,7 +110,7 @@ namespace CompositionSampleGallery
                 page.OnCapabiliesChanged(_areEffectsSupported, _areEffectsFast);
             }
 
-            //MySampleListControl.RefreshSampleList();
+            SampleDefinitions.RefreshSampleList();
 
 
             //
@@ -139,7 +140,7 @@ namespace CompositionSampleGallery
         }
 #endif
 
-        private async void ShowCustomSplashScreen(Rect imageBounds)
+        private void ShowCustomSplashScreen(Rect imageBounds)
         {
             Compositor compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
             Vector2 windowSize = new Vector2((float)Window.Current.Bounds.Width, (float)Window.Current.Bounds.Height);
@@ -171,10 +172,10 @@ namespace CompositionSampleGallery
             // exactly cover the Splash screen image so it will be a seamless transition between the two
             //
 
-            CompositionDrawingSurface surface = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Assets/StoreAssets/Wide.png"));
+            _splashSurface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Assets/StoreAssets/Wide.png"));
             SpriteVisual imageSprite = compositor.CreateSpriteVisual();
-            imageSprite.Brush = compositor.CreateSurfaceBrush(surface);
-            imageSprite.Offset = new Vector3((float)imageBounds.X, (float)imageBounds.Y, 0f);
+            imageSprite.Brush = compositor.CreateSurfaceBrush(_splashSurface.Surface);
+            imageSprite.Offset = new Vector3((float)imageBounds.X,(float)imageBounds.Y, 0f);
             imageSprite.Size = new Vector2((float)imageBounds.Width, (float)imageBounds.Height);
             container.Children.InsertAtTop(imageSprite);
         }
@@ -232,6 +233,12 @@ namespace CompositionSampleGallery
         {
             // Now that the animations are complete, dispose of the custom Splash Screen visuals
             ElementCompositionPreview.SetElementChildVisual(this, null);
+
+            if (_splashSurface != null)
+            {
+                _splashSurface.Dispose();
+                _splashSurface = null;
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

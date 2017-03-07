@@ -255,16 +255,10 @@ namespace CompositionSampleGallery
                                    (byte)(maxColor >> 8), (byte)(maxColor >> 0));
         }
 
-        private CompositionDrawingSurface SampleImageColor(CanvasBitmap bitmap, CompositionGraphicsDevice device, Size sizeTarget)
+        private void SampleImageColor(CompositionDrawingSurface surface, CanvasBitmap bitmap, CompositionGraphicsDevice device)
         {
             // Extract the color to tint the blur with
             Color predominantColor = ExtractPredominantColor(bitmap.GetPixelColors(), bitmap.Size);
-
-            Size sizeSource = bitmap.Size;
-            if (sizeTarget.IsEmpty)
-            {
-                sizeTarget = sizeSource;
-            }
 
             // Create a heavily blurred version of the image
             GaussianBlurEffect blurEffect = new GaussianBlurEffect()
@@ -273,16 +267,13 @@ namespace CompositionSampleGallery
                 BlurAmount = 20.0f
             };
 
-            CompositionDrawingSurface surface = device.CreateDrawingSurface(sizeTarget,
-                                                            DirectXPixelFormat.B8G8R8A8UIntNormalized, DirectXAlphaMode.Premultiplied);
+            Size size = surface.Size;
             using (var ds = CanvasComposition.CreateDrawingSession(surface))
             {
-                Rect destination = new Rect(0, 0, sizeTarget.Width, sizeTarget.Height);
+                Rect destination = new Rect(0, 0, size.Width, size.Height);
                 ds.FillRectangle(destination, predominantColor);
-                ds.DrawImage(blurEffect, destination, new Rect(0, 0, sizeSource.Width, sizeSource.Height), .6f);
+                ds.DrawImage(blurEffect, destination, new Rect(0, 0, size.Width, size.Height), .6f);
             }
-
-            return surface;
         }
 
         private void ListView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)

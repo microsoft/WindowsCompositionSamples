@@ -37,6 +37,7 @@ namespace CompositionSampleGallery
         private Compositor          _compositor;
         private CompositionScopedBatch
                                     _scopeBatch;
+        private ManagedSurface      _maskSurface;
 
         public enum EffectTypes
         {
@@ -62,7 +63,7 @@ namespace CompositionSampleGallery
         public override string SampleCodeUri        { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761179"; } }
 
         public LocalDataSource Model { set; get; }
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             ThumbnailList.ItemsSource = Model.Items;
 
@@ -89,6 +90,9 @@ namespace CompositionSampleGallery
             // Start out with the destination layer invisible to avoid any cost until necessary
             _destinationSprite.IsVisible = false;
 
+            // Create the mask surface
+            _maskSurface = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Samples/SDK 14393/ForegroundFocusEffects/mask.png"));
+
             ElementCompositionPreview.SetElementChildVisual(ThumbnailList, _destinationSprite);
 
             // Update the effect to set the appropriate brush 
@@ -105,6 +109,12 @@ namespace CompositionSampleGallery
             {
                 _destinationSprite.Dispose();
                 _destinationSprite = null;
+            }
+
+            if (_maskSurface != null)
+            {
+                _maskSurface.Dispose();
+                _maskSurface = null;
             }
         }
 
@@ -279,7 +289,7 @@ namespace CompositionSampleGallery
             UpdateEffect();
         }
 
-        private async void UpdateEffect()
+        private void UpdateEffect()
         {
             if (_compositor != null)
             {
@@ -355,12 +365,9 @@ namespace CompositionSampleGallery
                                 }
                             };
 
-                            CompositionDrawingSurface backgroundSurface = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Samples/SDK 14393/ForegroundFocusEffects/mask.png"));
-
-                            CompositionSurfaceBrush maskBrush = _compositor.CreateSurfaceBrush(backgroundSurface);
-                            maskBrush.Stretch = CompositionStretch.UniformToFill;
-                            maskBrush.CenterPoint = _destinationSprite.Size * .5f;
-                            secondaryBrush = maskBrush;
+                            _maskSurface.Brush.Stretch = CompositionStretch.UniformToFill;
+                            _maskSurface.Brush.CenterPoint = _destinationSprite.Size * .5f;
+                            secondaryBrush = _maskSurface.Brush;
                         }
                         break;
                     case EffectTypes.Blur:

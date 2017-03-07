@@ -52,7 +52,7 @@ namespace CompositionSampleGallery
             // Automatically have the FlipView progress to the next item
             if (Model.FlipViewItems.Count() > 1)
             {
-                ProgressFlipView();
+                Task t = ProgressFlipView();
             }
         }
 

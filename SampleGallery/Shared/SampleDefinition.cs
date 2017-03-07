@@ -101,14 +101,22 @@ namespace CompositionSampleGallery
     {
         static SampleDefinitions()
         {
-            // Populate the _definitions array only with samples that are supported by the current runtime
-            var samples = _allDefinitions.Where(s => MainPage.RuntimeCapabilities.AllSupportedSdkVersions.Contains(s.SDKVersion));
-            Array.Resize<SampleDefinition>(ref _definitions, samples.Count());
-            Array.Copy(samples.ToArray<SampleDefinition>(), _definitions, samples.Count());
+            RefreshSampleList();
+        }
+
+        static public void RefreshSampleList()
+        {
+            // Populate the _definitions array only with samples that are supported by the current runtime and hardware
+            var result = from sampleDef in _allDefinitions
+                         where MainPage.RuntimeCapabilities.AllSupportedSdkVersions.Contains(sampleDef.SDKVersion) &&
+                         (!sampleDef.RequiresFastEffects || MainPage.AreEffectsFast) &&
+                         (!sampleDef.RequiresEffects || MainPage.AreEffectsSupported)
+                         select sampleDef;
+            _definitions = result.ToList();
         }
 
         // A filtered list of runtime-supported samples
-        static SampleDefinition[] _definitions = { };
+        static List<SampleDefinition> _definitions = new List<SampleDefinition>();
 
         // Full list of all definitions
         static SampleDefinition[] _allDefinitions =
@@ -163,7 +171,7 @@ namespace CompositionSampleGallery
 #endif
     };
 
-        public static SampleDefinition[] Definitions
+        public static List<SampleDefinition> Definitions
         {
             get { return _definitions; }
         }

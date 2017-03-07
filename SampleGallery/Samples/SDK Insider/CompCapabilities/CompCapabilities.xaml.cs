@@ -14,7 +14,6 @@
 
 using Microsoft.Graphics.Canvas.Effects;
 using SamplesCommon;
-using SamplesCommon.ImageLoader;
 using System;
 using System.ComponentModel;
 using System.Numerics;
@@ -31,10 +30,10 @@ namespace CompositionSampleGallery
         private SpriteVisual _circleImageVisual;
         private SpriteVisual _backgroundImageVisual;
         private CompositionCapabilities _capabilities;
-        private CompositionSurfaceBrush _imageSurfaceBrush;
+        private ManagedSurface _surface;
+        private ManagedSurface _circleMaskSurface;
         private ContainerVisual _imageContainer;
         private string _capabilityText = "";
-        private IImageLoader _imageLoader;
         private bool _containsCircleImage = false;
 
         public static string StaticSampleName { get { return "Composition Capabilities"; } }
@@ -53,8 +52,6 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
 
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
-
-            _imageLoader = ImageLoaderFactory.CreateImageLoader(_compositor);
 
             // Get hardware capabilities and register changed event listener
             _capabilities = CompositionCapabilities.GetForCurrentView();
@@ -93,18 +90,15 @@ namespace CompositionSampleGallery
         {
             _backgroundImageVisual = _compositor.CreateSpriteVisual();
             _imageContainer = _compositor.CreateContainerVisual();
-            _imageSurfaceBrush = _compositor.CreateSurfaceBrush();
             _capabilities.Changed += HandleCapabilitiesChanged;
 
             ElementCompositionPreview.SetElementChildVisual(ImageCanvas, _imageContainer);
 
-            // Load in image
-            var uri = new Uri("ms-appx:///Assets/Landscapes/Landscape-7.jpg");
-            var surface = await SurfaceLoader.LoadFromUri(uri);
-            var imageSurface = _compositor.CreateSurfaceBrush(surface);
-
-            _imageSurfaceBrush.Surface = imageSurface.Surface;
-            _imageSurfaceBrush.Stretch = CompositionStretch.Fill;
+            // Load the image
+            _surface = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Assets/Landscapes/Landscape-7.jpg"));
+            _surface.Brush.Stretch = CompositionStretch.Fill;
+            _circleMaskSurface = ImageLoader.Instance.LoadCircle(200, Colors.White);
+            _circleMaskSurface.Brush.Stretch = CompositionStretch.Uniform;
 
             _imageContainer.Size = new Vector2((float)ImageCanvas.ActualWidth, (float)ImageCanvas.ActualHeight);
 
@@ -131,7 +125,7 @@ namespace CompositionSampleGallery
                 if (!_containsCircleImage)
                 {
                     // Create circle mask
-                    var circleMaskSurface = _imageLoader.CreateCircleSurface(200, Colors.White);
+                    _circleMaskSurface = ImageLoader.Instance.LoadCircle(200, Colors.White);
 
                     // Create image visual to use as the circle-masked center image
                     _circleImageVisual = _compositor.CreateSpriteVisual();
@@ -139,16 +133,11 @@ namespace CompositionSampleGallery
                     var xOffset = (float)(ImageCanvas.ActualWidth / 2 - _circleImageVisual.Size.X / 2);
                     var yOffset = (float)(ImageCanvas.ActualHeight / 2 - _circleImageVisual.Size.Y / 2);
                     _circleImageVisual.Offset = new Vector3(xOffset, yOffset, 0);
-
-                    // Create circle image surface
-                    CompositionSurfaceBrush circleSurfaceBrush = _compositor.CreateSurfaceBrush();
-                    circleSurfaceBrush.Surface = circleMaskSurface.Surface;
-                    circleSurfaceBrush.Stretch = CompositionStretch.Uniform;
-
+                    
                     // Apply mask to visual
                     CompositionMaskBrush maskBrush = _compositor.CreateMaskBrush();
-                    maskBrush.Source = _imageSurfaceBrush;
-                    maskBrush.Mask = circleSurfaceBrush;
+                    maskBrush.Source = _surface.Brush;
+                    maskBrush.Mask = _circleMaskSurface.Brush;
 
                     _circleImageVisual.Brush = maskBrush;
 
@@ -181,7 +170,7 @@ namespace CompositionSampleGallery
                     CompositionEffectFactory chainedEffectFactory = _compositor.CreateEffectFactory(chainedEffect);
                     CompositionEffectBrush effectBrush = chainedEffectFactory.CreateBrush();
 
-                    effectBrush.SetSourceParameter("SaturationSource", _imageSurfaceBrush);
+                    effectBrush.SetSourceParameter("SaturationSource", _surface.Brush);
 
                     _backgroundImageVisual.Brush = effectBrush;
 
@@ -193,7 +182,7 @@ namespace CompositionSampleGallery
                     CompositionEffectFactory saturationEffectFactory = _compositor.CreateEffectFactory(saturationEffect);
                     CompositionEffectBrush saturationBrush = saturationEffectFactory.CreateBrush();
 
-                    saturationBrush.SetSourceParameter("SaturationSource", _imageSurfaceBrush);
+                    saturationBrush.SetSourceParameter("SaturationSource", _surface.Brush);
 
                     _backgroundImageVisual.Brush = saturationBrush;
 
@@ -213,7 +202,7 @@ namespace CompositionSampleGallery
                     _containsCircleImage = false;
                 }
                 
-                _backgroundImageVisual.Brush = _imageSurfaceBrush;
+                _backgroundImageVisual.Brush = _surface.Brush;
 
                 CapabilityText = "Effects not supported. No effects are applied.";
             }
@@ -252,10 +241,16 @@ namespace CompositionSampleGallery
         {
             _capabilities.Changed -= HandleCapabilitiesChanged;
 
-            if (_imageSurfaceBrush != null)
+            if (_surface != null)
             {
-                _imageLoader.Dispose();
-                _imageSurfaceBrush.Dispose();
+                _surface.Dispose();
+                _surface = null;
+            }
+
+            if (_circleMaskSurface != null)
+            {
+                _circleMaskSurface.Dispose();
+                _circleMaskSurface = null;
             }
         }
     }

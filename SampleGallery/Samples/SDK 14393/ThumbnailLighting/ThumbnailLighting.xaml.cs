@@ -35,12 +35,12 @@ namespace CompositionSampleGallery
     {
         private Compositor                  _compositor;
         private CompositionEffectFactory    _effectFactory;
-        private CompositionSurfaceBrush     _flatNormalsBrush;
-        private CompositionSurfaceBrush     _circleNormalsBrush;
         private AmbientLight                _ambientLight;
         private PointLight                  _pointLight;
         private DistantLight                _distantLight;
         private SpotLight                   _spotLight;
+        private ManagedSurface              _sphereNormalMap;
+        private ManagedSurface              _edgeNormalMap;
 
         public enum LightingTypes
         {
@@ -100,9 +100,8 @@ namespace CompositionSampleGallery
             // for masking off the rectangular edges.
             //
 
-            CompositionDrawingSurface normalMap = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Samples/SDK 14393/ThumbnailLighting/SphericalWithMask.png"));
-            _circleNormalsBrush = _compositor.CreateSurfaceBrush(normalMap);
-            _circleNormalsBrush.Stretch = CompositionStretch.Fill;
+            _sphereNormalMap = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Samples/SDK 14393/ThumbnailLighting/SphericalWithMask.png"));
+            _sphereNormalMap.Brush.Stretch = CompositionStretch.Fill;
 
 
             // 
@@ -110,12 +109,26 @@ namespace CompositionSampleGallery
             // the edges, flat in the middle.
             //
 
-            normalMap = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Samples/SDK 14393/ThumbnailLighting/BeveledEdges.jpg"));
-            _flatNormalsBrush = _compositor.CreateSurfaceBrush(normalMap);
-            _flatNormalsBrush.Stretch = CompositionStretch.Fill;
+            _edgeNormalMap = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Samples/SDK 14393/ThumbnailLighting/BeveledEdges.jpg"));
+            _edgeNormalMap.Brush.Stretch = CompositionStretch.Fill;
        
             // Update the effect brushes now that the normal maps are available.
             UpdateEffectBrush();
+        }
+        
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (_sphereNormalMap != null)
+            {
+                _sphereNormalMap.Dispose();
+                _sphereNormalMap = null;
+            }
+
+            if (_edgeNormalMap != null)
+            {
+                _edgeNormalMap.Dispose();
+                _edgeNormalMap = null;
+            }
         }
 
         private void UpdateEffectBrush()
@@ -229,10 +242,10 @@ namespace CompositionSampleGallery
                 case LightingTypes.PointSpecular:
                 case LightingTypes.DistantDiffuse:
                 case LightingTypes.DistantSpecular:
-                    brush.SetSourceParameter("NormalMap", _circleNormalsBrush);
+                    brush.SetSourceParameter("NormalMap", _sphereNormalMap == null ? null : _sphereNormalMap.Brush);
                     break;
                 default:
-                    brush.SetSourceParameter("NormalMap", _flatNormalsBrush);
+                    brush.SetSourceParameter("NormalMap", _edgeNormalMap == null ? null : _edgeNormalMap.Brush);
                     break;
             }
 

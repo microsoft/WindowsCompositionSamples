@@ -33,7 +33,7 @@ namespace SamplesCommon
         private Compositor                  _compositor;
         private SpriteVisual                _sprite;
         private Uri                         _uri;
-        private CompositionDrawingSurface   _surface;
+        private ManagedSurface              _surface;
         private CompositionSurfaceBrush     _surfaceBrush;
         private CompositionBrush            _brush;
         private LoadTimeEffectHandler       _loadEffectDelegate;
@@ -82,12 +82,6 @@ namespace SamplesCommon
                 _staticsInitialized = true;
             }
 
-            // Initialize the surface loader if needed
-            if (!SurfaceLoader.IsInitialized)
-            {
-                SurfaceLoader.Initialize(ElementCompositionPreview.GetElementVisual(this).Compositor);
-            }
-
             _placeholderDelay = TimeSpan.FromMilliseconds(50);
             _surfaceBrush = _compositor.CreateSurfaceBrush(null);
         }
@@ -101,6 +95,11 @@ namespace SamplesCommon
                 {
                     _surface.Dispose();
                     _surfaceBrush.Surface = null;
+                }
+                else
+                {
+                    // No longer being managed
+                    ImageLoader.Instance.UnregisterSurface(_surface);
                 }
                 _surface = null;
             }
@@ -237,7 +236,7 @@ namespace SamplesCommon
 
         private void UpdateBrush()
         {
-            _surfaceBrush.Surface = _surface;
+            _surfaceBrush.Surface = _surface == null ? null : _surface.Surface;
             _surfaceBrush.Stretch = _stretchMode;
 
             if (_sprite != null)
@@ -375,7 +374,7 @@ namespace SamplesCommon
                 }
 
                 // Load the image asynchronously
-                CompositionDrawingSurface surface = await SurfaceLoader.LoadFromUri(_uri, Size.Empty, _loadEffectDelegate);
+                ManagedSurface surface = await ImageLoader.Instance.LoadFromUriAsync(_uri, Size.Empty, _loadEffectDelegate);
 
                 if (_surface != null)
                 {

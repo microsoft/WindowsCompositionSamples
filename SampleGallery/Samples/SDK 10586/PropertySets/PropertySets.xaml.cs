@@ -12,7 +12,7 @@
 //
 //*********************************************************
 
-using SamplesCommon.ImageLoader;
+using SamplesCommon;
 using System;
 using System.Numerics;
 using Windows.UI;
@@ -40,7 +40,6 @@ namespace CompositionSampleGallery
         private void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             Compositor compositor = ElementCompositionPreview.GetElementVisual(MyGrid).Compositor;
-            _imageLoader = ImageLoaderFactory.CreateImageLoader(compositor);
             ContainerVisual container = compositor.CreateContainerVisual();
             ElementCompositionPreview.SetElementChildVisual(MyGrid, container);
 
@@ -49,13 +48,8 @@ namespace CompositionSampleGallery
             // Create a couple of SurfaceBrushes for the orbiters and center
             //
 
-            CompositionSurfaceBrush redBrush = compositor.CreateSurfaceBrush();
-            _redBallSurface = _imageLoader.CreateManagedSurfaceFromUri(new Uri("ms-appx:///Samples/SDK 10586/PropertySets/RedBall.png"));
-            redBrush.Surface = _redBallSurface.Surface;
-
-            CompositionSurfaceBrush blueBrush = compositor.CreateSurfaceBrush();
-            _blueBallSurface = _imageLoader.CreateManagedSurfaceFromUri(new Uri("ms-appx:///Samples/SDK 10586/PropertySets/BlueBall.png"));
-            blueBrush.Surface = _blueBallSurface.Surface;
+            _redBallSurface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Samples/SDK 10586/PropertySets/RedBall.png"));
+            _blueBallSurface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Samples/SDK 10586/PropertySets/BlueBall.png"));
 
 
             //
@@ -63,13 +57,13 @@ namespace CompositionSampleGallery
             //
 
             SpriteVisual redSprite = compositor.CreateSpriteVisual();
-            redSprite.Brush = redBrush;
+            redSprite.Brush = _redBallSurface.Brush;
             redSprite.Size = new Vector2(100f, 100f);
             redSprite.Offset = new Vector3((float)Window.Current.Bounds.Width / 2 - redSprite.Size.X/2, 150f, 0f);
             container.Children.InsertAtTop(redSprite);
 
             SpriteVisual blueSprite = compositor.CreateSpriteVisual();
-            blueSprite.Brush = blueBrush;
+            blueSprite.Brush = _blueBallSurface.Brush;
             blueSprite.Size = new Vector2(25f, 25f);
             blueSprite.Offset = new Vector3((float)Window.Current.Bounds.Width / 2 - redSprite.Size.X / 2, 50f, 0f);
             container.Children.InsertAtTop(blueSprite);
@@ -125,12 +119,10 @@ namespace CompositionSampleGallery
         {
             _redBallSurface.Dispose();
             _blueBallSurface.Dispose();
-            _imageLoader.Dispose();
         }
 
-        private IImageLoader _imageLoader;
-        private IManagedSurface _redBallSurface;
-        private IManagedSurface _blueBallSurface;
+        private ManagedSurface _redBallSurface;
+        private ManagedSurface _blueBallSurface;
         private CompositionPropertySet _propertySet;
     }
 }
