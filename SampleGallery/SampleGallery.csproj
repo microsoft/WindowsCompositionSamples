@@ -218,12 +218,6 @@
     <Compile Include="Samples\SDK Insider\TransparentWindow\TransparentWindow.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK Insider\BorderPlayground\BorderPlayground.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK Insider\CompCapabilities\CompCapabilities.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
-    <Compile Include="Samples\SDK Insider\BrushInterop\BackdropTintBlurBrush.cs " Condition="$(TargetPlatformBuild) &gt;14393"/>
-    <Compile Include="Samples\SDK Insider\BrushInterop\ImageEffectBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393"/>
-    <Compile Include="Samples\SDK Insider\BrushInterop\GreyHostBackdropBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393"/>
-    <Compile Include="Samples\SDK Insider\BrushInterop\WhiteHostBackdropBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
-    <Compile Include="Samples\SDK Insider\BrushInterop\BrushInterop.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
-
     <Compile Include="Shared\BodyAppList.xaml.cs">
       <DependentUpon>BodyAppList.xaml</DependentUpon>
     </Compile>
@@ -670,10 +664,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\SDK Insider\CompCapabilities\CompCapabilities.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\SDK Insider\BrushInterop\BrushInterop.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
