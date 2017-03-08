@@ -249,11 +249,6 @@ namespace CompositionSampleGallery
             HideCustomSplashScreen();
         }
 
-        public void ResetScrollViewer()
-        {
-            this.SV.ChangeView(0, 0, null);
-        }
-
         public void NavigateToPage(Type page, object parameter = null)
         {
             MainFrame.Navigate(page, parameter);
@@ -297,27 +292,7 @@ namespace CompositionSampleGallery
             {
                 if (sample.Name == definition.Name)
                 {
-                    // obtain the textblock element for the clicked sample and initiate a connected animation
-                    var ClickedItem = ((ItemsControl)e.OriginalSource).ContainerFromItem(e.ClickedItem);
-                    if(ClickedItem != null)
-                    {
-                        FrameworkElement root = (FrameworkElement)((ContentControl)ClickedItem).ContentTemplateRoot;
-                        if (root != null)
-                        {
-                            var title = ((UIElement)root.FindName("SampleName"));
-                            if (title != null)
-                            {
-#if SDKVERSION_14393
-                                // perform a connected animation if runtime support is available
-                                if (RuntimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._14393))
-                                {
-                                    ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("SampleTitleConnectedAnimation", (title as UIElement));
-                                }
-#endif
-                            MainPage.Instance.NavigateToPage(typeof(SampleHost), definition);
-                            }
-                        }
-                    }
+                    MainPage.Instance.NavigateToPage(typeof(SampleHost), definition);
                     break;
                 }
             }

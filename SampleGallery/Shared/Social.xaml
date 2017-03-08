@@ -108,7 +108,7 @@
         <!-- End Twitter -->
         
         <!-- GitHub -->
-        <Grid x:Name="GitHubPanel" Grid.Row="0" Grid.Column="2" Tapped="GitHubPanel_Tapped" Background="#E5DFD6">
+        <Grid x:Name="GitHubPanel" Grid.Row="0" Grid.Column="2" Tapped="GitHubPanel_Tapped" Background="#798886">
             <TextBlock Grid.Row="0"
                        Style="{StaticResource SubSectionHeading}"
                        Margin="10"

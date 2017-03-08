@@ -33,18 +33,6 @@ namespace CompositionSampleGallery
 
             SampleDefinition definition = (SampleDefinition)e.Parameter;
             ContentFrame.Navigate(definition.Type, this);
-
-#if SDKVERSION_14393
-            // perform a connected animation if runtime support is available
-            if (MainPage.RuntimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._14393))
-            {
-                ConnectedAnimation titleConnectedAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("SampleTitleConnectedAnimation");
-                if (titleConnectedAnimation != null)
-                {
-                    titleConnectedAnimation.TryStart(SampleName);
-                }
-            }
-#endif
         }
     }
 }

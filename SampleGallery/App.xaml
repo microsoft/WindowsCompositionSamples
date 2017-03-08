@@ -10,8 +10,8 @@
             <x:Double x:Key="WideScreenWidthTrigger">720</x:Double>
             <x:Double x:Key="NarrowScreenWidthTrigger">0</x:Double>
             <x:Double x:Key="BackButtonWidth">48</x:Double>
-            <x:Double x:Key="PaddingFromLeftSideOfAppWindowWide">25</x:Double>
-            <x:Double x:Key="PaddingFromLeftSideOfAppWindowNarrow">12</x:Double>
+            <Thickness x:Key="PaddingFromLeftSideOfAppWindowWide">25</Thickness>
+            <Thickness x:Key="PaddingFromLeftSideOfAppWindowNarrow">12</Thickness>
             <SolidColorBrush x:Key="DarkThemeBackgroundColorBrush" Color="Black" />
             <SolidColorBrush x:Key="DarkThemeForeground" Color="#363636" />
             <SolidColorBrush x:Key="DarkThemeForegroundPointerOver" Color="#3F3F3F" />

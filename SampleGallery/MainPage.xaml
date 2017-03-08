@@ -82,9 +82,7 @@
                             FontFamily="Segoe MDL2 Assets"
                             Click="HamburgerButton_Click" />
                     <local:MainNavigation x:Name="MainNavigationWide" Grid.Row="0"/>
-                    <ScrollViewer x:Name="SV" Grid.Row="1">
-                        <Frame x:Name="MainFrame" Navigated="MainFrame_Navigated"/>
-                    </ScrollViewer>
+                    <Frame x:Name="MainFrame" Grid.Row="1" Navigated="MainFrame_Navigated"/>
                 </Grid>
             </SplitView.Content>
         </SplitView>

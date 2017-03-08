@@ -36,27 +36,30 @@
             </VisualStateGroup>
             
         </VisualStateManager.VisualStateGroups>
+        <ScrollViewer HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Disabled">
 
-        <StackPanel>
-            <!-- Featured transition samples -->
-            <local:FeaturedSamples 
+            <StackPanel>
+                <!-- Featured transition samples -->
+                <local:FeaturedSamples 
                 x:Name="FeaturedSampleControl" 
                 Description="take a gander."
                 Background="{StaticResource CategoryPageFeaturedSampelsBackground}"
                 Foreground="Black"/>
-            <!-- End featured transition samples -->
+                <!-- End featured transition samples -->
 
-            <TextBlock x:Name="CategoryDescriptionTextBlock" Style="{StaticResource CategoryDescriptionTextBlockStyleWide}" />
+                <TextBlock x:Name="CategoryDescriptionTextBlock" Style="{StaticResource CategoryDescriptionTextBlockStyleWide}" />
 
-            <!-- Samples list -->
-            <local:BodyAppList
+                <!-- Samples list -->
+                <local:BodyAppList
                 x:Name="FullSampleList" />
-            <!-- End samples list -->
+                <!-- End samples list -->
 
-            <!-- Footer -->
-            <local:Social />
-            <!-- End footer -->
+                <!-- Footer -->
+                <local:Social />
+                <!-- End footer -->
 
-        </StackPanel>
+            </StackPanel>
+            
+        </ScrollViewer>
     </Grid>
 </Page>

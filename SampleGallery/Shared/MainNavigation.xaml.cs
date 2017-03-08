@@ -82,7 +82,6 @@ By using Expressions, constructs like springs, and directly animating velocity/a
             if (navItem != null)
             {
                 MainPage.Instance.NavigateToPage(navItem.PageType, navItem);
-                MainPage.Instance.ResetScrollViewer();
             }
         }
     }

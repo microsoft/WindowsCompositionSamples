@@ -43,7 +43,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <StackPanel x:Name="SampleTextStackPanel" Grid.Column="1" >
+        <StackPanel x:Name="SampleTextStackPanel" Grid.Column="1">
             <TextBlock 
                 x:Name="SampleName" 
                 x:FieldModifier="public"
