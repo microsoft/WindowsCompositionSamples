@@ -15,7 +15,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>CompositionSampleGallery_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.15023.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
@@ -218,6 +218,12 @@
     <Compile Include="Samples\SDK Insider\TransparentWindow\TransparentWindow.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK Insider\BorderPlayground\BorderPlayground.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK Insider\CompCapabilities\CompCapabilities.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK Insider\BrushInterop\BackdropTintBlurBrush.cs " Condition="$(TargetPlatformBuild) &gt;14393"/>
+    <Compile Include="Samples\SDK Insider\BrushInterop\ImageEffectBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393"/>
+    <Compile Include="Samples\SDK Insider\BrushInterop\GreyHostBackdropBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393"/>
+    <Compile Include="Samples\SDK Insider\BrushInterop\WhiteHostBackdropBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK Insider\BrushInterop\BrushInterop.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+
     <Compile Include="Shared\BodyAppList.xaml.cs">
       <DependentUpon>BodyAppList.xaml</DependentUpon>
     </Compile>
@@ -664,6 +670,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\SDK Insider\CompCapabilities\CompCapabilities.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK Insider\BrushInterop\BrushInterop.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
