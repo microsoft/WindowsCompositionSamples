@@ -1,0 +1,63 @@
+﻿<UserControl
+    x:Class="CompositionSampleGallery.BodyAppList"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Need to load shared resource dictionaries as a mergeddictionary -->
+                <local:SharedResourceDictionaries />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <GridView x:Name="FullSampleList" Foreground="Red" IsItemClickEnabled="True" ItemClick="FullSampleList_ItemClick">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+
+                <!-- WIDE -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideScreenWidthTrigger}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="FullSampleList.ItemTemplate" Value="{StaticResource FeaturedSampleDataTemplateWide}" />
+                        <Setter Target="FullSampleList.Padding" Value="24,0,0,0" />
+                        <Setter Target="HeaderItem.Foreground" Value="Black" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <!-- Narrow -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowScreenWidthTrigger}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="FullSampleList.ItemTemplate" Value="{StaticResource FeaturedSampleDataTemplateNarrow}" />
+                        <Setter Target="FullSampleList.Padding" Value="12,0,0,0" />
+                        <Setter Target="HeaderItem.Foreground" Value="White" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <GridView.ItemContainerStyle>
+            <Style TargetType="GridViewItem">
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+        </GridView.ItemContainerStyle>
+        <GridView.ItemsPanel>
+            <ItemsPanelTemplate>
+                <ItemsWrapGrid Orientation="Horizontal" ScrollViewer.VerticalScrollMode="Disabled"/>
+            </ItemsPanelTemplate>
+        </GridView.ItemsPanel>
+        <GridView.Header>
+            <GridViewHeaderItem x:Name="HeaderItem" Content="All Samples" Padding="0" Margin="0">
+            </GridViewHeaderItem>
+        </GridView.Header>
+    </GridView>
+</UserControl>

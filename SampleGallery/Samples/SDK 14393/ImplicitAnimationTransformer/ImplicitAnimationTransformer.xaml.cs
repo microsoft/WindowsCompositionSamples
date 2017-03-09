@@ -12,26 +12,13 @@
 //
 //*********************************************************
 
-using Microsoft.Graphics.Canvas.Effects;
-using SamplesCommon.ImageLoader;
+using SamplesCommon;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Numerics;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace CompositionSampleGallery
 {
@@ -47,8 +34,7 @@ namespace CompositionSampleGallery
         // Windows.UI.Composition
         private Compositor _compositor;
         private ContainerVisual _root;
-        private List<CompositionSurfaceBrush> _imageBrushList;
-        private IImageLoader _imageLoader;
+        private List<ManagedSurface> _imageList;
 
         // Constants
         private const float _posX = 600;
@@ -98,12 +84,11 @@ namespace CompositionSampleGallery
 
             //Create a list of image brushes that can be applied to a visual
             string[] imageNames = { "60Banana.png", "60Lemon.png", "60Vanilla.png", "60Mint.png", "60Orange.png", "110Strawberry.png", "60SprinklesRainbow.png" };
-            _imageBrushList = new List<CompositionSurfaceBrush>();
-            _imageLoader = ImageLoaderFactory.CreateImageLoader(_compositor);
+            _imageList = new List<ManagedSurface>(10);
             for (int k = 0; k < imageNames.Length; k++)
             {
-                var surface = _imageLoader.LoadImageFromUri(new Uri("ms-appx:///Samples/SDK 14393/ImplicitAnimationTransformer/" + imageNames[k]));
-                _imageBrushList.Add(_compositor.CreateSurfaceBrush(surface));
+                ManagedSurface surface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Samples/SDK 14393/ImplicitAnimationTransformer/" + imageNames[k]));
+                _imageList.Add(surface);
             }
 
             // Create nxn matrix of visuals where n=row/ColumnCount-1 and passes random image brush to the function
@@ -113,7 +98,7 @@ namespace CompositionSampleGallery
                 posXUpdated = i * _distance;
                 for (int j = 1; j < _columnCount; j++)
                 {
-                    CompositionSurfaceBrush brush = _imageBrushList[randomBrush.Next(_imageBrushList.Count)];
+                    CompositionSurfaceBrush brush = _imageList[randomBrush.Next(_imageList.Count)].Brush;
 
                     posYUpdated = j * _distance;
                     _root.Children.InsertAtTop(CreateChildElement(brush, posXUpdated, posYUpdated));
@@ -377,11 +362,10 @@ namespace CompositionSampleGallery
 
         private void ImplicitAnimationTransformer_Unloaded(object sender, RoutedEventArgs e)
         {
-            foreach(var brush in _imageBrushList)
+            foreach(var surface in _imageList)
             {
-                brush.Dispose();
+                surface.Dispose();
             }
-            _imageLoader.Dispose();
         }
     }
 }

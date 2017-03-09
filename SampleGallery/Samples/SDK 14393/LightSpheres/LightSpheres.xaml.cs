@@ -37,6 +37,7 @@ namespace CompositionSampleGallery
         private ContainerVisual _worldSpaceContainer;
         private List<SpriteVisual> _sphereList;
         private List<CompositionEffectBrush> _brushList;
+        private ManagedSurface _normalMap;
 
         private Vector3 _defaultSphereOffset = new Vector3(-1500, 700, -1000);
         private int  _defaultSphereSpace = 350;
@@ -77,8 +78,7 @@ namespace CompositionSampleGallery
         {
             ConstructWalls();
 
-            CompositionDrawingSurface normalMap = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Samples/SDK 14393/LightSpheres/SphericalWithMask.png"));
-            CompositionSurfaceBrush normalBrush = _compositor.CreateSurfaceBrush(normalMap);
+            _normalMap = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Samples/SDK 14393/LightSpheres/SphericalWithMask.png"));
 
             LightControl1.Offset = new Vector3(-77, 21, -768);
             LightControl1.LightColor.Color = Color.FromArgb(255, 255, 255, 255);
@@ -173,7 +173,7 @@ namespace CompositionSampleGallery
             {
                 CompositionEffectBrush brush = effectFactory.CreateBrush();
                 brush.Properties.InsertColor("Color.Color", color);
-                brush.SetSourceParameter("ImageSource", normalBrush);
+                brush.SetSourceParameter("ImageSource", _normalMap.Brush);
                 _brushList.Add(brush);
 
                 SpriteVisual sprite = _compositor.CreateSpriteVisual();
@@ -191,7 +191,22 @@ namespace CompositionSampleGallery
             UpdateAnimationState();
         }
 
-        private void ConstructWalls()
+        private void SamplePage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            foreach (CompositionEffectBrush brush in _brushList)
+            {
+                brush.Dispose();
+            }
+            _brushList.Clear();
+
+            if (_normalMap != null)
+            {
+                _normalMap.Dispose();
+                _normalMap = null;
+            }
+    }
+
+    private void ConstructWalls()
         {
             // Connect the light controls to the walls
             LightControl1.AddTargetVisual(_sceneContainer);
@@ -322,5 +337,5 @@ namespace CompositionSampleGallery
                 }
             }
         }
-     }
+    }
 }

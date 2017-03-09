@@ -1,0 +1,75 @@
+﻿<ResourceDictionary
+    x:Class="CompositionSampleGallery.SharedResourceDictionaries"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:common="using:SamplesCommon">
+    
+    <!-- Wide sample thumbnail data template -->
+    <DataTemplate x:Key="FeaturedSampleDataTemplateWide" x:DataType="local:SampleDefinition">
+        <StackPanel
+            x:Name="Panel"
+            Orientation="Vertical" 
+            MaxWidth="160"
+            Margin="0,0,4,60"
+            VerticalAlignment="Top"
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            ScrollViewer.VerticalScrollMode="Disabled">
+            <Image x:Name="Thumbnail" Width="160" Height="160" Stretch="UniformToFill">
+                <Image.Source>
+                    <BitmapImage UriSource="{x:Bind ImageUrl}" DecodePixelHeight="160" DecodePixelType="Logical"/>
+                </Image.Source>
+            </Image>
+            <TextBlock x:Name="SampleName"
+                        Style="{StaticResource NewSampleTextBlockStyle}"
+                        Text="{x:Bind DisplayName}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <!-- Narrow sample thumbnail data template -->
+    <DataTemplate x:Key="FeaturedSampleDataTemplateNarrow" x:DataType="local:SampleDefinition">
+        <StackPanel 
+            x:Name="Panel"
+            Orientation="Vertical" 
+            MaxWidth="140"
+            Margin="0,0,4,80"
+            VerticalAlignment="Top"
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            ScrollViewer.HorizontalScrollMode="Disabled"
+            ScrollViewer.VerticalScrollMode="Disabled">
+            <Image x:Name="Thumbnail" Width="140" Height="140" Stretch="UniformToFill">
+                <Image.Source>
+                    <BitmapImage UriSource="{x:Bind ImageUrl}" DecodePixelHeight="140" DecodePixelType="Logical" />
+                </Image.Source>
+            </Image>
+            <TextBlock x:Name="SampleName"
+                    Foreground="White"
+                    Style="{StaticResource NewSampleTextBlockStyle}"
+                    Text="{x:Bind DisplayName}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <!-- Narrow sample thumbnail data template for use on a light background -->
+    <DataTemplate x:Key="FeaturedSampleDataTemplateNarrowForLightBackground" x:DataType="local:SampleDefinition">
+        <StackPanel 
+            x:Name="Panel"
+            Orientation="Vertical" 
+            MaxWidth="140"
+            Margin="0,0,4,80"
+            VerticalAlignment="Top"
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            ScrollViewer.HorizontalScrollMode="Disabled"
+            ScrollViewer.VerticalScrollMode="Disabled">
+            <Image x:Name="Thumbnail" Width="140" Height="140" Stretch="UniformToFill">
+                <Image.Source>
+                    <BitmapImage UriSource="{x:Bind ImageUrl}" DecodePixelHeight="140" DecodePixelType="Logical" />
+                </Image.Source>
+            </Image>
+            <TextBlock x:Name="SampleName"
+                    Foreground="Black"
+                    Style="{StaticResource NewSampleTextBlockStyle}"
+                    Text="{x:Bind DisplayName}" />
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

@@ -115,7 +115,7 @@
     <Compile Include="ColorMixer.xaml.cs">
       <DependentUpon>ColorMixer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ImageLoader\CircleSurface.cs" />
+    <Compile Include="ImageLoader\ContentDrawer.cs" />
     <Compile Include="LightControl.xaml.cs" />
     <Compile Include="OrientationTrigger.cs" />
     <Compile Include="PennerEquationBuilder.cs" />
@@ -127,7 +127,6 @@
     <Compile Include="CompositionShadow.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>CompositionShadow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SurfaceLoader.cs" />
     <Compile Include="SwipeDismissPanel.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="UIElementExtensionMethods.cs" />
     <Compile Include="ValueTimer.cs" />
@@ -147,6 +146,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SamplesNative\SamplesNative.vcxproj">
+      <Project>{b0dca768-5521-406c-803d-fdccf67181d1}</Project>
+      <Name>SamplesNative</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

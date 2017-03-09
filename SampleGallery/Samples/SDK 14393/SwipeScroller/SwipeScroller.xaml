@@ -1,0 +1,60 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.SwipeScroller"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:models="using:CompositionSampleGallery.Samples.SDK_14393.SwipeScroller.Models"
+    xmlns:behaviors="using:CompositionSampleGallery.Samples.SDK_14393.SwipeScroller.Behaviors"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF3062B9" Offset="0"/>
+                <GradientStop Color="#FFBBCEF1" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollMode="Auto" HorizontalScrollBarVisibility="Hidden">
+            <ItemsControl x:Name="Items">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="models:PhotoModel">
+                        <Grid Margin="50">
+                            <Canvas x:Name ="InfoCanvas" Width="200" Height="300" >
+                                <Grid x:Name="Info" Width="200" Height="300" Background="White">
+                                    <StackPanel VerticalAlignment="Bottom">
+                                        <TextBlock Text="{x:Bind Details}" FontSize="16" TextWrapping="Wrap" FontWeight="Light" Margin="4,0"/>
+                                        <TextBlock Text="{x:Bind Info}" FontSize="24" FontWeight="Light" Margin="4,0"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Canvas>
+                            <Grid x:Name="Image" Width="200" Height="300">
+                                <!--Insert Canvas control to workaround XAML-COMP interop with property sharing-->
+                                <Canvas>
+                                    <Grid x:Name="Photo" Width="200" Height="300">
+                                        <Image Width="200" Height="300" Stretch="UniformToFill">
+                                            <Image.Source>
+                                                <BitmapImage UriSource ="{x:Bind Image}"/>
+                                            </Image.Source>
+                                        </Image>
+                                        <TextBlock x:Name="NameText" Text="{x:Bind Name}" VerticalAlignment="Top" FontSize="30" Foreground="White" Margin="4,0,0,0"/>
+                                    </Grid>
+                                </Canvas>
+                            </Grid>
+                            <interactivity:Interaction.Behaviors>
+                                <behaviors:InteractionBehavior HittestContent="{Binding ElementName=Image}" InfoContent="{Binding ElementName=Info}" PhotoContent="{Binding ElementName=Photo}" InfoContainer ="{Binding ElementName=InfoCanvas}" />
+                            </interactivity:Interaction.Behaviors>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</local:SamplePage>

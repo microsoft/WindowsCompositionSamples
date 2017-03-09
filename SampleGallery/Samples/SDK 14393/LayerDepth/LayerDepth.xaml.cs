@@ -248,25 +248,19 @@ namespace CompositionSampleGallery
         /// </summary>
         private sealed class LayerItem
         {
-            private readonly Uri imageUri;
-            private SpriteVisual visual;
+            private ManagedSurface _surface;
+            private SpriteVisual   _visual;
 
             public LayerItem(Uri imageUri)
             {
-                this.imageUri = imageUri;
+                _surface = ImageLoader.Instance.LoadFromUri(imageUri);
             }
 
             public SpriteVisual CreateVisual(Compositor compositor)
             {
-                visual = compositor.CreateSpriteVisual();
-                LoadImageAsync(compositor);
-                return visual;
-            }
-
-            private async void LoadImageAsync(Compositor compositor)
-            {
-                var surface = await SurfaceLoader.LoadFromUri(imageUri);
-                visual.Brush = compositor.CreateSurfaceBrush(surface);
+                _visual = compositor.CreateSpriteVisual();
+                _visual.Brush = _surface.Brush;
+                return _visual;
             }
         }
     }

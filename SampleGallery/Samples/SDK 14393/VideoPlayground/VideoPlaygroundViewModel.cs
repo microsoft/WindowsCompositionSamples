@@ -3,10 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using CompositionSampleGallery.Commands;
 using Windows.Media.Core;
@@ -16,11 +14,10 @@ using Windows.Storage.Pickers;
 using Windows.UI.Composition;
 using Windows.UI.Core;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
-using SamplesCommon.ImageLoader;
 using Windows.UI;
+using SamplesCommon;
 
 namespace CompositionSampleGallery
 {
@@ -65,12 +62,11 @@ namespace CompositionSampleGallery
         private ContainerVisual _videoRootVisual;
         private SpriteVisual _videoVisual;
         private CompositionSurfaceBrush _videoBrush;
-        private IImageLoader _imageLoader;
+
         // Composition - Lighting
         private LightMode _lightMode;
         private List<Light> _lights;
-        private ICircleSurface _circleSurface;
-        private CompositionSurfaceBrush _circleBrush;
+        private ManagedSurface _circleSurface;
 
         // Page specific objects/variables.
         private ObservableCollection<double> _durationList;
@@ -636,7 +632,7 @@ namespace CompositionSampleGallery
 
             EnsureCircleBrush();
 
-            visual.Brush = _circleBrush;
+            visual.Brush = _circleSurface.Brush;
 
             return visual;
         }
@@ -646,11 +642,9 @@ namespace CompositionSampleGallery
         /// </summary>
         private void EnsureCircleBrush()
         {
-            if (_circleBrush == null)
+            if (_circleSurface == null)
             {
-                _imageLoader = ImageLoaderFactory.CreateImageLoader(_compositor);
-                _circleSurface = _imageLoader.CreateCircleSurface(200, Colors.White);
-                _circleBrush = _compositor.CreateSurfaceBrush(_circleSurface.Surface);
+                _circleSurface = ImageLoader.Instance.LoadCircle(200, Colors.White);
             }
         }
 
@@ -685,7 +679,6 @@ namespace CompositionSampleGallery
 
             if (_circleSurface != null)
             {
-                _imageLoader.Dispose();
                 _circleSurface.Dispose();
             }
         }

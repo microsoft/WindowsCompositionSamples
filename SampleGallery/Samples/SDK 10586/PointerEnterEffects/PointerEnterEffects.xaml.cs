@@ -136,12 +136,12 @@ namespace CompositionSampleGallery
 
         private async void ApplyEffect(CompositionImage image)
         {
-            Task<CompositionDrawingSurface> task = null;
+            ManagedSurface effectSurface = null;
 
             // If we've requested a load time effect input, kick it off now
             if (_currentTechnique.LoadTimeEffectHandler != null)
             {
-                task = SurfaceLoader.LoadFromUri(image.Source, Size.Empty, _currentTechnique.LoadTimeEffectHandler);
+                effectSurface = await ImageLoader.Instance.LoadFromUriAsync(image.Source, Size.Empty, _currentTechnique.LoadTimeEffectHandler);
             }
 
             // Create the new brush, set the inputs and set it on the image
@@ -149,13 +149,10 @@ namespace CompositionSampleGallery
             brush.SetSourceParameter("ImageSource", image.SurfaceBrush);
             image.Brush = brush;
 
-            // If we've got an active task, wait for it to finish
-            if (task != null)
+            // Set the effect surface as input
+            if (effectSurface != null)
             {
-                CompositionDrawingSurface effectSurface = await task;
-
-                // Set the effect surface as input
-                brush.SetSourceParameter("EffectSource", _compositor.CreateSurfaceBrush(effectSurface));
+                brush.SetSourceParameter("EffectSource", effectSurface.Brush);
             }
         }
 

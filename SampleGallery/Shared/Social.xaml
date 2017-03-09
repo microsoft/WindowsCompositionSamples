@@ -1,0 +1,122 @@
+﻿<UserControl
+    x:Class="CompositionSampleGallery.Social"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid x:Name="SocialPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideScreenWidthTrigger}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SocialPanel.Height" Value="390" />
+                        <Setter Target="InsiderGrid.Height" Value="390" />
+                        <Setter Target="TwitterPanel.Height" Value="390" />
+                        <Setter Target="GitHubPanel.Height" Value="390" />
+
+                        <Setter Target="TwitterPanel.(Grid.Row)" Value="0" />
+                        <Setter Target="TwitterPanel.(Grid.Column)" Value="1" />
+                        <Setter Target="GitHubPanel.(Grid.Row)" Value="0" />
+                        <Setter Target="GitHubPanel.(Grid.Column)" Value="2" />
+                        
+                        <Setter Target="Row1.Height" Value="0" />
+                        <Setter Target="Row2.Height" Value="0" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowScreenWidthTrigger}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="InsiderGrid.Height" Value="200" />
+                        <Setter Target="TwitterPanel.Height" Value="360" />
+                        <Setter Target="GitHubPanel.Height" Value="200" />
+
+                        <Setter Target="TwitterPanel.(Grid.Row)" Value="1" />
+                        <Setter Target="TwitterPanel.(Grid.Column)" Value="0" />
+                        <Setter Target="GitHubPanel.(Grid.Row)" Value="2" />
+                        <Setter Target="GitHubPanel.(Grid.Column)" Value="0" />
+
+                        <Setter Target="Column1.Width" Value="0" />
+                        <Setter Target="Column2.Width" Value="1" />
+
+                        <Setter Target="InsiderTextBlock.FontSize" Value="34" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition x:Name="Column1" />
+            <ColumnDefinition x:Name="Column2" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition x:Name="Row1" />
+            <RowDefinition x:Name="Row2" />
+        </Grid.RowDefinitions>
+        
+        <!-- Windows Insider -->
+        <Grid x:Name="InsiderGrid" Grid.Row="0" Grid.Column="0" Tapped="InsiderPanel_Tapped" Background="#204C78">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock 
+                           x:Name="InsiderTextBlock"
+                           Style="{ThemeResource SubSectionHeading}" 
+                           Text="Become an Insider" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Padding="0,0,0,10" />
+                    <Button 
+                        Content="GET INSIDE"
+                        HorizontalAlignment="Center" />
+                </StackPanel>
+        </Grid>
+        <!-- End Windows Insider -->
+
+        <!-- Twitter -->
+        <Grid x:Name="TwitterPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#1DA1F2" Grid.Row="0" Grid.Column="1" Tapped="TwitterPanel_Tapped">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" HorizontalAlignment="Stretch" Height="38">
+                <Image Source="ms-appx:///Assets/Twitter_Logo_White_On_Blue.png" />
+            </Grid>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1">
+                <TextBlock HorizontalAlignment="Center" Style="{StaticResource SubSectionHeading}">Follow us</TextBlock>
+                <TextBlock HorizontalAlignment="Center" Style="{StaticResource BaseTextBlockStyleLight}" Margin="0,50,0,0">WindowsUI</TextBlock>
+                <TextBlock HorizontalAlignment="Center" Style="{StaticResource BaseTextBlockStyleLight}" Foreground="#BFFFFFFF">@WindowsUI</TextBlock>
+            </StackPanel>
+            <TextBlock Grid.Row="2" Style="{StaticResource BaseTextBlockStyleSmallLight}" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates
+            </TextBlock>
+        </Grid>
+        <!-- End Twitter -->
+        
+        <!-- GitHub -->
+        <Grid x:Name="GitHubPanel" Grid.Row="0" Grid.Column="2" Tapped="GitHubPanel_Tapped" Background="#798886">
+            <TextBlock Grid.Row="0"
+                       Style="{StaticResource SubSectionHeading}"
+                       Margin="10"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       TextAlignment="Center">Get the sample code on GitHub</TextBlock>
+        </Grid>
+        <!-- End GitHub -->
+        
+    </Grid>
+</UserControl>

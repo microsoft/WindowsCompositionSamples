@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="0a28ae7f-335d-48e3-9f1a-f83c2b3826ea" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" Version="1.0.0.0" />
+  <Identity Name="WindowsUIDevLabsSampleGallery" Publisher="CN=pfelts" Version="1.1.40.0" />
   <mp:PhoneIdentity PhoneProductId="0a28ae7f-335d-48e3-9f1a-f83c2b3826ea" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>CompositionSampleGallery</DisplayName>
-    <PublisherDisplayName>robald</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <DisplayName>Windows UI Sample Gallery</DisplayName>
+    <PublisherDisplayName>Peter Felts</PublisherDisplayName>
+    <Logo>Assets\StoreAssets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
@@ -15,10 +15,14 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="CompositionSampleGallery.App">
-      <uap:VisualElements DisplayName="Windows UI Dev Labs" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Windows UI Dev Labs" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+      <uap:VisualElements DisplayName="Windows UI Dev Labs Sample Gallery" Square150x150Logo="Assets\StoreAssets\Square150.png" Square44x44Logo="Assets\StoreAssets\AppIcon.png" Description="Sample gallery for the Windows.UI.Composition namespace." BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\StoreAssets\Wide.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+            <uap:ShowOn Tile="wide310x150Logo" />
+          </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#00B2F0" />
+        <uap:SplashScreen Image="Assets\StoreAssets\SplashScreen.png" BackgroundColor="#00BCF2" />
       </uap:VisualElements>
     </Application>
   </Applications>

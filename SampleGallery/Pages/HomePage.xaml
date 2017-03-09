@@ -1,0 +1,67 @@
+﻿<Page
+    x:Class="CompositionSampleGallery.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:common="using:SamplesCommon"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <ScrollViewer HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Disabled">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="CategoryDescriptionVisualStateGroup">
+
+                <!-- WIDE -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideScreenWidthTrigger}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="CategoryDescriptionTextBlock.Style" Value="{StaticResource CategoryDescriptionTextBlockStyleWide}" />
+                    </VisualState.Setters>
+                </VisualState>
+
+
+                <!-- NARROW -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowScreenWidthTrigger}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="CategoryDescriptionTextBlock.Style" Value="{StaticResource CategoryDescriptionTextBlockStyleNarrow}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <StackPanel>
+            
+            <!-- Headline carousel -->
+            <local:FlipViewIndicator />
+            <!-- End headline carousel -->
+
+            <!-- Category description -->
+            <TextBlock x:Name="CategoryDescriptionTextBlock">
+                Windows.UI.Composition is an API namespace that enables developers to create beautiful and engaging Windows Universal Platform (UWP) apps. 
+                This application showcases samples of how you can extend UWP apps by adding seamless transitions, dynamic human interaction, real-world UI, contextual UI, and natural motion. 
+                All of the samples shown here are available on the WindowsUIDevLabs repo on GitHub.
+                <LineBreak />
+                <LineBreak />
+                Want the latest samples demonstrating blur, lighting, shadows, animations and interactions?  Become a Windows Insider and rebuild the Windows UI Dev Labs project against the latest Insider SDK to get the latest samples.
+            </TextBlock>
+            <!-- End category description -->
+            
+            <!-- Featured samples -->
+            <local:FeaturedSampleHomePage x:Name="FeaturedSampleList" />
+            <!-- end featured samples -->
+
+            <!-- Social -->
+            <local:Social />
+            <!-- End Social -->
+
+            <!-- New samples -->
+            <local:FeaturedSamples x:Name="NewSamples" Title="New Samples" Background="#97549B" />
+            <!-- End new sample -->
+          </StackPanel>
+    </ScrollViewer>
+</Page>

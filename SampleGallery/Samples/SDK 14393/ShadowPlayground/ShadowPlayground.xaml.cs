@@ -13,12 +13,8 @@
 //*********************************************************
 
 using SamplesCommon;
-using SamplesCommon.ImageLoader;
-using System;
-using System.Numerics;
 using Windows.UI;
 using Windows.UI.Composition;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 
 namespace CompositionSampleGallery
@@ -29,8 +25,7 @@ namespace CompositionSampleGallery
         private Compositor _compositor;
         private SpriteVisual _imageVisual;
         private CompositionImage _image;
-        private IImageLoader _imageLoader;
-        private ICircleSurface _imageMaskSurface;
+        private ManagedSurface _imageMaskSurface;
         private CompositionMaskBrush _maskBrush;
         private bool _isMaskEnabled;
 
@@ -55,19 +50,14 @@ namespace CompositionSampleGallery
             _imageVisual = _image.SpriteVisual;
 
             // Load mask asset onto surface using helpers in SamplesCommon
-            _imageLoader = ImageLoaderFactory.CreateImageLoader(_compositor);
-            _imageMaskSurface = _imageLoader.CreateCircleSurface(200, Colors.White);
-
-            // Create surface brush for mask
-            CompositionSurfaceBrush mask = _compositor.CreateSurfaceBrush();
-            mask.Surface = _imageMaskSurface.Surface;
+            _imageMaskSurface = ImageLoader.Instance.LoadCircle(200, Colors.White);
             
             // Get surface brush from composition image
             CompositionSurfaceBrush source = _image.SurfaceBrush as CompositionSurfaceBrush;
 
             // Create mask brush for toggle mask functionality
             _maskBrush = _compositor.CreateMaskBrush();
-            _maskBrush.Mask = mask;
+            _maskBrush.Mask = _imageMaskSurface.Brush;
             _maskBrush.Source = source;
 
             // Initialize toggle mask
@@ -79,11 +69,6 @@ namespace CompositionSampleGallery
             if (_imageMaskSurface != null)
             {
                 _imageMaskSurface.Dispose();
-            }
-
-            if (_imageLoader != null)
-            {
-                _imageLoader.Dispose();
             }
         }
 

@@ -62,6 +62,8 @@ namespace CompositionSampleGallery
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            base.OnNavigatedTo(e);
+
             _compositor = ElementCompositionPreview.GetElementVisual(this)?.Compositor;
             Setup();
         }

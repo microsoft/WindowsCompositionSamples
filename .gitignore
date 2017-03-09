@@ -213,6 +213,12 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 
+# Store-related files
+SampleGallery/Package.StoreAssociation.xml
+SampleGallery/_pkginfo.txt
+BundleArtifacts/
+AI Files/
+
 # Other files to ignore
 *.zip
 *.bundle

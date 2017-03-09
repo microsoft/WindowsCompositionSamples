@@ -256,32 +256,20 @@ namespace CompositionSampleGallery.PointerEffectTechniques
             return null;
         }
 
-        private CompositionDrawingSurface ApplyBlurEffect(CanvasBitmap bitmap, CompositionGraphicsDevice device, Size sizeTarget)
+        private void ApplyBlurEffect(CompositionDrawingSurface surface, CanvasBitmap bitmap, CompositionGraphicsDevice device)
         {
             GaussianBlurEffect blurEffect = new GaussianBlurEffect()
             {
                 Source = bitmap,
-                BlurAmount = 10.0f,
+                BlurAmount = 40.0f,
                 BorderMode = EffectBorderMode.Hard,
             };
-
-            float fDownsample = .3f;
-            Size sizeSource = bitmap.Size;
-            if (sizeTarget == Size.Empty)
+            
+            using (var ds = CanvasComposition.CreateDrawingSession(surface))
             {
-                sizeTarget = sizeSource;
+                ds.DrawImage(blurEffect);
+                ds.FillRectangle(new Rect(0, 0, surface.Size.Width, surface.Size.Height), Windows.UI.Color.FromArgb(60, 0, 0, 0));
             }
-
-            sizeTarget = new Size(sizeTarget.Width * fDownsample, sizeTarget.Height * fDownsample);
-            CompositionDrawingSurface blurSurface = device.CreateDrawingSurface(sizeTarget, DirectXPixelFormat.B8G8R8A8UIntNormalized, DirectXAlphaMode.Premultiplied);
-            using (var ds = CanvasComposition.CreateDrawingSession(blurSurface))
-            {
-                Rect destination = new Rect(0, 0, sizeTarget.Width, sizeTarget.Height);
-                ds.DrawImage(blurEffect, destination, new Rect(0, 0, sizeSource.Width, sizeSource.Height));
-                ds.FillRectangle(destination, Windows.UI.Color.FromArgb(60, 0, 0, 0));
-            }
-
-            return blurSurface;
         }
 
         public override void ReleaseResources()
@@ -320,7 +308,7 @@ namespace CompositionSampleGallery.PointerEffectTechniques
 
     public class SpotLightTechnique : EffectTechniques
     {
-        CompositionDrawingSurface _lightMap;
+        ManagedSurface _lightMap;
         ExpressionAnimation _transformExpression;
         ScalarKeyFrameAnimation _enterAnimation;
         ScalarKeyFrameAnimation _exitAnimation;
@@ -349,7 +337,7 @@ namespace CompositionSampleGallery.PointerEffectTechniques
             _effectFactory = _compositor.CreateEffectFactory(graphicsEffect, new[] { "LightMapTransform.TransformMatrix" });
 
             // Create the image
-            _lightMap = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Samples/SDK 10586/PointerEnterEffects/conemap.jpg"));
+            _lightMap = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Samples/SDK 10586/PointerEnterEffects/conemap.jpg"));
 
             // Create the animations
             float sweep = (float)Math.PI / 10f;
@@ -410,7 +398,7 @@ namespace CompositionSampleGallery.PointerEffectTechniques
         public override CompositionEffectBrush CreateBrush()
         {
             CompositionEffectBrush brush = base.CreateBrush();
-            brush.SetSourceParameter("LightMap", _compositor.CreateSurfaceBrush(_lightMap));
+            brush.SetSourceParameter("LightMap", _lightMap.Brush);
 
             return brush;
         }
@@ -437,7 +425,7 @@ namespace CompositionSampleGallery.PointerEffectTechniques
 
     public class PointLightFollowTechnique : EffectTechniques
     {
-        CompositionDrawingSurface _lightMap;
+        ManagedSurface _lightMap;
         ExpressionAnimation _transformExpression;
         ScalarKeyFrameAnimation _enterAnimation;
         Vector2KeyFrameAnimation _exitAnimation;
@@ -466,7 +454,7 @@ namespace CompositionSampleGallery.PointerEffectTechniques
             _effectFactory = _compositor.CreateEffectFactory(graphicsEffect, new[] { "LightMapTransform.TransformMatrix" });
 
             // Create the image
-            _lightMap = await SurfaceLoader.LoadFromUri(new Uri("ms-appx:///Samples/SDK 10586/PointerEnterEffects/pointmap.jpg"));
+            _lightMap = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Samples/SDK 10586/PointerEnterEffects/pointmap.jpg"));
 
             // Create the animations
             CubicBezierEasingFunction easeIn = _compositor.CreateCubicBezierEasingFunction(new Vector2(0.0f, 0.51f), new Vector2(1.0f, 0.51f));
@@ -524,7 +512,7 @@ namespace CompositionSampleGallery.PointerEffectTechniques
         public override CompositionEffectBrush CreateBrush()
         {
             CompositionEffectBrush brush = base.CreateBrush();
-            brush.SetSourceParameter("LightMap", _compositor.CreateSurfaceBrush(_lightMap));
+            brush.SetSourceParameter("LightMap", _lightMap.Brush);
 
             return brush;
         }

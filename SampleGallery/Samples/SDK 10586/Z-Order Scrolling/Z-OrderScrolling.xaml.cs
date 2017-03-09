@@ -16,7 +16,6 @@ using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Graphics.Canvas.UI.Composition;
 using SamplesCommon;
-using SamplesCommon.ImageLoader;
 using System;
 using System.Numerics;
 using System.Threading.Tasks;
@@ -49,15 +48,15 @@ namespace CompositionSampleGallery
         /// </summary>
         /// <param name="sender">not used</param>
         /// <param name="e">not used</param>
-        private async void MainPage_Loaded(object sender, RoutedEventArgs e)
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             _compositor = ElementCompositionPreview.GetElementVisual(sender as UIElement).Compositor;
-            _imageLoader = ImageLoaderFactory.CreateImageLoader(_compositor);
             var scrollProperties = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(Scroller);
 
             var uri = new Uri("ms-appx:///Samples/SDK 10586/Z-Order Scrolling/RollingWaves.jpg");
+            _blurSurface = ImageLoader.Instance.LoadFromUri(uri, Size.Empty, ApplyBlurEffect);
             ParallaxingImage.Source = uri;
-            ParallaxingImage.Brush = await InitializeCrossFadeEffect(uri);
+            ParallaxingImage.Brush = InitializeCrossFadeEffect();
 
             var maskedBrush = InitializeCompositeEffect();
 
@@ -79,7 +78,7 @@ namespace CompositionSampleGallery
         {
             _profilePictureSurface.Dispose();
             _circleMaskSurface.Dispose();
-            _imageLoader.Dispose();
+            _blurSurface.Dispose();
         }
 
         /// <summary>
@@ -344,18 +343,14 @@ namespace CompositionSampleGallery
             //
             // Load in the profile picture as a brush using the Composition Toolkit.
             //
-            CompositionSurfaceBrush profileBrush = _compositor.CreateSurfaceBrush();
-            _profilePictureSurface = _imageLoader.CreateManagedSurfaceFromUri(new Uri("ms-appx:///Samples/SDK 10586/Z-Order Scrolling/teched3ae5a27b-4f78-e111-94ad-001ec953730b.jpg"));
-            profileBrush.Surface = _profilePictureSurface.Surface;
-            brush.SetSourceParameter("image", profileBrush);
+            _profilePictureSurface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Samples/SDK 10586/Z-Order Scrolling/teched3ae5a27b-4f78-e111-94ad-001ec953730b.jpg"));
+            brush.SetSourceParameter("image", _profilePictureSurface.Brush);
 
             //
             // Load in the circular mask picture asx a brush using the composition Toolkit.
             //
-            CompositionSurfaceBrush maskBrush = _compositor.CreateSurfaceBrush();
-            _circleMaskSurface = _imageLoader.CreateCircleSurface(200, Colors.White);
-            maskBrush.Surface = _circleMaskSurface.Surface;
-            brush.SetSourceParameter("mask", maskBrush);
+            _circleMaskSurface = ImageLoader.Instance.LoadCircle(200, Colors.White);
+            brush.SetSourceParameter("mask", _circleMaskSurface.Brush);
 
             return brush;
 
@@ -365,7 +360,7 @@ namespace CompositionSampleGallery
         /// Function is responsible for creating the circular alpha masked profile brush
         /// </summary>
         /// <returns></returns>
-        private async Task<CompositionEffectBrush> InitializeCrossFadeEffect(Uri uri)
+        private CompositionEffectBrush InitializeCrossFadeEffect()
         {
             var graphicsEffect = new ArithmeticCompositeEffect
             {
@@ -379,44 +374,30 @@ namespace CompositionSampleGallery
 
             var factory = _compositor.CreateEffectFactory(graphicsEffect, new[] { "Arithmetic.Source1Amount", "Arithmetic.Source2Amount" });
 
-            CompositionDrawingSurface blurSurface = await SurfaceLoader.LoadFromUri(uri, Size.Empty, ApplyBlurEffect);
             CompositionEffectBrush crossFadeBrush = factory.CreateBrush(); ;
             crossFadeBrush.SetSourceParameter("ImageSource", ParallaxingImage.SurfaceBrush);
-            crossFadeBrush.SetSourceParameter("BlurImage", _compositor.CreateSurfaceBrush(blurSurface));
+            crossFadeBrush.SetSourceParameter("BlurImage", _blurSurface.Brush);
 
             return crossFadeBrush;
         }
 
-        CompositionDrawingSurface ApplyBlurEffect(CanvasBitmap bitmap, Windows.UI.Composition.CompositionGraphicsDevice device, Size sizeTarget)
+        void ApplyBlurEffect(CompositionDrawingSurface surface, CanvasBitmap bitmap, Windows.UI.Composition.CompositionGraphicsDevice device)
         {
             GaussianBlurEffect blurEffect = new GaussianBlurEffect()
             {
                 Source = bitmap,
-                BlurAmount = 20.0f,
+                BlurAmount = 40.0f,
                 BorderMode = EffectBorderMode.Hard,
             };
-
-            float fDownsample = .3f;
-            Size sizeSource = bitmap.Size;
-            if (sizeTarget == Size.Empty)
+            
+            using (var ds = CanvasComposition.CreateDrawingSession(surface))
             {
-                sizeTarget = sizeSource;
+                ds.Clear(Color.FromArgb(255, 255, 255, 255));
+                ds.DrawImage(blurEffect);
             }
-
-            sizeTarget = new Size(sizeTarget.Width * fDownsample, sizeTarget.Height * fDownsample);
-            CompositionDrawingSurface blurSurface = device.CreateDrawingSurface(sizeTarget, DirectXPixelFormat.B8G8R8A8UIntNormalized, DirectXAlphaMode.Premultiplied);
-            using (var ds = CanvasComposition.CreateDrawingSession(blurSurface))
-            {
-                Rect destination = new Rect(0, 0, sizeTarget.Width, sizeTarget.Height);
-                ds.Clear(Windows.UI.Color.FromArgb(255, 255, 255, 255));
-                ds.DrawImage(blurEffect, destination, new Rect(0, 0, sizeSource.Width, sizeSource.Height));
-            }
-
-            return blurSurface;
         }
 
         private Compositor _compositor;
-        private IImageLoader _imageLoader;
 
         private SpriteVisual _backVisual;
         private ExpressionAnimation _behindOpacityAnimation;
@@ -437,8 +418,9 @@ namespace CompositionSampleGallery
         private ExpressionAnimation _profileContentTranslationAnimation;
         private ExpressionAnimation _profileContentScaleAnimation;
 
-        private ICircleSurface _circleMaskSurface;
-        private IManagedSurface _profilePictureSurface;
+        private ManagedSurface _circleMaskSurface;
+        private ManagedSurface _profilePictureSurface;
+        private ManagedSurface _blurSurface;
 
         private float _initialScaleAmount = .8f;
         private float _finalScaleAmount = .4f;

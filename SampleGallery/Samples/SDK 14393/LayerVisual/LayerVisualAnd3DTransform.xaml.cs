@@ -18,11 +18,9 @@ using System.Numerics;
 using Microsoft.Graphics.Canvas.Effects;
 using Windows.Graphics.Effects;
 using Windows.UI;
-using Windows.UI.Popups;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Hosting;
 using System.Collections.Generic;
-using SamplesCommon.ImageLoader;
 using SamplesCommon;
 
 
@@ -369,7 +367,7 @@ namespace CompositionSampleGallery
 
                     _sectionContentParams[i][j].VisualInstance.CenterPoint =
                         new Vector3(contentASize.X * 0.5f, contentASize.Y * 0.5f, 0);
-                    AddImageSpriteVisual(_imageSurfaces[j * _fColumnCount + i],
+                    AddImageSpriteVisual(_imageSurfaces[j * _fColumnCount + i].Brush,
                         _sectionContentParams[i][j].VisualInstance.Size, _sectionContentParams[i][j].VisualInstance);
                 }
             }
@@ -457,8 +455,6 @@ namespace CompositionSampleGallery
 
         async private Task LoadImages()
         {
-            _imageLoader = ImageLoaderFactory.CreateImageLoader(_compositor);
-
             string[] imageNames = { "Photos/Pic06", "Photos/Pic30", "Photos/Pic39", "Landscapes/Landscape-7",
                 "Landscapes/Landscape-8", "Landscapes/Landscape-9", "Landscapes/Landscape-12", "Photos/pic22",
                 "Photos/Pic11" };
@@ -466,8 +462,7 @@ namespace CompositionSampleGallery
             for (int i = 0; i < imageNames.Length; ++i)
             {
                 var uri = new Uri($"ms-appx:///Assets/{imageNames[i]}.jpg");
-                var surface = await SurfaceLoader.LoadFromUri(uri);
-                _imageSurfaces[i] = _compositor.CreateSurfaceBrush(surface);
+                _imageSurfaces[i] = await ImageLoader.Instance.LoadFromUriAsync(uri);
             }
         }
 
@@ -558,18 +553,16 @@ namespace CompositionSampleGallery
 
         private void SamplePage_Unloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            foreach(var brush in _imageSurfaces)
+            foreach (var surface in _imageSurfaces)
             {
-                brush.Dispose();
+                surface.Dispose();
             }
-            _imageLoader.Dispose();
         }
 
         private const int _fColumnCount = 3;
         private Compositor _compositor;
         private Visual _roomVisual;
-        private IImageLoader _imageLoader;
-        private CompositionSurfaceBrush[] _imageSurfaces = new CompositionSurfaceBrush[_fColumnCount * _fColumnCount];
+        private ManagedSurface[] _imageSurfaces = new ManagedSurface[_fColumnCount * _fColumnCount];
         private EffectParameters[] _sectionParams = new EffectParameters[_fColumnCount];
         private EffectParameters[][] _sectionContentParams = new EffectParameters[_fColumnCount][];
     }

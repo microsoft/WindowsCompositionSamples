@@ -1,4 +1,5 @@
 ﻿<Page
+    x:Name="RootPage"
     x:Class="CompositionSampleGallery.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,21 +8,84 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Loaded="Page_Loaded"
-    >
+    Loaded="Page_Loaded">
+    <Page.Resources>
+        <local:IsPaneOpenToVisibilityConverter x:Key="IsPaneOpenConverter" />
+    </Page.Resources>
+    <Grid>
+        <Grid.Transitions>
+            <TransitionCollection>
+                <EntranceThemeTransition x:Name="EntranceTransition" />
+            </TransitionCollection>
+        </Grid.Transitions>
 
-    <Grid x:Name="RootGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                
+                <!-- WIDE -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideScreenWidthTrigger}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RootPage.Background" Value="White" />
+                        <Setter Target="MainNavigationSplitView.CompactPaneLength" Value="0" />
+                        <Setter Target="MainNavigationWide.Visibility" Value="Visible" />
+                        <Setter Target="HamburgerButton.Visibility" Value="Collapsed" />
+                        <Setter Target="Row0.Height" Value="48" />
+                    </VisualState.Setters>
+                </VisualState>
 
-        <Frame x:Name="MainFrame"/>
-        
-        <StackPanel Grid.Column="0">
-            <Button Style="{StaticResource SplitViewTogglePaneButtonStyle}"
-                    Click="ShowSplitView"/>
-            <Button Style="{StaticResource SplitViewTogglePaneButtonStyle}" Content=""
-                    x:Name="HomeButton" Click="NavigateHome"/>
-        </StackPanel>
+                <!-- NARROW -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowScreenWidthTrigger}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RootPage.Background" Value="{StaticResource DarkThemeBackgroundColorBrush}" />
+                        <Setter Target="MainNavigationWide.Visibility" Value="Collapsed" />
+                        <Setter Target="HamburgerButton.Visibility" Value="Visible" />
+                        <Setter Target="Row0.Height" Value="48" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
 
+        <SplitView 
+            x:Name="MainNavigationSplitView" 
+            DisplayMode="Overlay" 
+            OpenPaneLength="300"
+            CompactPaneLength="{StaticResource BackButtonWidth}">
+            <SplitView.Pane>
+                <StackPanel>
+                    <Button x:Name="HamburgerButtonSplitView"
+                            Grid.Row="0"
+                            Content="&#xE700;" 
+                            Template="{StaticResource SplitViewTogglePaneButtonTemplate}"
+                            Style="{StaticResource SplitViewTogglePaneButtonStyle}"
+                            FontFamily="Segoe MDL2 Assets"
+                            Click="HamburgerButton_Click" />
+                    <local:MainNavigation x:Name="MainNavigationNarrow" Visibility="{x:Bind Path=MainNavigationSplitView.IsPaneOpen, Converter={StaticResource IsPaneOpenConverter}, Mode=OneWay}" />
+                </StackPanel>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition x:Name="Row0" Height="50"/>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Button x:Name="HamburgerButton"
+                            Grid.Row="0"
+                            Content="&#xE700;" 
+                            Template="{StaticResource SplitViewTogglePaneButtonTemplate}"
+                            Style="{StaticResource SplitViewTogglePaneButtonStyle}"
+                            FontFamily="Segoe MDL2 Assets"
+                            Click="HamburgerButton_Click" />
+                    <local:MainNavigation x:Name="MainNavigationWide" Grid.Row="0"/>
+                    <Frame x:Name="MainFrame" Grid.Row="1" Navigated="MainFrame_Navigated"/>
+                </Grid>
+            </SplitView.Content>
+        </SplitView>
 
-        <local:SampleListControl x:Name="MySampleListControl"/>
     </Grid>
 </Page>

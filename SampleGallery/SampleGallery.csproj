@@ -15,8 +15,16 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>CompositionSampleGallery_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <TargetPlatformVersion>10.0.15021.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <PackageCertificateKeyFile>SampleGallery_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>B3A5EDB57C0F21E52B5CFB1BDFD89039CD803898</PackageCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <Import Project="$(MSBuildThisFileDirectory)\..\SamplesCommon\SamplesCommon\CommonBuild.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -91,10 +99,27 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Compile Include="Samples\SDK Insider\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <None Include="project.json" />
+    <Compile Include="Pages\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\SDK 14393\NineGridResizing\INineGridScenario.cs" />
+    <None Include="SampleGallery_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\BaseCategoryPage.xaml.cs">
+      <DependentUpon>BaseCategoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\FeaturedSamplesHomePage.xaml.cs">
+      <DependentUpon>FeaturedSamplesHomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\FlipViewIndicator.xaml.cs">
+      <DependentUpon>FlipViewIndicator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\Footer.xaml.cs">
+      <DependentUpon>Footer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -159,6 +184,9 @@
     </Compile>
     <Compile Include="Samples\SDK 14393\LightSpheres\LightSpheres.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\PhotoViewer\PhotoViewer.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK 14393\SwipeScroller\Behaviors\InteractionBehavior.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK 14393\SwipeScroller\Models\PhotoModel.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK 14393\SwipeScroller\SwipeScroller.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\TextShimmer\TextShimmer.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\ThumbnailLighting\ThumbnailLighting.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\TreeEffects\TreeEffects.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
@@ -190,16 +218,27 @@
     <Compile Include="Samples\SDK Insider\TransparentWindow\TransparentWindow.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK Insider\BorderPlayground\BorderPlayground.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK Insider\CompCapabilities\CompCapabilities.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
-    <Compile Include="Shared\HomePage.xaml.cs">
-      <DependentUpon>HomePage.xaml</DependentUpon>
+    <Compile Include="Shared\BodyAppList.xaml.cs">
+      <DependentUpon>BodyAppList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\FeaturedSamples.xaml.cs">
+      <DependentUpon>FeaturedSamples.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\SharedResourceDictionaries.xaml.cs">
+      <DependentUpon>SharedResourceDictionaries.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\Social.xaml.cs">
+      <DependentUpon>Social.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shared\LocalDataSource.cs" />
+    <Compile Include="Shared\MainNavigation.xaml.cs">
+      <DependentUpon>MainNavigation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shared\SampleDefinition.cs" />
     <Compile Include="Shared\SampleHost.xaml.cs">
       <DependentUpon>SampleHost.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shared\SamplePage.cs" />
-    <Compile Include="Shared\SampleListControl.xaml.cs" />
     <Compile Include="Samples\SDK 10586\BasicXamlInterop\BasicXamlInterop.xaml.cs" />
     <Compile Include="Samples\SDK 10586\CustomConnectedAnimation\CustomConnectedAnimation.xaml.cs" />
     <Compile Include="Samples\SDK 10586\CustomConnectedAnimation\CustomConnectedAnimationDetail.cs" />
@@ -220,15 +259,63 @@
     <None Include="CompositionSampleGallery_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\BannerImages\IneractionTrackerBanner.png" />
+    <Content Include="Assets\BannerImages\PullToAnimateBanner.PNG" />
     <Content Include="Assets\Appointment.png" />
     <Content Include="Assets\Background.png" />
+    <Content Include="Assets\FB-f-Logo__blue_57.png" />
+    <Content Include="Assets\Landmarks\SpaceNeedle.png" />
+    <Content Include="Assets\Landmarks\PikePlaceMarket.png" />
+    <Content Include="Assets\Landmarks\FerrisWheel.png" />
+    <Content Include="Assets\MainNavigationPointerOverBackgroundWide.png" />
+    <Content Include="Assets\MissingThumbnail.png" />
+    <Content Include="Assets\SampleThumbnails\AdvancedShadows.PNG" />
+    <Content Include="Assets\SampleThumbnails\BackDropControlSample.PNG" />
+    <Content Include="Assets\SampleThumbnails\BasicLayoutAndTransitions.PNG" />
+    <Content Include="Assets\SampleThumbnails\BasicXAMLInterop.PNG" />
+    <Content Include="Assets\SampleThumbnails\BlurPlayground.PNG" />
+    <Content Include="Assets\SampleThumbnails\BorderEffects.PNG" />
+    <Content Include="Assets\SampleThumbnails\ColorSlide.png" />
+    <Content Include="Assets\SampleThumbnails\CompositionCapabilities.PNG" />
+    <Content Include="Assets\SampleThumbnails\Connected_Animation.PNG" />
+    <Content Include="Assets\SampleThumbnails\ContinuityAnimations.jpg" />
+    <Content Include="Assets\Cities\athens.jpg" />
+    <Content Include="Assets\Cities\barcelona.jpg" />
+    <Content Include="Assets\Cities\berlin.jpg" />
+    <Content Include="Assets\Cities\brussels.jpg" />
+    <Content Include="Assets\Cities\copenhagen.jpg" />
+    <Content Include="Assets\Cities\dubrovnik.jpg" />
+    <Content Include="Assets\Cities\london.jpg" />
+    <Content Include="Assets\Cities\lucerne.jpg" />
+    <Content Include="Assets\Cities\paris.jpg" />
+    <Content Include="Assets\Cities\prague.jpg" />
+    <Content Include="Assets\Cities\rome.jpg" />
     <Content Include="Assets\ContinuityAnimations.jpg" />
     <Content Include="Assets\Noise.jpg" />
-    <Content Include="Assets\ShadowPlayground.jpg" />
+    <Content Include="Assets\SampleThumbnails\Curtain.PNG" />
+    <Content Include="Assets\SampleThumbnails\ExpressionsAndPropertySets.PNG" />
+    <Content Include="Assets\SampleThumbnails\FlipToReveal.png" />
+    <Content Include="Assets\SampleThumbnails\ForegroundFocusEffects.PNG" />
+    <Content Include="Assets\SampleThumbnails\Gears.PNG" />
+    <Content Include="Assets\SampleThumbnails\ImplicitAnimations.PNG" />
+    <Content Include="Assets\SampleThumbnails\Interaction3D.PNG" />
+    <Content Include="Assets\SampleThumbnails\LayoutAnimations.PNG" />
+    <Content Include="Assets\SampleThumbnails\LayerDepth.PNG" />
+    <Content Include="Assets\SampleThumbnails\LayerVisualSample.PNG" />
+    <Content Include="Assets\SampleThumbnails\LightSpheres.PNG" />
+    <Content Include="Assets\SampleThumbnails\NavigationFlow.PNG" />
+    <Content Include="Assets\SampleThumbnails\NineGridResizing.PNG" />
+    <Content Include="Assets\SampleThumbnails\NowPlaying.PNG" />
+    <Content Include="Assets\SampleThumbnails\ParallaxingListviewItem.PNG" />
+    <Content Include="Assets\SampleThumbnails\Perspective.png" />
+    <Content Include="Assets\SampleThumbnails\PhotoPopupViewer.PNG" />
+    <Content Include="Assets\SampleThumbnails\PointerEnterExitEffects.PNG" />
+    <Content Include="Assets\SampleThumbnails\ShadowInterop.PNG" />
+    <Content Include="Assets\SampleThumbnails\ShadowPlayground.jpg" />
     <Content Include="Assets\Calendar.png" />
     <Content Include="Assets\CircleMask.png" />
     <Content Include="Assets\Clock.jpg" />
-    <Content Include="Assets\ColorBloom.jpg" />
+    <Content Include="Assets\SampleThumbnails\ColorBloom.jpg" />
     <Content Include="Assets\Landscapes\Landscape-1.jpg" />
     <Content Include="Assets\Landscapes\Landscape-10.jpg" />
     <Content Include="Assets\Landscapes\Landscape-11.jpg" />
@@ -244,8 +331,41 @@
     <Content Include="Assets\FirstGear.png" />
     <Content Include="Assets\Gear.png" />
     <Content Include="Assets\Gears_background.png" />
-    <Content Include="Assets\PullToAnimate.jpg" />
-    <Content Include="Assets\ThumbnailLighting.jpg" />
+    <Content Include="Assets\SampleThumbnails\PullToAnimate.jpg" />
+    <Content Include="Assets\SampleThumbnails\ShowHideImplicitWebview.PNG" />
+    <Content Include="Assets\SampleThumbnails\SwipeScroller.png" />
+    <Content Include="Assets\SampleThumbnails\TextShimmer.png" />
+    <Content Include="Assets\SampleThumbnails\ThumbnailLighting.jpg" />
+    <Content Include="Assets\SampleThumbnails\TransparentWindow.PNG" />
+    <Content Include="Assets\SampleThumbnails\TreeEffect.PNG" />
+    <Content Include="Assets\SampleThumbnails\VideoPlayground.PNG" />
+    <Content Include="Assets\SampleThumbnails\Z-OrderScrolling.PNG" />
+    <Content Include="Assets\SampleThumbnails\ZoomWithPerspective.PNG" />
+    <Content Include="Assets\Square71x71Logo.scale-200.png" />
+    <Content Include="Assets\StoreAssets\AppIcon.png" />
+    <Content Include="Assets\StoreAssets\AppIcon.scale-150.png" />
+    <Content Include="Assets\StoreAssets\AppIcon.scale-200.png" />
+    <Content Include="Assets\StoreAssets\AppIcon.scale-300.png" />
+    <Content Include="Assets\StoreAssets\AppIcon.scale-400.png" />
+    <Content Include="Assets\StoreAssets\SplashScreen.png" />
+    <Content Include="Assets\StoreAssets\SplashScreen.scale-150.png" />
+    <Content Include="Assets\StoreAssets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\StoreAssets\SplashScreen.scale-300.png" />
+    <Content Include="Assets\StoreAssets\SplashScreen.scale-400.png" />
+    <Content Include="Assets\StoreAssets\Square150.png" />
+    <Content Include="Assets\StoreAssets\Square150.scale-150.png" />
+    <Content Include="Assets\StoreAssets\Square150.scale-200.png" />
+    <Content Include="Assets\StoreAssets\Square150.scale-300.png" />
+    <Content Include="Assets\StoreAssets\Square150.scale-400.png" />
+    <Content Include="Assets\StoreAssets\StoreLogo.scale-200.png" />
+    <Content Include="Assets\StoreAssets\StoreLogo.scale-300.png" />
+    <Content Include="Assets\StoreAssets\StoreLogo.scale-400.png" />
+    <Content Include="Assets\StoreAssets\Wide.png" />
+    <Content Include="Assets\StoreAssets\Wide.scale-150.png" />
+    <Content Include="Assets\StoreAssets\Wide.scale-200.png" />
+    <Content Include="Assets\StoreAssets\Wide.scale-300.png" />
+    <Content Include="Assets\StoreAssets\Wide.scale-400.png" />
+    <Content Include="Assets\Twitter_Logo_White_On_Blue.png" />
     <Content Include="Assets\WeatherInfo.png" />
     <Content Include="Assets\WindowsInsiders\Bacon.png" />
     <Content Include="Assets\WindowsInsiders\Flag.png" />
@@ -255,7 +375,7 @@
     <Content Include="Assets\WindowsInsiders\Ninjacat-3.png" />
     <Content Include="Assets\WindowsInsiders\Trex.png" />
     <Content Include="Assets\WindowsInsiders\Unicorn.png" />
-    <Content Include="Assets\ZoomPerspective.jpg" />
+    <Content Include="Assets\Windows_logo_Cyan_rgb_D.png" />
     <Content Include="Assets\ZOrderScrolling.jpg" />
     <Content Include="Samples\SDK 10586\Perspective\jellyfish.jpg" />
     <Content Include="Samples\SDK 10586\TransitionAnimation-FlipToReveal\Image.jpg" />
@@ -272,11 +392,10 @@
     <Content Include="Samples\SDK 10586\PointerEnterEffects\pointmap.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
-    <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\StoreAssets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Samples\SDK 10586\PropertySets\BlueBall.png" />
     <Content Include="Samples\SDK 10586\PropertySets\RedBall.png" />
@@ -363,6 +482,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\BaseCategoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shared\FeaturedSamplesHomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shared\FlipViewIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Shared\Footer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ExtendedSplashScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -464,6 +603,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\SDK 14393\SwipeScroller\SwipeScroller.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Samples\SDK 14393\TextShimmer\TextShimmer.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -487,6 +630,18 @@
     <Page Include="Samples\SDK 14393\LayerDepth\LayerDepth.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shared\BodyAppList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Shared\SharedResourceDictionaries.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Shared\Social.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\SDK Insider\NavigationFlow\NavigationFlow.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
@@ -512,13 +667,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Shared\HomePage.xaml">
+    <Page Include="Shared\MainNavigation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Shared\SampleListControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Shared\FeaturedSamples.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\SDK 10586\BasicXamlInterop\BasicXamlInterop.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -563,6 +718,10 @@
     <Page Include="Shared\SampleHost.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\SDK Insider\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -18,25 +18,47 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="1" Padding="50,5,5,5">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+
+                <!-- WIDE -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideScreenWidthTrigger}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SampleTextStackPanel.Padding" Value="{StaticResource PaddingFromLeftSideOfAppWindowWide}" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <!-- Narrow -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowScreenWidthTrigger}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SampleTextStackPanel.Padding" Value="{StaticResource PaddingFromLeftSideOfAppWindowNarrow}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <StackPanel x:Name="SampleTextStackPanel" Grid.Column="1">
             <TextBlock 
                 x:Name="SampleName" 
                 x:FieldModifier="public"
                 Style="{ThemeResource TitleTextBlockStyle}" 
                 TextWrapping="Wrap"
-                FontWeight="Bold"
-                Margin="5,5,5,0"/>
+                FontWeight="Bold"/>
             <TextBlock
                 x:Name="SampleDescription"
                 x:FieldModifier="public"
                 Style="{ThemeResource BodyTextBlockStyle}"
-                TextWrapping="Wrap"
-                Margin="5,5,5,0"/>
+                TextWrapping="Wrap"/>
             <HyperlinkButton 
                 x:Name="SampleCode"
                 x:FieldModifier="public"
-                Content="Click here to see the sample code on GitHub"
-                Margin="5,5,5,5"/>
+                Content="Click here to see the sample code on GitHub" />
         </StackPanel>
 
         <Frame x:Name="ContentFrame" x:FieldModifier="Public" Grid.Row="1" Grid.ColumnSpan="2"/>

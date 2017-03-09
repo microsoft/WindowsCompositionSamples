@@ -14,9 +14,8 @@
 
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Effects;
-using SamplesCommon.ImageLoader;
+using SamplesCommon;
 using System;
-using System.Linq;
 using System.Numerics;
 using Windows.Foundation;
 using Windows.UI;
@@ -37,8 +36,7 @@ namespace CompositionSampleGallery
         Compositor _compositor;
         ContainerVisual _containerForVisuals;
         ScalarKeyFrameAnimation _bloomAnimation;
-        IImageLoader _imageLoader;
-        ICircleSurface _circleMaskSurface;
+        ManagedSurface _circleMaskSurface;
 
         #endregion
 
@@ -62,9 +60,8 @@ namespace CompositionSampleGallery
             _containerForVisuals = _compositor.CreateContainerVisual();
             ElementCompositionPreview.SetElementChildVisual(hostForVisual, _containerForVisuals);
 
-            // initialize the ImageLoader and create the circle mask
-            _imageLoader = ImageLoaderFactory.CreateImageLoader(_compositor);
-            _circleMaskSurface = _imageLoader.CreateCircleSurface(200, Colors.White);
+            // Create the circle mask
+            _circleMaskSurface = ImageLoader.Instance.LoadCircle(200, Colors.White);
         }
         #endregion
 
@@ -106,7 +103,6 @@ namespace CompositionSampleGallery
         public void Dispose()
         {
             _circleMaskSurface.Dispose();
-            _imageLoader.Dispose();
         }
 
         #endregion
@@ -195,9 +191,8 @@ namespace CompositionSampleGallery
             //
             // Create the mask brush using the circle mask
             //
-            CompositionSurfaceBrush maskBrush = _compositor.CreateSurfaceBrush();
-            maskBrush.Surface = _circleMaskSurface.Surface;
-            brush.SetSourceParameter("mask", maskBrush);
+
+            brush.SetSourceParameter("mask", _circleMaskSurface.Brush);
 
             return brush;
 
