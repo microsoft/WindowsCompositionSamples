@@ -1,14 +1,32 @@
-﻿using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.UI.Composition;
+﻿//*********************************************************
+//
+// Copyright (c) Microsoft. All rights reserved.
+// This code is licensed under the MIT License (MIT).
+// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+// IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH 
+// THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//
+//*********************************************************
+
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+
 using Windows.Foundation;
 using Windows.Graphics.DirectX;
 using Windows.UI;
 using Windows.UI.Composition;
-using SamplesNative;
+
+using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Text;
+using Microsoft.Graphics.Canvas.UI.Composition;
+
+using SamplesNative;
+
 
 namespace SamplesCommon
 {
@@ -54,7 +72,28 @@ namespace SamplesCommon
             _graphicsDevice.RenderingDeviceReplaced += RenderingDeviceReplaced;
         }
 
-        
+        public void Dispose()
+        {
+            lock (_drawingLock)
+            {
+                _compositor = null;
+
+                if (_canvasDevice != null)
+                {
+                    _canvasDevice.DeviceLost -= DeviceLost;
+                    _canvasDevice.Dispose();
+                    _canvasDevice = null;
+                }
+
+                if (_graphicsDevice != null)
+                {
+                    _graphicsDevice.RenderingDeviceReplaced -= RenderingDeviceReplaced;
+                    _graphicsDevice.Dispose();
+                    _graphicsDevice = null;
+                }
+            }
+        }
+
         static public void Initialize(Compositor compositor)
         {
             Debug.Assert(!_intialized);
@@ -73,33 +112,6 @@ namespace SamplesCommon
                 Debug.Assert(_intialized);
                 return _imageLoader;
             }
-        }
-
-        private void DeviceRemoved(DeviceLostHelper sender, object args)
-        {
-            _canvasDevice.RaiseDeviceLost();
-        }
-
-        private void DeviceLost(CanvasDevice sender, object args)
-        {
-            sender.DeviceLost -= DeviceLost;
-
-            _canvasDevice = new CanvasDevice();
-            _canvasDevice.DeviceLost += DeviceLost;
-            _deviceLostHelper.WatchDevice(_canvasDevice);
-
-            CanvasComposition.SetCanvasDevice(_graphicsDevice, _canvasDevice);
-        }
-
-        private void RenderingDeviceReplaced(CompositionGraphicsDevice sender, RenderingDeviceReplacedEventArgs args)
-        {
-            Task.Run(() =>
-            {
-                if (_deviceReplacedEvent != null)
-                {
-                    RaiseDeviceReplacedEvent();
-                }
-            });
         }
 
         public void RegisterSurface(ManagedSurface surface)
@@ -136,14 +148,6 @@ namespace SamplesCommon
             return surface;
         }
 
-        private async Task<ManagedSurface> LoadFromUriAsyncWorker(Uri uri, Size size, LoadTimeEffectHandler handler)
-        {
-            ManagedSurface surface = new ManagedSurface(CreateSurface(size));
-            await surface.Draw(_graphicsDevice, _drawingLock, new BitmapDrawer(uri, handler));
-
-            return surface;
-        }
-
         public IAsyncOperation<ManagedSurface> LoadFromUriAsync(Uri uri)
         {
             return LoadFromUriAsyncWorker(uri, Size.Empty, null).AsAsyncOperation<ManagedSurface>();
@@ -175,6 +179,14 @@ namespace SamplesCommon
             return surface;
         }
 
+        private async Task<ManagedSurface> LoadFromUriAsyncWorker(Uri uri, Size size, LoadTimeEffectHandler handler)
+        {
+            ManagedSurface surface = new ManagedSurface(CreateSurface(size));
+            await surface.Draw(_graphicsDevice, _drawingLock, new BitmapDrawer(uri, handler));
+
+            return surface;
+        }
+
         private CompositionDrawingSurface CreateSurface(Size size)
         {
             Size surfaceSize = size;
@@ -184,7 +196,7 @@ namespace SamplesCommon
                 // We start out with a size of 0,0 for the surface, because we don't know
                 // the size of the image at this time. We resize the surface later.
                 //
-                surfaceSize = new Size(0, 0);
+                surfaceSize = default(Size);
             }
 
             var surface = _graphicsDevice.CreateDrawingSurface(surfaceSize, DirectXPixelFormat.B8G8R8A8UIntNormalized, DirectXAlphaMode.Premultiplied);
@@ -192,26 +204,31 @@ namespace SamplesCommon
             return surface;
         }
 
-        public void Dispose()
+        private void DeviceRemoved(DeviceLostHelper sender, object args)
         {
-            lock (_drawingLock)
+            _canvasDevice.RaiseDeviceLost();
+        }
+
+        private void DeviceLost(CanvasDevice sender, object args)
+        {
+            sender.DeviceLost -= DeviceLost;
+
+            _canvasDevice = new CanvasDevice();
+            _canvasDevice.DeviceLost += DeviceLost;
+            _deviceLostHelper.WatchDevice(_canvasDevice);
+
+            CanvasComposition.SetCanvasDevice(_graphicsDevice, _canvasDevice);
+        }
+
+        private void RenderingDeviceReplaced(CompositionGraphicsDevice sender, RenderingDeviceReplacedEventArgs args)
+        {
+            Task.Run(() =>
             {
-                _compositor = null;
-
-                if (_canvasDevice != null)
+                if (_deviceReplacedEvent != null)
                 {
-                    _canvasDevice.DeviceLost -= DeviceLost;
-                    _canvasDevice.Dispose();
-                    _canvasDevice = null;
+                    RaiseDeviceReplacedEvent();
                 }
-
-                if (_graphicsDevice != null)
-                {
-                    _graphicsDevice.RenderingDeviceReplaced -= RenderingDeviceReplaced;
-                    _graphicsDevice.Dispose();
-                    _graphicsDevice = null;
-                }
-            }
+            });
         }
     }
 }
