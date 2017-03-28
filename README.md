@@ -1,4 +1,4 @@
-# Windows UI Dev Labs
+ # Windows UI Dev Labs
 Welcome to the Windows UI Dev Labs repository for the latest code samples, demos, and developer feedback for building beautiful and engaging Universal Windows Platform apps using Windows UI.
 
 The code samples and demos are targeted for developers who are interested in experimenting, building, and providing feedback on the latest flighting Windows UI APIs. 
@@ -32,7 +32,7 @@ These are early reference implementations, prototypes, and utilties the team has
 ## Developing and Building with Windows UI
 These samples require Visual Studio 2015 and the Windows Software Development Kit (SDK) for Windows 10 to build, test, and deploy your Universal Windows apps. 
 
-[Get a free copy of Visual Studio 2015 Community Edition with support for building Universal Windows apps](http://go.microsoft.com/fwlink/?LinkID=280676)
+[Get a free copy of Visual Studio with support for building Universal Windows apps](http://go.microsoft.com/fwlink/?LinkID=280676)
 
 Additionally, to stay on top of the latest updates to Windows and the development tools, become a Windows Insider by joining the Windows Insider Program.
 
@@ -40,7 +40,7 @@ Additionally, to stay on top of the latest updates to Windows and the developmen
 
 We will be frequently iterating and updating code samples in this repository, so it's recommended you become an Insider, follow us on Twitter for the latest updates, and provide feedback in the Issue section. 
 
-##Learning More about Windows UI APIs
+## Learning More about Windows UI APIs
 Want to learn about all the exciting features that the Windows UI APIs can bring to your app? Check out the BUILD 2016 session recordings for Windows UI.
 
 [List of talks for BUILD 2016 that can be watched on Channel9](https://github.com/Microsoft/WindowsUIDevLabs/wiki/Windows-UI-Newsletter---Volume-1#build-sessions)
