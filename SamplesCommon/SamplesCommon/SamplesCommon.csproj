@@ -115,7 +115,10 @@
     <Compile Include="ColorMixer.xaml.cs">
       <DependentUpon>ColorMixer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ImageLoader\BitmapDrawer.cs" />
+    <Compile Include="ImageLoader\CircleDrawer.cs" />
     <Compile Include="ImageLoader\ContentDrawer.cs" />
+    <Compile Include="ImageLoader\TextDrawer.cs" />
     <Compile Include="LightControl.xaml.cs" />
     <Compile Include="OrientationTrigger.cs" />
     <Compile Include="PennerEquationBuilder.cs" />
