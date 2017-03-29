@@ -40,7 +40,7 @@ namespace CompositionSampleGallery
 
         public static string   StaticSampleName     { get { return "Blur Playground"; } }
         public override string SampleName           { get { return StaticSampleName; } }
-        public override string SampleDescription    { get { return "This is a place to play around with different blur and color blend recipes"; } }
+        public override string SampleDescription    { get { return "Windows UI Composition lets you provide rich effects to help users to focus on the right place and be more productive. Blur is a great way to get distractions out of the way and let user focus on the piece of content that is the most important to them. You can also easily animate blur properties using implicit animations. "; } }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -103,6 +103,8 @@ namespace CompositionSampleGallery
             // Create EffectBrush, BackdropBrush and SpriteVisual
             _brush = blurEffectFactory.CreateBrush();
 
+            SetUpAnimationBehavior();
+
             // If the animation is running, restart it on the new brush
             if (AnimateToggle.IsOn)
             {
@@ -118,6 +120,32 @@ namespace CompositionSampleGallery
 
             ElementCompositionPreview.SetElementChildVisual(BackgroundImage, blurSprite);
         }
+
+        private void SetUpAnimationBehavior()
+        {
+            //setup Implicit Animation for BlurAmount change and Color Change. 
+
+            var implicitAnimations = _compositor.CreateImplicitAnimationCollection();
+
+            //Define animations to animate blur and color change. 
+            ScalarKeyFrameAnimation blurAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            blurAnimation.InsertExpressionKeyFrame(1.0f, "this.FinalValue");
+            blurAnimation.Duration = TimeSpan.FromSeconds(1);
+            blurAnimation.Target = "Blur.BlurAmount";
+
+            ColorKeyFrameAnimation tintAnimation = _compositor.CreateColorKeyFrameAnimation();
+            tintAnimation.InsertExpressionKeyFrame(1.0f, "this.FinalValue");
+            tintAnimation.Duration = TimeSpan.FromSeconds(1);
+            tintAnimation.Target = "Tint.Color";
+
+            implicitAnimations["Blur.BlurAmount"] = blurAnimation;
+            implicitAnimations["Tint.Color"] = tintAnimation;
+
+            //Associate implicit animations to property sets. 
+            _brush.Properties.ImplicitAnimations = implicitAnimations;
+
+        }
+
 
         private void BackgroundImage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
