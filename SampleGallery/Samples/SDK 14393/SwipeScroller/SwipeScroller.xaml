@@ -17,7 +17,7 @@
                 <GradientStop Color="#FFBBCEF1" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollMode="Auto" HorizontalScrollBarVisibility="Hidden">
+        <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollMode="Auto" HorizontalScrollBarVisibility="Auto">
             <ItemsControl x:Name="Items">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
