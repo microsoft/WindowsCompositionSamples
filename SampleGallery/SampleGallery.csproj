@@ -141,7 +141,7 @@
     <Compile Include="Samples\SDK 10586\TransitionAnimation-ColorSlide\ColorSlideTransitionHelper.cs" />
     <Compile Include="Samples\SDK 10586\TransitionAnimation-FlipToReveal\FlipToReveal.xaml.cs" />
     <Compile Include="Samples\SDK 10586\ZoomWithPerspective\ZoomWithPerspective.xaml.cs" />
-    <Compile Include="Samples\SDK 14393\BlurPlayground\BlurPlayground.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\BlurPlayground\BlurPlayground.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 14393\ConnectedAnimationSample\ConnectedAnimationDetail.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>ConnectedAnimationDetail.xaml</DependentUpon>
     </Compile>
@@ -173,7 +173,7 @@
     <Compile Include="Samples\SDK 14393\NineGridResizing\NineGridScenarios\MaskNineGridScenario.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\NineGridResizing\NineGridScenarios\SurfaceNineGridScenario.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\PullToAnimate\PullToAnimate.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
-    <Compile Include="Samples\SDK 14393\ShadowsAdvanced\ShadowsAdvanced.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK Insider\ShadowsAdvanced\ShadowsAdvanced.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 14393\ShadowInterop\ShadowInterop.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\ShadowPlayground\ShadowPlayground.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>ShadowPlayground.xaml</DependentUpon>
@@ -530,7 +530,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK 14393\BlurPlayground\BlurPlayground.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+    <Page Include="Samples\SDK Insider\BlurPlayground\BlurPlayground.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -583,7 +583,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK 14393\ShadowsAdvanced\ShadowsAdvanced.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+    <Page Include="Samples\SDK Insider\ShadowsAdvanced\ShadowsAdvanced.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
