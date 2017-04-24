@@ -87,6 +87,11 @@
             <TextBlock x:Name="DescriptionTextBlock" 
                        Style="{StaticResource BaseTextBlockStyleLight}"
                        Foreground="{x:Bind Foreground}" />
+            <StackPanel.Transitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                </TransitionCollection>
+            </StackPanel.Transitions>
         </StackPanel>
 
         <ScrollViewer
