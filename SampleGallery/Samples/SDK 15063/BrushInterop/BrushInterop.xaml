@@ -1,0 +1,69 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.BrushInterop"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:brushes="using:CompositionSampleGallery.Samples.BrushInterop"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Name="MainGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <!-- TODO: Make Phone and Xbox friendly by adding adaptive triggers in a future iteration-->
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--Grid Painted with XCBB: Animated Effects on LoadedImageSurface-->
+        <Grid Name="ImageEffectGrid" Grid.Column="0" Grid.Row="0" Margin="5">
+            <Grid.Background>
+                <brushes:ImageEffectBrush/>
+            </Grid.Background>
+        </Grid>
+
+        <!--Shape Painted with XCBB: Animated Effects with LoadedImageSurface-->
+        <Grid Name="Text" Grid.Column="0" Grid.Row="1" Margin="5" Background="Black">
+            <Grid Padding="10">
+                <Path Data="M224 288v-224c-123.712 0-224 100.288-224 224s100.288 224 224 224 224-100.288 224-224c0-36.017-8.514-70.042-23.618-100.191l-200.382 100.191zM461.382 123.809c-36.776-73.408-112.687-123.809-200.382-123.809v224l200.382-100.191z"
+                    Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                    <Path.Fill>
+                        <brushes:ImageEffectBrush/>
+                    </Path.Fill>
+                </Path>
+            </Grid>
+        </Grid>
+
+        <!--Grid and Text Painted with XCBB: HostBackdrop Effects-->
+        <Grid Name="TextHostBackdrop" Grid.Column="1" Grid.Row="0" Margin="5">
+            <Grid.Background>
+                <brushes:GreyHostBackdropBrush/>
+            </Grid.Background>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="ExtraLight" FontSize="35" TextWrapping="WrapWholeWords" Text="Paint Xaml UIElements with Composition Brushes">
+                <TextBlock.Foreground>
+                    <brushes:WhiteHostBackdropBrush/>
+                </TextBlock.Foreground>
+            </TextBlock>
+        </Grid>
+
+        <!--Shape Painted with XCBB: Animated Backdrop Effects-->
+        <Grid Name="BackdropShape" Grid.Column="1" Grid.Row="1" Margin="5" >
+            <Grid.Background>
+                <ImageBrush ImageSource="ms-appx:///Assets/Background.png" Stretch="UniformToFill"/>
+            </Grid.Background>
+            <Grid Padding="10">
+                <Path Data="M200 20 a200 200 0 1 0 1 0m-1 100a100 100 0 1 1 -1 0" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                    <Path.Fill>
+                        <brushes:BackdropTintBlurBrush/>
+                    </Path.Fill>
+                </Path>
+            </Grid>
+        </Grid>
+    </Grid>
+</local:SamplePage>
