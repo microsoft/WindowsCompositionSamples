@@ -104,6 +104,9 @@
     </Compile>
     <Compile Include="Samples\SDK 15063\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 14393\ShyHeader\ShyHeader.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK 15063\PointerRotate\PointerRotate.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393">
+      <DependentUpon>PointerRotate.xaml</DependentUpon>
+    </Compile>
     <None Include="project.json" />
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -317,6 +320,7 @@
     <Content Include="Assets\SampleThumbnails\Perspective.png" />
     <Content Include="Assets\SampleThumbnails\PhotoPopupViewer.PNG" />
     <Content Include="Assets\SampleThumbnails\PointerEnterExitEffects.PNG" />
+    <Content Include="Assets\SampleThumbnails\PointerRotate.PNG" />
     <Content Include="Assets\SampleThumbnails\ShadowInterop.PNG" />
     <Content Include="Assets\SampleThumbnails\ShadowPlayground.jpg" />
     <Content Include="Assets\Calendar.png" />
@@ -503,6 +507,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\SDK 15063\OffsetStompingFix\OffsetStompingFix.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK 15063\PointerRotate\PointerRotate.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
