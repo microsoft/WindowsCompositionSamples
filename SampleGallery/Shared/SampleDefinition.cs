@@ -158,6 +158,7 @@ namespace CompositionSampleGallery
                 new SampleDefinition(LayerDepth.StaticSampleName,                   typeof(LayerDepth),                   SampleType.EndToEnd,  SampleCategory.SeamlessTransitions,        true,  true,  "ms-appx:///Assets/SampleThumbnails/LayerDepth.PNG",                    sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
                 new SampleDefinition(LightSphere.StaticSampleName,                  typeof(LightSphere),                  SampleType.Reference, SampleCategory.RealWorldUI,                true,  true,  imageUrl: "ms-appx:///Assets/SampleThumbnails/LightSpheres.PNG",        sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
                 new SampleDefinition(SwipeScroller.StaticSampleName,                typeof(SwipeScroller),                SampleType.EndToEnd,  SampleCategory.DynamicHumanInteractions,   false, false, dateAdded: new DateTime(2017,03,05),  imageUrl: "ms-appx:///Assets/SampleThumbnails/SwipeScroller.PNG",                 sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
+                new SampleDefinition(ShyHeader.StaticSampleName,                    typeof(ShyHeader),                    SampleType.EndToEnd,  SampleCategory.DynamicHumanInteractions,   false, false, dateAdded: new DateTime(2017,04,25),  imageUrl: "ms-appx:///Assets/SampleThumbnails/ShyHeader.PNG",                     sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
 #endif
 
 #if SDKVERSION_INSIDER

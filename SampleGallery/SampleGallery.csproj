@@ -99,6 +99,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Compile Include="Samples\SDK 14393\ShyHeader\ShyHeader.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK Insider\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <None Include="project.json" />
     <Compile Include="Pages\HomePage.xaml.cs">
@@ -269,6 +270,7 @@
     <Content Include="Assets\Landmarks\FerrisWheel.png" />
     <Content Include="Assets\MainNavigationPointerOverBackgroundWide.png" />
     <Content Include="Assets\MissingThumbnail.png" />
+    <Content Include="Assets\Photos\no_border_pic27.jpg" />
     <Content Include="Assets\SampleThumbnails\AdvancedShadows.PNG" />
     <Content Include="Assets\SampleThumbnails\BackDropControlSample.PNG" />
     <Content Include="Assets\SampleThumbnails\BasicLayoutAndTransitions.PNG" />
@@ -333,6 +335,7 @@
     <Content Include="Assets\Gears_background.png" />
     <Content Include="Assets\SampleThumbnails\PullToAnimate.jpg" />
     <Content Include="Assets\SampleThumbnails\ShowHideImplicitWebview.PNG" />
+    <Content Include="Assets\SampleThumbnails\ShyHeader.PNG" />
     <Content Include="Assets\SampleThumbnails\SwipeScroller.png" />
     <Content Include="Assets\SampleThumbnails\TextShimmer.png" />
     <Content Include="Assets\SampleThumbnails\ThumbnailLighting.jpg" />
@@ -487,6 +490,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK 14393\ShyHeader\ShyHeader.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

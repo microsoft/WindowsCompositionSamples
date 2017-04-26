@@ -1,0 +1,135 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.ShyHeader"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="SamplePage_Loaded"
+    SizeChanged="Page_SizeChanged">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid>
+            <ScrollViewer x:Name="MyScrollviewer" Grid.Row="1" Padding="0,0,0,0">
+                <Grid>
+                    <Grid Grid.Row="1" x:Name="SquareGrid" Margin="0,300,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="ms-appx:///Assets/Photos/pic00.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic01.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic02.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic03.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic04.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+
+                        <Image Source="ms-appx:///Assets/Photos/pic05.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic06.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic07.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic08.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic09.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+
+                        <Image Source="ms-appx:///Assets/Photos/pic10.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic11.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic12.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic13.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic14.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+
+                        <Image Source="ms-appx:///Assets/Photos/pic15.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic16.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic17.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic18.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic19.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+
+                        <Image Source="ms-appx:///Assets/Photos/pic20.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic21.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic22.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic23.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic24.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+
+                        <Image Source="ms-appx:///Assets/Photos/pic25.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic26.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic27.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic28.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic29.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+
+                        <Image Source="ms-appx:///Assets/Photos/pic30.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic31.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic32.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic33.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic34.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+
+                        <Image Source="ms-appx:///Assets/Photos/pic35.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="7" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic36.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="7" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic37.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="7" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic38.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="7" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Photos/pic39.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="7" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+
+                    </Grid>
+                    <Grid x:Name="Header" Height="300" VerticalAlignment="Top">
+                        <ScrollViewer>
+                            <Grid>
+                                <Rectangle x:Name="BackgroundRectangle" Width="1050" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                                    <Rectangle.Fill>
+                                        <ImageBrush x:Name="BackgroundImage" ImageSource="ms-appx:///Assets/Photos/no_border_pic27.jpg" Stretch="UniformToFill" Opacity="0.6"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle x:Name="OverlayRectangle" Fill="#BFCFB5C0" Width="1050" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="TextContainer">
+                                    <Ellipse x:Name="ProfileImage" Height="150" Width="150" Margin="20,70,20,20">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="ms-appx:///Assets/Photos/no_border_pic27.jpg" Stretch="UniformToFill"/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,70,0,0">
+                                        <TextBlock x:Name="TitleBlock" Text="Lorem Ipsum" Foreground="White" FontSize="20"/>
+                                        <TextBlock x:Name="SubtitleBlock" Text="dolor sit amet" Foreground="White" FontSize="10" Margin="0,10,0,0"/>
+                                        <TextBlock x:Name="Blurb" Foreground="White" FontSize="12" Width="400" TextWrapping="Wrap" Margin="0,20,0,0">
+                                                <Run>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+                                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+                                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                                                </Run>
+                                        </TextBlock>
+                                        <TextBlock x:Name="MoreText" Text="More" Foreground="White" Margin="0,10,0,0"/>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
+                                            <StackPanel Orientation="Horizontal" x:Name="ButtonPanel">
+                                                <Button Padding="0" Foreground="White" Style="{ThemeResource TextBlockButtonStyle}">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <SymbolIcon Symbol="Play"/>
+                                                        <TextBlock Text="Play" Margin="10,0,0,0"/>
+                                                    </StackPanel>
+                                                </Button>
+                                                <Button Padding="0" Foreground="White" Style="{ThemeResource TextBlockButtonStyle}">
+                                                    <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                                                        <SymbolIcon Symbol="Add"/>
+                                                        <TextBlock Text="Add" Margin="10,0,0,0"/>
+                                                    </StackPanel>
+                                                </Button>
+                                                <Button Padding="0" Foreground="White" Style="{ThemeResource TextBlockButtonStyle}">
+                                                    <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                                                        <SymbolIcon Symbol="More"/>
+                                                    </StackPanel>
+                                                </Button>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</local:SamplePage>
