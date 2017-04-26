@@ -99,8 +99,11 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Compile Include="Samples\SDK 14393\ShyHeader\ShyHeader.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK 15063\OffsetStompingFix\OffsetStompingFix.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393">
+      <DependentUpon>OffsetStompingFix.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\SDK 15063\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 14393\ShyHeader\ShyHeader.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <None Include="project.json" />
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -308,6 +311,8 @@
     <Content Include="Assets\SampleThumbnails\NavigationFlow.PNG" />
     <Content Include="Assets\SampleThumbnails\NineGridResizing.PNG" />
     <Content Include="Assets\SampleThumbnails\NowPlaying.PNG" />
+    <Content Include="Assets\SampleThumbnails\OffsetStompingFix.PNG" />
+    <Content Include="Assets\SampleThumbnails\Offset_Stomping.gif" />
     <Content Include="Assets\SampleThumbnails\ParallaxingListviewItem.PNG" />
     <Content Include="Assets\SampleThumbnails\Perspective.png" />
     <Content Include="Assets\SampleThumbnails\PhotoPopupViewer.PNG" />
@@ -494,6 +499,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\SDK 14393\ShyHeader\ShyHeader.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK 15063\OffsetStompingFix\OffsetStompingFix.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
