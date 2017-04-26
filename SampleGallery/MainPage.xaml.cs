@@ -35,7 +35,7 @@ namespace CompositionSampleGallery
     {
         private static MainPage                 _instance;
         private ManagedSurface                  _splashSurface;
-#if SDKVERSION_INSIDER
+#if SDKVERSION_15063
         private static CompositionCapabilities  _capabilities;
 #endif
         private static bool                     _areEffectsSupported;
@@ -47,7 +47,7 @@ namespace CompositionSampleGallery
             _instance = this;
 
             // Get hardware capabilities and register changed event listener
-#if SDKVERSION_INSIDER
+#if SDKVERSION_15063
             _capabilities           = CompositionCapabilities.GetForCurrentView();
             _capabilities.Changed  += HandleCapabilitiesChangedAsync;
             _areEffectsSupported    = _capabilities.AreEffectsSupported();
@@ -98,7 +98,7 @@ namespace CompositionSampleGallery
             get { return _runtimeCapabilities; }
         }
 
-#if SDKVERSION_INSIDER
+#if SDKVERSION_15063
         private async void HandleCapabilitiesChangedAsync(CompositionCapabilities sender, object args)
         {
             _areEffectsSupported = _capabilities.AreEffectsSupported();
@@ -310,7 +310,8 @@ namespace CompositionSampleGallery
         {
             _10586 = 2,   // November Update (1511)
             _14393,       // Anniversary Update (1607)
-            _INSIDER      // Creators Update
+            _15063,       // Creators Update (1703)
+            _INSIDER      // Insiders
         };
 
         public RuntimeSupportedSDKs()
