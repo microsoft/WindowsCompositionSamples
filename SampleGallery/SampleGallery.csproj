@@ -759,6 +759,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExpressionBuilder\ExpressionBuilder\ExpressionBuilder.csproj">
+      <Project>{97f79cb4-fb7b-4dc3-8a08-28fa5694a73c}</Project>
+      <Name>ExpressionBuilder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SamplesCommon\SamplesCommon\SamplesCommon.csproj">
       <Project>{0b6a4830-d1ff-4018-baa2-7257eb4579fe}</Project>
       <Name>SamplesCommon</Name>

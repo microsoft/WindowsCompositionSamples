@@ -12,6 +12,7 @@
 //
 //*********************************************************
 
+using ExpressionBuilder;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -21,6 +22,8 @@ using Windows.UI.Xaml.Hosting;
 using System.Numerics;
 using Windows.UI.ViewManagement;
 using Windows.UI.Composition.Interactions;
+
+using EF = ExpressionBuilder.ExpressionFunctions;
 
 namespace CompositionSampleGallery
 {
@@ -54,26 +57,17 @@ namespace CompositionSampleGallery
         {
             _tracker = InteractionTracker.Create(_compositor);
 
-
             _interactionSource = VisualInteractionSource.Create(_root);
-
             _interactionSource.PositionYSourceMode = InteractionSourceMode.EnabledWithInertia;
-
-            _interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadOnly;
-
-            _tracker.InteractionSources.Add(_interactionSource);
-
-
+            _interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadOnly; 
+            _tracker.InteractionSources.Add(_interactionSource);        
             _tracker.MaxPosition = new Vector3(0, (float)Root.ActualHeight, 0);
 
             //
             // Use the Tacker's Position (negated) to apply to the Offset of the Image.
             //
 
-            var positionExpression = _compositor.CreateExpressionAnimation("-tracker.Position");
-            positionExpression.SetReferenceParameter("tracker", _tracker);
-
-            _image.StartAnimation("Offset", positionExpression);
+            _image.StartAnimation("Offset", -_tracker.GetReference().Position);
         }
 
         private void ActivateSpringForce()
@@ -84,13 +78,11 @@ namespace CompositionSampleGallery
             var modifier = InteractionTrackerInertiaMotion.Create(_compositor);
 
             // Set the condition to true (always)
-            modifier.Condition = _compositor.CreateExpressionAnimation("true");
+            modifier.SetCondition((BooleanNode)true);
 
             // Define a spring-like force, anchored at position 0.
-            modifier.Motion = _compositor.CreateExpressionAnimation(@"(-(this.target.Position.Y) * springConstant) - (dampingConstant * this.target.PositionVelocityInPixelsPerSecond.Y)");
-
-            modifier.Motion.SetScalarParameter("dampingConstant", dampingConstant);
-            modifier.Motion.SetScalarParameter("springConstant", springConstant);
+            var target = ExpressionValues.Target.CreateInteractionTrackerTarget();
+            modifier.SetMotion((-target.Position.Y * springConstant) - (dampingConstant * target.PositionVelocityInPixelsPerSecond.Y));
 
             _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
         }
@@ -105,9 +97,9 @@ namespace CompositionSampleGallery
             // Setup the gravity+bounce inertia modifier.
             //
 
-            string posY = "this.target.Position.Y";
-            string velY = "this.target.PositionVelocityInPixelsPerSecond.Y";
-
+            var target = ExpressionValues.Target.CreateInteractionTrackerTarget();
+            var posY = target.Position.Y;
+            var velY = target.PositionVelocityInPixelsPerSecond.Y;
 
             //
             // Gravity Force
@@ -115,9 +107,6 @@ namespace CompositionSampleGallery
 
             // Adding a factor of 100 since -9.8 pixels / second ^2 is not very fast.
             var gravity = -9.8f * 100;
-
-            // Always on.
-            string gravityForce = "gravity";
 
             //
             // Floor Force
@@ -132,7 +121,8 @@ namespace CompositionSampleGallery
             //
 
             // The amount the tracker is below the floor, capped to at most 5 below.
-            string amountBelowFloor = $"clamp(0, ({0} - {posY}), 5)";
+
+            var belowFloor = EF.Clamp(0, 0 - posY, 5);
 
             // The time slice our force engine uses.
             float dt = .01f;
@@ -150,22 +140,19 @@ namespace CompositionSampleGallery
             var weakestBounce = -1.1f / dt;
             var strongestBounce = -1.8f / dt;
 
-            string floorForce =
-                /*2.*/ $"(({posY} < ({0} + 1)) ? -gravity : 0) + " +
-                /*3.*/ $"((({velY} < 0) && ({posY} < {0})) ? lerp({weakestBounce}, {strongestBounce}, ({amountBelowFloor} / 5)) * {velY} : 0)";
+            var floorForceExpression = EF.Conditional(posY < 1,
+                                                      -gravity, 
+                                                      0) + 
+                                       EF.Conditional(EF.And(velY < 0f, posY < 0f), 
+                                                      EF.Lerp(weakestBounce, strongestBounce, belowFloor/5) * velY, 
+                                                      0);
 
             //
             // Apply the forces to the modifier
             //
-
             var modifier = InteractionTrackerInertiaMotion.Create(_compositor);
-
-            modifier.Condition = _compositor.CreateExpressionAnimation("true");
-
-            modifier.Motion = _compositor.CreateExpressionAnimation($"{gravityForce} + {floorForce}");
-
-            modifier.Motion.SetScalarParameter("gravity", gravity);
-
+            modifier.SetCondition((BooleanNode)true);
+            modifier.SetMotion(gravity + floorForceExpression);
             _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
         }
 

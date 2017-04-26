@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using ExpressionBuilder;
+using System.Numerics;
 using Windows.UI;
 using Windows.UI.Composition;
 
@@ -49,23 +50,18 @@ namespace CompositionSampleGallery.Samples.SDK_14393.NineGridResizing.NineGridSc
             hostVisual.Children.InsertAtTop(_borderedContent);
 
             // Run expression animations to manage the size of borderedContent child visual
-            var sizeXExpression = _compositor.CreateExpressionAnimation("parent.Size.X - (ninegrid.LeftInset*ninegrid.LeftInsetScale + ninegrid.RightInset*ninegrid.RightInsetScale)");
-            var sizeYExpression = _compositor.CreateExpressionAnimation("parent.Size.Y - (ninegrid.TopInset*ninegrid.TopInsetScale + ninegrid.BottomInset*ninegrid.BottomInsetScale)");
-            var offsetXExpression = _compositor.CreateExpressionAnimation("ninegrid.LeftInset*ninegrid.LeftInsetScale");
-            var offsetYExpression = _compositor.CreateExpressionAnimation("ninegrid.TopInset*ninegrid.TopInsetScale");
-            sizeXExpression.SetReferenceParameter("parent", hostVisual);
-            sizeXExpression.SetReferenceParameter("ninegrid", _nineGridBrush);
-            sizeYExpression.SetReferenceParameter("parent", hostVisual);
-            sizeYExpression.SetReferenceParameter("ninegrid", _nineGridBrush);
-            offsetXExpression.SetReferenceParameter("parent", hostVisual);
-            offsetXExpression.SetReferenceParameter("ninegrid", _nineGridBrush);
-            offsetYExpression.SetReferenceParameter("parent", hostVisual);
-            offsetYExpression.SetReferenceParameter("ninegrid", _nineGridBrush);
 
-            _borderedContent.StartAnimation("Size.X", sizeXExpression);
-            _borderedContent.StartAnimation("Size.Y", sizeYExpression);
-            _borderedContent.StartAnimation("Offset.X", offsetXExpression);
-            _borderedContent.StartAnimation("Offset.Y", offsetYExpression);
+            var hostNode = hostVisual.GetReference();
+            var nineBrush = _nineGridBrush.GetReference();
+            var xSizeExpression = hostNode.Size.X - (nineBrush.LeftInset * nineBrush.LeftInsetScale + nineBrush.RightInset * nineBrush.RightInsetScale);
+            var ySizeExpression = hostNode.Size.Y - (nineBrush.TopInset * nineBrush.TopInsetScale + nineBrush.BottomInset + nineBrush.BottomInsetScale);
+            var xOffsetExpression = nineBrush.LeftInset * nineBrush.LeftInsetScale;
+            var yOffsetExpression = nineBrush.TopInset * nineBrush.TopInsetScale;
+
+            _borderedContent.StartAnimation("Size.X", xSizeExpression);
+            _borderedContent.StartAnimation("Size.Y", ySizeExpression);
+            _borderedContent.StartAnimation("Offset.X", xOffsetExpression);
+            _borderedContent.StartAnimation("Offset.Y", yOffsetExpression);
         }    
     }
 }

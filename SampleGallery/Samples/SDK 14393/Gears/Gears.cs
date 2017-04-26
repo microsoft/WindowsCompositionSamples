@@ -12,6 +12,7 @@
 //
 //*********************************************************
 
+using ExpressionBuilder;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,7 +33,7 @@ namespace CompositionSampleGallery
     {
         private Compositor _compositor;
         private List<Visual> _gearVisuals;
-        private ExpressionAnimation _rotationExpression;
+        private ExpressionNode _rotateExpression;
         private ScalarKeyFrameAnimation _gearMotionScalarAnimation;
         private double _x = 87, _y = 0d, _width = 100, _height = 100;
         private double _gearDimension = 87;
@@ -47,7 +48,7 @@ namespace CompositionSampleGallery
 
         public static string StaticSampleName => "Gears";
         public override string SampleName => StaticSampleName;
-        public override string SampleDescription => "Demonstrates how to use ExpressionAnimations to update many Visual properites based off of one driving property. Press any button to see the gears spin.";
+        public override string SampleDescription => "Demonstrates how to use ExpressionAnimations to update many Visual properites based off of one driving property. Press the slow or fast buttons to see the gears spin.";
         public override string SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761162";
 
         public int Count
@@ -132,13 +133,11 @@ namespace CompositionSampleGallery
         private void ConfigureGearAnimation(Visual currentGear, Visual previousGear)
         {
             // If rotation expression is null then create an expression of a gear rotating the opposite direction
-            _rotationExpression = _rotationExpression ?? _compositor.CreateExpressionAnimation("-previousGear.RotationAngleInDegrees");
 
-            // put in placeholder parameters
-            _rotationExpression.SetReferenceParameter("previousGear", previousGear);
+            _rotateExpression = _rotateExpression ?? -previousGear.GetReference().RotationAngleInDegrees;
 
             // Start the animation based on the Rotation Angle in Degrees.
-            currentGear.StartAnimation("RotationAngleInDegrees", _rotationExpression);
+            currentGear.StartAnimation("RotationAngleInDegrees", _rotateExpression);
         }
 
         private void StartGearMotor(double secondsPerRotation)
@@ -149,8 +148,9 @@ namespace CompositionSampleGallery
                 _gearMotionScalarAnimation = _compositor.CreateScalarKeyFrameAnimation();
                 var linear = _compositor.CreateLinearEasingFunction();
 
-                _gearMotionScalarAnimation.InsertExpressionKeyFrame(0.0f, "this.StartingValue");
-                _gearMotionScalarAnimation.InsertExpressionKeyFrame(1.0f, "this.StartingValue + 360", linear);
+                var startingValue = ExpressionValues.StartingValue.CreateScalarStartingValue();
+                _gearMotionScalarAnimation.InsertExpressionKeyFrame(0.0f, startingValue);
+                _gearMotionScalarAnimation.InsertExpressionKeyFrame(1.0f, startingValue + 360f, linear);
 
                 _gearMotionScalarAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
             }
