@@ -71,11 +71,17 @@
                                         <VisualState x:Name="Normal">
                                             <VisualState.Setters>
                                                 <Setter Target="ContentPresenter.Background" Value="White" />
+                                                <Setter Target="ContentPresenter.BorderBrush" Value="{StaticResource MainNavigationSelectedForegroundColor}"/>
+                                                <Setter Target="ContentPresenter.Foreground" Value="{StaticResource MainNavigationSelectedForegroundColor}"/>
+                                                <Setter Target="ContentPresenter.BorderThickness" Value="2"/>
                                             </VisualState.Setters>
                                         </VisualState>
                                         <VisualState x:Name="PointerOver">
                                             <VisualState.Setters>
                                                 <Setter Target="ContentPresenter.Background" Value="{StaticResource DarkThemeForegroundPointerOver}" />
+                                                <Setter Target="ContentPresenter.BorderBrush" Value="{StaticResource MainNavigationSelectedForegroundColor}"/>
+                                                <Setter Target="ContentPresenter.Foreground" Value="{StaticResource MainNavigationSelectedForegroundColor}"/>
+                                                <Setter Target="ContentPresenter.BorderThickness" Value="2"/>
                                             </VisualState.Setters>
                                         </VisualState>
                                         <VisualState x:Name="Pressed">
