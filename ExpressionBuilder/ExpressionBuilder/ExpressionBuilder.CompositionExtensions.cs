@@ -39,19 +39,28 @@ namespace ExpressionBuilder
             {
                 return new ManipulationPropertySetReferenceNode(null, ps) as T;
             }
+            else if (typeof(T) == typeof(PointerPositionPropertySetReferenceNode))
+            {
+                return new PointerPositionPropertySetReferenceNode(null, ps) as T;
+            }
             else
             {
                 throw new System.Exception("Invalid property set specialization");
             }
         }
-        
+
         /// <summary> Connects the specified ExpressionNode with the specified property of the object. </summary>
+        /// <param name="propertyName">The name of the property that the expression will target.</param>
+        /// <param name="expressionNode">The root ExpressionNode that represents the ExpressionAnimation.</param>
         public static void StartAnimation(this CompositionObject compObject, string propertyName, ExpressionNode expressionNode)
         {
             compObject.StartAnimation(propertyName, CreateExpressionAnimationFromNode(compObject.Compositor, expressionNode));
         }
 
         /// <summary> Inserts a KeyFrame whose value is calculated using the specified ExpressionNode. </summary>
+        /// <param name="normalizedProgressKey">The time the key frame should occur at, expressed as a percentage of the animation Duration. Allowed value is from 0.0 to 1.0.</param>
+        /// <param name="expressionNode">The root ExpressionNode that represents the ExpressionAnimation.</param>
+        /// <param name="easing">The easing function to use when interpolating between frames.</param>
         public static void InsertExpressionKeyFrame(this KeyFrameAnimation keyframeAnimation, float normalizedProgressKey, ExpressionNode expressionNode, CompositionEasingFunction easing = null)
         {
             keyframeAnimation.InsertExpressionKeyFrame(normalizedProgressKey, expressionNode.ToExpressionString(), easing);
@@ -60,24 +69,28 @@ namespace ExpressionBuilder
         }
 
         /// <summary> Use the value of specified ExpressionNode to determine if this inertia modifier should be chosen. </summary>
+        /// <param name="expressionNode">The root ExpressionNode that represents the ExpressionAnimation.</param>
         public static void SetCondition(this InteractionTrackerInertiaRestingValue modifier, ExpressionNode expressionNode)
         {
             modifier.Condition = CreateExpressionAnimationFromNode(modifier.Compositor, expressionNode);
         }
 
         /// <summary> Use the value of specified ExpressionNode as the resting value for this inertia modifier. </summary>
+        /// <param name="expressionNode">The root ExpressionNode that represents the ExpressionAnimation.</param>
         public static void SetRestingValue(this InteractionTrackerInertiaRestingValue modifier, ExpressionNode expressionNode)
         {
             modifier.RestingValue = CreateExpressionAnimationFromNode(modifier.Compositor, expressionNode);
         }
 
         /// <summary> Use the value of specified ExpressionNode to determine if this inertia modifier should be chosen. </summary>
+        /// <param name="expressionNode">The root ExpressionNode that represents the ExpressionAnimation.</param>
         public static void SetCondition(this InteractionTrackerInertiaMotion modifier, ExpressionNode expressionNode)
         {
             modifier.Condition = CreateExpressionAnimationFromNode(modifier.Compositor, expressionNode);
         }
 
         /// <summary> Use the value of specified ExpressionNode to dictate the motion for this inertia modifier. </summary>
+        /// <param name="expressionNode">The root ExpressionNode that represents the ExpressionAnimation.</param>
         public static void SetMotion(this InteractionTrackerInertiaMotion modifier, ExpressionNode expressionNode)
         {
             modifier.Motion = CreateExpressionAnimationFromNode(modifier.Compositor, expressionNode);

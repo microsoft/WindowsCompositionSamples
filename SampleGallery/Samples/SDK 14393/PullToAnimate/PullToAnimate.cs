@@ -13,18 +13,16 @@
 //*********************************************************
 
 using ExpressionBuilder;
+using Microsoft.Graphics.Canvas.Effects;
 using System;
+using System.Numerics;
 using Windows.Foundation;
+using Windows.UI.Composition;
+using Windows.UI.Composition.Interactions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
-using Microsoft.Graphics.Canvas.Effects;
-using Windows.UI.ViewManagement;
-
-using System.Numerics;
-
-using Windows.UI.Composition;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Composition.Interactions;
+using Windows.UI.ViewManagement;
 
 using EF = ExpressionBuilder.ExpressionFunctions;
 

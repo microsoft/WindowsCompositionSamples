@@ -12,10 +12,13 @@
 //
 //*********************************************************
 
+using ExpressionBuilder;
 using System;
 using System.Numerics;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Hosting;
+
+using EF = ExpressionBuilder.ExpressionFunctions;
 
 namespace CompositionSampleGallery
 {
@@ -46,7 +49,7 @@ namespace CompositionSampleGallery
 
             // Grab the PropertySet containing the hover pointer data that will be used to drive the rotations
             // Note: We have a second UIElement we will grab the pointer data against and the other we will animate
-            var hoverPosition = ElementCompositionPreview.GetPointerPositionPropertySet(HitTestRect);
+            _hoverPositionPropertySet = ElementCompositionPreview.GetPointerPositionPropertySet(HitTestRect);
 
             // Calculate distance from corner of quadrant to Center
             var center = new Vector3((float)tiltImage.Width / 2, (float)tiltImage.Height / 2, 0);
@@ -55,40 +58,28 @@ namespace CompositionSampleGallery
             var distanceToCenter = (float)Math.Sqrt(xSquared + ySquared);
 
             // || DEFINE THE EXPRESSION FOR THE ROTATION ANGLE ||             
-            // The Visual will be rotated between -35 and +35 degrees depending on which "quadrant" the hover pointer is in.
-            // Conceptually, divide the image into the 4 Cartesian Quadrants. Starting from the top left going clockwise: 2, 1, 4, 3
-            // Quadrants 1 and 2 will have a positive rotation, while 3 and 4 will have negative rotations.
-            // The amount of rotation is defined by the distance from the hover point location to the center.            
-            var positiveRotateCheck = "(hover.Position.Y  < center.Y) || (hover.Position.X > center.X && hover.Position.Y == center.Y) ? ";
-            var positiveRotateValue = "35 * ((Clamp(Distance(center, hover.Position), 0, distanceToCenter) % distanceToCenter)/distanceToCenter) : ";
-            var negativeRotateCheck = "(hover.Position.Y > center.Y) || (hover.Position.X < center.X && hover.Position.Y == center.Y) ? ";
-            var negativeRotateValue = "-35 * ((Clamp(Distance(center, hover.Position), 0, distanceToCenter) % distanceToCenter)/distanceToCenter) : this.CurrentValue";
-            
-            var angleExpression = _compositor.CreateExpressionAnimation();
-            angleExpression.Expression = positiveRotateCheck + positiveRotateValue + negativeRotateCheck + negativeRotateValue;
-            angleExpression.SetReferenceParameter("hover", hoverPosition);
-            angleExpression.SetVector3Parameter("center", center);
-            angleExpression.SetScalarParameter("distanceToCenter", distanceToCenter);
-            _tiltVisual.StartAnimation("RotationAngleInDegrees", angleExpression);
+            // We calculate the Rotation Angle such that it increases from 0 to 35 as the cursor position moves away from the center.
+            // Combined with animating the Rotation Axis, the image is "push down" on the point at which the cursor is located.
+            // Note: We special case when the hover position is (0,0,0) as this is the starting hover position and and we want the image to be flat (rotationAngle = 0) at startup.             
+            var hoverPosition = _hoverPositionPropertySet.GetSpecializedReference<PointerPositionPropertySetReferenceNode>().Position;
+            var angleExpressionNode =
+                EF.Conditional(
+                    hoverPosition == new Vector3(0, 0, 0),
+                    ExpressionValues.CurrentValue.CreateScalarCurrentValue(),
+                    35 * ((EF.Clamp(EF.Distance(center, hoverPosition), 0, distanceToCenter) % distanceToCenter) / distanceToCenter));
+
+            _tiltVisual.StartAnimation("RotationAngleInDegrees", angleExpressionNode);
 
             // || DEFINE THE EXPRESSION FOR THE ROTATION AXIS ||             
-            // The RotationAxis will be defined as the axis perpendicular to vector position of the hover pointer.
-            // The axis is calculated by first converting the pointer position into the coordinate space where the center point (0, 0) is in the middle.
-            // The perpendicular axis is then calculated by transposing the cartesian x, y components and taking the minus sign of one.
-            // The axis is dependent on which quadrant or axis the pointer position is on.
-            var quad2Check = "(hover.Position.Y < center.Y && hover.Position.X < center.X) ? Vector3(-(-center.Y + hover.Position.Y), -center.X + hover.Position.X, 0) : ";
-            var quad1Check = "(hover.Position.Y < center.Y && hover.Position.X > center.X) ? Vector3(-(-center.Y + hover.Position.Y), hover.Position.X - center.X, 0) : ";
-            var quad4Check = "(hover.Position.Y > center.Y && hover.Position.X < center.X) ? Vector3((hover.Position.Y - center.Y), center.X - hover.Position.X, 0) : ";
-            var quad3Check = "(hover.Position.Y > center.Y && hover.Position.X > center.X) ? Vector3((hover.Position.Y - center.Y), -(hover.Position.X - center.X), 0) : ";
-            var xAxisCheck = "(hover.Position.Y == center.Y && hover.Position.X != center.X) ? Vector3(0, center.X, 0) : ";
-            var yAxisCheck = "(hover.Position.Y != center.Y && hover.Position.X == center.X) ? Vector3(center.Y, 0, 0) : this.CurrentValue";
+            // The RotationAxis will be defined as the axis perpendicular to vector position of the hover pointer (vector from center to hover position).
+            // The axis is a vector calculated by first converting the pointer position into the coordinate space where the center point (0, 0) is in the middle.
+            // The perpendicular axis is then calculated by transposing the cartesian x, y components and negating one (e.g. Vector3(-y,x,0) )
+            var axisAngleExpressionNode = EF.Vector3(
+                -(hoverPosition.Y - center.Y) * EF.Conditional(hoverPosition.Y == center.Y, 0, 1),
+                (hoverPosition.X - center.X) * EF.Conditional(hoverPosition.X == center.X, 0, 1),
+                0);
 
-            var axisAngleExpression = _compositor.CreateExpressionAnimation();
-            axisAngleExpression.Expression = quad1Check + quad2Check + quad3Check + quad4Check + xAxisCheck + yAxisCheck;
-            axisAngleExpression.SetReferenceParameter("hover", hoverPosition);
-            axisAngleExpression.SetVector3Parameter("center", center);
-            _tiltVisual.StartAnimation("RotationAxis", axisAngleExpression);
-
+            _tiltVisual.StartAnimation("RotationAxis", axisAngleExpressionNode);
         }
 
         // Define a perspective for the image so a perceived z-distance will be shown when the image rotates
@@ -119,5 +110,6 @@ namespace CompositionSampleGallery
         private ContainerVisual _container;
         private Compositor _compositor;
         private Visual _tiltVisual;
+        private CompositionPropertySet _hoverPositionPropertySet;
     }
 }

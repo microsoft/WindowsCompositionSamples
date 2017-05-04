@@ -13,17 +13,17 @@
 //*********************************************************
 
 using ExpressionBuilder;
+using SamplesCommon;
 using System;
 using System.Collections.Generic;
-using Windows.UI;
-using Windows.UI.Xaml;
 using System.Numerics;
+using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Composition.Interactions;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
-using Windows.Foundation;
 using Windows.UI.Xaml.Input;
-using SamplesCommon;
 using Microsoft.Graphics.Canvas.Text;
 
 using EF = ExpressionBuilder.ExpressionFunctions;

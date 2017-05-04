@@ -133,6 +133,7 @@
     <Compile Include="ReferenceNodes\ExpressionBuilder.InteractionTrackerReferenceNode.cs" />
     <Compile Include="ReferenceNodes\ExpressionBuilder.ManipulationPropertySetReferenceNode.cs" />
     <Compile Include="ReferenceNodes\ExpressionBuilder.NineGridBrushReferenceNode.cs" />
+    <Compile Include="ReferenceNodes\ExpressionBuilder.PointerPositionPropertySet.cs" />
     <Compile Include="ReferenceNodes\ExpressionBuilder.PointLightReferenceNode.cs" />
     <Compile Include="ReferenceNodes\ExpressionBuilder.PropertySetReferenceNode.cs" />
     <Compile Include="ReferenceNodes\ExpressionBuilder.ReferenceNode.cs" />
