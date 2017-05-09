@@ -108,8 +108,8 @@
                                 x:Name="DataTemplateStackPanel"
                                 HorizontalAlignment="Center" 
                                 VerticalAlignment="Center"
-                                Background="#9F363636"
-                                Padding="10">
+                                Background="#BF363636"
+                                Padding="30,10,30,10">
                                     <TextBlock 
                                         x:Name="DataTemplateHeadlineTextBlock" 
                                         Text="{x:Bind Path=Title}" 

@@ -236,6 +236,7 @@
     <Compile Include="Shared\FeaturedSamples.xaml.cs">
       <DependentUpon>FeaturedSamples.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Shared\MainNavigationViewModel.cs" />
     <Compile Include="Shared\SharedResourceDictionaries.xaml.cs">
       <DependentUpon>SharedResourceDictionaries.xaml</DependentUpon>
     </Compile>
@@ -243,9 +244,6 @@
       <DependentUpon>Social.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shared\LocalDataSource.cs" />
-    <Compile Include="Shared\MainNavigation.xaml.cs">
-      <DependentUpon>MainNavigation.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Shared\SampleDefinition.cs" />
     <Compile Include="Shared\SampleHost.xaml.cs">
       <DependentUpon>SampleHost.xaml</DependentUpon>
@@ -275,6 +273,7 @@
     <Content Include="Assets\BannerImages\PullToAnimateBanner.PNG" />
     <Content Include="Assets\Appointment.png" />
     <Content Include="Assets\Background.png" />
+    <Content Include="Assets\BannerImages\ShyHeader.png" />
     <Content Include="Assets\FB-f-Logo__blue_57.png" />
     <Content Include="Assets\Landmarks\SpaceNeedle.png" />
     <Content Include="Assets\Landmarks\PikePlaceMarket.png" />
@@ -395,6 +394,7 @@
     <Content Include="Assets\WindowsInsiders\Unicorn.png" />
     <Content Include="Assets\Windows_logo_Cyan_rgb_D.png" />
     <Content Include="Assets\ZOrderScrolling.jpg" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Samples\SDK 10586\Perspective\jellyfish.jpg" />
     <Content Include="Samples\SDK 10586\TransitionAnimation-FlipToReveal\Image.jpg" />
     <Content Include="Samples\SDK 14393\ForegroundFocusEffects\Mask.png" />
@@ -700,10 +700,6 @@
     <Page Include="Samples\SDK 15063\CompCapabilities\CompCapabilities.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Shared\MainNavigation.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Shared\FeaturedSamples.xaml">
       <SubType>Designer</SubType>

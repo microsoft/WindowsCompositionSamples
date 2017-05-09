@@ -9,7 +9,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
+    <Grid x:Name="MainGrid">
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -21,6 +21,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="CategoryDescriptionTextBlock.Style" Value="{StaticResource CategoryDescriptionTextBlockStyleWide}" />
+                        <Setter Target="MainGrid.Background" Value="White" />
                     </VisualState.Setters>
                 </VisualState>
 
@@ -31,6 +32,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="CategoryDescriptionTextBlock.Style" Value="{StaticResource CategoryDescriptionTextBlockStyleNarrow}" />
+                        <Setter Target="MainGrid.Background" Value="Black" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -41,17 +43,17 @@
             <StackPanel>
                 <!-- Featured transition samples -->
                 <local:FeaturedSamples 
-                x:Name="FeaturedSampleControl" 
-                Description="take a gander."
-                Background="{StaticResource CategoryPageFeaturedSampelsBackground}"
-                Foreground="Black"/>
+                    x:Name="FeaturedSampleControl" 
+                    Description="take a gander."
+                    Background="{StaticResource CategoryPageFeaturedSampelsBackground}"
+                    Foreground="Black"/>
                 <!-- End featured transition samples -->
 
                 <TextBlock x:Name="CategoryDescriptionTextBlock" Style="{StaticResource CategoryDescriptionTextBlockStyleWide}" />
 
                 <!-- Samples list -->
                 <local:BodyAppList
-                x:Name="FullSampleList" />
+                    x:Name="FullSampleList" />
                 <!-- End samples list -->
 
                 <!-- Footer -->

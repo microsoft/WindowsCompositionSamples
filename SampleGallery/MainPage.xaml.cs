@@ -15,14 +15,17 @@
 using SamplesCommon;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Metadata;
 using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Core;
 using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
@@ -40,24 +43,32 @@ namespace CompositionSampleGallery
 #endif
         private static bool                     _areEffectsSupported;
         private static bool                     _areEffectsFast;
-        private static RuntimeSupportedSDKs      _runtimeCapabilities;
+        private static RuntimeSupportedSDKs     _runtimeCapabilities;
+        private MainNavigationViewModel         _mainNavigation;
+        private Frame                           _currentFrame;
 
         public MainPage(Rect imageBounds)
         {
             _instance = this;
-
-            // Get hardware capabilities and register changed event listener
-#if SDKVERSION_15063
-            _capabilities           = CompositionCapabilities.GetForCurrentView();
-            _capabilities.Changed  += HandleCapabilitiesChangedAsync;
-            _areEffectsSupported    = _capabilities.AreEffectsSupported();
-            _areEffectsFast         = _capabilities.AreEffectsFast();
-#else
-            _areEffectsSupported    = true;
-            _areEffectsFast         = true;
-#endif
             _runtimeCapabilities = new RuntimeSupportedSDKs();
+            _currentFrame = null;
+
+            // Get hardware capabilities and register changed event listener only when targeting the 
+            // appropriate SDK version and the runtime supports this version
+            if (_runtimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._15063))
+            {
+                _capabilities = CompositionCapabilities.GetForCurrentView();
+                _capabilities.Changed += HandleCapabilitiesChangedAsync;
+                _areEffectsSupported = _capabilities.AreEffectsSupported();
+                _areEffectsFast = _capabilities.AreEffectsFast();
+            }
+            else
+            {
+                _areEffectsSupported = true;
+                _areEffectsFast = true;
+            }
             this.InitializeComponent();
+            _mainNavigation = new MainNavigationViewModel();
 
             // Initialize the image loader
             ImageLoader.Initialize(ElementCompositionPreview.GetElementVisual(this).Compositor);
@@ -65,18 +76,31 @@ namespace CompositionSampleGallery
             // Show the custome splash screen
             ShowCustomSplashScreen(imageBounds);
 
-            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = false;
 
-        }
+#if SDKVERSION_INSIDER
+            // Apply acrylic styling to the navigation and caption
+            if (_runtimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._INSIDER))
+            { 
+                // Extend the app into the titlebar so that we can apply acrylic
+                CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+                ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                titleBar.ButtonBackgroundColor = Colors.Transparent;
+                titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
-        private void OnBackRequested(object sender, BackRequestedEventArgs e)
-        {
-            if (MainFrame.CanGoBack)
-            {
-                e.Handled = true;
-                MainFrame.GoBack();
+                // Apply acrylic to the main navigation
+                Windows.UI.Xaml.Media.AcrylicBrush myBrush = new Windows.UI.Xaml.Media.AcrylicBrush();
+                myBrush.BackgroundSource = Windows.UI.Xaml.Media.AcrylicBackgroundSource.HostBackdrop;
+                myBrush.TintColor = Color.FromArgb(255, 255, 255, 255);
+                myBrush.FallbackColor = Color.FromArgb(255, 255, 255, 255);
+                myBrush.TintOpacity = 0.6;
+                MainPageGrid.Background = myBrush;
+                TitleBarRow.Height = new GridLength(31);
             }
+#endif
         }
+
+        public MainNavigationViewModel MainNavigation => _mainNavigation;
 
         public static MainPage Instance
         {
@@ -104,9 +128,9 @@ namespace CompositionSampleGallery
             _areEffectsSupported = _capabilities.AreEffectsSupported();
             _areEffectsFast = _capabilities.AreEffectsFast();
 
-            if (MainFrame.Content is SampleHost host)
+            if (_currentFrame.Content is SampleHost host)
             {
-                SamplePage page = (SamplePage)host.ContentFrame.Content;
+                SamplePage page = (SamplePage)host.Content;
                 page.OnCapabiliesChanged(_areEffectsSupported, _areEffectsFast);
             }
 
@@ -209,8 +233,8 @@ namespace CompositionSampleGallery
             scaleUpSplashAnimation.Duration = duration;
 
             // Configure the grid visual to scale from the center
-            Visual gridVisual = ElementCompositionPreview.GetElementVisual(MainFrame);
-            gridVisual.Size = new Vector2((float)MainFrame.ActualWidth, (float)MainFrame.ActualHeight);
+            Visual gridVisual = ElementCompositionPreview.GetElementVisual(MainPivot);
+            gridVisual.Size = new Vector2((float)MainPivot.ActualWidth, (float)MainPivot.ActualHeight);
             gridVisual.CenterPoint = new Vector3(gridVisual.Size.X, gridVisual.Size.Y, 0) * .5f;
 
 
@@ -243,59 +267,43 @@ namespace CompositionSampleGallery
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            NavigateToPage(typeof(HomePage));
-
             // Now that loading is complete, dismiss the custom splash screen
             HideCustomSplashScreen();
         }
 
-        public void NavigateToPage(Type page, object parameter = null)
-        {
-            MainFrame.Navigate(page, parameter);
-        }
-
         private void MainFrame_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
+            // Cache a reference to the current frame
+            _currentFrame = (Frame)sender;
+
+            // Show or hide the global back button
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                ((Frame)sender).CanGoBack ?
+                _currentFrame.CanGoBack ?
                 AppViewBackButtonVisibility.Visible :
                 AppViewBackButtonVisibility.Collapsed;
-
-            // Close the SplitView if it's open
-            if (MainNavigationSplitView.IsPaneOpen)
-            {
-                MainNavigationSplitView.IsPaneOpen = false;
-            }
-        }
-
-        private void HamburgerButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainNavigationSplitView.IsPaneOpen = !MainNavigationSplitView.IsPaneOpen;
-
-            if (MainNavigationSplitView.IsPaneOpen)
-            {
-                MainNavigationSplitView.OpenPaneLength = this.ActualWidth;
-            }
-
-        }
-
-        private void CloseSplitViewPane()
-        {
-            MainNavigationSplitView.IsPaneOpen = false;
         }
 
         public static void FeaturedSampleList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            SampleDefinition sample = (SampleDefinition)e.ClickedItem;
+            MainNavigationViewModel.NavigateToSample(sender, e);
+        }
 
-            foreach (SampleDefinition definition in SampleDefinitions.Definitions)
-            {
-                if (sample.Name == definition.Name)
-                {
-                    MainPage.Instance.NavigateToPage(typeof(SampleHost), definition);
-                    break;
-                }
-            }
+        // Load the category pages into the frame of each PivotItem
+        private void Frame_Loaded(object sender, RoutedEventArgs e)
+        {
+            NavigationItem navItem = (NavigationItem)(((Frame)sender).DataContext);
+            ((Frame)sender).Navigate(navItem.PageType, navItem);
+        }
+
+        // When navigating to a pivotitem, reload the main page and hide the back 
+        // button
+        private void MainPivot_PivotItemLoading(Pivot sender, PivotItemEventArgs args)
+        {
+            NavigationItem navItem = (NavigationItem)((((PivotItemEventArgs)args).Item).DataContext);
+            Frame pivotItemFrame = (Frame)(((PivotItem)args.Item).ContentTemplateRoot);
+            pivotItemFrame.Navigate(navItem.PageType, navItem);
+
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
     }
 
@@ -303,8 +311,7 @@ namespace CompositionSampleGallery
     // Windows.Foundation.UniversalApiContract of the runtime
     public class RuntimeSupportedSDKs
     {
-        Dictionary<SDKVERSION, bool> _supportedSDKs;
-        List<SDKVERSION> _allSupportedSDKs;
+        List<SDKVERSION> _supportedSDKs;
 
         public enum SDKVERSION
         {
@@ -316,28 +323,23 @@ namespace CompositionSampleGallery
 
         public RuntimeSupportedSDKs()
         {
-            _supportedSDKs = new Dictionary<SDKVERSION, bool>();
-            _allSupportedSDKs = new List<SDKVERSION>();
+            _supportedSDKs = new List<SDKVERSION>();
 
             // Determine which versions of the SDK are supported on the runtime
             foreach(SDKVERSION v in Enum.GetValues(typeof(SDKVERSION)))
             {
-                bool versionSupported = false;
-                if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", (ushort)v))
+                if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", (ushort)Convert.ToInt32(v)))
                 {
-                    versionSupported = true;
-                    _allSupportedSDKs.Add(v);
+                    _supportedSDKs.Add(v);
                 }
-                _supportedSDKs.Add(v, versionSupported);
-                _allSupportedSDKs.Add(v);
             }
         }
 
         public bool IsSdkVersionRuntimeSupported(SDKVERSION sdkVersion)
         {
-            if (_supportedSDKs.ContainsKey(sdkVersion))
+            if(_supportedSDKs.Contains(sdkVersion))
             {
-                return _supportedSDKs[sdkVersion];
+                return true;
             }
             else
             {
@@ -349,7 +351,7 @@ namespace CompositionSampleGallery
         {
             get
             {
-                return _allSupportedSDKs;
+                return _supportedSDKs;
             }
         }
     }
