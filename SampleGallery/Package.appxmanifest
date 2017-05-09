@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="46936PHPete.Windows.UI.CompositionSampleGallery" Publisher="CN=B3C1ACF3-CF61-4DDF-9AE7-AC546C869D6E" Version="1.1.5.0" />
+  <Identity Name="46936PHPete.Windows.UI.CompositionSampleGallery" Publisher="CN=B3C1ACF3-CF61-4DDF-9AE7-AC546C869D6E" Version="1.1.7.0" />
   <mp:PhoneIdentity PhoneProductId="12b3cd41-eff7-4b21-b37a-09583604a027" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Windows.UI.Composition Sample Gallery</DisplayName>
+    <DisplayName>Windows UI Sample Gallery</DisplayName>
     <PublisherDisplayName>Peter Felts</PublisherDisplayName>
     <Logo>Assets\StoreAssets\StoreLogo.png</Logo>
   </Properties>
