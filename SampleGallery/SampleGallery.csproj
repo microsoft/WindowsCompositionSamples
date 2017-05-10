@@ -106,11 +106,6 @@
     <Compile Include="Samples\SDK 15063\PointerRotate\PointerRotate.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393">
       <DependentUpon>PointerRotate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\SDK 15063\BrushInterop\BackdropTintBlurBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
-    <Compile Include="Samples\SDK 15063\BrushInterop\BrushInterop.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
-    <Compile Include="Samples\SDK 15063\BrushInterop\GreyHostBackdropBrushcs.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
-    <Compile Include="Samples\SDK 15063\BrushInterop\ImageEffectBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
-    <Compile Include="Samples\SDK 15063\BrushInterop\WhiteHostBackdropBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <None Include="project.json" />
     <Compile Include="Pages\HomePage.xaml.cs">
@@ -517,10 +512,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\SDK 15063\PointerRotate\PointerRotate.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\SDK 15063\BrushInterop\BrushInterop.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

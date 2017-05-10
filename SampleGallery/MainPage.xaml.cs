@@ -88,14 +88,12 @@ namespace CompositionSampleGallery
                 titleBar.ButtonBackgroundColor = Colors.Transparent;
                 titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
+                // Apply a customized control template to the pivot
+                MainPivot.Template = (ControlTemplate)Application.Current.Resources["PivotControlTemplate"];
+
                 // Apply acrylic to the main navigation
-                Windows.UI.Xaml.Media.AcrylicBrush myBrush = new Windows.UI.Xaml.Media.AcrylicBrush();
-                myBrush.BackgroundSource = Windows.UI.Xaml.Media.AcrylicBackgroundSource.HostBackdrop;
-                myBrush.TintColor = Color.FromArgb(255, 255, 255, 255);
-                myBrush.FallbackColor = Color.FromArgb(255, 255, 255, 255);
-                myBrush.TintOpacity = 0.6;
-                MainPageGrid.Background = myBrush;
                 TitleBarRow.Height = new GridLength(31);
+                TitleBarGrid.Background = (Brush)Application.Current.Resources["SystemControlAcrylicMediumWindowBrush"];
             }
 #endif
         }

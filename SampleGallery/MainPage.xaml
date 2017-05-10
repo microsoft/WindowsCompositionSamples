@@ -23,7 +23,9 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Style="{ThemeResource CaptionTextBlockStyle}" Padding="59,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">Windows UI Sample Gallery</TextBlock>
+        <Grid x:Name="TitleBarGrid" Grid.Row="0">
+            <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Padding="59,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">Windows UI Sample Gallery</TextBlock>
+        </Grid>
         <Pivot 
             x:Name="MainPivot" 
             Grid.Row="1" 
