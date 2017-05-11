@@ -15,12 +15,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace CompositionSampleGallery
 {
-    public sealed partial class MainNavigation : UserControl
+    public class MainNavigationViewModel
     {
+        private List<NavigationItem> _mainMenuList;
 
         // Category description text
         public const string CategoryDescritpion_SeamlessTransitions = @"How do you delight your users and focus their attention across property changes, page navigations, and layout changes?
@@ -57,32 +59,50 @@ By using Expressions, constructs like springs, and directly animating velocity/a
             }
         }
 
-        public MainNavigation()
+        public MainNavigationViewModel()
         {
-            this.InitializeComponent();
 
             // Build a collection used to populate the navigation menu. This is where you can define the display names of
             // each menu item and which page they map to.
-            List<NavigationItem> mainMenuList = new List<NavigationItem>();
-            mainMenuList.Add(new NavigationItem("Home", SampleCategory.Conceptual /* unused */, typeof(HomePage)));
-            AddNavigationItem(ref mainMenuList, "Seamless Transitions",      SampleCategory.SeamlessTransitions,      typeof(BaseCategoryPage),         categoryDescription: CategoryDescritpion_SeamlessTransitions);
-            AddNavigationItem(ref mainMenuList, "Dynamic Human Interaction", SampleCategory.DynamicHumanInteractions, typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_DynamicHumanInteractions);
-            AddNavigationItem(ref mainMenuList, "Real-World UI",             SampleCategory.RealWorldUI,              typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_RealWorldUI);
-            AddNavigationItem(ref mainMenuList, "Contextual UI",             SampleCategory.ContextualUI,             typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_ContextualUI);
-            AddNavigationItem(ref mainMenuList, "Natural Motion",            SampleCategory.NaturalMotion,            typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_NaturalMotion);
-            AddNavigationItem(ref mainMenuList, "Conceptual",                SampleCategory.Conceptual,               typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Conceptual);
+            _mainMenuList = new List<NavigationItem>();
+            _mainMenuList.Add(new NavigationItem("Home", SampleCategory.Conceptual /* unused */, typeof(HomePage)));
+            AddNavigationItem(ref _mainMenuList, "Seamless Transitions",      SampleCategory.SeamlessTransitions,      typeof(BaseCategoryPage),         categoryDescription: CategoryDescritpion_SeamlessTransitions);
+            AddNavigationItem(ref _mainMenuList, "Dynamic Human Interaction", SampleCategory.DynamicHumanInteractions, typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_DynamicHumanInteractions);
+            AddNavigationItem(ref _mainMenuList, "Real-World UI",             SampleCategory.RealWorldUI,              typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_RealWorldUI);
+            AddNavigationItem(ref _mainMenuList, "Contextual UI",             SampleCategory.ContextualUI,             typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_ContextualUI);
+            AddNavigationItem(ref _mainMenuList, "Natural Motion",            SampleCategory.NaturalMotion,            typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_NaturalMotion);
+            AddNavigationItem(ref _mainMenuList, "Conceptual",                SampleCategory.Conceptual,               typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Conceptual);
 
-            CategoriesListView.ItemsSource = mainMenuList;
         }
 
-        private void CategoriesListView_ItemClick(object sender, ItemClickEventArgs e)
+        public List<NavigationItem> MainMenuList => _mainMenuList;
+
+        // When a sample item is clicked, walk up and find the parent frame and
+        // have that frame navigate to the sample
+        public static void NavigateToSample(object sender, ItemClickEventArgs e)
         {
-            // navigate to the corresonding page
-            NavigationItem navItem = e.ClickedItem as NavigationItem;
-            if (navItem != null)
+            Frame pivotItemFrame = GetPivotFrame((FrameworkElement)sender);
+            if(pivotItemFrame != null)
             {
-                MainPage.Instance.NavigateToPage(navItem.PageType, navItem);
+                SampleDefinition sample = (SampleDefinition)e.ClickedItem;
+                pivotItemFrame.Navigate(typeof(SampleHost), sample);
             }
+        }
+
+        // Given a UIElement, walk up the logical tree until the main pivot frame
+        // is found
+        public static Frame GetPivotFrame(FrameworkElement element)
+        {
+            FrameworkElement parent = (FrameworkElement)element.Parent;
+            while (parent != null)
+            {
+                if (parent.GetType() == typeof(Frame) && parent.Name == "PivotItemFrame")
+                {
+                    break;
+                }
+                parent = (FrameworkElement)parent.Parent;
+            }
+            return (Frame)parent;
         }
     }
 

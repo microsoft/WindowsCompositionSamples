@@ -12,6 +12,7 @@
 //
 //*********************************************************
 
+using ExpressionBuilder;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Effects;
 using SamplesCommon;
@@ -285,12 +286,13 @@ namespace CompositionSampleGallery
         void UpdateAnimationState()
         {
             bool enabled = AnimateCheckBox.IsChecked == true ? true : false;
-
+ 
             Vector3KeyFrameAnimation offsetAnimation = _compositor.CreateVector3KeyFrameAnimation();
-            offsetAnimation.InsertExpressionKeyFrame(0, "this.StartingValue");
-            offsetAnimation.InsertExpressionKeyFrame(.33f, "this.StartingValue + Vector3(0, 0, -800)");
-            offsetAnimation.InsertExpressionKeyFrame(.66f, "this.StartingValue + Vector3(0, 0, 800)");
-            offsetAnimation.InsertExpressionKeyFrame(1, "this.StartingValue");
+            var vec3StartingValue = ExpressionValues.StartingValue.CreateVector3StartingValue();
+            offsetAnimation.InsertExpressionKeyFrame(0, vec3StartingValue);
+            offsetAnimation.InsertExpressionKeyFrame(.33f, vec3StartingValue + ExpressionFunctions.Vector3(0, 0, -800));
+            offsetAnimation.InsertExpressionKeyFrame(.66f, vec3StartingValue + ExpressionFunctions.Vector3(0, 0, 800));
+            offsetAnimation.InsertExpressionKeyFrame(1, vec3StartingValue);
             offsetAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
             offsetAnimation.Duration = TimeSpan.FromSeconds(10);
 

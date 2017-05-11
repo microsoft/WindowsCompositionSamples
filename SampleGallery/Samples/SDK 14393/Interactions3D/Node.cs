@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Graphics.Canvas.Text;
+using System;
 using System.Numerics;
-using Microsoft.Graphics.Canvas.Text;
 
 namespace CompositionSampleGallery
 {

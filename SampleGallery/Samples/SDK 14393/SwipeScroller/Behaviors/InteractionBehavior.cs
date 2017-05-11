@@ -12,14 +12,16 @@
 //
 //*********************************************************
 
+using ExpressionBuilder;
+using Microsoft.Xaml.Interactivity;
 using System;
+using System.Numerics;
 using Windows.UI.Composition;
+using Windows.UI.Composition.Interactions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
-using Windows.UI.Composition.Interactions;
-using Microsoft.Xaml.Interactivity;
 
-using System.Numerics;
+using EF = ExpressionBuilder.ExpressionFunctions;
 
 namespace CompositionSampleGallery.Samples.SDK_14393.SwipeScroller.Behaviors
 {
@@ -137,21 +139,20 @@ namespace CompositionSampleGallery.Samples.SDK_14393.SwipeScroller.Behaviors
             var endpoint1 = InteractionTrackerInertiaRestingValue.Create(_compositor);
 
             // Use this endpoint when the natural resting position of the interaction is less than the halfway point 
-            endpoint1.Condition = _compositor.CreateExpressionAnimation(
-                    "this.target.NaturalRestingPosition.y < (this.target.MaxPosition.y - this.target.MinPosition.y) / 2");
+            var trackerTarget = ExpressionValues.Target.CreateInteractionTrackerTarget();
+            endpoint1.SetCondition(trackerTarget.NaturalRestingPosition.Y < (trackerTarget.MaxPosition.Y - trackerTarget.MinPosition.Y) / 2);
 
             // Set the result for this condition to make the InteractionTracker's y position the minimum y position
-            endpoint1.RestingValue = _compositor.CreateExpressionAnimation("this.target.MinPosition.y");
+            endpoint1.SetRestingValue(trackerTarget.MinPosition.Y);
 
             // Setup a possible inertia endpoint (snap point) for the InteractionTracker's maximum position
             var endpoint2 = InteractionTrackerInertiaRestingValue.Create(_compositor);
 
             //Use this endpoint when the natural resting position of the interaction is more than the halfway point 
-            endpoint2.Condition = _compositor.CreateExpressionAnimation(
-                    "this.target.NaturalRestingPosition.y >= (this.target.MaxPosition.y - this.target.MinPosition.y) / 2");
+            endpoint2.SetCondition(trackerTarget.NaturalRestingPosition.Y >= (trackerTarget.MaxPosition.Y - trackerTarget.MinPosition.Y) / 2);
 
             //Set the result for this condition to make the InteractionTracker's y position the maximum y position
-            endpoint2.RestingValue = _compositor.CreateExpressionAnimation("this.target.MaxPosition.y");
+            endpoint2.SetRestingValue(trackerTarget.MaxPosition.Y);
 
             _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { endpoint1, endpoint2 });
         }
@@ -161,33 +162,24 @@ namespace CompositionSampleGallery.Samples.SDK_14393.SwipeScroller.Behaviors
             // Create a drop shadow to be animated by the manipulation
             var shadow = _compositor.CreateDropShadow();
             shadowVisual.Shadow = shadow;
+            _props.InsertScalar("progress", 0);
 
             // Create an animation that tracks the progress of the manipulation and stores it in a the PropertySet _props
-            ExpressionAnimation progressAnimation = _compositor.CreateExpressionAnimation("_tracker.position.y / _tracker.maxposition.y");
-            progressAnimation.SetReferenceParameter("_tracker", _tracker);
-            _props.InsertScalar("progress", 0);
-            _props.StartAnimation("progress", progressAnimation);
+            var trackerNode = _tracker.GetReference();
+            _props.StartAnimation("progress", trackerNode.Position.Y / trackerNode.MaxPosition.Y);
 
             // Create an animation that scales up the infoVisual based on the manipulation progress
-            ExpressionAnimation infoScaleAnimation = _compositor.CreateExpressionAnimation("Vector3(1,1,1) * lerp(1, 1.2, props.progress)");
-            infoScaleAnimation.SetReferenceParameter("props", _props);
-            infoVisual.StartAnimation("scale", infoScaleAnimation);
+            var propSetProgress = _props.GetReference().GetScalarProperty("progress");
+            infoVisual.StartAnimation("Scale", EF.Vector3(1, 1, 1) * EF.Lerp(1, 1.2f, propSetProgress));
 
             // Create an animation that changes the offset of the photoVisual and shadowVisual based on the manipulation progress
-            ExpressionAnimation photoOffsetAnimation = _compositor.CreateExpressionAnimation("-120 * props.progress");
-            photoOffsetAnimation.SetReferenceParameter("props", _props);
-            photoVisual.StartAnimation("offset.y", photoOffsetAnimation);
-            shadowVisual.StartAnimation("offset.y", photoOffsetAnimation);
+            var photoOffsetExp = -120f * _props.GetReference().GetScalarProperty("Progress");
+            photoVisual.StartAnimation("offset.y", photoOffsetExp);
+            shadowVisual.StartAnimation("offset.y", photoOffsetExp);
 
             // Create an animation that fades in the info visual based on the manipulation progress
-            ExpressionAnimation infoOpacityAnimation = _compositor.CreateExpressionAnimation("lerp(0, 1, props.progress)");
-            infoOpacityAnimation.SetReferenceParameter("props", _props);
-            infoVisual.StartAnimation("opacity", infoOpacityAnimation);
-
-            // Create an animation that changes the blur radius based on the manipulation progress
-            ExpressionAnimation shadowBlurAnimation = _compositor.CreateExpressionAnimation("lerp(1, 50, props.progress)");
-            shadowBlurAnimation.SetReferenceParameter("props", _props);
-            shadow.StartAnimation("blurradius", shadowBlurAnimation);
+            infoVisual.StartAnimation("opacity", EF.Lerp(0, 1, _props.GetReference().GetScalarProperty("Progress")));
+            shadow.StartAnimation("blurradius", EF.Lerp(1, 50, _props.GetReference().GetScalarProperty("Progress")));
         }
 
         private static void OnHittestContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

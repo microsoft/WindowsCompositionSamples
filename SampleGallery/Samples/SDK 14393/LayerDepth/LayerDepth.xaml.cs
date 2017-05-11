@@ -13,6 +13,7 @@
 //*********************************************************
 
 using CompositionSampleGallery.Shared;
+using ExpressionBuilder;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Effects;
 using SamplesCommon;
@@ -27,6 +28,8 @@ using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
+
+using EF = ExpressionBuilder.ExpressionFunctions;
 
 namespace CompositionSampleGallery
 {
@@ -138,27 +141,19 @@ namespace CompositionSampleGallery
             var itemContainerVisual = layer.ItemContainerVisual;
 
             var compositor = layerVisual.Compositor;
-            
+            var currentZNode = _animationPropertySet.GetReference().GetScalarProperty("currentZ");
+
             // Opacity and saturation go to zero with as |deltaZ| -> 1
-            var opacityAndSaturationExpression = compositor.CreateExpressionAnimation(
-                "max(0, 1 - abs(globals.currentZ - layerZ))");
-            opacityAndSaturationExpression.SetScalarParameter("layerZ", layerZ);
-            opacityAndSaturationExpression.SetReferenceParameter("globals", _animationPropertySet);
+            var opacityAndSaturationExpression = EF.Max(0, 1 - EF.Abs(currentZNode - layerZ));
             layerVisual.StartAnimation(nameof(layerVisual.Opacity), opacityAndSaturationExpression);
             layerVisual.Effect.Properties.StartAnimation("saturation.Saturation", opacityAndSaturationExpression);
 
             // Scale changes with deltaZ (perspective-like)
-            var scaleExpression = compositor.CreateExpressionAnimation(
-                "Vector3(pow(1.5, globals.currentZ - layerZ), pow(1.5, globals.currentZ - layerZ), 0)");
-            scaleExpression.SetScalarParameter("layerZ", layerZ);
-            scaleExpression.SetReferenceParameter("globals", _animationPropertySet);
+            var scaleExpression = EF.Vector3(EF.Pow(1.5f, currentZNode - layerZ), EF.Pow(1.5f, currentZNode - layerZ), 0);
             itemContainerVisual.StartAnimation(nameof(layerVisual.Scale), scaleExpression);
 
             // Blur increases with |deltaZ|
-            var blurAmountExpression = compositor.CreateExpressionAnimation(
-                "abs(globals.currentZ - layerZ) * 10");
-            blurAmountExpression.SetScalarParameter("layerZ", layerZ);
-            blurAmountExpression.SetReferenceParameter("globals", _animationPropertySet);
+            var blurAmountExpression = EF.Abs(currentZNode - layerZ) * 10;
             layerVisual.Effect.Properties.StartAnimation("blur.BlurAmount", blurAmountExpression);
         }
 

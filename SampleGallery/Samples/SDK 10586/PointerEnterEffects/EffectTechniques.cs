@@ -12,6 +12,8 @@
 //
 //*********************************************************
 
+using ExpressionBuilder;
+using SamplesCommon;
 using System;
 using System.Numerics;
 using System.Threading.Tasks;
@@ -21,7 +23,8 @@ using Windows.UI.Composition;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Graphics.Canvas.UI.Composition;
-using SamplesCommon;
+
+using EF = ExpressionBuilder.ExpressionFunctions;
 
 namespace CompositionSampleGallery.PointerEffectTechniques
 {
@@ -309,7 +312,7 @@ namespace CompositionSampleGallery.PointerEffectTechniques
     public class SpotLightTechnique : EffectTechniques
     {
         ManagedSurface _lightMap;
-        ExpressionAnimation _transformExpression;
+        ExpressionNode _transformExpressionNode;
         ScalarKeyFrameAnimation _enterAnimation;
         ScalarKeyFrameAnimation _exitAnimation;
         CompositionPropertySet _propertySet;
@@ -357,7 +360,18 @@ namespace CompositionSampleGallery.PointerEffectTechniques
             _exitAnimation.IterationBehavior = AnimationIterationBehavior.Count;
             _exitAnimation.IterationCount = 1;
 
-            _transformExpression = _compositor.CreateExpressionAnimation("Matrix3x2.CreateFromTranslation(-props.CenterPointOffset) * Matrix3x2(cos(props.Rotation) * props.Scale, sin(props.Rotation), -sin(props.Rotation), cos(props.Rotation) * props.Scale, 0, 0) * Matrix3x2.CreateFromTranslation(props.CenterPointOffset + props.Translate)");
+            var propsNode = ExpressionValues.Reference.CreatePropertySetReference("props");
+            var propsCenterPointOffset = propsNode.GetVector2Property("CenterPointOffset");
+            var propsRotation = propsNode.GetScalarProperty("Rotation");
+            var propsScale = propsNode.GetScalarProperty("Scale");
+            _transformExpressionNode = EF.CreateTranslation(-propsCenterPointOffset) * 
+                                       EF.Matrix3x2(EF.Cos(propsRotation) * propsScale, 
+                                                    EF.Sin(propsRotation), 
+                                                    -EF.Sin(propsRotation), 
+                                                    EF.Cos(propsRotation) * propsScale, 
+                                                    0, 
+                                                    0) * 
+                                       EF.CreateTranslation(propsCenterPointOffset + propsNode.GetVector2Property("Translate"));
 
             return null;
         }
@@ -382,10 +396,10 @@ namespace CompositionSampleGallery.PointerEffectTechniques
                 _exitAnimation = null;
             }
 
-            if (_transformExpression != null)
+            if (_transformExpressionNode != null)
             {
-                _transformExpression.Dispose();
-                _transformExpression = null;
+                _transformExpressionNode.Dispose();
+                _transformExpressionNode = null;
             }
 
             if (_propertySet != null)
@@ -411,9 +425,9 @@ namespace CompositionSampleGallery.PointerEffectTechniques
             _propertySet.InsertVector2("Translate", new Vector2(0f, 0f));
             _propertySet.InsertVector2("CenterPointOffset", new Vector2((float)_lightMap.Size.Width / 2f, 0f));
 
-            _transformExpression.SetReferenceParameter("props", _propertySet);
+            _transformExpressionNode.SetReferenceParameter("props", _propertySet);
 
-            image.Brush.StartAnimation("LightMapTransform.TransformMatrix", _transformExpression);
+            image.Brush.StartAnimation("LightMapTransform.TransformMatrix", _transformExpressionNode);
             _propertySet.StartAnimation("Rotation", _enterAnimation);
         }
 
@@ -426,7 +440,7 @@ namespace CompositionSampleGallery.PointerEffectTechniques
     public class PointLightFollowTechnique : EffectTechniques
     {
         ManagedSurface _lightMap;
-        ExpressionAnimation _transformExpression;
+        ExpressionNode _transformExpressionNode;
         ScalarKeyFrameAnimation _enterAnimation;
         Vector2KeyFrameAnimation _exitAnimation;
         CompositionPropertySet _propertySet;
@@ -471,7 +485,16 @@ namespace CompositionSampleGallery.PointerEffectTechniques
             _exitAnimation.IterationBehavior = AnimationIterationBehavior.Count;
             _exitAnimation.IterationCount = 1;
 
-            _transformExpression = _compositor.CreateExpressionAnimation("Matrix3x2(props.Scale, 0, 0, props.Scale, props.CenterPointOffset.X * (1-props.Scale) + (props.Translate.X * props.CenterPointOffset.X * 2), props.CenterPointOffset.Y * (1-props.Scale) + (props.Translate.Y * props.CenterPointOffset.Y * 2))");
+            var propsNode = ExpressionValues.Reference.CreatePropertySetReference("props");
+            var propsCenterPointOffset = propsNode.GetVector2Property("CenterPointOffset");
+            var propsTranslate = propsNode.GetVector2Property("Translate");
+            var propsScale = propsNode.GetScalarProperty("Scale");
+            _transformExpressionNode = EF.Matrix3x2(propsScale, 
+                                                    0, 
+                                                    0, 
+                                                    propsScale, 
+                                                    propsCenterPointOffset.X * (1 - propsScale) + (propsTranslate.X * propsCenterPointOffset.X * 2), 
+                                                    propsCenterPointOffset.Y * (1 - propsScale) + (propsTranslate.Y * propsCenterPointOffset.Y * 2));
 
             return null;
         }
@@ -496,10 +519,10 @@ namespace CompositionSampleGallery.PointerEffectTechniques
                 _exitAnimation = null;
             }
 
-            if (_transformExpression != null)
+            if (_transformExpressionNode != null)
             {
-                _transformExpression.Dispose();
-                _transformExpression = null;
+                _transformExpressionNode.Dispose();
+                _transformExpressionNode = null;
             }
 
             if (_propertySet != null)
@@ -525,9 +548,9 @@ namespace CompositionSampleGallery.PointerEffectTechniques
             _propertySet.InsertVector2("Translate", positionNormalized);
             _propertySet.InsertVector2("CenterPointOffset", new Vector2(128, 128));
 
-            _transformExpression.SetReferenceParameter("props", _propertySet);
+            _transformExpressionNode.SetReferenceParameter("props", _propertySet);
 
-            image.Brush.StartAnimation("LightMapTransform.TransformMatrix", _transformExpression);
+            image.Brush.StartAnimation("LightMapTransform.TransformMatrix", _transformExpressionNode);
             _propertySet.StartAnimation("Scale", _enterAnimation);
         }
 

@@ -12,18 +12,21 @@
 //
 //*********************************************************
 
+using ExpressionBuilder;
+using SamplesCommon;
 using System;
 using System.Collections.Generic;
-using Windows.UI;
-using Windows.UI.Xaml;
 using System.Numerics;
+using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Composition.Interactions;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
-using Windows.Foundation;
 using Windows.UI.Xaml.Input;
-using SamplesCommon;
 using Microsoft.Graphics.Canvas.Text;
+
+using EF = ExpressionBuilder.ExpressionFunctions;
 
 namespace CompositionSampleGallery
 {
@@ -86,7 +89,7 @@ namespace CompositionSampleGallery
             //
 
             _interactionSource1 = VisualInteractionSource.Create(_rootContainer);
-            _interactionSource1.ScaleSourceMode = InteractionSourceMode.EnabledWithoutInertia;
+            _interactionSource1.ScaleSourceMode = InteractionSourceMode.EnabledWithInertia;
 
             _scaleTracker = InteractionTracker.CreateWithOwner(_compositor, this);
             _scaleTracker.MinScale = 0.6f;
@@ -109,17 +112,15 @@ namespace CompositionSampleGallery
             // it into a value that represents Z.  Then we bind it to the world container's Z position.
             //
 
-            var scaleExpression = _compositor.CreateExpressionAnimation("lerp(0, 1000, (1 - tracker.Scale) / (1 - tracker.MaxScale))");
-            scaleExpression.SetReferenceParameter("tracker", _scaleTracker);
+            var scaleTracker = _scaleTracker.GetReference();
+            var scaleExpression = EF.Lerp(0, 1000, (1 - scaleTracker.Scale) / (1 - scaleTracker.MaxScale));
             _worldContainer.StartAnimation("Offset.Z", scaleExpression);
 
             //
             // Bind the output of the inner (xy position) tracker to the world container's XY position.
             //
 
-            var positionExpression = _compositor.CreateExpressionAnimation("-tracker.Position.XY");
-            positionExpression.SetReferenceParameter("tracker", _positionTracker);
-            _worldContainer.StartAnimation("Offset.XY", positionExpression);
+            _worldContainer.StartAnimation("Offset.XY", -_positionTracker.GetReference().Position.XY);
         }
 
 
@@ -344,18 +345,17 @@ namespace CompositionSampleGallery
                 // too far away from the camera.
                 //
 
-                if (_opacityAnimation == null)
+                if (_opacityExpression == null)
                 {
-                    _opacityAnimation = _compositor.CreateExpressionAnimation(@"defaultOpacity * (this.target.Offset.z + world.Offset.z > -200 ?
-                                                                                (1 - (clamp(this.target.Offset.z + world.Offset.z, 0, 300) / 300)) : 
-                                                                                (clamp(this.target.Offset.z + world.Offset.z + 1300, 0, 300) / 300))");
-                    _opacityAnimation.SetReferenceParameter("world", _worldContainer);
+                    var visualTarget = ExpressionValues.Target.CreateVisualTarget();
+                    var world = _worldContainer.GetReference();
+                    _opacityExpression = EF.Conditional(
+                                                defaultOpacity * (visualTarget.Offset.Z + world.Offset.Z) > -200,
+                                                1 - EF.Clamp(visualTarget.Offset.Z + world.Offset.Z, 0, 300) / 300,
+                                                EF.Clamp(visualTarget.Offset.Z + world.Offset.Z + 1300, 0, 300) / 300);
                 }
 
-                _opacityAnimation.SetScalarParameter("defaultOpacity", defaultOpacity);
-                sprite.StartAnimation("Opacity", _opacityAnimation);
-
-
+                sprite.StartAnimation("Opacity", _opacityExpression);
             }
             sprite.Brush = imageBrush;
 
@@ -403,10 +403,10 @@ namespace CompositionSampleGallery
 
             positionAnimation = _compositor.CreateVector3KeyFrameAnimation();
 
-            positionAnimation.InsertExpressionKeyFrame(1, "positionMargin + (tracker.MinPosition + this.StartingValue) * 0.5");
+            var vec3StartingValue = ExpressionValues.StartingValue.CreateVector3StartingValue();
+            var minPosExp = positionMargin + (_positionTracker.GetReference().MinPosition + vec3StartingValue) * 0.5f;
+            positionAnimation.InsertExpressionKeyFrame(1, minPosExp);
             positionAnimation.Duration = TimeSpan.FromSeconds(15 * timeScale);
-            positionAnimation.SetReferenceParameter("tracker", _positionTracker);
-            positionAnimation.SetVector3Parameter("positionMargin", positionMargin);
 
             _ambientAnimations.Add(new Tuple<AmbientAnimationTarget, CompositionAnimation>(
                                                 AmbientAnimationTarget.PositionKeyFrame,
@@ -418,10 +418,9 @@ namespace CompositionSampleGallery
 
             positionAnimation = _compositor.CreateVector3KeyFrameAnimation();
 
-            positionAnimation.InsertExpressionKeyFrame(1, "-positionMargin + (tracker.MaxPosition - this.StartingValue) * 0.5");
+            var maxPosExp = -positionMargin + (_positionTracker.GetReference().MaxPosition - vec3StartingValue) * 0.5f;
+            positionAnimation.InsertExpressionKeyFrame(1f, maxPosExp);
             positionAnimation.Duration = TimeSpan.FromSeconds(15 * timeScale);
-            positionAnimation.SetReferenceParameter("tracker", _positionTracker);
-            positionAnimation.SetVector3Parameter("positionMargin", positionMargin);
 
             _ambientAnimations.Add(new Tuple<AmbientAnimationTarget, CompositionAnimation>(
                                                 AmbientAnimationTarget.PositionKeyFrame,
@@ -462,11 +461,8 @@ namespace CompositionSampleGallery
             //
 
             positionAnimation = _compositor.CreateVector3KeyFrameAnimation();
-
-            positionAnimation.InsertExpressionKeyFrame(1, "-positionMargin + tracker.MaxPosition * 0.85");
+            positionAnimation.InsertExpressionKeyFrame(1, -positionMargin + _positionTracker.GetReference().MaxPosition * 0.85f);
             positionAnimation.Duration = TimeSpan.FromSeconds(15 * timeScale);
-            positionAnimation.SetReferenceParameter("tracker", _positionTracker);
-            positionAnimation.SetVector3Parameter("positionMargin", positionMargin);
 
             _ambientAnimations.Add(new Tuple<AmbientAnimationTarget, CompositionAnimation>(
                                                 AmbientAnimationTarget.PositionKeyFrame,
@@ -564,9 +560,10 @@ namespace CompositionSampleGallery
 
             scaleForZAnimation = _compositor.CreateScalarKeyFrameAnimation();
 
-            scaleForZAnimation.InsertExpressionKeyFrame(1, "min(tracker.MaxScale, this.StartingValue * 1.50)");
+            var scalarStartingValue = ExpressionValues.StartingValue.CreateScalarStartingValue();
+            var scaleMinExp = EF.Min(_scaleTracker.GetReference().MaxScale, scalarStartingValue * 1.5f);
+            scaleForZAnimation.InsertExpressionKeyFrame(1, scaleMinExp);
             scaleForZAnimation.Duration = TimeSpan.FromSeconds(10 * timeScale);
-            scaleForZAnimation.SetReferenceParameter("tracker", _scaleTracker);
 
             _ambientAnimations.Add(new Tuple<AmbientAnimationTarget, CompositionAnimation>(
                                                 AmbientAnimationTarget.ScaleKeyFrame,
@@ -578,9 +575,9 @@ namespace CompositionSampleGallery
 
             scaleForZAnimation = _compositor.CreateScalarKeyFrameAnimation();
 
-            scaleForZAnimation.InsertExpressionKeyFrame(1, "max(tracker.MinScale, this.StartingValue * 0.50)");
+            var scaleMaxExp = EF.Max(_scaleTracker.GetReference().MinScale, scalarStartingValue * 0.5f);
+            scaleForZAnimation.InsertExpressionKeyFrame(1, scaleMaxExp);
             scaleForZAnimation.Duration = TimeSpan.FromSeconds(10 * timeScale);
-            scaleForZAnimation.SetReferenceParameter("tracker", _scaleTracker);
 
             _ambientAnimations.Add(new Tuple<AmbientAnimationTarget, CompositionAnimation>(
                                                 AmbientAnimationTarget.ScaleKeyFrame,
@@ -682,7 +679,7 @@ namespace CompositionSampleGallery
         
         private CompositionSurfaceBrush[]   
                                         _textBrushes;
-        private ExpressionAnimation     _opacityAnimation;
+        private ExpressionNode          _opacityExpression;
 
         private TextNodeInfo[]          _textNodes;
 

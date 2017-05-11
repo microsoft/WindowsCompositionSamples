@@ -13,6 +13,7 @@
 //*********************************************************
 
 using CompositionSampleGallery.Shared;
+using ExpressionBuilder;
 using SamplesCommon;
 using System.Diagnostics;
 using System.Numerics;
@@ -28,7 +29,7 @@ namespace CompositionSampleGallery
 {
     public sealed partial class ParallaxingListItems : SamplePage
     {
-        private ExpressionAnimation _parallaxExpression;
+        private ExpressionNode _parallaxExpression;
         private CompositionPropertySet _scrollProperties;
 
         public ParallaxingListItems()
@@ -53,12 +54,12 @@ namespace CompositionSampleGallery
             _scrollProperties = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(myScrollViewer);
 
             // Setup the expression
-            _parallaxExpression = compositor.CreateExpressionAnimation();
-            _parallaxExpression.SetScalarParameter("StartOffset", 0.0f);
-            _parallaxExpression.SetScalarParameter("ParallaxValue", 0.5f);
-            _parallaxExpression.SetScalarParameter("ItemHeight", 0.0f);
-            _parallaxExpression.SetReferenceParameter("ScrollManipulation", _scrollProperties);
-            _parallaxExpression.Expression = "(ScrollManipulation.Translation.Y + StartOffset - (0.5 * ItemHeight)) * ParallaxValue - (ScrollManipulation.Translation.Y + StartOffset - (0.5 * ItemHeight))";
+            var scrollPropSet = _scrollProperties.GetSpecializedReference<ManipulationPropertySetReferenceNode>();
+            var startOffset = ExpressionValues.Constant.CreateConstantScalar("startOffset", 0.0f);
+            var parallaxValue = 0.5f;
+            var itemHeight = 0.0f;
+            var parallax = (scrollPropSet.Translation.Y + startOffset - (0.5f * itemHeight));
+            _parallaxExpression = parallax * parallaxValue - parallax;
 
             ThumbnailList.ItemsSource = Model.Items;
         }
@@ -67,7 +68,8 @@ namespace CompositionSampleGallery
         {
             if (_parallaxExpression != null)
             {
-                _parallaxExpression.Dispose();
+                // (TODO) Re-add this in after Dispose() implemented on ExpressionNode
+                //_parallaxExpression.Dispose();
                 _parallaxExpression = null;
             }
 

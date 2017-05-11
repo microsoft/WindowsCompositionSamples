@@ -42,10 +42,21 @@ namespace CompositionSampleGallery
 
             _model = new FlipViewModel();
 #if SDKVERSION_14393
-            SampleDefinition item1 = SampleDefinitions.Definitions.Where(x => x.Type == typeof(Interactions3D)).FirstOrDefault();
-            SampleDefinition item2 = SampleDefinitions.Definitions.Where(x => x.Type == typeof(PullToAnimate)).FirstOrDefault();
-            _model.FlipViewItems.Add(new FeaturedFlipViewSample("Interaction Tracker 3D", "", "/Assets/BannerImages/IneractionTrackerBanner.png", item1));
-            _model.FlipViewItems.Add(new FeaturedFlipViewSample("Create custom resting points with animation", "", "/Assets/BannerImages/PullToAnimateBanner.PNG", item2));
+            SampleDefinition shyHeader = SampleDefinitions.Definitions.Where(x => x.Type == typeof(ShyHeader)).FirstOrDefault();
+            if (shyHeader != null)
+            {
+                _model.FlipViewItems.Add(new FeaturedFlipViewSample("Create a shrinking header tied to scroll position", "", "/Assets/BannerImages/ShyHeader.PNG", shyHeader));
+            }
+            SampleDefinition interactions3D = SampleDefinitions.Definitions.Where(x => x.Type == typeof(Interactions3D)).FirstOrDefault();
+            if(interactions3D != null)
+            {
+                _model.FlipViewItems.Add(new FeaturedFlipViewSample("Interaction Tracker 3D", "", "/Assets/BannerImages/IneractionTrackerBanner.png", interactions3D));
+            }
+            SampleDefinition pullToAnimate = SampleDefinitions.Definitions.Where(x => x.Type == typeof(PullToAnimate)).FirstOrDefault();
+            if (pullToAnimate != null)
+            {
+                _model.FlipViewItems.Add(new FeaturedFlipViewSample("Create custom resting points with animation", "", "/Assets/BannerImages/PullToAnimateBanner.PNG", pullToAnimate));
+            }
             this.DataContext = _model;
 #endif
 
@@ -70,13 +81,16 @@ namespace CompositionSampleGallery
 
         private void BannerFlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Model.Selected = ((FlipView)sender).SelectedItem as FeaturedFlipViewSample;
+            Model.Selected = (FeaturedFlipViewSample)((FlipView)sender).SelectedItem;
         }
 
+        // Get the frame that this flipviewindicator is a child of, and then navigate to the 
+        // sample that the user selected
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             FeaturedFlipViewSample SelectedSample = BannerFlipView.SelectedItem as FeaturedFlipViewSample;
-            MainPage.Instance.NavigateToPage(typeof(SampleHost), SelectedSample.SampleDefinition);
+            Frame mainPivotFrame = MainNavigationViewModel.GetPivotFrame(this);
+            mainPivotFrame.Navigate(typeof(SampleHost), SelectedSample.SampleDefinition);
         }
 
         private void IndicatorClick(object sender, RoutedEventArgs e)
@@ -190,7 +204,7 @@ namespace CompositionSampleGallery
         {
             if(value != null)
             {
-                SolidColorBrush sbc = value as SolidColorBrush;
+                SolidColorBrush sbc = (SolidColorBrush)value;
                 if (sbc.Color == Colors.White)
                     return true;
             }

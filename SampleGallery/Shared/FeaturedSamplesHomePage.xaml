@@ -13,7 +13,7 @@
         </ItemsPanelTemplate>
         <DataTemplate x:Key="FeaturedSampleWideDataTemplate" x:DataType="local:SampleDefinition">
             <UserControl>
-                <StackPanel MaxWidth="260" Margin="0,0,50,0">
+                <StackPanel MaxWidth="260" Margin="20,20,20,0">
                     <common:CompositionImage Width="260" Height="175" Source="{x:Bind ImageUrl}" Stretch="UniformToFill" />
                     <TextBlock x:Name="SampleName"
                             Text="{x:Bind Name}"
@@ -22,7 +22,8 @@
                     <TextBlock
                             Text="{x:Bind Description}"
                             Style="{ThemeResource FeaturedSampleDescriptionTextBlockStyle}"
-                            Foreground="Black"/>
+                            Foreground="Black"
+                            Margin="0,0,0,20"/>
                 </StackPanel>
             </UserControl>
         </DataTemplate>

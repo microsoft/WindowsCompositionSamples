@@ -53,6 +53,12 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition x:Name="Column1" />

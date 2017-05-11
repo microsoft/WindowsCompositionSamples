@@ -27,7 +27,9 @@ namespace CompositionSampleGallery
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            
+
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += SamplePage_BackRequested;
+
             if (e.Parameter is SampleHost)
             {
                 SampleHost host = (SampleHost)e.Parameter;
@@ -35,6 +37,16 @@ namespace CompositionSampleGallery
                 host.SampleDescription.Text = SampleDescription;
                 host.SampleName.Text = SampleName;
                 host.SampleCode.NavigateUri = new Uri(SampleCodeUri);
+            }
+        }
+
+        private void SamplePage_BackRequested(object sender, Windows.UI.Core.BackRequestedEventArgs e)
+        {
+            Frame pivotItemFrame = MainNavigationViewModel.GetPivotFrame(this);
+            if (pivotItemFrame != null)
+            {
+                e.Handled = true;
+                (pivotItemFrame).GoBack();
             }
         }
 
