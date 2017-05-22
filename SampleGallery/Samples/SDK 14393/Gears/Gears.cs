@@ -33,7 +33,6 @@ namespace CompositionSampleGallery
     {
         private Compositor _compositor;
         private List<Visual> _gearVisuals;
-        private ExpressionNode _rotateExpression;
         private ScalarKeyFrameAnimation _gearMotionScalarAnimation;
         private double _x = 87, _y = 0d, _width = 100, _height = 100;
         private double _gearDimension = 87;
@@ -134,10 +133,10 @@ namespace CompositionSampleGallery
         {
             // If rotation expression is null then create an expression of a gear rotating the opposite direction
 
-            _rotateExpression = _rotateExpression ?? -previousGear.GetReference().RotationAngleInDegrees;
+            var rotateExpression = -previousGear.GetReference().RotationAngleInDegrees;
 
             // Start the animation based on the Rotation Angle in Degrees.
-            currentGear.StartAnimation("RotationAngleInDegrees", _rotateExpression);
+            currentGear.StartAnimation("RotationAngleInDegrees", rotateExpression);
         }
 
         private void StartGearMotor(double secondsPerRotation)
