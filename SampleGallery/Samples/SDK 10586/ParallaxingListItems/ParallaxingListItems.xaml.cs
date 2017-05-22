@@ -57,8 +57,7 @@ namespace CompositionSampleGallery
             var scrollPropSet = _scrollProperties.GetSpecializedReference<ManipulationPropertySetReferenceNode>();
             var startOffset = ExpressionValues.Constant.CreateConstantScalar("startOffset", 0.0f);
             var parallaxValue = 0.5f;
-            var itemHeight = 0.0f;
-            var parallax = (scrollPropSet.Translation.Y + startOffset - (0.5f * itemHeight));
+            var parallax = (scrollPropSet.Translation.Y + startOffset);
             _parallaxExpression = parallax * parallaxValue - parallax;
 
             ThumbnailList.ItemsSource = Model.Items;
