@@ -30,17 +30,23 @@ namespace CompositionSampleGallery
 {
     public sealed partial class PullToRefresh : SamplePage
     {
-        private ExpressionAnimation _parallaxExpression;
-        private CompositionPropertySet _scrollProperties;
+        private Visual _image;
+        private Visual _root;
+        private Compositor _compositor;
+        private VisualInteractionSource _interactionSource;
         private InteractionTracker _tracker;
-        private Compositor compositor;
-        private VisualInteractionSource interactionSource;
+        private Windows.UI.Core.CoreWindow _Window;
 
         public PullToRefresh()
         {
             Model = new LocalDataSource();
             this.InitializeComponent();
+            _Window = Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().CoreWindow;
+            this.PointerPressed += new PointerEventHandler(Window_PointerPressed);
+
         }
+
+        
 
         public static string       StaticSampleName     { get { return "PullToRefresh ListView Items"; } }
         public override string     SampleName           { get { return StaticSampleName; } }
@@ -50,95 +56,64 @@ namespace CompositionSampleGallery
         public LocalDataSource Model { set; get; }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
 
-            // Get scrollviewer
-            //ScrollViewer myScrollViewer = ThumbnailList.GetFirstDescendantOfType<ScrollViewer>();
-            //_scrollProperties = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(myScrollViewer);
-
-            // Setup the expression
-            //_parallaxExpression = compositor.CreateExpressionAnimation();
-            //_parallaxExpression.SetScalarParameter("StartOffset", 0.0f);
-            //_parallaxExpression.SetScalarParameter("ParallaxValue", 0.5f);
-            //_parallaxExpression.SetScalarParameter("ItemHeight", 0.0f);
-            //_parallaxExpression.SetReferenceParameter("ScrollManipulation", _scrollProperties);
-            //_parallaxExpression.Expression = "(ScrollManipulation.Translation.Y + StartOffset - (0.5 * ItemHeight)) * ParallaxValue - (ScrollManipulation.Translation.Y + StartOffset - (0.5 * ItemHeight))";
-
-            //ThumbnailList.ItemsSource = Model.Items;
-
-            Visual viewPortVisual = ElementCompositionPreview.GetElementVisual(PullToRefreshContent);
-
-            Visual contentVisual = ElementCompositionPreview.GetElementVisual(ContentPanel);
-            SetupSimpleInteractionTracker(viewPortVisual, contentVisual);
-        }
-
-        private void Page_Unloaded(object sender, RoutedEventArgs e)
-        {
-            if (_parallaxExpression != null)
-            {
-                _parallaxExpression.Dispose();
-                _parallaxExpression = null;
-            }
-
-            if (_scrollProperties != null)
-            {
-                _scrollProperties.Dispose();
-                _scrollProperties = null;
-            }
-        }
-
-        private void ThumbanilList_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
-        {
-            //Thumbnail thumbnail = args.Item as Thumbnail;
-            //Image image = args.ItemContainer.ContentTemplateRoot.GetFirstDescendantOfType<Image>();
-
-            //Visual visual = ElementCompositionPreview.GetElementVisual(image);
-            //visual.Size = new Vector2(960f, 960f);
-
-            //if (_parallaxExpression != null)
-            //{
-            //    _parallaxExpression.SetScalarParameter("StartOffset", (float)args.ItemIndex * visual.Size.Y / 4.0f);
-            //    visual.StartAnimation("Offset.Y", _parallaxExpression);
-            //}
-        }
-        void SetupSimpleInteractionTracker(Visual viewportVisual, Visual contentVisual)
-        {
-            //
-            // Create the InteractionTracker and set its min/max position and scale.  These could 
-            // also be bound to expressions.  Note: The scrollable area can be changed from either 
-            // the min or the max position to facilitate content updates/virtualization.
-            //
-
-            _tracker = InteractionTracker.Create(compositor);
-
-            _tracker.MaxPosition = new Vector3(
-              contentVisual.Size.X - viewportVisual.Size.X,
-              contentVisual.Size.Y - viewportVisual.Size.Y,
-              0.0f);
-
-
-
-            //
-            // Configure the interaction source.  Enable input with inertia on all axes.
-            //
-
-            interactionSource = VisualInteractionSource.Create(viewportVisual);
-
-            interactionSource.PositionYSourceMode = InteractionSourceMode.EnabledWithInertia;
+         
             
-            _tracker.InteractionSources.Add(interactionSource);
+            ThumbnailList.ItemsSource = Model.Items;
+            _image = ElementCompositionPreview.GetElementVisual(ContentPanel);
+            _root = ElementCompositionPreview.GetElementVisual(Root);
+            _compositor = _image.Compositor;
 
-            var positionExpression = compositor.CreateExpressionAnimation("-tracker.Position");
+            ConfigureInteractionTracker();
+        }
 
+
+
+        private void ConfigureInteractionTracker()
+        {
+            _tracker = InteractionTracker.Create(_compositor);
+            
+            _interactionSource = VisualInteractionSource.Create(_root);
+
+            _interactionSource.PositionYSourceMode = InteractionSourceMode.EnabledWithInertia;
+            _interactionSource.PositionXSourceMode = InteractionSourceMode.EnabledWithInertia;
+
+
+            //_interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadOnly;
+
+            _tracker.InteractionSources.Add(_interactionSource);
+
+
+            _tracker.MaxPosition = new Vector3((float)Root.ActualWidth, (float)Root.ActualHeight, 0);
+            _tracker.MinPosition = new Vector3(-(float)Root.ActualWidth, -(float)Root.ActualHeight, 0);
+
+            //
+            // Use the Tacker's Position (negated) to apply to the Offset of the Image.
+            //
+
+            var positionExpression = _compositor.CreateExpressionAnimation("-tracker.Position");
             positionExpression.SetReferenceParameter("tracker", _tracker);
 
-            //var positionExpression = compositor.CreateExpressionAnimation("interactionSource.DeltaPosition.Y/2");
+            _image.StartAnimation("Offset", positionExpression);
+        }
 
-            //positionExpression.SetReferenceParameter("interactionSource", interactionSource);
+        private void Window_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
 
-            viewportVisual.StartAnimation("Offset", positionExpression);
+            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
+
+            {
+
+                // Tell the system to use the gestures from this pointer point (if it can).
+
+                _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(Root));
+                _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(ThumbnailList));
+
+            }
 
         }
+        
+
         private void Root_PointerPressed(object sender, PointerRoutedEventArgs e)
 
         {
@@ -149,10 +124,17 @@ namespace CompositionSampleGallery
 
                 // Tell the system to use the gestures from this pointer point (if it can).
 
-                interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(PullToRefreshContent));
+                _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(Root));
+                _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(ThumbnailList));
 
             }
 
         }
+        private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            //GridClip.Rect = new Rect(0d, 0d, e.NewSize.Width, e.NewSize.Height);
+            //System.Diagnostics.Debug.WriteLine("GridClip.Rect" + GridClip.Rect);
+        }
+
     }
 }
