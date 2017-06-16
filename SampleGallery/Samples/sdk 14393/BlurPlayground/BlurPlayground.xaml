@@ -9,60 +9,101 @@
     mc:Ignorable="d"
     Loaded ="Page_Loaded">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name ="CatGrid" Background="DimGray">
+
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Left"  Margin="10">
+        <ScrollViewer x:Name ="Panel" Grid.Column="0" Grid.Row="0" VerticalScrollMode="Auto" VerticalScrollBarVisibility="Hidden">
 
-            <Slider 
-                        x:Name="BlurAmount" 
+            <StackPanel>
+
+                <Slider x:Name="BlurAmount" 
                         Header="Blur Amount"
                         ValueChanged="BlurAmount_ValueChanged" 
                         Minimum="0" 
                         Maximum="100"
+                        IsEnabled="True"
                         Margin="10,10,0,10"/>
 
+                <ToggleSwitch x:Name="AnimateToggle"
+                              Header="Animate Effects"
+                              OffContent="Stop"
+                              OnContent="Start"
+                              Toggled="ToggleSwitch_Toggled"
+                              IsEnabled="True"
+                              VerticalAlignment="Stretch" 
+                              HorizontalAlignment="Stretch"
+                              Margin="10,0,0,10"/>
 
-            <ToggleSwitch x:Name="AnimateToggle"
-                                  Header="Animate Blur"
-                                  OffContent="Stop"
-                                  OnContent="Start"
-                                  Toggled="ToggleSwitch_Toggled" 
-                                  VerticalAlignment="Stretch" 
-                                  HorizontalAlignment="Stretch"
-                                  Margin="10,0,0,10">
-            </ToggleSwitch>
-
-            <Border Height="Auto" Width="Auto">
-                <common:ColorMixer 
+                <Border Height="Auto" Width="Auto">
+                    <common:ColorMixer 
                             x:Name="Tint"
                             ColorChanged="ColorChanged" 
                             Color="{ThemeResource SystemAccentColor}"
                             Margin="10"/>
-            </Border>
+                </Border>
 
-            <ComboBox 
+                <ComboBox 
                         x:Name="BlendSelection" 
     					HorizontalAlignment="Stretch" 
     					VerticalAlignment="Stretch" 
     					SelectionChanged="BlendSelection_SelectionChanged"
                         PlaceholderText="Blend Modes" 
-                        Margin="10,15,0,10"/>
+                        Margin="10"/>
 
-        </StackPanel>
-        
-        <Image x:Name="BackgroundImage" 
+            </StackPanel>
+
+        </ScrollViewer>
+
+        <common:CompositionImage x:Name="CatImage" 
                Grid.Column="1" 
-               SizeChanged="BackgroundImage_SizeChanged"
-               Margin="10"/>
+               Grid.Row="0"
+               Margin="10"
+               Source="ms-appx:///Assets/WindowsInsiders/Ninjacat-2.png"/>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <common:OrientationTrigger Orientation="Landscape" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="CatGrid.RowDefinitions[1].Height" Value="auto"/>
+                        <Setter Target="CatGrid.RowDefinitions[0].Height" Value="*"/>
+                        <Setter Target="CatGrid.ColumnDefinitions[1].Width" Value="*"/>
+                        <Setter Target="Panel.(Grid.Row)" Value="0"/>
+                        <Setter Target="Panel.(Grid.Column)" Value="0"/>
+                    </VisualState.Setters>
+
+                </VisualState>
+
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <common:OrientationTrigger Orientation="Portrait" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="CatGrid.RowDefinitions[0].Height" Value="*"/>
+                        <Setter Target="CatGrid.RowDefinitions[1].Height" Value="*"/>
+                        <Setter Target="CatGrid.ColumnDefinitions[1].Width" Value="*"/>
+                        <Setter Target="Panel.(Grid.Row)" Value="1"/>
+                        <Setter Target="Panel.(Grid.Column)" Value="1"/>
+                    </VisualState.Setters>
+
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
 
     </Grid>
+    
 </local:SamplePage>
 
