@@ -736,7 +736,7 @@
                                     <ContentControl.Clip>
                                         <RectangleGeometry x:Name="HeaderClipperGeometry" />
                                     </ContentControl.Clip>
-                                        <Grid Background="{ThemeResource SystemControlAcrylicMediumWindowBrush}">
+                                        <Grid Background="{ThemeResource SystemControlAcrylicWindowMediumBrush}">
                                         <Grid.RenderTransform>
                                             <CompositeTransform x:Name="HeaderOffsetTranslateTransform" />
                                         </Grid.RenderTransform>

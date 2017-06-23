@@ -148,7 +148,7 @@
     <Compile Include="Samples\SDK 10586\TransitionAnimation-ColorSlide\ColorSlideTransitionHelper.cs" />
     <Compile Include="Samples\SDK 10586\TransitionAnimation-FlipToReveal\FlipToReveal.xaml.cs" />
     <Compile Include="Samples\SDK 10586\ZoomWithPerspective\ZoomWithPerspective.xaml.cs" />
-    <Compile Include="Samples\SDK 15063\BlurPlayground\BlurPlayground.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 14393\BlurPlayground\BlurPlayground.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\ConnectedAnimationSample\ConnectedAnimationDetail.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>ConnectedAnimationDetail.xaml</DependentUpon>
     </Compile>
@@ -555,7 +555,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK 15063\BlurPlayground\BlurPlayground.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+    <Page Include="Samples\SDK 14393\BlurPlayground\BlurPlayground.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

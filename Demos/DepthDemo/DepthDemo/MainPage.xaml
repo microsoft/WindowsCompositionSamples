@@ -1,0 +1,28 @@
+﻿<Page
+    x:Class="DepthDemo.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DepthDemo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="MainGrid" SizeChanged="MainGrid_SizeChanged" PointerPressed="MainGrid_PointerPressed">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="ProgressIndicatorStackPanel" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0" SizeChanged="ProgressIndicatorStackPanel_SizeChanged" Grid.Column="0"></StackPanel>
+
+        <StackPanel Grid.Row="1" Background="Transparent" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Click="InfoButton_Click" HorizontalAlignment="Right" Margin="40,0,40,0" Style="{StaticResource ButtonStyle}">
+                <SymbolIcon Symbol="Help" />
+            </Button>
+        </StackPanel>
+
+        <Canvas x:Name="MainCanvas" Grid.Row="2" Background="Transparent" PointerMoved="MainCanvas_PointerMoved" PointerPressed="MainCanvas_PointerPressed" Margin="0" DoubleTapped="MainCanvas_DoubleTapped"></Canvas>
+    </Grid>
+</Page>
