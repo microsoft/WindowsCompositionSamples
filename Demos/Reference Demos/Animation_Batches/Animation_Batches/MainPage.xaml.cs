@@ -56,7 +56,7 @@ namespace Animation_Batches
         {
             // Intialize the Compositor
             _compositor = new Compositor();
-            _root = (ContainerVisual)ElementCompositionPreview.GetElementVisual(Container);
+            _root = ElementCompositionPreview.GetElementVisual(Container);
             _compositor = _root.Compositor;
 
             _linear = _compositor.CreateLinearEasingFunction();
