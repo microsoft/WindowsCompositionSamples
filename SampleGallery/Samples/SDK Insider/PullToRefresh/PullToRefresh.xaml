@@ -8,56 +8,30 @@
     xmlns:data="using:CompositionSampleGallery.Shared"
     mc:Ignorable="d"
     Loaded ="Page_Loaded"
-    PointerPressed="Root_PointerPressed"    
+
     >
     <Grid x:Name ="Root" Background="White"   SizeChanged="Grid_SizeChanged" >
-        <!--<Grid.Clip>
-            <RectangleGeometry x:Name="GridClip"/>
-        </Grid.Clip>-->
-        <!--<TextBlock x:Name ="Text" TextWrapping="Wrap" Width="500" Height="900" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur, eros sit amet laoreet scelerisque, 
-                   nunc odio ultricies metus, ut consectetur nulla massa eu nibh. Phasellus in lorem id nunc euismod tempus. Phasellus et nulla non turpis tempor blandit ut eget turpis. 
-                   Phasellus ac ornare elit, ut scelerisque dolor. Nam vel finibus lorem. Aenean malesuada pulvinar eros id ornare. Fusce blandit ante eget dolor efficitur suscipit. 
-                   Phasellus ac lacus nibh. Aenean eget blandit risus, in lacinia mi. Proin fermentum ante eros, non sollicitudin mi pretium eu. Curabitur suscipit lectus arcu, eget 
-                   pretium quam sagittis non. Mauris purus mauris, condimentum nec laoreet sit amet, imperdiet sit amet nisi. Sed interdum, urna et aliquam porta, elit velit tincidunt orci, 
-                   vitae vestibulum risus lacus at nulla. Phasellus sapien ipsum, pellentesque varius enim nec, iaculis aliquet enim. Nulla id dapibus ante. Sed hendrerit sagittis leo, commodo 
-                   fringilla ligula rutrum ut. Nullam sodales, ex ut pellentesque scelerisque, sapien nulla mattis lectus, vel ullamcorper leo enim ac mi. Sed consectetur vitae velit in consequat. 
-                   Pellentesque ac condimentum justo, at feugiat nulla. Sed ut congue neque. Nam gravida quam ac urna porttitor, ut bibendum ante mattis. Cras viverra cursus sapien, et sollicitudin 
-                   risus fringilla eget. Nulla facilisi. Duis pellentesque scelerisque nisi, facilisis malesuada massa gravida et. Vestibulum ac leo sed orci tincidunt feugiat. Vestibulum ante ipsum 
-                   primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc id leo vestibulum, vulputate ipsum sit amet, scelerisque velit. Curabitur imperdiet justo et tortor dignissim, 
-                   sit amet volutpat sem ullamcorper. Nam mollis ullamcorper tellus vitae convallis. Aliquam eleifend elit nec tincidunt pharetra. Aliquam turpis eros, mollis et nunc quis, porta molestie 
-                   justo. Etiam ultrices sem non turpis imperdiet dictum. Aliquam molestie elit in urna sodales, nec luctus dui laoreet. Curabitur molestie risus vel ligula efficitur, non fringilla urna iaculis. 
-                   Curabitur neque tortor, facilisis quis dictum facilisis, facilisis et ante. Sed nisl erat, semper vitae efficitur ut, congue vitae quam. Ut auctor lacus sit amet varius placerat. 
-                   Sed ac tellus tempus, ultricies est quis, tempor felis. Nulla vel faucibus elit, eu tincidunt eros. Nulla blandit id nisl ut porta. Class aptent taciti sociosqu ad litora torquent 
-                   per conubia nostra, per inceptos himenaeos. Etiam suscipit tellus a mattis pulvinar. Sed et libero vel ligula elementum suscipit. Ut elementum libero at sagittis pharetra. Fusce ultrices 
-                   odio sapien, a posuere est consectetur ut. " Margin="0,100,0,50" HorizontalAlignment="Left" VerticalAlignment="Top" />-->
-        <!--<Image x:Name="Clock" Source="ms-appx:///Assets/Clock.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1000" Height="1000"/>-->
-
-        <!--<Canvas Height="300" x:Name="PullToRefreshContent"  >-->
-        <StackPanel Height="500" Canvas.Top="-100" x:Name="ContentPanel" >
+       
+        <Grid Height="500" Canvas.Top="100" x:Name="ContentPanel" >
             <Rectangle Width="400" Height="100" Fill="Blue" Stroke="Red" 
                 Canvas.Top="-100" Canvas.Left="20" StrokeThickness="3" />
-
-            <ListView x:Name="ThumbnailList" 
+            <ListView x:Name="ThumbnailList" Background="Aqua"
                       Grid.Row="2"
                       Grid.ColumnSpan="2"
                       MaxWidth="400"
                       Height="150"
-                      Canvas.Top="10" Canvas.Left="20"  ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsVerticalScrollChainingEnabled="True" PointerPressed="Root_PointerPressed"
-                      >
-
+                      Canvas.Top="210" Canvas.Left="20"  ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsVerticalScrollChainingEnabled="True" >
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="data:Thumbnail">
                         <RelativePanel Width="320" Height="40">
                             <TextBlock Text="{x:Bind Name}"
                                        Style="{ThemeResource TitleTextBlockStyle}"
-                                       Foreground="Black">
+                                       Foreground="Black" >
                             </TextBlock>
                         </RelativePanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackPanel>
-        <!--</Canvas>-->
+        </Grid>
     </Grid>
-
 </local:SamplePage>

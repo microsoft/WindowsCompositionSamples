@@ -17,20 +17,22 @@ using SamplesCommon;
 using System.Diagnostics;
 using System.Numerics;
 using System.Threading.Tasks;
-using Windows.Foundation;
+using Windows.Foundation;   
 using Windows.UI.Composition;
 using Windows.UI.Composition.Interactions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.System;
 
 
 namespace CompositionSampleGallery
 {
     public sealed partial class PullToRefresh : SamplePage
     {
-        private Visual _image;
+        private Visual _contentPanel;
         private Visual _root;
         private Compositor _compositor;
         private VisualInteractionSource _interactionSource;
@@ -38,16 +40,13 @@ namespace CompositionSampleGallery
         private Windows.UI.Core.CoreWindow _Window;
 
         public PullToRefresh()
-        {
+        {   
             Model = new LocalDataSource();
             this.InitializeComponent();
             _Window = Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().CoreWindow;
-            this.PointerPressed += new PointerEventHandler(Window_PointerPressed);
-
         }
 
-        
-
+     
         public static string       StaticSampleName     { get { return "PullToRefresh ListView Items"; } }
         public override string     SampleName           { get { return StaticSampleName; } }
         public override string     SampleDescription    { get { return "Demonstrates how to apply a parallax effect to each item in a ListView control. As you scroll the ListView control watch as each ListView item translates at a different rate in comparison to the ListView's scroll position."; } }
@@ -56,14 +55,12 @@ namespace CompositionSampleGallery
         public LocalDataSource Model { set; get; }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-
-         
             
             ThumbnailList.ItemsSource = Model.Items;
-            _image = ElementCompositionPreview.GetElementVisual(ContentPanel);
+            _contentPanel = ElementCompositionPreview.GetElementVisual(ContentPanel);
             _root = ElementCompositionPreview.GetElementVisual(Root);
-            _compositor = _image.Compositor;
-
+            _compositor = _contentPanel.Compositor;
+            
             ConfigureInteractionTracker();
         }
 
@@ -77,64 +74,44 @@ namespace CompositionSampleGallery
 
             _interactionSource.PositionYSourceMode = InteractionSourceMode.EnabledWithInertia;
             _interactionSource.PositionXSourceMode = InteractionSourceMode.EnabledWithInertia;
-
-
-            //_interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadOnly;
+            _interactionSource.PositionYChainingMode = InteractionChainingMode.Always;
 
             _tracker.InteractionSources.Add(_interactionSource);
-
 
             _tracker.MaxPosition = new Vector3((float)Root.ActualWidth, (float)Root.ActualHeight, 0);
             _tracker.MinPosition = new Vector3(-(float)Root.ActualWidth, -(float)Root.ActualHeight, 0);
 
+            //The PointerPressed handler needs to be added using AddHandler method with the handledEventsToo boolean set to "true"
+            //instead of the XAML element's "PointerPressed=Window_PointerPressed",
+            //because the list view needs to chain PointerPressed handled events as well. 
+            Root.AddHandler(PointerPressedEvent, new PointerEventHandler(Window_PointerPressed), true);
+            
+        }
+
+        private void Window_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
             //
             // Use the Tacker's Position (negated) to apply to the Offset of the Image.
             //
 
             var positionExpression = _compositor.CreateExpressionAnimation("-tracker.Position");
             positionExpression.SetReferenceParameter("tracker", _tracker);
-
-            _image.StartAnimation("Offset", positionExpression);
-        }
-
-        private void Window_PointerPressed(object sender, PointerRoutedEventArgs e)
-        {
+            _contentPanel.StartAnimation("Offset", positionExpression);
 
             if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
 
             {
-
                 // Tell the system to use the gestures from this pointer point (if it can).
-
-                _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(Root));
-                _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(ThumbnailList));
-
+                _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(null));
             }
-
         }
+
         
-
-        private void Root_PointerPressed(object sender, PointerRoutedEventArgs e)
-
-        {
-
-            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
-
-            {
-
-                // Tell the system to use the gestures from this pointer point (if it can).
-
-                _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(Root));
-                _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(ThumbnailList));
-
-            }
-
-        }
         private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             //GridClip.Rect = new Rect(0d, 0d, e.NewSize.Width, e.NewSize.Height);
             //System.Diagnostics.Debug.WriteLine("GridClip.Rect" + GridClip.Rect);
         }
-
+        
     }
 }
