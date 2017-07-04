@@ -38,6 +38,8 @@ namespace CompositionSampleGallery
         private VisualInteractionSource _interactionSource;
         private InteractionTracker _tracker;
         private Windows.UI.Core.CoreWindow _Window;
+        private static Size ControlSize = new Size(500,500);
+        private ExpressionAnimation m_positionExpression;
 
         public PullToRefresh()
         {   
@@ -55,12 +57,11 @@ namespace CompositionSampleGallery
         public LocalDataSource Model { set; get; }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            
             ThumbnailList.ItemsSource = Model.Items;
             _contentPanel = ElementCompositionPreview.GetElementVisual(ContentPanel);
             _root = ElementCompositionPreview.GetElementVisual(Root);
             _compositor = _contentPanel.Compositor;
-            
+
             ConfigureInteractionTracker();
         }
 
@@ -73,30 +74,29 @@ namespace CompositionSampleGallery
             _interactionSource = VisualInteractionSource.Create(_root);
 
             _interactionSource.PositionYSourceMode = InteractionSourceMode.EnabledWithInertia;
-            _interactionSource.PositionXSourceMode = InteractionSourceMode.EnabledWithInertia;
+            //_interactionSource.PositionXSourceMode = InteractionSourceMode.EnabledWithInertia;
             _interactionSource.PositionYChainingMode = InteractionChainingMode.Always;
 
             _tracker.InteractionSources.Add(_interactionSource);
 
-            _tracker.MaxPosition = new Vector3((float)Root.ActualWidth, (float)Root.ActualHeight, 0);
-            _tracker.MinPosition = new Vector3(-(float)Root.ActualWidth, -(float)Root.ActualHeight, 0);
-
+            _tracker.MaxPosition = new Vector3(0, (float)Root.ActualHeight, 0);
+            
             //The PointerPressed handler needs to be added using AddHandler method with the handledEventsToo boolean set to "true"
             //instead of the XAML element's "PointerPressed=Window_PointerPressed",
             //because the list view needs to chain PointerPressed handled events as well. 
-            Root.AddHandler(PointerPressedEvent, new PointerEventHandler(Window_PointerPressed), true);
-            
+            ContentPanel.AddHandler(PointerPressedEvent, new PointerEventHandler(Window_PointerPressed), true);
+            //_contentPanel.Offset = new Vector3(0, -100,0);          
+            //
+            // Use the Tacker's Position (negated) to apply to the Offset of the Image.
+            //
+            m_positionExpression = _compositor.CreateExpressionAnimation("-tracker.Position.Y-100");
+            m_positionExpression.SetReferenceParameter("tracker", _tracker);
+            _contentPanel.StartAnimation("Offset.Y", m_positionExpression);
         }
 
         private void Window_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            //
-            // Use the Tacker's Position (negated) to apply to the Offset of the Image.
-            //
-
-            var positionExpression = _compositor.CreateExpressionAnimation("-tracker.Position");
-            positionExpression.SetReferenceParameter("tracker", _tracker);
-            _contentPanel.StartAnimation("Offset", positionExpression);
+            
 
             if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
 
@@ -109,8 +109,8 @@ namespace CompositionSampleGallery
         
         private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            //GridClip.Rect = new Rect(0d, 0d, e.NewSize.Width, e.NewSize.Height);
-            //System.Diagnostics.Debug.WriteLine("GridClip.Rect" + GridClip.Rect);
+            GridClip.Rect = new Rect(0d, 0d, e.NewSize.Width, e.NewSize.Height);
+            System.Diagnostics.Debug.WriteLine("GridClip.Rect" + GridClip.Rect);
         }
         
     }

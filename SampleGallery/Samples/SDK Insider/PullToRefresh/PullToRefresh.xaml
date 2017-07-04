@@ -10,17 +10,18 @@
     Loaded ="Page_Loaded"
 
     >
-    <Grid x:Name ="Root" Background="White"   SizeChanged="Grid_SizeChanged" >
-       
-        <Grid Height="500" Canvas.Top="100" x:Name="ContentPanel" >
+    <Grid x:Name ="Root" Background="White"   SizeChanged="Grid_SizeChanged">
+        <Grid.Clip>
+            <RectangleGeometry x:Name="GridClip" />
+        </Grid.Clip>
+        <StackPanel Height="500" MaxHeight="500" x:Name="ContentPanel" HorizontalAlignment="Left" VerticalAlignment="Top">
+          
             <Rectangle Width="400" Height="100" Fill="Blue" Stroke="Red" 
-                Canvas.Top="-100" Canvas.Left="20" StrokeThickness="3" />
+                 StrokeThickness="3"/>
             <ListView x:Name="ThumbnailList" Background="Aqua"
-                      Grid.Row="2"
-                      Grid.ColumnSpan="2"
                       MaxWidth="400"
-                      Height="150"
-                      Canvas.Top="210" Canvas.Left="20"  ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsVerticalScrollChainingEnabled="True" >
+                      Height="500"
+                  ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsScrollInertiaEnabled="False" ScrollViewer.IsVerticalScrollChainingEnabled="True"  >
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="data:Thumbnail">
                         <RelativePanel Width="320" Height="40">
@@ -32,6 +33,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </Grid>
+        </StackPanel>
     </Grid>
 </local:SamplePage>
