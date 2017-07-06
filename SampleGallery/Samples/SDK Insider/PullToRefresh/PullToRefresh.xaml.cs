@@ -79,13 +79,14 @@ namespace CompositionSampleGallery
 
             _tracker.InteractionSources.Add(_interactionSource);
 
-            _tracker.MaxPosition = new Vector3(0, (float)Root.ActualHeight, 0);
-            
+            _tracker.MaxPosition = new Vector3((float)Root.ActualWidth, (float)Root.ActualHeight, 0);
+            _tracker.MinPosition = new Vector3(-(float)Root.ActualWidth, -(float)Root.ActualHeight, 0);
+
             //The PointerPressed handler needs to be added using AddHandler method with the handledEventsToo boolean set to "true"
             //instead of the XAML element's "PointerPressed=Window_PointerPressed",
             //because the list view needs to chain PointerPressed handled events as well. 
             ContentPanel.AddHandler(PointerPressedEvent, new PointerEventHandler(Window_PointerPressed), true);
-            //_contentPanel.Offset = new Vector3(0, -100,0);          
+            
             //
             // Use the Tacker's Position (negated) to apply to the Offset of the Image.
             //
