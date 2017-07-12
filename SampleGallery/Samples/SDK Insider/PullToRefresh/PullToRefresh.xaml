@@ -14,10 +14,9 @@
             <RectangleGeometry x:Name="GridClip" />
         </Grid.Clip>
         <StackPanel Height="500" MaxHeight="500" x:Name="ContentPanel" HorizontalAlignment="Left" VerticalAlignment="Top">
-
-            <Rectangle Width="400" Height="100" Fill="Blue" Stroke="Red"  x:Name="RefreshPanel"
+            <Rectangle Width="400" Height="100"  Stroke="Aqua"  x:Name="RefreshPanel"
                  StrokeThickness="3"/>
-            <ListView x:Name="ThumbnailList" Background="Aqua"
+            <ListView x:Name="ThumbnailList" 
                       MaxWidth="400"
                       Height="500"
                   ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsScrollInertiaEnabled="False" ScrollViewer.IsVerticalScrollChainingEnabled="True"  >

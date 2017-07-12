@@ -80,11 +80,12 @@ namespace CompositionSampleGallery
             _interactionSource.PositionYChainingMode = InteractionChainingMode.Always;
 
             _tracker.InteractionSources.Add(_interactionSource);
-
-            _tracker.MaxPosition = new Vector3((float)Root.ActualWidth, (float)Root.ActualHeight, 0);
-            _tracker.MinPosition = new Vector3(-(float)Root.ActualWidth, -(float)Root.ActualHeight, 0);
-
             float refreshPanelHeight = (float)RefreshPanel.ActualHeight;
+
+            _tracker.MaxPosition = new Vector3((float)Root.ActualWidth, 0, 0);
+            _tracker.MinPosition = new Vector3(-(float)Root.ActualWidth, -refreshPanelHeight, 0);
+
+            
 
             //The PointerPressed handler needs to be added using AddHandler method with the handledEventsToo boolean set to "true"
             //instead of the XAML element's "PointerPressed=Window_PointerPressed",
@@ -118,7 +119,7 @@ namespace CompositionSampleGallery
             float pullToRefreshDistance)
         {
             //
-            // Modifier 1: Cut DeltaY in half as long as the InteractionTracker is not yet at the 
+            // Modifier 1: Cut DeltaY to a third as long as the InteractionTracker is not yet at the 
             // pullRefreshDistance.
             //
 
@@ -130,13 +131,12 @@ namespace CompositionSampleGallery
             resistanceCondition.SetReferenceParameter("tracker", _tracker);
 
             ExpressionAnimation resistanceAlternateValue = _compositor.CreateExpressionAnimation(
-            "source.DeltaPosition.Y / 2");
+            "source.DeltaPosition.Y / 3");
 
             resistanceAlternateValue.SetReferenceParameter("source", _interactionSource);
 
             resistanceModifier.Condition = resistanceCondition;
             resistanceModifier.Value = resistanceAlternateValue;
-
 
             //
             // Modifier 2: Zero the delta if we are past the pullRefreshDistance. (So we can't pan 
@@ -146,30 +146,45 @@ namespace CompositionSampleGallery
             CompositionConditionalValue stoppingModifier = CompositionConditionalValue.Create(_compositor);
 
             ExpressionAnimation stoppingCondition = _compositor.CreateExpressionAnimation(
-            $"-tracker.Position.Y >= {pullToRefreshDistance}");
+                            $"-tracker.Position.Y >= {pullToRefreshDistance}");
 
             stoppingCondition.SetReferenceParameter("tracker", _tracker);
 
             ExpressionAnimation stoppingAlternateValue = _compositor.CreateExpressionAnimation("0");
-            //stoppingAlternateValue.SetReferenceParameter("source", _interactionSource);
-
+            
             stoppingModifier.Condition = stoppingCondition;
             stoppingModifier.Value = stoppingAlternateValue;
 
+            //
+            // Modifier 3: Zero the delta if we pull it back up past the 0 point. (So we can't pan 
+            // past the pullRefreshDistance)
+            //
 
+            CompositionConditionalValue stoppingUpModifier = CompositionConditionalValue.Create(_compositor);
+
+            ExpressionAnimation stoppingUpCondition = _compositor.CreateExpressionAnimation(
+            $"-tracker.Position.Y < 0");
+
+            stoppingUpCondition.SetReferenceParameter("tracker", _tracker);
+
+            ExpressionAnimation stoppingUpAlternateValue = _compositor.CreateExpressionAnimation("0");
+            
+            stoppingUpModifier.Condition = stoppingUpCondition;
+            stoppingUpModifier.Value = stoppingUpAlternateValue;
+
+            
             //
             // Apply the modifiers to the source as a list
             //
 
             List<CompositionConditionalValue> modifierList =
-            new List<CompositionConditionalValue>() { resistanceModifier, stoppingModifier };
+            new List<CompositionConditionalValue>() { resistanceModifier, stoppingModifier , stoppingUpModifier};
 
             _interactionSource.ConfigureDeltaPositionYModifiers(modifierList);
 
            
         }
-
-
+        
 
         private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
         {

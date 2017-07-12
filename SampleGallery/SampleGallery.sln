@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26202.3
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleGallery", "SampleGallery.csproj", "{B39C562B-EA01-4368-8AD9-DF79CC5A533A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0B6A4830-D1FF-4018-BAA2-7257EB4579FE} = {0B6A4830-D1FF-4018-BAA2-7257EB4579FE}
+		{B0DCA768-5521-406C-803D-FDCCF67181D1} = {B0DCA768-5521-406C-803D-FDCCF67181D1}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamplesCommon", "..\SamplesCommon\SamplesCommon\SamplesCommon.csproj", "{0B6A4830-D1FF-4018-BAA2-7257EB4579FE}"
 EndProject
