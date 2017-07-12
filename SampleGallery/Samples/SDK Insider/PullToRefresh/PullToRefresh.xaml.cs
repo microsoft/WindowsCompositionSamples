@@ -16,6 +16,7 @@ using CompositionSampleGallery.Shared;
 using SamplesCommon;
 using System.Diagnostics;
 using System.Numerics;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Foundation;   
 using Windows.UI.Composition;
@@ -32,7 +33,7 @@ namespace CompositionSampleGallery
 {
     public sealed partial class PullToRefresh : SamplePage
     {
-        private Visual _contentPanel;
+        private Visual _contentPanelVisual;
         private Visual _root;
         private Compositor _compositor;
         private VisualInteractionSource _interactionSource;
@@ -40,6 +41,7 @@ namespace CompositionSampleGallery
         private Windows.UI.Core.CoreWindow _Window;
         private static Size ControlSize = new Size(500,500);
         private ExpressionAnimation m_positionExpression;
+        
 
         public PullToRefresh()
         {   
@@ -58,9 +60,9 @@ namespace CompositionSampleGallery
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             ThumbnailList.ItemsSource = Model.Items;
-            _contentPanel = ElementCompositionPreview.GetElementVisual(ContentPanel);
+            _contentPanelVisual = ElementCompositionPreview.GetElementVisual(ContentPanel);
             _root = ElementCompositionPreview.GetElementVisual(Root);
-            _compositor = _contentPanel.Compositor;
+            _compositor = _contentPanelVisual.Compositor;
 
             ConfigureInteractionTracker();
         }
@@ -72,7 +74,7 @@ namespace CompositionSampleGallery
             _tracker = InteractionTracker.Create(_compositor);
             
             _interactionSource = VisualInteractionSource.Create(_root);
-
+           
             _interactionSource.PositionYSourceMode = InteractionSourceMode.EnabledWithInertia;
             //_interactionSource.PositionXSourceMode = InteractionSourceMode.EnabledWithInertia;
             _interactionSource.PositionYChainingMode = InteractionChainingMode.Always;
@@ -82,23 +84,27 @@ namespace CompositionSampleGallery
             _tracker.MaxPosition = new Vector3((float)Root.ActualWidth, (float)Root.ActualHeight, 0);
             _tracker.MinPosition = new Vector3(-(float)Root.ActualWidth, -(float)Root.ActualHeight, 0);
 
+            float refreshPanelHeight = (float)RefreshPanel.ActualHeight;
+
             //The PointerPressed handler needs to be added using AddHandler method with the handledEventsToo boolean set to "true"
             //instead of the XAML element's "PointerPressed=Window_PointerPressed",
             //because the list view needs to chain PointerPressed handled events as well. 
             ContentPanel.AddHandler(PointerPressedEvent, new PointerEventHandler(Window_PointerPressed), true);
-            
+
+            SetupPullToRefreshBehavior(refreshPanelHeight);
+
             //
-            // Use the Tacker's Position (negated) to apply to the Offset of the Image.
+            // Use the Tacker's Position (negated) to apply to the Offset of the Image. The -{refreshPanelHeight} is to hide the refresh panel
             //
-            m_positionExpression = _compositor.CreateExpressionAnimation("-tracker.Position.Y-100");
+            m_positionExpression = _compositor.CreateExpressionAnimation($"-tracker.Position.Y - {refreshPanelHeight} ");
             m_positionExpression.SetReferenceParameter("tracker", _tracker);
-            _contentPanel.StartAnimation("Offset.Y", m_positionExpression);
+            _contentPanelVisual.StartAnimation("Offset.Y", m_positionExpression);
+            
         }
 
         private void Window_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             
-
             if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
 
             {
@@ -107,7 +113,64 @@ namespace CompositionSampleGallery
             }
         }
 
-        
+        // Apply two sourcemodifiers to the input source: One to provide resistance, one to stop motion
+        public void SetupPullToRefreshBehavior(
+            float pullToRefreshDistance)
+        {
+            //
+            // Modifier 1: Cut DeltaY in half as long as the InteractionTracker is not yet at the 
+            // pullRefreshDistance.
+            //
+
+            CompositionConditionalValue resistanceModifier = CompositionConditionalValue.Create(_compositor);
+
+            ExpressionAnimation resistanceCondition = _compositor.CreateExpressionAnimation(
+                $"-tracker.Position.Y < {pullToRefreshDistance}");
+
+            resistanceCondition.SetReferenceParameter("tracker", _tracker);
+
+            ExpressionAnimation resistanceAlternateValue = _compositor.CreateExpressionAnimation(
+            "source.DeltaPosition.Y / 2");
+
+            resistanceAlternateValue.SetReferenceParameter("source", _interactionSource);
+
+            resistanceModifier.Condition = resistanceCondition;
+            resistanceModifier.Value = resistanceAlternateValue;
+
+
+            //
+            // Modifier 2: Zero the delta if we are past the pullRefreshDistance. (So we can't pan 
+            // past the pullRefreshDistance)
+            //
+
+            CompositionConditionalValue stoppingModifier = CompositionConditionalValue.Create(_compositor);
+
+            ExpressionAnimation stoppingCondition = _compositor.CreateExpressionAnimation(
+            $"-tracker.Position.Y >= {pullToRefreshDistance}");
+
+            stoppingCondition.SetReferenceParameter("tracker", _tracker);
+
+            ExpressionAnimation stoppingAlternateValue = _compositor.CreateExpressionAnimation("0");
+            //stoppingAlternateValue.SetReferenceParameter("source", _interactionSource);
+
+            stoppingModifier.Condition = stoppingCondition;
+            stoppingModifier.Value = stoppingAlternateValue;
+
+
+            //
+            // Apply the modifiers to the source as a list
+            //
+
+            List<CompositionConditionalValue> modifierList =
+            new List<CompositionConditionalValue>() { resistanceModifier, stoppingModifier };
+
+            _interactionSource.ConfigureDeltaPositionYModifiers(modifierList);
+
+           
+        }
+
+
+
         private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             GridClip.Rect = new Rect(0d, 0d, e.NewSize.Width, e.NewSize.Height);

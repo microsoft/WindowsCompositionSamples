@@ -8,15 +8,14 @@
     xmlns:data="using:CompositionSampleGallery.Shared"
     mc:Ignorable="d"
     Loaded ="Page_Loaded"
-
     >
     <Grid x:Name ="Root" Background="White"   SizeChanged="Grid_SizeChanged">
         <Grid.Clip>
             <RectangleGeometry x:Name="GridClip" />
         </Grid.Clip>
         <StackPanel Height="500" MaxHeight="500" x:Name="ContentPanel" HorizontalAlignment="Left" VerticalAlignment="Top">
-          
-            <Rectangle Width="400" Height="100" Fill="Blue" Stroke="Red" 
+
+            <Rectangle Width="400" Height="100" Fill="Blue" Stroke="Red"  x:Name="RefreshPanel"
                  StrokeThickness="3"/>
             <ListView x:Name="ThumbnailList" Background="Aqua"
                       MaxWidth="400"
