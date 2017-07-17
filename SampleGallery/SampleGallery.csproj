@@ -99,6 +99,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Compile Include="Samples\SDK 14393\Win2DInterop\Win2DInterop.xaml.cs">
+      <DependentUpon>Win2DInterop.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\SDK 15063\OffsetStompingFix\OffsetStompingFix.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393">
       <DependentUpon>OffsetStompingFix.xaml</DependentUpon>
     </Compile>
@@ -351,6 +354,7 @@
     <Content Include="Assets\SampleThumbnails\TransparentWindow.PNG" />
     <Content Include="Assets\SampleThumbnails\TreeEffect.PNG" />
     <Content Include="Assets\SampleThumbnails\VideoPlayground.PNG" />
+    <Content Include="Assets\SampleThumbnails\Win2DInterop.png" />
     <Content Include="Assets\SampleThumbnails\Z-OrderScrolling.PNG" />
     <Content Include="Assets\SampleThumbnails\ZoomWithPerspective.PNG" />
     <Content Include="Assets\Square71x71Logo.scale-200.png" />
@@ -506,6 +510,10 @@
     <Page Include="Samples\SDK 14393\ShyHeader\ShyHeader.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK 14393\Win2DInterop\Win2DInterop.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\SDK 15063\OffsetStompingFix\OffsetStompingFix.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>

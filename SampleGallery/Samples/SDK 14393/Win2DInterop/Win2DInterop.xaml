@@ -1,0 +1,81 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.Win2DInterop"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="using:SamplesCommon"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Loaded="Page_Loaded"
+    Unloaded="Page_Unloaded"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel
+            Grid.Column="0"
+            MinWidth="200"
+            Orientation="Vertical">
+
+            <Button
+                x:Name="RebuildButton"
+                MinWidth="100"
+                Margin="20,0,20,8"
+                HorizontalAlignment="Left"
+                Click="RebuildButton_Click"
+                Content="Rebuild Noise" />
+
+            <Slider
+                x:Name="NoiseOctavesSlider"
+                Margin="20,0,20,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                Header="Noise Octaves"
+                Maximum="10"
+                Minimum="1"
+                SmallChange="1"
+                StepFrequency="1"
+                ValueChanged="Slider_ValueChanged"
+                Value="4" />
+
+            <Slider
+                x:Name="NoiseFrequencySlider"
+                Margin="20,0,20,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                Header="Noise Frequency"
+                Maximum="2"
+                Minimum="0"
+                SmallChange="0.0001"
+                StepFrequency="0.0001"
+                ValueChanged="Slider_ValueChanged"
+                Value="0.1" />
+
+            <ComboBox
+                x:Name="NoiseTypeComboBox"
+                Margin="20,0,20,0"
+                HorizontalAlignment="Stretch"
+                Header="Noise Type"
+                SelectedValue="Fractal Sum"
+                SelectionChanged="ComboBox_SelectionChanged">
+                <x:String>Fractal Sum</x:String>
+                <x:String>Turbulence</x:String>
+            </ComboBox>
+
+        </StackPanel>
+
+        <Border
+            x:Name="Placeholder"
+            Grid.Column="1"
+            Margin="24,0,24,24"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            SizeChanged="Placeholder_SizeChanged" />
+
+    </Grid>
+</local:SamplePage>

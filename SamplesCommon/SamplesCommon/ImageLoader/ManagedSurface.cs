@@ -59,6 +59,11 @@ namespace SamplesCommon
             get { return _surface; }
         }
 
+        public IContentDrawer Drawer
+        {
+            get { return _drawer; }
+        }
+
         public CompositionSurfaceBrush Brush
         {
             get

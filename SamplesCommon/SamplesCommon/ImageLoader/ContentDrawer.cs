@@ -27,4 +27,5 @@ namespace SamplesCommon
     }
 
     public delegate void LoadTimeEffectHandler(CompositionDrawingSurface surface, CanvasBitmap bitmap, CompositionGraphicsDevice device);
+    public delegate void InteropDrawHandler(CompositionDrawingSurface surface, CompositionGraphicsDevice device);
 }
