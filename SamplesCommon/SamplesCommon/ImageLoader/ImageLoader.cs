@@ -163,6 +163,19 @@ namespace SamplesCommon
             return LoadFromUriAsyncWorker(uri, size, handler).AsAsyncOperation<ManagedSurface>();
         }
 
+        public ManagedSurface LoadInteropSurface(Size size, InteropDrawHandler handler)
+        {
+            ManagedSurface surface = new ManagedSurface(CreateSurface(size));
+            var ignored = surface.Draw(_graphicsDevice, _drawingLock, new InteropDrawer(handler));
+
+            return surface;
+        }
+
+        public async Task RedrawSurface(ManagedSurface surface)
+        {
+            await surface.Draw(_graphicsDevice, _drawingLock, surface.Drawer);
+        }
+
         public ManagedSurface LoadCircle(float radius, Color color)
         {
             ManagedSurface surface = new ManagedSurface(CreateSurface(new Size(radius * 2, radius * 2)));
