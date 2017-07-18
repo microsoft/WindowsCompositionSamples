@@ -171,6 +171,7 @@ namespace CompositionSampleGallery
                 new SampleDefinition(ShadowsAdvanced.StaticSampleName,              typeof(ShadowsAdvanced),              SampleType.Reference, SampleCategory.RealWorldUI,                false, false,                                       imageUrl: "ms-appx:///Assets/SampleThumbnails/AdvancedShadows.PNG",         sdkVersion: RuntimeSupportedSDKs.SDKVERSION._15063),
                 new SampleDefinition(OffsetStompingFix.StaticSampleName,            typeof(OffsetStompingFix),            SampleType.Reference, SampleCategory.Conceptual,                 false, false,  dateAdded: new DateTime(2017,04,18), imageUrl: "ms-appx:///Assets/SampleThumbnails/Offset_Stomping.gif",         sdkVersion: RuntimeSupportedSDKs.SDKVERSION._15063),
                 new SampleDefinition(PointerRotate.StaticSampleName,                typeof(PointerRotate),                SampleType.Reference, SampleCategory.DynamicHumanInteractions,   false, false,  dateAdded: new DateTime(2017,04,25), imageUrl: "ms-appx:///Assets/SampleThumbnails/PointerRotate.PNG",           sdkVersion: RuntimeSupportedSDKs.SDKVERSION._15063),
+                new SampleDefinition(BrushInterop.StaticSampleName,                 typeof(BrushInterop),                 SampleType.Reference, SampleCategory.Conceptual,                 true,  true,   dateAdded: new DateTime(2017,04,25), imageUrl: "ms-appx:///Assets/SampleThumbnails/BrushInterop.PNG",            sdkVersion: RuntimeSupportedSDKs.SDKVERSION._15063),
 #endif
 
 #if SDKVERSION_INSIDER
