@@ -99,6 +99,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Compile Include="Samples\SDK 15063\LightInterop\AmbLight.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\LightInterop\MaterialBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\LightInterop\HoverLight.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\LightInterop\LightInterop.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\OffsetStompingFix\OffsetStompingFix.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393">
       <DependentUpon>OffsetStompingFix.xaml</DependentUpon>
     </Compile>
@@ -273,6 +277,7 @@
     <Content Include="Assets\Appointment.png" />
     <Content Include="Assets\Background.png" />
     <Content Include="Assets\BannerImages\ShyHeader.png" />
+    <Content Include="Assets\Damaged_NormalMap.jpg" />
     <Content Include="Assets\FB-f-Logo__blue_57.png" />
     <Content Include="Assets\Landmarks\SpaceNeedle.png" />
     <Content Include="Assets\Landmarks\PikePlaceMarket.png" />
@@ -314,6 +319,7 @@
     <Content Include="Assets\SampleThumbnails\LayoutAnimations.PNG" />
     <Content Include="Assets\SampleThumbnails\LayerDepth.PNG" />
     <Content Include="Assets\SampleThumbnails\LayerVisualSample.PNG" />
+    <Content Include="Assets\SampleThumbnails\LightInterop.png" />
     <Content Include="Assets\SampleThumbnails\LightSpheres.PNG" />
     <Content Include="Assets\SampleThumbnails\NavigationFlow.PNG" />
     <Content Include="Assets\SampleThumbnails\NineGridResizing.PNG" />
@@ -508,6 +514,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\SDK 14393\ShyHeader\ShyHeader.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK 15063\LightInterop\LightInterop.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
