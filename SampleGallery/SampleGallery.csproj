@@ -270,6 +270,7 @@
     <Content Include="Assets\Landmarks\FerrisWheel.png" />
     <Content Include="Assets\MainNavigationPointerOverBackgroundWide.png" />
     <Content Include="Assets\MissingThumbnail.png" />
+    <Content Include="Assets\Loading.png" />
     <Content Include="Assets\SampleThumbnails\AdvancedShadows.PNG" />
     <Content Include="Assets\SampleThumbnails\BackDropControlSample.PNG" />
     <Content Include="Assets\SampleThumbnails\BasicLayoutAndTransitions.PNG" />
@@ -311,6 +312,7 @@
     <Content Include="Assets\SampleThumbnails\Perspective.png" />
     <Content Include="Assets\SampleThumbnails\PhotoPopupViewer.PNG" />
     <Content Include="Assets\SampleThumbnails\PointerEnterExitEffects.PNG" />
+    <Content Include="Assets\SampleThumbnails\PullToRefresh.png" />
     <Content Include="Assets\SampleThumbnails\ShadowInterop.PNG" />
     <Content Include="Assets\SampleThumbnails\ShadowPlayground.jpg" />
     <Content Include="Assets\Calendar.png" />

@@ -16,6 +16,7 @@ using CompositionSampleGallery.Shared;
 using SamplesCommon;
 using System.Diagnostics;
 using System.Numerics;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -41,8 +42,8 @@ namespace CompositionSampleGallery
         private Windows.UI.Core.CoreWindow _Window;
         private static Size ControlSize = new Size(500, 500);
         private ExpressionAnimation m_positionExpression;
-
-
+        private ScalarKeyFrameAnimation _gearMotionScalarAnimation;
+        
         public PullToRefresh()
         {
             Model = new LocalDataSource();
@@ -53,20 +54,39 @@ namespace CompositionSampleGallery
 
         public static string StaticSampleName { get { return "PullToRefresh ListView Items"; } }
         public override string SampleName { get { return StaticSampleName; } }
-        public override string SampleDescription { get { return "Demonstrates how to apply a parallax effect to each item in a ListView control. As you scroll the ListView control watch as each ListView item translates at a different rate in comparison to the ListView's scroll position."; } }
+        public override string SampleDescription { get { return "Demonstrates how to create a custom Pull-to-Refresh control using Interaction Tracker Source Modifiers"; } }
         public override string SampleCodeUri { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761169"; } }
 
         public LocalDataSource Model { set; get; }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            ThumbnailList.ItemsSource = Model.Items;
+            ThumbnailList.ItemsSource = Model.Cities;
             _contentPanelVisual = ElementCompositionPreview.GetElementVisual(ContentPanel);
             _root = ElementCompositionPreview.GetElementVisual(Root);
-            _compositor = _contentPanelVisual.Compositor;
-
+            _compositor = _root.Compositor;
             ConfigureInteractionTracker();
+            SetupAnimatingRefreshPanel();
         }
 
+
+        private void SetupAnimatingRefreshPanel()
+        {
+            Visual loadingVisual = ElementCompositionPreview.GetElementVisual(FirstGear);
+            loadingVisual.Size = new Vector2((float)FirstGear.ActualWidth, (float)FirstGear.ActualHeight);
+            loadingVisual.AnchorPoint = new Vector2(0.5f, 0.5f);
+
+            // Animate the refresh panel icon using a simple rotating key frame animation
+            ScalarKeyFrameAnimation _loadingMotionScalarAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            var linear = _compositor.CreateLinearEasingFunction();
+
+            _loadingMotionScalarAnimation.InsertExpressionKeyFrame(0.0f, "this.StartingValue");
+            _loadingMotionScalarAnimation.InsertExpressionKeyFrame(1.0f, "this.StartingValue + 360", linear);
+            _loadingMotionScalarAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
+            _loadingMotionScalarAnimation.Duration = TimeSpan.FromSeconds(2);
+
+            loadingVisual.StartAnimation("RotationAngleInDegrees", _loadingMotionScalarAnimation);
+
+        }
 
 
         private void ConfigureInteractionTracker()
@@ -76,7 +96,6 @@ namespace CompositionSampleGallery
             _interactionSource = VisualInteractionSource.Create(_root);
 
             _interactionSource.PositionYSourceMode = InteractionSourceMode.EnabledWithInertia;
-            //_interactionSource.PositionXSourceMode = InteractionSourceMode.EnabledWithInertia;
             _interactionSource.PositionYChainingMode = InteractionChainingMode.Always;
 
             _tracker.InteractionSources.Add(_interactionSource);
@@ -101,7 +120,7 @@ namespace CompositionSampleGallery
             m_positionExpression = _compositor.CreateExpressionAnimation($"-tracker.Position.Y - {refreshPanelHeight} ");
             m_positionExpression.SetReferenceParameter("tracker", _tracker);
             _contentPanelVisual.StartAnimation("Offset.Y", m_positionExpression);
-            
+
         }
 
         private void Window_PointerPressed(object sender, PointerRoutedEventArgs e)
@@ -151,14 +170,14 @@ namespace CompositionSampleGallery
 
             stoppingModifier.Condition = stoppingCondition;
             stoppingModifier.Value = stoppingAlternateValue;
-            
+
 
             //
             // Apply the modifiers to the source as a list
             //
 
             List<CompositionConditionalValue> modifierList =
-            new List<CompositionConditionalValue>() { resistanceModifier, stoppingModifier 
+            new List<CompositionConditionalValue>() { resistanceModifier, stoppingModifier
             };
 
             _interactionSource.ConfigureDeltaPositionYModifiers(modifierList);
@@ -176,7 +195,7 @@ namespace CompositionSampleGallery
             // Set the condition to true (always)
             modifier.Condition = _compositor.CreateExpressionAnimation("true");
 
-            // Define a spring-like force, anchored at position 0.
+            // Define a spring-like force, anchored at position 0. This brings the listView back to position 0.
             modifier.Motion = _compositor.CreateExpressionAnimation(@"(-(this.target.Position.Y) * springConstant) - (dampingConstant * this.target.PositionVelocityInPixelsPerSecond.Y)");
 
             modifier.Motion.SetScalarParameter("dampingConstant", dampingConstant);
@@ -198,7 +217,7 @@ namespace CompositionSampleGallery
 
             // Set the result for this condition to make the InteractionTracker's y position the minimum y position
             endpoint1.RestingValue = _compositor.CreateExpressionAnimation($"-this.target.MinPosition.y - {pullToRefreshDistance}");
-            _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { endpoint1});
+            _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { endpoint1 });
         }
         private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
         {

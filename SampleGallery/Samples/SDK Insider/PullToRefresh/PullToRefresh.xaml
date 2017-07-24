@@ -13,19 +13,27 @@
         <Grid.Clip>
             <RectangleGeometry x:Name="GridClip" />
         </Grid.Clip>
-        <StackPanel Height="500" MaxHeight="500" x:Name="ContentPanel" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Rectangle Width="400" Height="100"  Stroke="Aqua"  x:Name="RefreshPanel"
-                 StrokeThickness="3"/>
+        <StackPanel Height="500" MaxHeight="500" x:Name="ContentPanel" HorizontalAlignment="Left" VerticalAlignment="Top" >
+            <Canvas Width="400" Height="100"   x:Name="RefreshPanel" >
+                <Image x:Name="FirstGear" Source="ms-appx:///Assets/Loading.png" Width="20" Height="20"  Canvas.Left="200" Canvas.Top="70"/>
+            </Canvas>
             <ListView x:Name="ThumbnailList" 
                       MaxWidth="400"
                       Height="500"
                   ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsScrollInertiaEnabled="False" ScrollViewer.IsVerticalScrollChainingEnabled="True"  >
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="data:Thumbnail">
-                        <RelativePanel Width="320" Height="40">
+                        <RelativePanel Width="370" Height="40" BorderBrush="Black" BorderThickness="1">
+                            <Image
+                                x:Name="Image"
+                                Source="{x:Bind ImageUrl}"
+                                Width="48"
+                                Height="32"
+                                Stretch="Fill" 
+                                Margin="5"/>
                             <TextBlock Text="{x:Bind Name}"
-                                       Style="{ThemeResource TitleTextBlockStyle}"
-                                       Foreground="Black" >
+                                       Style="{ThemeResource BodyTextBlockStyle}"
+                                       Foreground="Black" Margin="60,5,0,0" >
                             </TextBlock>
                         </RelativePanel>
                     </DataTemplate>

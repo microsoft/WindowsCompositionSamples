@@ -168,7 +168,7 @@ namespace CompositionSampleGallery
                 new SampleDefinition(ShowHideImplicitWebview.StaticSampleName,      typeof(ShowHideImplicitWebview),      SampleType.EndToEnd,  SampleCategory.SeamlessTransitions,        false, false,  dateAdded: new DateTime(2017,02,28), imageUrl: "ms-appx:///Assets/SampleThumbnails/ShowHideImplicitWebview.PNG", sdkVersion: RuntimeSupportedSDKs.SDKVERSION._INSIDER),
                 new SampleDefinition(BlurPlayground.StaticSampleName,               typeof(BlurPlayground),               SampleType.Reference, SampleCategory.Conceptual,                 true,  true,  "ms-appx:///Assets/SampleThumbnails/BlurPlayground.PNG",                sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
                 new SampleDefinition(ShadowsAdvanced.StaticSampleName,              typeof(ShadowsAdvanced),              SampleType.Reference, SampleCategory.RealWorldUI,                false, false, imageUrl: "ms-appx:///Assets/SampleThumbnails/AdvancedShadows.PNG",     sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
-                 new SampleDefinition(PullToRefresh.StaticSampleName,              typeof(PullToRefresh),              SampleType.Reference, SampleCategory.NaturalMotion,                false, false, imageUrl: "ms-appx:///Assets/SampleThumbnails/ParallaxingListviewItem.PNG",     sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
+                 new SampleDefinition(PullToRefresh.StaticSampleName,              typeof(PullToRefresh),              SampleType.Reference, SampleCategory.NaturalMotion,                false, false, imageUrl: "ms-appx:///Assets/SampleThumbnails/PullToRefresh.PNG",     sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
 #endif
     };
 
