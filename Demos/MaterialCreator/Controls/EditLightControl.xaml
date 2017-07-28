@@ -1,0 +1,99 @@
+﻿<UserControl
+    x:Class="MaterialCreator.EditLightControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <StackPanel Margin="0,0,6,0">
+        <StackPanel.Resources>
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            </Style>
+            <Style TargetType="ComboBox">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="Slider">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            </Style>
+        </StackPanel.Resources>
+
+        <TextBlock Text="Name" Margin="0,0,0,5"/>
+        <TextBox x:Name="LightName" Text="New Light" TextChanged="LightName_TextChanged"/>
+
+        <TextBlock Text="Light Type:" Margin="0,20,0,5"/>
+        <ComboBox x:Name="LightTypeSelection" 
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch" 
+                    PlaceholderText="Light Type"
+                    SelectedValuePath="Content"
+                    SelectionChanged="LightTypeSelection_SelectionChanged"
+                    />
+
+        <StackPanel x:Name ="PointProperties" Orientation="Vertical">
+            <TextBlock Text="Light Color" Margin="0,20,0,5"/>
+            <ColorPicker x:Name="LightColor" ColorChanged="OnColorPickerColorChanged"  Color="White"/>
+
+            <TextBlock Text="Intensity" Margin="0,20,0,5"/>
+            <Slider x:Name="IntensitySlider" Minimum="0" Maximum="100" Value="100" ValueChanged="Slider_ValueChanged"/>
+        </StackPanel>
+
+        <StackPanel x:Name="DefaultProperties" Orientation="Vertical">
+            <TextBlock Text="X Offset" Margin="0,10,0,5"/>
+            <Slider x:Name="XOffset" Minimum="-3000" Maximum="3000" Value="300" ValueChanged="Slider_ValueChanged"/>
+
+            <TextBlock Text="Y Offset" Margin="0,10,0,5"/>
+            <Slider x:Name="YOffset" Minimum="-3000" Maximum="3000" Value="300" ValueChanged="Slider_ValueChanged" />
+
+            <TextBlock Text="Z Offset" Margin="0,10,0,5"/>
+            <Slider x:Name="ZOffset" Minimum="-3000" Maximum="3000" Value="100" ValueChanged="Slider_ValueChanged" />
+
+            <TextBlock Text="Constant Attenuation" Margin="0,10,0,5"/>
+            <Slider x:Name="ConstantAttenuation" Minimum="0" Maximum="100" ValueChanged="Slider_ValueChanged"/>
+
+            <TextBlock Text="Linear Attenuation" Margin="0,10,0,5"/>
+            <Slider x:Name="LinearAttenuation" Minimum="0" Maximum="100" ValueChanged="Slider_ValueChanged"/>
+
+            <TextBlock Text="Quadratic Attenuation" Margin="0,10,0,5"/>
+            <Slider x:Name="QuadraticAttenuation" Minimum="0" Maximum="100" ValueChanged="Slider_ValueChanged" />
+        </StackPanel>
+
+        <StackPanel x:Name ="SpotProperties" Orientation="Vertical">
+            <TextBlock Text="Inner Cone" Margin="0,10,0,5"/>
+            <Slider x:Name="InnerCone" Minimum="0" Maximum="90" Value="45" ValueChanged="Slider_ValueChanged" />
+
+            <TextBlock Text="Inner Cone Color" Margin="0,10,0,5"/>
+            <ColorPicker x:Name="InnerConeColor" ColorChanged="OnColorPickerColorChanged"  Color="White"/>
+
+            <TextBlock Text="Inner Cone Intensity" Margin="0,10,0,5"/>
+            <Slider x:Name="InnerIntensitySlider" Minimum="0" Maximum="100" Value="100" ValueChanged="Slider_ValueChanged"/>
+
+            <TextBlock Text="Outer Cone" Margin="0,10,0,5"/>
+            <Slider x:Name="OuterCone" Minimum="0" Maximum="90" Value="60" ValueChanged="Slider_ValueChanged"/>
+
+            <TextBlock Text="Outer Cone Color" Margin="0,10,0,5"/>
+            <ColorPicker x:Name="OuterConeColor" ColorChanged="OnColorPickerColorChanged"  Color="Blue"/>
+
+            <TextBlock Text="Outer Cone Intensity" Margin="0,10,0,5"/>
+            <Slider x:Name="OuterIntensitySlider" Minimum="0" Maximum="100" Value="100" ValueChanged="Slider_ValueChanged"/>
+        </StackPanel>
+
+        <StackPanel x:Name ="DirectionProperties" Orientation="Vertical">
+            <TextBlock Text="Direction X" Margin="0,10,0,5"/>
+            <Slider x:Name="DirectionX" Minimum="0" Maximum="600" Value="300" ValueChanged="Slider_ValueChanged" />
+
+            <TextBlock Text="Direction Y" Margin="0,10,0,5"/>
+            <Slider x:Name="DirectionY" Minimum="0" Maximum="600" Value="300" ValueChanged="Slider_ValueChanged"/>
+        </StackPanel>
+    </StackPanel>
+
+</UserControl>

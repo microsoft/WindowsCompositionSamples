@@ -1,0 +1,36 @@
+﻿<UserControl
+    x:Class="MaterialCreator.EffectControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MaterialCreator"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid x:Name="RootGrid" IsTapEnabled="True" Tapped="RootGrid_Tapped" PointerEntered="RootGrid_PointerEntered" PointerExited="RootGrid_PointerExited" Height="52">
+        <Grid.ContextFlyout>
+            <MenuFlyout>
+                <MenuFlyoutItem Text="Delete Effect" Click="DeleteEffect_Click"/>
+            </MenuFlyout>
+        </Grid.ContextFlyout>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Button x:Name="Eyeball" Content="" FontSize="16" FontFamily="Segoe MDL2 Assets" ToolTipService.ToolTip="Enable Effect" Style="{StaticResource MaterialButton}" Width="48" Height="48" HorizontalAlignment="Center" VerticalAlignment="Center" Click="EffectVisible_Clicked"/>
+        <TextBlock x:Name="EffectType" Text="{x:Bind Effect.DisplayName, Mode=OneWay}" Grid.Column="1" VerticalAlignment="Center" Margin="60,0,0,0"/>
+
+        <StackPanel x:Name="EffectButtons" Orientation="Horizontal" Grid.Column="2" Visibility="Collapsed">
+            <Button x:Name="DeleteEffect"   Content="" Width="48" Height="48" FontSize="16" ToolTipService.ToolTip="Delete Effect" Style="{StaticResource MaterialButton}" HorizontalAlignment="Right" Grid.Column="2" FontFamily="Segoe MDL2 Assets" Click="DeleteEffect_Click"/>
+        </StackPanel>
+    </Grid>
+
+</UserControl>

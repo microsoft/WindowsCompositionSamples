@@ -1,0 +1,21 @@
+﻿<ContentDialog
+    x:Class="MaterialCreator.ThreeButtonDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MaterialCreator"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="TITLE">
+
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <TextBlock x:Name="MessageText" Text="{x:Bind Message, Mode=OneWay}" HorizontalAlignment="Stretch"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,40,0,0">
+                <Button x:Name="PrimaryButton" Content="{x:Bind FirstButtonText, Mode=OneWay}" Style="{x:Bind PrimaryButtonStyle}" Margin="0,0,5,0" Padding="50,5,50,5" Click="PrimaryButton_Click"></Button>
+                <Button x:Name="SecondaryButton" Content="{x:Bind SecondButtonText, Mode=OneWay}" Style="{x:Bind SecondaryButtonStyle}" Margin="0,0,5,0" Padding="50,5,50,5" Click="SecondaryButton_Click"></Button>
+                <Button x:Name="TernaryButton" Content="{x:Bind ThirdButtonText, Mode=OneWay}" Style="{x:Bind SecondaryButtonStyle}" Margin="0,0,0,0" Padding="50,5,50,5" Click="TernaryButton_Click"></Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</ContentDialog>

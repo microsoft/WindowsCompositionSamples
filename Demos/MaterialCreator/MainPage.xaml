@@ -1,0 +1,168 @@
+﻿<Page
+    x:Class="MaterialCreator.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materials="using:MaterialCreator"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="MainPage_Loaded">
+
+    <Page.Resources>
+        <materials:CollectionCountToVisibilityConverter x:Key="CollectionCountToVisibilityConverter" />
+
+        <Style TargetType="ListView">
+            <Setter Property="CanReorderItems" Value="True" />
+            <Setter Property="CanDrag" Value="True" />
+            <Setter Property="AllowDrop" Value="True" />
+            <Setter Property="IsItemClickEnabled" Value="False" />
+            <Setter Property="SelectionMode" Value="None" />
+            <Setter Property="IsMultiSelectCheckBoxEnabled"  Value="False"/>
+            <Setter Property="ItemContainerTransitions">
+                <Setter.Value>
+                    <TransitionCollection>
+                        <AddDeleteThemeTransition />
+                        <ContentThemeTransition />
+                        <ReorderThemeTransition />
+                    </TransitionCollection>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ListViewItem">
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
+            <Setter Property="TabNavigation" Value="Local"/>
+            <Setter Property="IsHoldingEnabled" Value="True"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="MinWidth" Value="{ThemeResource ListViewItemMinWidth}"/>
+            <Setter Property="MinHeight" Value="{ThemeResource ListViewItemMinHeight}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <ListViewItemPresenter
+                            ContentTransitions="{TemplateBinding ContentTransitions}"
+                            DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}"
+                            DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
+                            DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
+                            ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                            FocusBorderBrush="{ThemeResource SystemControlForegroundAltHighBrush}"
+                            FocusSecondaryBorderBrush="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                            PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"
+                            PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}"
+                            PointerOverForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
+                            DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="LayerTemplate" x:DataType="materials:Layer">
+            <materials:LayerControl />
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid x:Name="RootGrid" SizeChanged="RootGrid_SizeChanged" Margin="0,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".66*"/>
+            <ColumnDefinition Width=".33*" MinWidth="320" MaxWidth="450"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.Clip>
+            <RectangleGeometry x:Name="GridClip" />
+        </Grid.Clip>
+
+        <!--Header-->
+        <Grid Grid.ColumnSpan="2" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock FontWeight="Bold" FontSize="28" Text="Create a material" Grid.Column="0" Margin="24,0,0,0"/>
+            <CommandBar DefaultLabelPosition="Right" Background="Transparent" Grid.Column="1">
+                <AppBarButton Icon="Page2"  Label="New" ToolTipService.ToolTip="New Material" Click="NewMaterial_Click"/>
+                <AppBarButton Icon="ShowResults" Label="View Effect" ToolTipService.ToolTip="View Effect Graph" Click="ViewEffectGraph_Click"/>
+            </CommandBar>
+        </Grid>
+
+        <RelativePanel x:Name="PreviewPanel" Background="DarkGray" Grid.Column="0" Grid.Row="2" Margin="24,8,0,24">
+            <RelativePanel.Clip>
+                <RectangleGeometry x:Name="PreviewClip" />
+            </RelativePanel.Clip>
+        </RelativePanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" Margin="24,5,24,0">
+            <TextBlock Text="Background:" VerticalAlignment="Center" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" Style="{ThemeResource BodyTextBlockStyle}"/>
+            <ComboBox x:Name="BackgroundCombo" Width="Auto" VerticalAlignment="Center" BorderThickness="0" Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}" SelectedValuePath="Content" SelectionChanged="BackgroundCombo_SelectionChanged" Margin="0,0,24,0">
+                <ComboBoxItem Content="Grey" IsSelected="True"/>
+                <ComboBoxItem Content="Dark"/>
+                <ComboBoxItem Content="Colorful"/>
+                <ComboBoxItem Content="Light"/>
+                <ComboBoxItem Content="Pattern"/>
+                <ComboBoxItem Content="Custom"/>
+            </ComboBox>
+
+            <TextBlock Text="Preview size:" VerticalAlignment="Center" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" Style="{ThemeResource BodyTextBlockStyle}"/>
+            <ComboBox x:Name="PreviewSizeCombo" Width="Auto" VerticalAlignment="Center" BorderThickness="0" SelectedValuePath="Content" Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}" SelectionChanged="PreviewSizeCombo_SelectionChanged" Margin="0,0,24,0">
+                <ComboBoxItem Content="Inset" IsSelected="True"/>
+                <ComboBoxItem Content="Maximized"/>
+            </ComboBox>
+
+            <TextBlock Text="Animation:" VerticalAlignment="Center" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" Style="{ThemeResource BodyTextBlockStyle}"/>
+            <ComboBox x:Name="AnimateCombo" Width="Auto" VerticalAlignment="Center" BorderThickness="0" SelectedValuePath="Content" Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}" SelectionChanged="AnimateCombo_SelectionChanged" Margin="0,0,24,0">
+                <ComboBoxItem Content="None" IsSelected="True"/>
+                <ComboBoxItem Content="X Rotation"/>
+                <ComboBoxItem Content="Y Rotation"/>
+                <ComboBoxItem Content="Z Rotation"/>
+            </ComboBox>
+        </StackPanel>
+
+        <ScrollViewer  Grid.Column="1" Grid.Row="2" Margin="12,0,24,0" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="MaterialPanel">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Layers" VerticalAlignment="Center" Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}" Style="{ThemeResource SubtitleTextBlockStyle}" Grid.Column="0" Margin="12,0,12,12"/>
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="1">
+                        <Button x:Name="AddLayer" Content="" FontFamily="Segoe MDL2 Assets" Width="48" Height="48" ToolTipService.ToolTip="New Layer" VerticalAlignment="Center" Click="AddLayer_Click" Style="{ThemeResource MaterialButton}" />
+                    </StackPanel>
+                </Grid>
+
+                <TextBlock x:Name="NoLayersText" Text="Add a layer to begin" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" Visibility="{x:Bind Material.Layers.Count, Converter={StaticResource CollectionCountToVisibilityConverter}, Mode=OneWay}" Style="{ThemeResource BodyTextBlockStyle}" Margin="12,0,0,0"/>
+
+                <ListView x:Name="LayersListView" ItemsSource="{x:Bind Material.Layers, Mode=OneWay}" ItemTemplate="{StaticResource LayerTemplate}"/>
+
+                <Grid Margin="0,33,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Lights" VerticalAlignment="Center" Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}" Style="{ThemeResource SubtitleTextBlockStyle}" Grid.Column="0" Margin="12,0,0,0"/>
+
+                    <Button x:Name="AddLight" Grid.Column="1" Content="" FontFamily="Segoe MDL2 Assets" Width="48" Height="48" ToolTipService.ToolTip="New Light" VerticalAlignment="Center" Click="AddLight_Click" Style="{ThemeResource MaterialButton}" />
+                </Grid>
+
+                <StackPanel x:Name="LightPanel"/>
+                <TextBlock x:Name="NoLightText" Text="Add a light to the scene" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" Margin="12,4,0,0"/>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
