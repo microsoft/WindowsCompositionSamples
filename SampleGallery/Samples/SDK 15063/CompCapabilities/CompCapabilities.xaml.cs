@@ -15,11 +15,13 @@
 using Microsoft.Graphics.Canvas.Effects;
 using SamplesCommon;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Numerics;
 using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 
 namespace CompositionSampleGallery
@@ -29,12 +31,16 @@ namespace CompositionSampleGallery
         private Compositor _compositor;
         private SpriteVisual _circleImageVisual;
         private SpriteVisual _backgroundImageVisual;
-        private CompositionCapabilities _capabilities;
+        private CompositionCapabilities _liveCapabilities;
         private ManagedSurface _surface;
         private ManagedSurface _circleMaskSurface;
         private ContainerVisual _imageContainer;
         private string _capabilityText = "";
         private bool _containsCircleImage = false;
+
+        private CapabilityWrapper _activeCapabilityWrapper;
+
+        public ObservableCollection<CapabilityWrapper> capabilityDropdownOptions = new ObservableCollection<CapabilityWrapper>();
 
         public static string StaticSampleName { get { return "Composition Capabilities"; } }
         public override string SampleName { get { return StaticSampleName; } }
@@ -54,7 +60,15 @@ namespace CompositionSampleGallery
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
 
             // Get hardware capabilities and register changed event listener
-            _capabilities = CompositionCapabilities.GetForCurrentView();
+            _liveCapabilities = CompositionCapabilities.GetForCurrentView();
+
+            var fastEffectsCapabilitySimulatedOption = new CapabilityWrapper("EffectsFast", true, true);
+            capabilityDropdownOptions.Add(fastEffectsCapabilitySimulatedOption);
+            capabilityDropdownOptions.Add(new CapabilityWrapper("EffectsSupported", true, false));
+            capabilityDropdownOptions.Add(new CapabilityWrapper("None", false, false));
+            SimulatorDropdown.SelectedItem = fastEffectsCapabilitySimulatedOption;
+
+            _activeCapabilityWrapper = fastEffectsCapabilitySimulatedOption;
         }
 
         /// <summary>
@@ -70,7 +84,7 @@ namespace CompositionSampleGallery
             get
             {
                 return _capabilityText;
-            } 
+            }
             set
             {
                 _capabilityText = value;
@@ -83,14 +97,21 @@ namespace CompositionSampleGallery
         /// </summary>
         private void HandleCapabilitiesChanged(CompositionCapabilities sender, object args)
         {
-            UpdateAlbumArt();
+            _liveCapabilities = sender;
+           
+            if (ToggleSwitch.IsOn == false)
+            {
+                // If not in simulate mode, update to wrapper to use live capabilities and update view
+                _activeCapabilityWrapper = new CapabilityWrapper("", _liveCapabilities.AreEffectsSupported(), _liveCapabilities.AreEffectsFast());
+                UpdateAlbumArt();
+            }
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             _backgroundImageVisual = _compositor.CreateSpriteVisual();
             _imageContainer = _compositor.CreateContainerVisual();
-            _capabilities.Changed += HandleCapabilitiesChanged;
+            _liveCapabilities.Changed += HandleCapabilitiesChanged;
 
             ElementCompositionPreview.SetElementChildVisual(ImageCanvas, _imageContainer);
 
@@ -115,7 +136,7 @@ namespace CompositionSampleGallery
         /// </summary>
         private void UpdateAlbumArt()
         {
-            if (_capabilities.AreEffectsSupported())
+            if (_activeCapabilityWrapper.EffectsSupported)
             {
                 // 
                 // If effects are supported, add effects to the background image and 
@@ -133,7 +154,7 @@ namespace CompositionSampleGallery
                     var xOffset = (float)(ImageCanvas.ActualWidth / 2 - _circleImageVisual.Size.X / 2);
                     var yOffset = (float)(ImageCanvas.ActualHeight / 2 - _circleImageVisual.Size.Y / 2);
                     _circleImageVisual.Offset = new Vector3(xOffset, yOffset, 0);
-                    
+
                     // Apply mask to visual
                     CompositionMaskBrush maskBrush = _compositor.CreateMaskBrush();
                     maskBrush.Source = _surface.Brush;
@@ -155,7 +176,7 @@ namespace CompositionSampleGallery
                     Source = new CompositionEffectSourceParameter("SaturationSource")
                 };
 
-                if (_capabilities.AreEffectsFast())
+                if (_activeCapabilityWrapper.EffectsFast)
                 {
                     // Create blur effect and chain with saturation effect
                     GaussianBlurEffect chainedEffect = new GaussianBlurEffect()
@@ -196,12 +217,12 @@ namespace CompositionSampleGallery
                 // and remove the center circle image to declutter the UI.
                 //
 
-                if(_containsCircleImage)
+                if (_containsCircleImage)
                 {
                     _imageContainer.Children.Remove(_circleImageVisual);
                     _containsCircleImage = false;
                 }
-                
+
                 _backgroundImageVisual.Brush = _surface.Brush;
 
                 CapabilityText = "Effects not supported. No effects are applied.";
@@ -221,7 +242,7 @@ namespace CompositionSampleGallery
         /// </summary>
         private void UpdateVisualSizeAndPosition()
         {
-            if(_backgroundImageVisual != null) { 
+            if (_backgroundImageVisual != null) {
                 _backgroundImageVisual.Size = new Vector2((float)ImageCanvas.ActualWidth, (float)ImageCanvas.ActualHeight);
             }
 
@@ -239,7 +260,7 @@ namespace CompositionSampleGallery
         /// </summary>
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
-            _capabilities.Changed -= HandleCapabilitiesChanged;
+            _liveCapabilities.Changed -= HandleCapabilitiesChanged;
 
             if (_surface != null)
             {
@@ -252,6 +273,57 @@ namespace CompositionSampleGallery
                 _circleMaskSurface.Dispose();
                 _circleMaskSurface = null;
             }
+        }
+
+        private void SimulatorDropdown_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
+        {
+            var selectedSimulatedCapability = (CapabilityWrapper)SimulatorDropdown.SelectedItem;
+            _activeCapabilityWrapper = selectedSimulatedCapability;
+
+            if(_backgroundImageVisual != null)
+            {
+                UpdateAlbumArt();
+            }
+        }
+
+        private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            ToggleSwitch toggleSwitch = sender as ToggleSwitch;
+            if (toggleSwitch != null && SimulatorDropdown != null)
+            {
+                if (toggleSwitch.IsOn == true)
+                {
+                    // Show simulation options
+                    SimulatorDropdown.Visibility = Visibility.Visible;
+
+                    // Simulate capabilities
+                    _activeCapabilityWrapper = (CapabilityWrapper)SimulatorDropdown.SelectedItem;
+                }
+                else
+                {
+                    // Hide simulation options
+                    SimulatorDropdown.Visibility = Visibility.Collapsed;
+
+                    // Update to use actual capabilities
+                    _activeCapabilityWrapper = new CapabilityWrapper("", _liveCapabilities.AreEffectsSupported(), _liveCapabilities.AreEffectsFast());
+                }
+
+                UpdateAlbumArt();
+            }
+        }
+    }
+
+    public class CapabilityWrapper{
+
+        public string Name { get; }
+        public bool EffectsSupported { get; }
+        public bool EffectsFast { get; }
+        
+        public CapabilityWrapper(string name, bool effectsSupported, bool effectsFast)
+        {
+            Name = name;
+            EffectsSupported = effectsSupported;
+            EffectsFast = effectsFast;
         }
     }
 }
