@@ -101,6 +101,22 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <Compile Include="Samples\SDK Insider\PullToRefresh\PullToRefresh.xaml.cs" />
     <Compile Include="Samples\SDK Insider\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\LightInterop\AmbLight.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\LightInterop\MaterialBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\LightInterop\HoverLight.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\LightInterop\LightInterop.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\OffsetStompingFix\OffsetStompingFix.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393">
+      <DependentUpon>OffsetStompingFix.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\SDK 14393\ShyHeader\ShyHeader.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
+    <Compile Include="Samples\SDK 15063\PointerRotate\PointerRotate.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393">
+      <DependentUpon>PointerRotate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\SDK 15063\BrushInterop\BackdropTintBlurBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\BrushInterop\BrushInterop.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\BrushInterop\ImageEffectBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\BrushInterop\HostBackdropEffectBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <None Include="project.json" />
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -142,7 +158,7 @@
     <Compile Include="Samples\SDK 10586\TransitionAnimation-ColorSlide\ColorSlideTransitionHelper.cs" />
     <Compile Include="Samples\SDK 10586\TransitionAnimation-FlipToReveal\FlipToReveal.xaml.cs" />
     <Compile Include="Samples\SDK 10586\ZoomWithPerspective\ZoomWithPerspective.xaml.cs" />
-    <Compile Include="Samples\SDK Insider\BlurPlayground\BlurPlayground.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 14393\BlurPlayground\BlurPlayground.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\ConnectedAnimationSample\ConnectedAnimationDetail.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>ConnectedAnimationDetail.xaml</DependentUpon>
     </Compile>
@@ -174,7 +190,7 @@
     <Compile Include="Samples\SDK 14393\NineGridResizing\NineGridScenarios\MaskNineGridScenario.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\NineGridResizing\NineGridScenarios\SurfaceNineGridScenario.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\PullToAnimate\PullToAnimate.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
-    <Compile Include="Samples\SDK Insider\ShadowsAdvanced\ShadowsAdvanced.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\ShadowsAdvanced\ShadowsAdvanced.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 14393\ShadowInterop\ShadowInterop.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\ShadowPlayground\ShadowPlayground.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>ShadowPlayground.xaml</DependentUpon>
@@ -207,24 +223,25 @@
     <Compile Include="Samples\SDK 14393\LayerDepth\LayerDepth.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>LayerDepth.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\SDK Insider\NavigationFlow\NavigationFlow.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393">
+    <Compile Include="Samples\SDK 15063\NavigationFlow\NavigationFlow.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393">
       <DependentUpon>NavigationFlow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\SDK Insider\NavigationFlow\NavigationFlowDestinationPage.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393">
+    <Compile Include="Samples\SDK 15063\NavigationFlow\NavigationFlowDestinationPage.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393">
       <DependentUpon>NavigationFlowDestinationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\SDK Insider\NavigationFlow\NavigationFlowSourcePage.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393">
+    <Compile Include="Samples\SDK 15063\NavigationFlow\NavigationFlowSourcePage.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393">
       <DependentUpon>NavigationFlowSourcePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\SDK Insider\TransparentWindow\TransparentWindow.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
-    <Compile Include="Samples\SDK Insider\BorderPlayground\BorderPlayground.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
-    <Compile Include="Samples\SDK Insider\CompCapabilities\CompCapabilities.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\TransparentWindow\TransparentWindow.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\BorderPlayground\BorderPlayground.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\CompCapabilities\CompCapabilities.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Shared\BodyAppList.xaml.cs">
       <DependentUpon>BodyAppList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shared\FeaturedSamples.xaml.cs">
       <DependentUpon>FeaturedSamples.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Shared\MainNavigationViewModel.cs" />
     <Compile Include="Shared\SharedResourceDictionaries.xaml.cs">
       <DependentUpon>SharedResourceDictionaries.xaml</DependentUpon>
     </Compile>
@@ -232,9 +249,6 @@
       <DependentUpon>Social.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shared\LocalDataSource.cs" />
-    <Compile Include="Shared\MainNavigation.xaml.cs">
-      <DependentUpon>MainNavigation.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Shared\SampleDefinition.cs" />
     <Compile Include="Shared\SampleHost.xaml.cs">
       <DependentUpon>SampleHost.xaml</DependentUpon>
@@ -264,6 +278,8 @@
     <Content Include="Assets\BannerImages\PullToAnimateBanner.PNG" />
     <Content Include="Assets\Appointment.png" />
     <Content Include="Assets\Background.png" />
+    <Content Include="Assets\BannerImages\ShyHeader.png" />
+    <Content Include="Assets\Damaged_NormalMap.jpg" />
     <Content Include="Assets\FB-f-Logo__blue_57.png" />
     <Content Include="Assets\Landmarks\SpaceNeedle.png" />
     <Content Include="Assets\Landmarks\PikePlaceMarket.png" />
@@ -271,12 +287,14 @@
     <Content Include="Assets\MainNavigationPointerOverBackgroundWide.png" />
     <Content Include="Assets\MissingThumbnail.png" />
     <Content Include="Assets\Loading.png" />
+    <Content Include="Assets\Photos\no_border_pic27.jpg" />
     <Content Include="Assets\SampleThumbnails\AdvancedShadows.PNG" />
     <Content Include="Assets\SampleThumbnails\BackDropControlSample.PNG" />
     <Content Include="Assets\SampleThumbnails\BasicLayoutAndTransitions.PNG" />
     <Content Include="Assets\SampleThumbnails\BasicXAMLInterop.PNG" />
     <Content Include="Assets\SampleThumbnails\BlurPlayground.PNG" />
     <Content Include="Assets\SampleThumbnails\BorderEffects.PNG" />
+    <Content Include="Assets\SampleThumbnails\BrushInterop.png" />
     <Content Include="Assets\SampleThumbnails\ColorSlide.png" />
     <Content Include="Assets\SampleThumbnails\CompositionCapabilities.PNG" />
     <Content Include="Assets\SampleThumbnails\Connected_Animation.PNG" />
@@ -304,15 +322,19 @@
     <Content Include="Assets\SampleThumbnails\LayoutAnimations.PNG" />
     <Content Include="Assets\SampleThumbnails\LayerDepth.PNG" />
     <Content Include="Assets\SampleThumbnails\LayerVisualSample.PNG" />
+    <Content Include="Assets\SampleThumbnails\LightInterop.png" />
     <Content Include="Assets\SampleThumbnails\LightSpheres.PNG" />
     <Content Include="Assets\SampleThumbnails\NavigationFlow.PNG" />
     <Content Include="Assets\SampleThumbnails\NineGridResizing.PNG" />
     <Content Include="Assets\SampleThumbnails\NowPlaying.PNG" />
+    <Content Include="Assets\SampleThumbnails\OffsetStompingFix.PNG" />
+    <Content Include="Assets\SampleThumbnails\Offset_Stomping.gif" />
     <Content Include="Assets\SampleThumbnails\ParallaxingListviewItem.PNG" />
     <Content Include="Assets\SampleThumbnails\Perspective.png" />
     <Content Include="Assets\SampleThumbnails\PhotoPopupViewer.PNG" />
     <Content Include="Assets\SampleThumbnails\PointerEnterExitEffects.PNG" />
     <Content Include="Assets\SampleThumbnails\PullToRefresh.png" />
+    <Content Include="Assets\SampleThumbnails\PointerRotate.PNG" />
     <Content Include="Assets\SampleThumbnails\ShadowInterop.PNG" />
     <Content Include="Assets\SampleThumbnails\ShadowPlayground.jpg" />
     <Content Include="Assets\Calendar.png" />
@@ -336,6 +358,7 @@
     <Content Include="Assets\Gears_background.png" />
     <Content Include="Assets\SampleThumbnails\PullToAnimate.jpg" />
     <Content Include="Assets\SampleThumbnails\ShowHideImplicitWebview.PNG" />
+    <Content Include="Assets\SampleThumbnails\ShyHeader.PNG" />
     <Content Include="Assets\SampleThumbnails\SwipeScroller.png" />
     <Content Include="Assets\SampleThumbnails\TextShimmer.png" />
     <Content Include="Assets\SampleThumbnails\ThumbnailLighting.jpg" />
@@ -380,6 +403,7 @@
     <Content Include="Assets\WindowsInsiders\Unicorn.png" />
     <Content Include="Assets\Windows_logo_Cyan_rgb_D.png" />
     <Content Include="Assets\ZOrderScrolling.jpg" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Samples\SDK 10586\Perspective\jellyfish.jpg" />
     <Content Include="Samples\SDK 10586\TransitionAnimation-FlipToReveal\Image.jpg" />
     <Content Include="Samples\SDK 14393\ForegroundFocusEffects\Mask.png" />
@@ -477,8 +501,8 @@
     <Content Include="Samples\SDK 14393\ShadowPlayground\win11_-15607.jpg" />
     <Content Include="Samples\SDK 14393\ThumbnailLighting\BeveledEdges.jpg" />
     <Content Include="Samples\SDK 14393\ThumbnailLighting\SphericalWithMask.png" />
-    <Content Include="Samples\SDK Insider\BorderPlayground\Checkerboard.png" />
-    <Content Include="Samples\SDK Insider\BorderPlayground\FlowerSmall.png" />
+    <Content Include="Samples\SDK 15063\BorderPlayground\Checkerboard.png" />
+    <Content Include="Samples\SDK 15063\BorderPlayground\FlowerSmall.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -493,7 +517,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK Insider\PullToRefresh\PullToRefresh.xaml">
+    <Page Include="Samples\SDK Insider\PullToRefresh\PullToRefresh.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK 14393\ShyHeader\ShyHeader.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK 15063\LightInterop\LightInterop.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK 15063\OffsetStompingFix\OffsetStompingFix.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK 15063\PointerRotate\PointerRotate.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK 15063\BrushInterop\BrushInterop.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -537,7 +581,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK Insider\BlurPlayground\BlurPlayground.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+    <Page Include="Samples\SDK 14393\BlurPlayground\BlurPlayground.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -590,7 +634,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK Insider\ShadowsAdvanced\ShadowsAdvanced.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+    <Page Include="Samples\SDK 15063\ShadowsAdvanced\ShadowsAdvanced.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -650,33 +694,29 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\SDK Insider\NavigationFlow\NavigationFlow.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+    <Page Include="Samples\SDK 15063\NavigationFlow\NavigationFlow.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK Insider\NavigationFlow\NavigationFlowDestinationPage.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+    <Page Include="Samples\SDK 15063\NavigationFlow\NavigationFlowDestinationPage.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK Insider\NavigationFlow\NavigationFlowSourcePage.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+    <Page Include="Samples\SDK 15063\NavigationFlow\NavigationFlowSourcePage.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK Insider\TransparentWindow\TransparentWindow.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+    <Page Include="Samples\SDK 15063\TransparentWindow\TransparentWindow.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK Insider\BorderPlayground\BorderPlayground.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+    <Page Include="Samples\SDK 15063\BorderPlayground\BorderPlayground.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK Insider\CompCapabilities\CompCapabilities.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+    <Page Include="Samples\SDK 15063\CompCapabilities\CompCapabilities.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Shared\MainNavigation.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Shared\FeaturedSamples.xaml">
       <SubType>Designer</SubType>
@@ -726,18 +766,24 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\SDK Insider\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+    <Page Include="Samples\SDK 15063\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExpressionBuilder\ExpressionBuilder\ExpressionBuilder.csproj">
+      <Project>{97f79cb4-fb7b-4dc3-8a08-28fa5694a73c}</Project>
+      <Name>ExpressionBuilder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SamplesCommon\SamplesCommon\SamplesCommon.csproj">
       <Project>{0b6a4830-d1ff-4018-baa2-7257eb4579fe}</Project>
       <Name>SamplesCommon</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Samples\SDK Insider\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -160,7 +160,7 @@ namespace CompositionSampleGallery
                 new SampleDefinition(SwipeScroller.StaticSampleName,                typeof(SwipeScroller),                SampleType.EndToEnd,  SampleCategory.DynamicHumanInteractions,   false, false, dateAdded: new DateTime(2017,03,05),  imageUrl: "ms-appx:///Assets/SampleThumbnails/SwipeScroller.PNG",           sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
                 new SampleDefinition(ShyHeader.StaticSampleName,                    typeof(ShyHeader),                    SampleType.EndToEnd,  SampleCategory.DynamicHumanInteractions,   false, false, dateAdded: new DateTime(2017,04,25),  imageUrl: "ms-appx:///Assets/SampleThumbnails/ShyHeader.PNG",               sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393, featured: true),
                 new SampleDefinition(BlurPlayground.StaticSampleName,               typeof(BlurPlayground),               SampleType.Reference, SampleCategory.Conceptual,                 true,  true,  "ms-appx:///Assets/SampleThumbnails/BlurPlayground.PNG",                                                          sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
-                new SampleDefinition(PullToRefresh.StaticSampleName,              typeof(PullToRefresh),              SampleType.Reference, SampleCategory.NaturalMotion,                false, false, imageUrl: "ms-appx:///Assets/SampleThumbnails/PullToRefresh.PNG",     sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
+                new SampleDefinition(PullToRefresh.StaticSampleName,                typeof(PullToRefresh),                SampleType.Reference, SampleCategory.NaturalMotion,                false, false, imageUrl: "ms-appx:///Assets/SampleThumbnails/PullToRefresh.PNG",     sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
 
 #endif
 
@@ -178,13 +178,6 @@ namespace CompositionSampleGallery
 #endif
 
 #if SDKVERSION_INSIDER
-                new SampleDefinition(BorderPlayground.StaticSampleName,             typeof(BorderPlayground),             SampleType.Reference, SampleCategory.RealWorldUI,                false, true,   dateAdded: new DateTime(2017,02,08), imageUrl: "ms-appx:///Assets/SampleThumbnails/BorderEffects.PNG",           sdkVersion: RuntimeSupportedSDKs.SDKVERSION._INSIDER),
-                new SampleDefinition(CompCapabilities.StaticSampleName,             typeof(CompCapabilities),             SampleType.Reference, SampleCategory.Conceptual,                 false, false,  dateAdded: new DateTime(2017,02,08), imageUrl: "ms-appx:///Assets/SampleThumbnails/CompositionCapabilities.PNG", sdkVersion: RuntimeSupportedSDKs.SDKVERSION._INSIDER),
-                new SampleDefinition(TransparentWindow.StaticSampleName,            typeof(TransparentWindow),            SampleType.EndToEnd,  SampleCategory.RealWorldUI,                true,  true,   dateAdded: new DateTime(2017,02,08), imageUrl: "ms-appx:///Assets/SampleThumbnails/TransparentWindow.PNG",       sdkVersion: RuntimeSupportedSDKs.SDKVERSION._INSIDER),
-                new SampleDefinition(NavigationFlow.StaticSampleName,               typeof(NavigationFlow),               SampleType.EndToEnd,  SampleCategory.SeamlessTransitions,        false, false,  dateAdded: new DateTime(2017,02,08), imageUrl: "ms-appx:///Assets/SampleThumbnails/NavigationFlow.PNG",          sdkVersion: RuntimeSupportedSDKs.SDKVERSION._INSIDER),
-                new SampleDefinition(ShowHideImplicitWebview.StaticSampleName,      typeof(ShowHideImplicitWebview),      SampleType.EndToEnd,  SampleCategory.SeamlessTransitions,        false, false,  dateAdded: new DateTime(2017,02,28), imageUrl: "ms-appx:///Assets/SampleThumbnails/ShowHideImplicitWebview.PNG", sdkVersion: RuntimeSupportedSDKs.SDKVERSION._INSIDER),
-                new SampleDefinition(BlurPlayground.StaticSampleName,               typeof(BlurPlayground),               SampleType.Reference, SampleCategory.Conceptual,                 true,  true,  "ms-appx:///Assets/SampleThumbnails/BlurPlayground.PNG",                sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
-                new SampleDefinition(ShadowsAdvanced.StaticSampleName,              typeof(ShadowsAdvanced),              SampleType.Reference, SampleCategory.RealWorldUI,                false, false, imageUrl: "ms-appx:///Assets/SampleThumbnails/AdvancedShadows.PNG",     sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
 #endif
 
     };
