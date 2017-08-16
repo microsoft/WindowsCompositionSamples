@@ -1,0 +1,53 @@
+﻿<UserControl
+    x:Class="MaterialCreator.Matrix5x4Control"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MaterialCreator"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBox x:Name="m11" Grid.Column="0" Grid.Row="0" TextChanged="Matrix_TextChanged" Margin="0,2,2,2"/>
+        <TextBox x:Name="m12" Grid.Column="1" Grid.Row="0" TextChanged="Matrix_TextChanged" Margin="2,2,2,2"/>
+        <TextBox x:Name="m13" Grid.Column="2" Grid.Row="0" TextChanged="Matrix_TextChanged" Margin="2,2,2,2"/>
+        <TextBox x:Name="m14" Grid.Column="3" Grid.Row="0" TextChanged="Matrix_TextChanged" Margin="2,2,2,2"/>
+
+        <TextBox x:Name="m21" Grid.Column="0" Grid.Row="1" TextChanged="Matrix_TextChanged" Margin="0,2,2,2"/>
+        <TextBox x:Name="m22" Grid.Column="1" Grid.Row="1" TextChanged="Matrix_TextChanged" Margin="2,2,2,2"/>
+        <TextBox x:Name="m23" Grid.Column="2" Grid.Row="1" TextChanged="Matrix_TextChanged" Margin="2,2,2,2"/>
+        <TextBox x:Name="m24" Grid.Column="3" Grid.Row="1" TextChanged="Matrix_TextChanged" Margin="2,2,2,2"/>
+
+        <TextBox x:Name="m31" Grid.Column="0" Grid.Row="2" TextChanged="Matrix_TextChanged" Margin="0,2,2,2"/>
+        <TextBox x:Name="m32" Grid.Column="1" Grid.Row="2" TextChanged="Matrix_TextChanged" Margin="2,2,2,2"/>
+        <TextBox x:Name="m33" Grid.Column="2" Grid.Row="2" TextChanged="Matrix_TextChanged" Margin="2,2,2,2"/>
+        <TextBox x:Name="m34" Grid.Column="3" Grid.Row="2" TextChanged="Matrix_TextChanged" Margin="2,2,2,2"/>
+
+        <TextBox x:Name="m41" Grid.Column="0" Grid.Row="3" TextChanged="Matrix_TextChanged" Margin="0,2,2,2"/>
+        <TextBox x:Name="m42" Grid.Column="1" Grid.Row="3" TextChanged="Matrix_TextChanged" Margin="2,2,2,2"/>
+        <TextBox x:Name="m43" Grid.Column="2" Grid.Row="3" TextChanged="Matrix_TextChanged" Margin="2,2,2,2"/>
+        <TextBox x:Name="m44" Grid.Column="3" Grid.Row="3" TextChanged="Matrix_TextChanged" Margin="2,2,2,2"/>
+
+        <TextBox x:Name="m51" Grid.Column="0" Grid.Row="4" TextChanged="Matrix_TextChanged" Margin="0,2,2,2"/>
+        <TextBox x:Name="m52" Grid.Column="1" Grid.Row="4" TextChanged="Matrix_TextChanged" Margin="2,2,2,2"/>
+        <TextBox x:Name="m53" Grid.Column="2" Grid.Row="4" TextChanged="Matrix_TextChanged" Margin="2,2,2,2"/>
+        <TextBox x:Name="m54" Grid.Column="3" Grid.Row="4" TextChanged="Matrix_TextChanged" Margin="2,2,2,2"/>
+    </Grid>
+</UserControl>

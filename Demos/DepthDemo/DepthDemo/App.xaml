@@ -1,0 +1,19 @@
+﻿<Application
+    x:Class="DepthDemo.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DepthDemo"
+    RequestedTheme="Light">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="Foreground" Value="#009999"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderBrush" Value="#009999"/>
+                <Setter Property="BorderThickness" Value="2"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

@@ -12,6 +12,7 @@
 //
 //*********************************************************
 
+using ExpressionBuilder;
 using SamplesCommon;
 using System;
 using System.Numerics;
@@ -19,6 +20,8 @@ using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
+
+using EF = ExpressionBuilder.ExpressionFunctions;
 
 namespace CompositionSampleGallery
 {
@@ -69,33 +72,32 @@ namespace CompositionSampleGallery
             container.Children.InsertAtTop(blueSprite);
 
             //
+            // Create the PropertySet that contains all the value referenced in the expression. We can also
+            // animate these properties, leading to the expression being re-evaluated per frame.
+            //
+
+            _propertySet = compositor.CreatePropertySet();
+            _propertySet.InsertScalar("Rotation", 0f);
+            _propertySet.InsertVector3("CenterPointOffset", new Vector3(redSprite.Size.X / 2 - blueSprite.Size.X / 2,
+                                                                        redSprite.Size.Y / 2 - blueSprite.Size.Y / 2, 
+                                                                        0));
+
+            //
             // Create the expression.  This expression positions the orbiting sprite relative to the center of
             // of the red sprite's center.  As we animate the red sprite's position, the expression will read
             // the current value of it's offset and keep the blue sprite locked in orbit.
             //
 
-            ExpressionAnimation expressionAnimation = compositor.CreateExpressionAnimation("visual.Offset + " +
-                                                                                           "propertySet.CenterPointOffset + " +
-                                                                                           "Vector3(cos(ToRadians(propertySet.Rotation)) * 150," +
-                                                                                                   "sin(ToRadians(propertySet.Rotation)) * 75, 0)");
-
-            //
-            // Create the PropertySet.  This property bag contains all the value referenced in the expression.  We can
-            // animation these property leading to the expression being re-evaluated per frame.
-            //
-
-            _propertySet = compositor.CreatePropertySet();
-            _propertySet.InsertScalar("Rotation", 0f);
-            _propertySet.InsertVector3("CenterPointOffset", new Vector3(redSprite.Size.X / 2 - blueSprite.Size.X / 2, 
-                                                                       redSprite.Size.Y / 2 - blueSprite.Size.Y / 2, 0));
-
-            // Set the parameters of the expression animation
-            expressionAnimation.SetReferenceParameter("propertySet", _propertySet);
-            expressionAnimation.SetReferenceParameter("visual", redSprite);
+            var propSetCenterPoint = _propertySet.GetReference().GetVector3Property("CenterPointOffset");
+            var propSetRotation = _propertySet.GetReference().GetScalarProperty("Rotation");
+            var orbitExpression = redSprite.GetReference().Offset + propSetCenterPoint + 
+                EF.Vector3(
+                    EF.Cos(EF.ToRadians(propSetRotation)) * 150,
+                    EF.Sin(EF.ToRadians(propSetRotation)) * 75, 
+                    0);
 
             // Start the expression animation!
-            blueSprite.StartAnimation("Offset", expressionAnimation);
-
+            blueSprite.StartAnimation("Offset", orbitExpression);
 
             // Now animate the rotation property in the property bag, this generates the orbitting motion.
             var linear = compositor.CreateLinearEasingFunction();

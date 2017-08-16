@@ -10,7 +10,8 @@
     <TargetPlatformBuild>$(TargetPlatformVersion.Split('.')[2])</TargetPlatformBuild>
     <DefineConstants Condition="$(TargetPlatformBuild) &gt;=10586">$(DefineConstants);SDKVERSION_10586</DefineConstants>
     <DefineConstants Condition="$(TargetPlatformBuild) &gt;=14393">$(DefineConstants);SDKVERSION_14393</DefineConstants>
-    <DefineConstants Condition="$(TargetPlatformBuild) &gt; 14393">$(DefineConstants);SDKVERSION_INSIDER</DefineConstants>
+    <DefineConstants Condition="$(TargetPlatformBuild) &gt;=15063">$(DefineConstants);SDKVERSION_15063</DefineConstants>
+    <DefineConstants Condition="$(TargetPlatformBuild) &gt; 15063">$(DefineConstants);SDKVERSION_INSIDER</DefineConstants>
 
   </PropertyGroup>
 </Project>

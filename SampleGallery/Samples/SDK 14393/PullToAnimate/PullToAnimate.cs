@@ -12,18 +12,19 @@
 //
 //*********************************************************
 
+using ExpressionBuilder;
+using Microsoft.Graphics.Canvas.Effects;
 using System;
+using System.Numerics;
 using Windows.Foundation;
+using Windows.UI.Composition;
+using Windows.UI.Composition.Interactions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
-using Microsoft.Graphics.Canvas.Effects;
+using Windows.UI.Xaml.Input;
 using Windows.UI.ViewManagement;
 
-using System.Numerics;
-
-using Windows.UI.Composition;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Composition.Interactions;
+using EF = ExpressionBuilder.ExpressionFunctions;
 
 namespace CompositionSampleGallery
 {
@@ -234,41 +235,29 @@ namespace CompositionSampleGallery
         private void ConfigureInteractionTracker()
         {
             _tracker = InteractionTracker.Create(_compositor);
-
             _tracker.MaxPosition = new Vector3(0, _backgroundImageVisual.Size.Y * 0.5f, 0);
             _tracker.MinPosition = new Vector3();
 
             _interactionSource = VisualInteractionSource.Create(_backgroundVisual);
-
-
             _interactionSource.PositionYSourceMode = InteractionSourceMode.EnabledWithInertia;
-
             _tracker.InteractionSources.Add(_interactionSource);
 
-            var progressExpression = _compositor.CreateExpressionAnimation(
-                                            "clamp(tracker.Position.Y / tracker.MaxPosition.Y, 0, 1)");
-
-            progressExpression.SetReferenceParameter("tracker", _tracker);
-
-            _propertySet.StartAnimation("progress", progressExpression);
+            var trackerNode = _tracker.GetReference();
+            var progressExp = EF.Clamp(trackerNode.Position.Y / trackerNode.MaxPosition.Y, 0, 1);
+            _propertySet.StartAnimation("progress", progressExp);
         }
 
         private void ConfigureRestingPoints()
         {
-            var endpoint1 = InteractionTrackerInertiaRestingValue.Create(_compositor);
+            var trackerTarget = ExpressionValues.Target.CreateInteractionTrackerTarget();
 
-            endpoint1.Condition = _compositor.CreateExpressionAnimation(
-                    "this.target.NaturalRestingPosition.y < (this.target.MaxPosition.y - this.target.MinPosition.y) / 2");
-
-            endpoint1.RestingValue = _compositor.CreateExpressionAnimation("this.target.MinPosition.y");
-
+            var endpoint1 = InteractionTrackerInertiaRestingValue.Create(_compositor);       
+            endpoint1.SetCondition(trackerTarget.NaturalRestingPosition.Y < (trackerTarget.MaxPosition.Y - trackerTarget.MinPosition.Y) / 2);
+            endpoint1.SetRestingValue(trackerTarget.MinPosition.Y);
 
             var endpoint2 = InteractionTrackerInertiaRestingValue.Create(_compositor);
-
-            endpoint2.Condition = _compositor.CreateExpressionAnimation(
-                    "this.target.NaturalRestingPosition.y >= (this.target.MaxPosition.y - this.target.MinPosition.y) / 2");
-
-            endpoint2.RestingValue = _compositor.CreateExpressionAnimation("this.target.MaxPosition.y");
+            endpoint2.SetCondition(trackerTarget.NaturalRestingPosition.Y >= (trackerTarget.MaxPosition.Y - trackerTarget.MinPosition.Y) / 2);
+            endpoint2.SetRestingValue(trackerTarget.MaxPosition.Y);
 
             _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { endpoint1, endpoint2 });
         }
@@ -280,10 +269,10 @@ namespace CompositionSampleGallery
             // based on the tracker's progres (0 to 1).
             //
 
-            var blendExpression = _compositor.CreateExpressionAnimation("lerp(start, end, props.progress)");
-
-            blendExpression.SetReferenceParameter("props", _propertySet);
-
+            var startNode = ExpressionValues.Constant.CreateConstantScalar("start");
+            var endNode = ExpressionValues.Constant.CreateConstantScalar("end");
+            var progress = _propertySet.GetReference().GetScalarProperty("progress");
+            var blendExpression = EF.Lerp(startNode, endNode, progress);
 
             //
             // Apply the expression to the background image's blur amount.
@@ -293,7 +282,6 @@ namespace CompositionSampleGallery
             blendExpression.SetScalarParameter("end", _visualState2.BackgroundBlurAmount);
 
             _blurredBackgroundImageVisual.Brush.Properties.StartAnimation("blur.BlurAmount", blendExpression);
-
 
             //
             // Apply the expression to the background image's blur amount. Since the expression 
@@ -323,7 +311,7 @@ namespace CompositionSampleGallery
 
             blendExpression.SetVector3Parameter("start", _visualState1.CalendarIconOffset);
             blendExpression.SetVector3Parameter("end", _visualState2.CalendarIconOffset);
-
+            
             _calendarIconVisual.StartAnimation("offset", blendExpression);
 
 
@@ -341,7 +329,8 @@ namespace CompositionSampleGallery
             // Blend the ToDo layer's starting -> ending opacity.  Instead of linear, we'll add a slightly more dramatic effect.
             //
 
-            blendExpression.Expression = "lerp(start, end, (pow(weight, props.progress) - 1.0) / (weight - 1.0))";
+            var weightNode = ExpressionValues.Constant.CreateConstantScalar("weight");
+            blendExpression = EF.Lerp(startNode, endNode, (EF.Pow(weightNode, progress) - 1.0f) / (weightNode - 1.0f));
             blendExpression.SetScalarParameter("start", _visualState1.ToDoLayerOpacity);
             blendExpression.SetScalarParameter("end", _visualState2.ToDoLayerOpacity);
             blendExpression.SetScalarParameter("weight", 30);
@@ -352,7 +341,6 @@ namespace CompositionSampleGallery
             //
             // Set up ToDo layer to scale up/down with the same warped blend.
             //
-
 
             blendExpression.SetVector3Parameter("start", _visualState1.ToDoLayerScale);
             blendExpression.SetVector3Parameter("end", _visualState2.ToDoLayerScale);

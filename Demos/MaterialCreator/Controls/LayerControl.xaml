@@ -1,0 +1,62 @@
+﻿<UserControl
+    x:Class="MaterialCreator.LayerControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MaterialCreator"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Control.Resources>
+        <DataTemplate x:Key="EffectTemplate" x:DataType="local:Effect">
+            <local:EffectControl />
+        </DataTemplate>
+        <DataTemplate x:Key="LayerTemplate" x:DataType="local:GroupLayer">
+            <local:LayerControl />
+        </DataTemplate>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Control.Resources>
+
+    <StackPanel x:Name="RootPanel" Orientation="Vertical">
+        <Grid x:Name="RootGrid" Grid.Row="0" IsTapEnabled="True" Tapped="RootGrid_Tapped"  PointerEntered="RootGrid_PointerEntered" PointerExited="RootGrid_PointerExited" Height="52">
+            <Grid.ContextFlyout>
+                <MenuFlyout>
+                    <MenuFlyoutItem Text="Add Effect" Click="AddEffect_Click"/>
+                    <MenuFlyoutItem Text="Delete Layer" Click="DeleteLayer_Click"/>
+                </MenuFlyout>
+            </Grid.ContextFlyout>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="32"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Button x:Name="Eyeball" ToolTipService.ToolTip="Enable Layer" Content="" FontSize="16" FontFamily="Segoe MDL2 Assets" Style="{StaticResource MaterialButton}" Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center" Click="LayerVisible_Clicked"/>
+            <Border BorderBrush="LightGray" BorderThickness="2" Grid.Column="1" Width="32" Height="32">
+                <Image x:Name="PreviewLayer" Source="ms-appx:///Assets/SwatchCheckerboard.png" SizeChanged="PreviewLayer_SizeChanged"/>
+            </Border>
+            
+            <TextBlock x:Name="LayerDescription" Grid.Column="2" VerticalAlignment="Center" Margin="12,0,0,0"/>
+
+            <StackPanel x:Name="LayerButtons" Orientation="Horizontal" Grid.Column="3" HorizontalAlignment="Right" Visibility="Collapsed">
+                <Button x:Name="AddEffectButton" Width="48" Height="48" Content="" FontSize="16" ToolTipService.ToolTip="Add Effect" Style="{StaticResource MaterialButton}" VerticalAlignment="Center" FontFamily="ms-appx:///Assets/MatMDL2.ttf#Material Editor MDL2 Assets" Click="AddEffect_Click"/>
+                <Button x:Name="DeleteLayer" Width="48" Height="48" FontSize="16" Content="" ToolTipService.ToolTip="Delete Layer" Style="{StaticResource MaterialButton}" VerticalAlignment="Center" FontFamily="Segoe MDL2 Assets" Click="DeleteLayer_Click"/>
+                <Button x:Name="AddLayer" Content="" FontFamily="Segoe MDL2 Assets" Width="48" Height="48" ToolTipService.ToolTip="New Layer" VerticalAlignment="Center" Click="AddLayer_Click"  Style="{ThemeResource MaterialButton}" />
+            </StackPanel>
+        </Grid>
+
+        <StackPanel>
+            <ListView x:Name="LayerListView" ItemsSource="{x:Bind Layer.LayerCollection, Mode=OneWay}" ItemTemplate="{StaticResource LayerTemplate}" Margin="40,0,0,0"/>
+            <ListView x:Name="EffectsListView" ItemsSource="{x:Bind Layer.Effects, Mode=OneWay}" ItemTemplate="{StaticResource EffectTemplate}"/>
+
+            <Rectangle Visibility="{x:Bind Layer.ShowSeparator, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" Fill="{ThemeResource SystemControlForegroundBaseLowBrush}" Height="1"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

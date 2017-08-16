@@ -43,7 +43,7 @@ namespace CompositionSampleGallery
 
         private void FullSampleList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            MainPage.FeaturedSampleList_ItemClick(sender, e);
+            MainNavigationViewModel.NavigateToSample(sender, e);
         }
     }
 }

@@ -12,6 +12,7 @@
 //
 //*********************************************************
 
+using ExpressionBuilder;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Graphics.Canvas.UI.Composition;
@@ -26,6 +27,8 @@ using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
+
+using EF = ExpressionBuilder.ExpressionFunctions;
 
 namespace CompositionSampleGallery
 {
@@ -99,32 +102,22 @@ namespace CompositionSampleGallery
             // we have parallaxed as far as we should go.  If we haven't, keep parallaxing otherwise use
             // the scrolling translation to keep the background stuck with the background peeking out.
             //
-            _backgroundTranslationAnimation = _compositor.CreateExpressionAnimation(
-                "BaseOffset + (scrollingProperties.Translation.Y > 0 ? 0 : " +
-                    "( (1-ParallaxRatio) * -scrollingProperties.Translation.Y) < BackgroundPeekSize ? " +
-                            "(ParallaxRatio * -scrollingProperties.Translation.Y) : -BackgroundPeekSize-scrollingProperties.Translation.Y)");
-            _backgroundTranslationAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
-            _backgroundTranslationAnimation.SetScalarParameter("ParallaxRatio", _parallaxRatio);
 
-            _backgroundScaleAnimation = _compositor.CreateExpressionAnimation(
-                "Lerp(" +
-                        "1," +
-                        "1+Amount," +
-                        "Clamp(scrollingProperties.Translation.Y/50,0,1)" +
-                    ")");
-            _backgroundScaleAnimation.SetScalarParameter("Amount", _backgroundScaleAmount);
-            _backgroundScaleAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
+            var scrollPropSet = scrollProperties.GetSpecializedReference<ManipulationPropertySetReferenceNode>();
+            var baseOffsetParam = ExpressionValues.Constant.CreateConstantScalar("BaseOffset");
+            var backgroundPeekSize = ExpressionValues.Constant.CreateConstantScalar("BackgroundPeekSize");
+            _backgroundTranslateExpression = baseOffsetParam + 
+                EF.Conditional(scrollPropSet.Translation.Y > 0, 
+                               0, 
+                               EF.Conditional(((1-_parallaxRatio) * -scrollPropSet.Translation.Y) < backgroundPeekSize, 
+                                              (_parallaxRatio * -scrollPropSet.Translation.Y), 
+                                              -backgroundPeekSize - scrollPropSet.Translation.Y));
 
-            _backgroundBlurAnimation = _compositor.CreateExpressionAnimation(
-                "Clamp(-scrollingProperties.Translation.Y / (BackgroundPeekSize * .5),0,1)");
-            _backgroundBlurAnimation.SetScalarParameter("Amount", _backgroundScaleAmount);
-            _backgroundBlurAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
+            _backgroundScaleExpression = EF.Lerp(1, 1 + _backgroundScaleAmount, EF.Clamp(scrollPropSet.Translation.Y / 50, 0, 1));
 
-            _backgroundInverseBlurAnimation = _compositor.CreateExpressionAnimation(
-                "1-Clamp(-scrollingProperties.Translation.Y / (BackgroundPeekSize * .5),0,1)");
-            _backgroundInverseBlurAnimation.SetScalarParameter("Amount", _backgroundScaleAmount);
-            _backgroundInverseBlurAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
+            _backgroundBlurExpression = EF.Clamp(-scrollPropSet.Translation.Y / (backgroundPeekSize * 0.5f), 0, 1);
 
+            _backgroundInverseBlurExpression = 1 - EF.Clamp(-scrollPropSet.Translation.Y / (backgroundPeekSize * 0.5f), 0, 1);
 
             //
             // We want to keep the Name/Title text in the middle of the background image.  To start with,
@@ -134,17 +127,14 @@ namespace CompositionSampleGallery
             // traveled.
             //
             _profileContentVisual = ElementCompositionPreview.GetElementVisual(ProfileContent);
-            _profileContentTranslationAnimation = _compositor.CreateExpressionAnimation(
-                "(-scrollingProperties.Translation.Y + Background.Offset.Y + Background.Size.Y/2)/2");
-            _profileContentTranslationAnimation.SetReferenceParameter("Background", _backgroundVisual);
-            _profileContentTranslationAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
 
-            _profileContentScaleAnimation = _compositor.CreateExpressionAnimation(
-                    "Lerp(1,ShrinkRatio, " +
-                        "Clamp( (Background.Offset.Y - Background.Size.Y/2) / (Background.Size.Y - BackgroundPeekSize),0,1))"
-                );
-            _profileContentScaleAnimation.SetScalarParameter("ShrinkRatio", _contentShrinkRatio);
-            _profileContentScaleAnimation.SetReferenceParameter("Background", _backgroundVisual);
+            var background = _backgroundVisual.GetReference();
+            _profileTranslationExpression = (-scrollPropSet.Translation.Y + background.Offset.Y + background.Size.Y / 2) / 2;
+
+            _profileScaleExpression = EF.Lerp(
+                1,
+                _contentShrinkRatio,
+                EF.Clamp((background.Offset.Y - background.Size.Y / 2) / (background.Size.Y - backgroundPeekSize), 0, 1));
         }
 
 
@@ -171,34 +161,33 @@ namespace CompositionSampleGallery
             //              Since scrollingProperties.Translation.Y is negative.  This creates a normalized value that goes from 
             //              0 to 1 between no scrolling and the CrossoverTranslation.
             //
-            _frontPropertiesScalarScaleAnimation = _compositor.CreateExpressionAnimation(
-                    "Lerp(minClamp, maxClamp, Clamp((CrossoverTranslation + scrollingProperties.Translation.Y)/CrossoverTranslation,0,1))"
-                );
-            _frontPropertiesScalarScaleAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
-            _frontPropertiesScalarScaleAnimation.SetScalarParameter("minClamp", _finalScaleAmount);
-            _frontPropertiesScalarScaleAnimation.SetScalarParameter("maxClamp", _initialScaleAmount);
+
+            var scrollPropSet = scrollProperties.GetSpecializedReference<ManipulationPropertySetReferenceNode>();
+            var crossoverTranslation = ExpressionValues.Constant.CreateConstantScalar("CrossoverTranslation");
+            _frontPropertiesScaleExpression = EF.Lerp(
+                _finalScaleAmount,
+                _initialScaleAmount,
+                EF.Clamp((crossoverTranslation + scrollPropSet.Translation.Y) / crossoverTranslation, 0, 1));
 
             //
             // The previous equation calculates a scalar which is later bound to ScalarScale in FrontVisual's Properties.  
             // This equation uses that scalar to construct a new vector3 to set to animate the scale of the visual itself.
             //
-            var vector3ScaleAnimation = _compositor.CreateExpressionAnimation("Vector3(Properties.ScalarScale, Properties.ScalarScale, 1)");
+
             _frontVisual.Properties.InsertScalar("ScalarScale", 1);
-            vector3ScaleAnimation.SetReferenceParameter("Properties", _frontVisual.Properties);
-            _frontVisual.StartAnimation("Scale", vector3ScaleAnimation);
+            var frontScalarScale = _frontVisual.GetReference().GetScalarProperty("ScalarScale");
+            var vec3ScaleExpression = EF.Vector3(frontScalarScale, frontScalarScale, 1);
+            _frontVisual.StartAnimation("Scale", vec3ScaleExpression);
 
             //
             // This equation controls whether or not the FrontVisual is visibile via opacity.  It uses a simple ternary operator
             // to pick between 100% and 0% opacity based on the position being before the crossover point.
             //
-            _frontVisibilityAnimation =
-                _compositor.CreateExpressionAnimation("-scrollingProperties.Translation.Y <= CrossoverTranslation ? 1 : 0");
-            _frontVisibilityAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
 
-            _frontTranslationAnimation =
-                _compositor.CreateExpressionAnimation("scrollingProperties.Translation.Y > 0 ? BaseOffset : BaseOffset-scrollingProperties.Translation.Y");
-            _frontTranslationAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
+            _frontVisibilityExpression = EF.Conditional(-scrollPropSet.Translation.Y <= crossoverTranslation, 1, 0);
 
+            var baseOffset = ExpressionValues.Constant.CreateConstantScalar("BaseOffset");
+            _frontTranslationExpression = EF.Conditional(scrollPropSet.Translation.Y > 0, baseOffset, baseOffset - scrollPropSet.Translation.Y);
         }
 
         /// <summary>
@@ -209,7 +198,7 @@ namespace CompositionSampleGallery
         private void InitializeBehindVisual(CompositionPropertySet scrollProperties, CompositionEffectBrush maskedBrush)
         {
             //
-            // Create  the _frontVisual, set the brush on it, and attach it to the BackGrid.  BackGrid is an empty grid
+            // Create  the _backVisual, set the brush on it, and attach it to the BackGrid.  BackGrid is an empty grid
             // that is visually behind the profile background (the waves). Therefore, setting it as the
             // child visual on the BackGrid will put it behind all the scrollViewer content.
             //
@@ -222,8 +211,10 @@ namespace CompositionSampleGallery
             // to pick between 100% and 0% opacity based on the position being after the crossover point.
             //
             _backVisual.Scale = new Vector3(_finalScaleAmount, _finalScaleAmount, 1);
-            _behindOpacityAnimation = _compositor.CreateExpressionAnimation("-scrollingProperties.Translation.Y <= CrossoverTranslation ? 0 : 1");
-            _behindOpacityAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
+
+            var scrollPropSet = scrollProperties.GetSpecializedReference<ManipulationPropertySetReferenceNode>();
+            var crossoverTranslation = ExpressionValues.Constant.CreateConstantScalar("CrossoverTranslation");
+            _behindOpacityExpression = EF.Conditional(-scrollPropSet.Translation.Y <= crossoverTranslation, 0, 1);
 
             //
             // "Terms" and explanation of the following expression:
@@ -240,9 +231,9 @@ namespace CompositionSampleGallery
             //              Since this term evaluates to zero at the crossover point and the term above keeps the content from moving, when 
             //              the visibility swaps between frontVisual and backVisual, they are perfectly aligned.
             //
-            _behindTranslateAnimation = _compositor.CreateExpressionAnimation(
-            "(BaseOffset - scrollingProperties.Translation.Y) + 2 * (CrossoverTranslation + scrollingProperties.Translation.Y)");
-            _behindTranslateAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
+
+            var baseOffset = ExpressionValues.Constant.CreateConstantScalar("BaseOffset");
+            _behindTranslationExpression = (baseOffset - scrollPropSet.Translation.Y) + 2 * (crossoverTranslation + scrollPropSet.Translation.Y);
         }
 
 
@@ -267,44 +258,47 @@ namespace CompositionSampleGallery
             _frontVisual.AnchorPoint = new Vector2(.5f, .5f);
             _frontVisual.Offset = offset;
             _frontVisual.Size = profileImageSize;
-            _frontTranslationAnimation.SetScalarParameter("BaseOffset", offset.Y);
-            _frontPropertiesScalarScaleAnimation.SetScalarParameter("CrossoverTranslation", crossoverTranslation);
-            _frontVisibilityAnimation.SetScalarParameter("CrossoverTranslation", crossoverTranslation);
-            _frontVisual.Properties.StartAnimation("ScalarScale", _frontPropertiesScalarScaleAnimation);
-            _frontVisual.StartAnimation("Opacity", _frontVisibilityAnimation);
-            _frontVisual.StartAnimation("Offset.Y", _frontTranslationAnimation);
 
-
+            _frontTranslationExpression.SetScalarParameter("BaseOffset", offset.Y);
+            _frontPropertiesScaleExpression.SetScalarParameter("CrossoverTranslation", crossoverTranslation);
+            _frontVisibilityExpression.SetScalarParameter("CrossoverTranslation", crossoverTranslation);
+            _frontVisual.Properties.StartAnimation("ScalarScale", _frontPropertiesScaleExpression);
+            _frontVisual.StartAnimation("Opacity", _frontVisibilityExpression);
+            _frontVisual.StartAnimation("Offset.Y", _frontTranslationExpression);
+            
             //
             // Resolve all of the property parameters and references on the backVisual animations and start them.
             //
             _backVisual.AnchorPoint = new Vector2(.5f, .5f);
             _backVisual.Offset = offset;
             _backVisual.Size = profileImageSize;
-            _behindTranslateAnimation.SetScalarParameter("BaseOffset", offset.Y);
-            _behindTranslateAnimation.SetScalarParameter("CrossoverTranslation", crossoverTranslation);
-            _behindOpacityAnimation.SetScalarParameter("CrossoverTranslation", crossoverTranslation);
 
-            _backVisual.StartAnimation("Opacity", _behindOpacityAnimation);
-            _backVisual.StartAnimation("Offset.Y", _behindTranslateAnimation);
-
+            _behindTranslationExpression.SetScalarParameter("BaseOffset", offset.Y);
+            _behindTranslationExpression.SetScalarParameter("CrossoverTranslation", crossoverTranslation);
+            _behindOpacityExpression.SetScalarParameter("CrossoverTranslation", crossoverTranslation);
+            _backVisual.StartAnimation("Opacity", _behindOpacityExpression);
+            _backVisual.StartAnimation("Offset.Y", _behindTranslationExpression);
+            
             //
             // Resolve all property parameters and references on _backgroundVisual
             //
-            _backgroundTranslationAnimation.SetScalarParameter("BackgroundPeekSize", backgroundPeekSize);
+            
+            _backgroundTranslateExpression.SetScalarParameter("BackgroundPeekSize", backgroundPeekSize);
+            _backgroundTranslateExpression.SetScalarParameter("BaseOffset", backgroundImageSize.Y / 2);
+
             _backgroundVisual.Size = backgroundImageSize;
             _backgroundVisual.AnchorPoint = new Vector2(.5f, .5f);
             _backgroundVisual.CenterPoint = new Vector3(backgroundImageSize / 2, 1);
-            _backgroundTranslationAnimation.SetScalarParameter("BaseOffset", backgroundImageSize.Y / 2);
             _backgroundVisual.Offset = new Vector3(backgroundImageSize / 2, 0);
-            _backgroundVisual.StartAnimation("Offset.Y", _backgroundTranslationAnimation);
-            _backgroundVisual.StartAnimation("Scale.X", _backgroundScaleAnimation);
-            _backgroundVisual.StartAnimation("Scale.Y", _backgroundScaleAnimation);
+            _backgroundVisual.StartAnimation("Offset.Y", _backgroundTranslateExpression);
+            _backgroundVisual.StartAnimation("Scale.X", _backgroundScaleExpression);
+            _backgroundVisual.StartAnimation("Scale.Y", _backgroundScaleExpression);
 
-            _backgroundBlurAnimation.SetScalarParameter("BackgroundPeekSize", backgroundPeekSize);
-            _backgroundInverseBlurAnimation.SetScalarParameter("BackgroundPeekSize", backgroundPeekSize);
-            ParallaxingImage.Brush.StartAnimation("Arithmetic.Source1Amount", _backgroundInverseBlurAnimation);
-            ParallaxingImage.Brush.StartAnimation("Arithmetic.Source2Amount", _backgroundBlurAnimation);
+            _backgroundBlurExpression.SetScalarParameter("BackgroundPeekSize", backgroundPeekSize);
+            _backgroundInverseBlurExpression.SetScalarParameter("BackgroundPeekSize", backgroundPeekSize);
+
+            ParallaxingImage.Brush.StartAnimation("Arithmetic.Source1Amount", _backgroundInverseBlurExpression);
+            ParallaxingImage.Brush.StartAnimation("Arithmetic.Source2Amount", _backgroundBlurExpression);
 
             //
             // Resolve all property parameters and references on _profileContentVisual
@@ -312,10 +306,12 @@ namespace CompositionSampleGallery
             _profileContentVisual.Size = new Vector2((float)ProfileContent.ActualWidth, (float)ProfileContent.ActualHeight);
             _profileContentVisual.Offset = new Vector3(0);
             _profileContentVisual.Offset = new Vector3(_profileContentVisual.Size / 2, 0);
-            _profileContentScaleAnimation.SetScalarParameter("BackgroundPeekSize", backgroundPeekSize);
-            _profileContentVisual.StartAnimation("Offset.Y", _profileContentTranslationAnimation);
-            _profileContentVisual.StartAnimation("Scale.X", _profileContentScaleAnimation);
-            _profileContentVisual.StartAnimation("Scale.Y", _profileContentScaleAnimation);
+
+            _profileScaleExpression.SetScalarParameter("BackgroundPeekSize", backgroundPeekSize);
+
+            _profileContentVisual.StartAnimation("Offset.Y", _profileTranslationExpression);
+            _profileContentVisual.StartAnimation("Scale.X", _profileScaleExpression);
+            _profileContentVisual.StartAnimation("Scale.Y", _profileScaleExpression);
         }
 
         /// <summary>
@@ -400,23 +396,23 @@ namespace CompositionSampleGallery
         private Compositor _compositor;
 
         private SpriteVisual _backVisual;
-        private ExpressionAnimation _behindOpacityAnimation;
-        private ExpressionAnimation _behindTranslateAnimation;
+        private ExpressionNode _behindOpacityExpression;
+        private ExpressionNode _behindTranslationExpression;
 
         private SpriteVisual _frontVisual;
-        private ExpressionAnimation _frontTranslationAnimation;
-        private ExpressionAnimation _frontPropertiesScalarScaleAnimation;
-        private ExpressionAnimation _frontVisibilityAnimation;
+        private ExpressionNode _frontTranslationExpression;
+        private ExpressionNode _frontPropertiesScaleExpression;
+        private ExpressionNode _frontVisibilityExpression;
 
         private Visual _backgroundVisual;
-        private ExpressionAnimation _backgroundTranslationAnimation;
-        private ExpressionAnimation _backgroundScaleAnimation;
-        private ExpressionAnimation _backgroundBlurAnimation;
-        private ExpressionAnimation _backgroundInverseBlurAnimation;
+        private ExpressionNode _backgroundTranslateExpression;
+        private ExpressionNode _backgroundScaleExpression;
+        private ExpressionNode _backgroundBlurExpression;
+        private ExpressionNode _backgroundInverseBlurExpression;
 
         private Visual _profileContentVisual;
-        private ExpressionAnimation _profileContentTranslationAnimation;
-        private ExpressionAnimation _profileContentScaleAnimation;
+        private ExpressionNode _profileTranslationExpression;
+        private ExpressionNode _profileScaleExpression;
 
         private ManagedSurface _circleMaskSurface;
         private ManagedSurface _profilePictureSurface;

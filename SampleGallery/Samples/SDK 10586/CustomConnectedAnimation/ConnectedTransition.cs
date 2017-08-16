@@ -12,6 +12,7 @@
 //
 //*********************************************************
 
+using ExpressionBuilder;
 using SamplesCommon;
 using System;
 using System.Numerics;
@@ -21,6 +22,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media;
+
+using EF = ExpressionBuilder.ExpressionFunctions;
 
 namespace CompositionSampleGallery
 {
@@ -137,10 +140,10 @@ namespace CompositionSampleGallery
                 // an expression to bind the target's position to the end position of our animation.
                 //
 
-                string expression = "Vector3(scrollingProperties.Translation.X, scrollingProperties.Translation.Y, 0) + itemOffset";
+                var scrollPropSet = scrollProperties.GetSpecializedReference<ManipulationPropertySetReferenceNode>();
+                var itemOffset = new Vector3((float)position.X, (float)position.Y, 0);
+                var expression = EF.Vector3(scrollPropSet.Translation.X, scrollPropSet.Translation.Y, 0) + itemOffset ;
                 offsetAnimation.InsertExpressionKeyFrame(1f, expression);
-                offsetAnimation.SetReferenceParameter("scrollingProperties", scrollProperties);
-                offsetAnimation.SetVector3Parameter("itemOffset", new Vector3((float)position.X, (float)position.Y, 0));
                 offsetAnimation.Duration = totalDuration;
             }
             else

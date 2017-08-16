@@ -87,6 +87,11 @@
             <TextBlock x:Name="DescriptionTextBlock" 
                        Style="{StaticResource BaseTextBlockStyleLight}"
                        Foreground="{x:Bind Foreground}" />
+            <StackPanel.Transitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                </TransitionCollection>
+            </StackPanel.Transitions>
         </StackPanel>
 
         <ScrollViewer
@@ -96,7 +101,8 @@
             HorizontalScrollBarVisibility="Auto"
             VerticalScrollBarVisibility="Disabled">
             <ListView x:Name="NewSamplesList"
-                      Style="{StaticResource BaseSamplesListViewStyle}">
+                      Style="{StaticResource BaseSamplesListViewStyle}"
+                      ItemClick="NewSamplesList_ItemClick">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="VerticalAlignment" Value="Top" />
