@@ -23,7 +23,7 @@
                   ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsScrollInertiaEnabled="False" ScrollViewer.IsVerticalScrollChainingEnabled="True"  >
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="data:Thumbnail">
-                        <RelativePanel Width="370" Height="40" BorderBrush="Black" BorderThickness="1">
+                        <RelativePanel Width="370" Height="40" BorderBrush="LightGray" BorderThickness="1">
                             <Image
                                 x:Name="Image"
                                 Source="{x:Bind ImageUrl}"

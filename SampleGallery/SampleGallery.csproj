@@ -99,8 +99,8 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Compile Include="Samples\SDK Insider\PullToRefresh\PullToRefresh.xaml.cs" />
-    <Compile Include="Samples\SDK Insider\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\PullToRefresh\PullToRefresh.xaml.cs" />
+    <Compile Include="Samples\SDK 15063\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\LightInterop\AmbLight.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\LightInterop\MaterialBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\LightInterop\HoverLight.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
@@ -116,7 +116,6 @@
     <Compile Include="Samples\SDK 15063\BrushInterop\BrushInterop.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\BrushInterop\ImageEffectBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\BrushInterop\HostBackdropEffectBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
-    <Compile Include="Samples\SDK 15063\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <None Include="project.json" />
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -517,7 +516,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK Insider\PullToRefresh\PullToRefresh.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+    <Page Include="Samples\SDK 15063\PullToRefresh\PullToRefresh.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
