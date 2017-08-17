@@ -99,7 +99,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Compile Include="Samples\SDK 15063\PullToRefresh\PullToRefresh.xaml.cs" />
+    <Compile Include="Samples\SDK 15063\PullToRefresh\PullToRefresh.xaml.cs"  Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\LightInterop\AmbLight.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\LightInterop\MaterialBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
