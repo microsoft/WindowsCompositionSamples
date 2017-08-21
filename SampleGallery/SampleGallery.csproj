@@ -110,6 +110,9 @@
     <Compile Include="Samples\SDK 15063\PointerRotate\PointerRotate.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393">
       <DependentUpon>PointerRotate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\SDK Insider\SpringyImage\SpringyImage.xaml.cs" Condition="$(TargetPlatformBuild) &gt;15063">
+      <DependentUpon>SpringyImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\SDK 15063\BrushInterop\BackdropTintBlurBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\BrushInterop\BrushInterop.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\BrushInterop\ImageEffectBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
@@ -529,6 +532,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Samples\SDK Insider\SpringyImage\SpringyImage.xaml" Condition="$(TargetPlatformBuild) &gt;15063">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\SDK 15063\BrushInterop\BrushInterop.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -773,9 +780,7 @@
       <Name>SamplesCommon</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Samples\SDK Insider\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

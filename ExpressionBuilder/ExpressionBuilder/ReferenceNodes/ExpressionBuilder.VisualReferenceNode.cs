@@ -34,6 +34,7 @@ namespace ExpressionBuilder
         public Vector3Node    RelativeOffset         { get { return ReferenceProperty<Vector3Node>("RelativeOffset");        } }
         public Vector3Node    RotationAxis           { get { return ReferenceProperty<Vector3Node>("RotationAxis");          } }
         public Vector3Node    Scale                  { get { return ReferenceProperty<Vector3Node>("Scale");                 } }
+        public Vector3Node    Translation            { get { return GetVector3Property("Translation");                       } }
 
         public QuaternionNode Orientation            { get { return ReferenceProperty<QuaternionNode>("Orientation");        } }
 

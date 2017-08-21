@@ -176,6 +176,7 @@ namespace CompositionSampleGallery
 #endif
 
 #if SDKVERSION_INSIDER
+                new SampleDefinition(SpringyImage.StaticSampleName,                 typeof(SpringyImage),                 SampleType.Reference, SampleCategory.NaturalMotion,              false, false,  dateAdded: new DateTime(2017,08,7),  imageUrl: "ms-appx:///Assets/SampleThumbnails/PointerRotate.PNG",           sdkVersion: RuntimeSupportedSDKs.SDKVERSION._INSIDER),
 #endif
 
     };

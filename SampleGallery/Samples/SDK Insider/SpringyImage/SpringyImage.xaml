@@ -1,0 +1,24 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.SpringyImage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid x:Name="root" Background="LightGray">
+        <Image x:Name="image" Source="ms-appx:///Assets/Photos/pic01.jpg" Width="150" Height="100" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50, 120, 0, 0" PointerEntered="image_PointerEntered" PointerExited="image_PointerExited" PointerReleased="image_PointerReleased"/>
+        <Image x:Name="image2" Source="ms-appx:///Assets/Photos/pic02.jpg" Width="150" Height="100" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50, 240, 0, 0" PointerEntered="image_PointerEntered" PointerExited="image_PointerExited" PointerReleased="image_PointerReleased"/>
+        <Image x:Name="image3" Source="ms-appx:///Assets/Photos/pic03.jpg" Width="150" Height="100" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50, 360, 0, 0" PointerEntered="image_PointerEntered" PointerExited="image_PointerExited" PointerReleased="image_PointerReleased"/>
+        <Image x:Name="image4" Source="ms-appx:///Assets/Photos/pic04.jpg" Width="150" Height="100" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50, 480, 0, 0" PointerEntered="image_PointerEntered" PointerExited="image_PointerExited" PointerReleased="image_PointerReleased"/>
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,0,50">
+            <TextBlock HorizontalAlignment="Right" Margin="0,0,5,0" Foreground="Black" FontWeight="Bold" FontSize="16">Spring Properties</TextBlock>
+            <TextBlock HorizontalAlignment="Right" Margin="0,0,5,0" Foreground="Black">Damping Ratio</TextBlock>
+            <TextBox HorizontalAlignment="Right" Margin="0,0,5,0" x:Name="DampingInput" Width="100" Text="0.65"></TextBox>
+            <TextBlock HorizontalAlignment ="Right" Margin="0,0,5,0" Foreground="Black">Period (in sec)</TextBlock>
+            <TextBox HorizontalAlignment="Right" Margin="0,0,5,0" x:Name="PeriodInput" Width="100" Text="0.05"></TextBox>
+            <Button HorizontalAlignment="Right" Width="100" Height="50" Click="Button_Click" Margin="0,15,5,0">Set Values</Button>
+        </StackPanel>
+    </Grid>
+</local:SamplePage>
