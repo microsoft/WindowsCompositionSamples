@@ -39,23 +39,17 @@ namespace CompositionSampleGallery
         private Compositor _compositor;
         private VisualInteractionSource _interactionSource;
         private InteractionTracker _tracker;
-        private Windows.UI.Core.CoreWindow _Window;
-        private static Size ControlSize = new Size(500, 500);
-        private ExpressionAnimation m_positionExpression;
-        private ScalarKeyFrameAnimation _gearMotionScalarAnimation;
         
         public PullToRefresh()
         {
             Model = new LocalDataSource();
             this.InitializeComponent();
-            _Window = Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().CoreWindow;
         }
 
 
-        public static string StaticSampleName { get { return "PullToRefresh ListView Items"; } }
+        public static string StaticSampleName { get { return "Pull-To-Refresh ListView Items"; } }
         public override string SampleName { get { return StaticSampleName; } }
         public override string SampleDescription { get { return "Demonstrates how to create a custom Pull-to-Refresh control using Interaction Tracker Source Modifiers"; } }
-        public override string SampleCodeUri { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761169"; } }
 
         public LocalDataSource Model { set; get; }
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -115,11 +109,11 @@ namespace CompositionSampleGallery
             ConfigureRestingPoint(refreshPanelHeight);
 
             //
-            // Use the Tacker's Position (negated) to apply to the Offset of the Image. The -{refreshPanelHeight} is to hide the refresh panel
+            // Use the Tracker's Position (negated) to apply to the Offset of the Image. The -{refreshPanelHeight} is to hide the refresh panel
             //
-            m_positionExpression = _compositor.CreateExpressionAnimation($"-tracker.Position.Y - {refreshPanelHeight} ");
-            m_positionExpression.SetReferenceParameter("tracker", _tracker);
-            _contentPanelVisual.StartAnimation("Offset.Y", m_positionExpression);
+            ExpressionAnimation _positionExpression = _compositor.CreateExpressionAnimation($"-tracker.Position.Y - {refreshPanelHeight} ");
+            _positionExpression.SetReferenceParameter("tracker", _tracker);
+            _contentPanelVisual.StartAnimation("Offset.Y", _positionExpression);
 
         }
 
@@ -127,8 +121,15 @@ namespace CompositionSampleGallery
         {
             if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
             {
-                // Tell the system to use the gestures from this pointer point (if it can).
-                _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(null));
+                try
+                {
+                    // Tell the system to use the gestures from this pointer point (if it can).
+                    _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(null));
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    // Ignoring the failed redirect to prevent app crashing
+                }
             }
         }
 
@@ -170,8 +171,7 @@ namespace CompositionSampleGallery
 
             stoppingModifier.Condition = stoppingCondition;
             stoppingModifier.Value = stoppingAlternateValue;
-
-
+            
             //
             // Apply the modifiers to the source as a list
             //
@@ -181,8 +181,6 @@ namespace CompositionSampleGallery
             };
 
             _interactionSource.ConfigureDeltaPositionYModifiers(modifierList);
-
-
         }
 
         private void ActivateSpringForce(float pullToRefreshDistance)
@@ -222,7 +220,6 @@ namespace CompositionSampleGallery
         private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             GridClip.Rect = new Rect(0d, 0d, e.NewSize.Width, e.NewSize.Height);
-            System.Diagnostics.Debug.WriteLine("GridClip.Rect" + GridClip.Rect);
         }
 
     }

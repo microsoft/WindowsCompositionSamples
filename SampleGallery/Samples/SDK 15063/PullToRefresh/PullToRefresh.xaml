@@ -20,7 +20,7 @@
             <ListView x:Name="ThumbnailList" 
                       MaxWidth="400"
                       Height="500"
-                  ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsScrollInertiaEnabled="False" ScrollViewer.IsVerticalScrollChainingEnabled="True"  >
+                  ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsVerticalScrollChainingEnabled="True"  >
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="data:Thumbnail">
                         <RelativePanel Width="370" Height="40" BorderBrush="LightGray" BorderThickness="1">
