@@ -28,7 +28,9 @@ using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.System;
+using ExpressionBuilder;
 
+using EF = ExpressionBuilder.ExpressionFunctions;
 
 namespace CompositionSampleGallery
 {
@@ -111,9 +113,7 @@ namespace CompositionSampleGallery
             //
             // Use the Tracker's Position (negated) to apply to the Offset of the Image. The -{refreshPanelHeight} is to hide the refresh panel
             //
-            ExpressionAnimation _positionExpression = _compositor.CreateExpressionAnimation($"-tracker.Position.Y - {refreshPanelHeight} ");
-            _positionExpression.SetReferenceParameter("tracker", _tracker);
-            _contentPanelVisual.StartAnimation("Offset.Y", _positionExpression);
+            _contentPanelVisual.StartAnimation("Offset.Y", -_tracker.GetReference().Position.Y - refreshPanelHeight);
 
         }
 
@@ -146,11 +146,10 @@ namespace CompositionSampleGallery
 
             ExpressionAnimation resistanceCondition = _compositor.CreateExpressionAnimation(
                 $"-tracker.Position.Y < {pullToRefreshDistance}");
-
             resistanceCondition.SetReferenceParameter("tracker", _tracker);
 
             ExpressionAnimation resistanceAlternateValue = _compositor.CreateExpressionAnimation(
-            "source.DeltaPosition.Y / 3");
+                "source.DeltaPosition.Y / 3");
 
             resistanceAlternateValue.SetReferenceParameter("source", _interactionSource);
 
@@ -171,7 +170,7 @@ namespace CompositionSampleGallery
 
             stoppingModifier.Condition = stoppingCondition;
             stoppingModifier.Value = stoppingAlternateValue;
-            
+
             //
             // Apply the modifiers to the source as a list
             //
@@ -191,14 +190,12 @@ namespace CompositionSampleGallery
             var modifier = InteractionTrackerInertiaMotion.Create(_compositor);
 
             // Set the condition to true (always)
-            modifier.Condition = _compositor.CreateExpressionAnimation("true");
+            modifier.SetCondition((BooleanNode)true);
 
+            var target = ExpressionValues.Target.CreateInteractionTrackerTarget();
+            
             // Define a spring-like force, anchored at position 0. This brings the listView back to position 0.
-            modifier.Motion = _compositor.CreateExpressionAnimation(@"(-(this.target.Position.Y) * springConstant) - (dampingConstant * this.target.PositionVelocityInPixelsPerSecond.Y)");
-
-            modifier.Motion.SetScalarParameter("dampingConstant", dampingConstant);
-            modifier.Motion.SetScalarParameter("springConstant", springConstant);
-            modifier.Motion.SetScalarParameter("pullToRefreshDistance", pullToRefreshDistance);
+            modifier.SetMotion(-(target.Position.Y * springConstant) - (target.PositionVelocityInPixelsPerSecond.Y * dampingConstant));
 
             _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
         }
@@ -208,13 +205,13 @@ namespace CompositionSampleGallery
         {
             // Setup a possible inertia endpoint (snap point) for the InteractionTracker's minimum position
             var endpoint1 = InteractionTrackerInertiaRestingValue.Create(_compositor);
+            var target = ExpressionValues.Target.CreateInteractionTrackerTarget();
 
-            // Use this endpoint when the natural resting position of the interaction is less than the halfway point 
-            endpoint1.Condition = _compositor.CreateExpressionAnimation(
-                    $"this.target.NaturalRestingPosition.y < {pullToRefreshDistance}");
+            // Use this endpoint when the natural resting position of the interaction is less than the size fo the Refresh Panel. 
+            endpoint1.SetCondition(target.NaturalRestingPosition.Y < pullToRefreshDistance);
 
             // Set the result for this condition to make the InteractionTracker's y position the minimum y position
-            endpoint1.RestingValue = _compositor.CreateExpressionAnimation($"-this.target.MinPosition.y - {pullToRefreshDistance}");
+            endpoint1.SetRestingValue(-target.MinPosition.Y - pullToRefreshDistance);
             _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { endpoint1 });
         }
     }
