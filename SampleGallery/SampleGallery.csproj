@@ -99,6 +99,8 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Compile Include="Samples\SDK 15063\PullToRefresh\PullToRefresh.xaml.cs"  Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\LightInterop\AmbLight.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\LightInterop\MaterialBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\LightInterop\HoverLight.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
@@ -117,7 +119,6 @@
     <Compile Include="Samples\SDK 15063\BrushInterop\BrushInterop.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\BrushInterop\ImageEffectBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\BrushInterop\HostBackdropEffectBrush.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
-    <Compile Include="Samples\SDK 15063\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <None Include="project.json" />
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -287,6 +288,7 @@
     <Content Include="Assets\Landmarks\FerrisWheel.png" />
     <Content Include="Assets\MainNavigationPointerOverBackgroundWide.png" />
     <Content Include="Assets\MissingThumbnail.png" />
+    <Content Include="Assets\Loading.png" />
     <Content Include="Assets\Photos\no_border_pic27.jpg" />
     <Content Include="Assets\SampleThumbnails\AdvancedShadows.PNG" />
     <Content Include="Assets\SampleThumbnails\BackDropControlSample.PNG" />
@@ -333,6 +335,7 @@
     <Content Include="Assets\SampleThumbnails\Perspective.png" />
     <Content Include="Assets\SampleThumbnails\PhotoPopupViewer.PNG" />
     <Content Include="Assets\SampleThumbnails\PointerEnterExitEffects.PNG" />
+    <Content Include="Assets\SampleThumbnails\PullToRefresh.png" />
     <Content Include="Assets\SampleThumbnails\PointerRotate.PNG" />
     <Content Include="Assets\SampleThumbnails\ShadowInterop.PNG" />
     <Content Include="Assets\SampleThumbnails\ShadowPlayground.jpg" />
@@ -513,6 +516,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK 15063\PullToRefresh\PullToRefresh.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
