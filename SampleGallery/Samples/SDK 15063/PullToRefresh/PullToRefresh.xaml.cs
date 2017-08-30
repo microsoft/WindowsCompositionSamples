@@ -217,10 +217,5 @@ namespace CompositionSampleGallery
             endpoint1.RestingValue = _compositor.CreateExpressionAnimation($"-this.target.MinPosition.y - {pullToRefreshDistance}");
             _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { endpoint1 });
         }
-        private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            GridClip.Rect = new Rect(0d, 0d, e.NewSize.Width, e.NewSize.Height);
-        }
-
     }
 }
