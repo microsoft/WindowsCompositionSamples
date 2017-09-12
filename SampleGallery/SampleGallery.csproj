@@ -177,8 +177,6 @@
       <DependentUpon>ColorBloomTransition.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\SDK 10586\TransitionAnimation-ColorBloom\ColorBloomTransitionHelper.cs" />
-    <Compile Include="Samples\SDK 14393\Interactions3D\Interactions3D.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
-    <Compile Include="Samples\SDK 14393\Interactions3D\Node.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\LayerVisual\LayerVisualAnd3DTransform.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586" />
     <Compile Include="Samples\SDK 14393\LayoutAnimations\Photos.xaml.cs" Condition="$(TargetPlatformBuild) &gt;10586">
       <DependentUpon>Photos.xaml</DependentUpon>
@@ -268,6 +266,8 @@
     <Compile Include="Samples\SDK 10586\PropertySets\PropertySets.xaml.cs" />
     <Compile Include="Samples\SampleTemplate\SampleTemplate.xaml.cs" />
     <Compile Include="Samples\SDK 10586\Z-Order Scrolling\Z-OrderScrolling.xaml.cs" />
+    <Compile Include="Samples\SDK 15063\Interactions3D\Interactions3D.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
+    <Compile Include="Samples\SDK 15063\Interactions3D\Node.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -405,6 +405,7 @@
     <Content Include="Assets\WindowsInsiders\Unicorn.png" />
     <Content Include="Assets\Windows_logo_Cyan_rgb_D.png" />
     <Content Include="Assets\ZOrderScrolling.jpg" />
+    <Content Include="Samples\SDK 15063\Interactions3D\stage.jpg" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Samples\SDK 10586\Perspective\jellyfish.jpg" />
     <Content Include="Samples\SDK 10586\TransitionAnimation-FlipToReveal\Image.jpg" />
@@ -477,7 +478,6 @@
     <Content Include="Assets\Photos\pic43.jpg" />
     <Content Include="Assets\Photos\pic44.jpg" />
     <Content Include="Assets\Photos\pic45.jpg" />
-    <Content Include="Samples\SDK 14393\Interactions3D\stage.jpg" />
     <Content Include="Samples\SDK 14393\LayoutAnimations\1.jpg" />
     <Content Include="Samples\SDK 14393\LayoutAnimations\10.jpg" />
     <Content Include="Samples\SDK 14393\LayoutAnimations\11.jpg" />
@@ -620,7 +620,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK 14393\Interactions3D\Interactions3D.xaml" Condition="$(TargetPlatformBuild) &gt;10586">
+    <Page Include="Samples\SDK 15063\Interactions3D\Interactions3D.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

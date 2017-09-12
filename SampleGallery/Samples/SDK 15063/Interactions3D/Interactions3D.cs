@@ -68,59 +68,78 @@ namespace CompositionSampleGallery
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
-            _positionTracker.Dispose();
-            _positionTracker = null;
+            _tracker.Dispose();
+            _tracker = null;
 
-            _scaleTracker.Dispose();
-            _scaleTracker = null;
-
-            foreach(var surface in _managedSurfaces)
+            foreach(var brush in _imageBrushes)
             {
-                surface.Dispose();
+                brush.Dispose();
             }
         }
 
 
         private void ConfigureInteractionTracker()
         {
-            //
-            // We're creating two interaction trackers, one nested in the other.  This allows us the user to use 
-            // pinch/stretch to affect z-position, and not have it change the x-position.  The two work independently.
-            //
+            _interactionSource = VisualInteractionSource.Create(_rootContainer);
+            _interactionSource.ScaleSourceMode = InteractionSourceMode.EnabledWithInertia;
+            _interactionSource.PositionXSourceMode = InteractionSourceMode.EnabledWithInertia;
 
-            _interactionSource1 = VisualInteractionSource.Create(_rootContainer);
-            _interactionSource1.ScaleSourceMode = InteractionSourceMode.EnabledWithInertia;
+            _tracker = InteractionTracker.CreateWithOwner(_compositor, this);
+            _tracker.MinScale = 0.6f;
+            _tracker.MaxScale = 5.0f;
 
-            _scaleTracker = InteractionTracker.CreateWithOwner(_compositor, this);
-            _scaleTracker.MinScale = 0.6f;
-            _scaleTracker.MaxScale = 5.0f;
-            _scaleTracker.ScaleInertiaDecayRate = 0.96f;
+            _tracker.MaxPosition = new Vector3((float)Root.ActualWidth * 1.5f, 0, 0);
+            _tracker.MinPosition = _tracker.MaxPosition * -1;
 
-            _scaleTracker.InteractionSources.Add(_interactionSource1);
+            _tracker.ScaleInertiaDecayRate = 0.96f;
 
-            _interactionSource2 = VisualInteractionSource.Create(_rootContainer2);
-            _interactionSource2.PositionXSourceMode = InteractionSourceMode.EnabledWithInertia;
+            _tracker.InteractionSources.Add(_interactionSource);
 
-            _positionTracker = InteractionTracker.CreateWithOwner(_compositor, this);
-            _positionTracker.MaxPosition = new Vector3((float)Root.ActualWidth * 1.5f, 0, 0);
-            _positionTracker.MinPosition = _positionTracker.MaxPosition * -1;
-
-            _positionTracker.InteractionSources.Add(_interactionSource2);
+            var tracker = _tracker.GetReference();
 
             //
-            // Here's the trick: we take the scale output from the outer (scale) Tracker, and convert 
-            // it into a value that represents Z.  Then we bind it to the world container's Z position.
+            // Here's the trick: we take the scale output from the tracker, and convert it into a
+            // value that represents Z.  Then we bind it to the world container's Z position.
             //
 
-            var scaleTracker = _scaleTracker.GetReference();
-            var scaleExpression = EF.Lerp(0, 1000, (1 - scaleTracker.Scale) / (1 - scaleTracker.MaxScale));
+            var scaleExpression = EF.Lerp(0, 1000, (1 - tracker.Scale) / (1 - tracker.MaxScale));
             _worldContainer.StartAnimation("Offset.Z", scaleExpression);
 
             //
-            // Bind the output of the inner (xy position) tracker to the world container's XY position.
+            // Bind the output of the tracker to the world container's XY position.
             //
 
-            _worldContainer.StartAnimation("Offset.XY", -_positionTracker.GetReference().Position.XY);
+            _worldContainer.StartAnimation("Offset.XY", -tracker.Position.XY);
+
+
+            //
+            // Scaling usually affects position.  This depends on the center point of the scale.  
+            // But for our UI, we want don't scale to adjust the position (since we're using scale 
+            // to change Offset.Z).  So to prevent scale from affecting position, we must always use
+            // the top-left corner of the WorldContainer as the center point (note: we could also 
+            // use the tracker's negated position, since that's where WorldContainer is getting its 
+            // offset).  
+            //
+            // Create input modifiers to override the center point value.
+            //
+
+            var centerpointXModifier = CompositionConditionalValue.Create(_compositor);
+            var centerpointYModifier = CompositionConditionalValue.Create(_compositor);
+
+            centerpointXModifier.Condition = _compositor.CreateExpressionAnimation("true");
+            centerpointXModifier.Value = _compositor.CreateExpressionAnimation("world.Offset.X");
+            centerpointXModifier.Value.SetReferenceParameter("world", _worldContainer);
+
+            _interactionSource.ConfigureCenterPointXModifiers(new[] { centerpointXModifier });
+            _tracker.ConfigureCenterPointXInertiaModifiers(new[] { centerpointXModifier });
+
+
+            centerpointYModifier.Condition = _compositor.CreateExpressionAnimation("true");
+            centerpointYModifier.Value = _compositor.CreateExpressionAnimation("world.Offset.Y");
+            centerpointYModifier.Value.SetReferenceParameter("world", _worldContainer);
+
+            _interactionSource.ConfigureCenterPointYModifiers(new[] { centerpointYModifier });
+            _tracker.ConfigureCenterPointYInertiaModifiers(new[] { centerpointYModifier });
         }
 
 
@@ -131,11 +150,10 @@ namespace CompositionSampleGallery
 
             _compositor = _rootContainer.Compositor;
 
-            _rootContainer2 = ElementCompositionPreview.GetElementVisual(Stage);
-            _rootContainer2.Size = new Vector2((float)Root.ActualWidth, (float)Root.ActualHeight);
+            //
+            // Setup a container to represent the camera and define the perspective transform.
+            //
 
-
-            // Setup a container to represent the camera and define the perspective transform
             const float cameraDistance = -400.0f;
             var perspectiveMatrix = new Matrix4x4(
                     1, 0, 0, 0,
@@ -148,10 +166,13 @@ namespace CompositionSampleGallery
             cameraVisual.Offset = new Vector3(_rootContainer.Size.X * 0.5f,
                                                    _rootContainer.Size.Y * 0.5f,
                                                    0);
-            //((ContainerVisual)_rootContainer2).Children.InsertAtTop(cameraVisual);
-            ElementCompositionPreview.SetElementChildVisual(Stage, cameraVisual);
 
-            // Create a container to contain the world content
+            ElementCompositionPreview.SetElementChildVisual(Root, cameraVisual);
+
+            //
+            // Create a container to contain the world content.
+            //
+
             _worldContainer = _compositor.CreateContainerVisual();
             _worldContainer.Offset = new Vector3(0, 0, -900);
             cameraVisual.Children.InsertAtTop(_worldContainer);
@@ -198,8 +219,8 @@ namespace CompositionSampleGallery
             // a little too scattered/chaotic otherwise.
             //
 
-            var min = new Vector3(_positionTracker.MinPosition.X, -_rootContainer.Size.Y * 0.65f, -25);
-            var max = new Vector3(_positionTracker.MaxPosition.X, _rootContainer.Size.Y * 0.65f, 25);
+            var min = new Vector3(_tracker.MinPosition.X, -_rootContainer.Size.Y * 0.65f, -25);
+            var max = new Vector3(_tracker.MaxPosition.X, _rootContainer.Size.Y * 0.65f, 25);
 
 
             NodeManager.Instance.MinPosition = min;
@@ -222,10 +243,9 @@ namespace CompositionSampleGallery
         }
 
 
-        private async void LoadImages()
+        async private void LoadImages()
         {
             int loadedImageCount = 0;
-
 
             //
             // Populate/load our unique list of image textures.
@@ -236,7 +256,7 @@ namespace CompositionSampleGallery
                 var name = (NamedImage)i;
 
                 Uri uri = new Uri($"ms-appx:///Assets/Photos/{name.ToString()}.jpg");
-                _managedSurfaces[i] = await ImageLoader.Instance.LoadFromUriAsync(uri);
+                _imageBrushes[i] = await ImageLoader.Instance.LoadFromUriAsync(uri);
 
                 loadedImageCount++;
             }
@@ -272,7 +292,7 @@ namespace CompositionSampleGallery
             // Once we've loaded all of the images, we can continue populating the world.
             //
 
-            if (loadedImageCount == _managedSurfaces.Length + _textBrushes.Length)
+            if (loadedImageCount == _imageBrushes.Length + _textBrushes.Length)
             {
                 PopulateWorld();
             }
@@ -309,7 +329,7 @@ namespace CompositionSampleGallery
 
         private void AddImage(ImageNodeInfo imageNodeInfo)
         {
-            AddImage(_managedSurfaces[(int)imageNodeInfo.NamedImage].Brush, imageNodeInfo);
+            AddImage(_imageBrushes[(int)imageNodeInfo.NamedImage].Brush, imageNodeInfo);
         }
 
 
@@ -356,6 +376,8 @@ namespace CompositionSampleGallery
                 }
 
                 sprite.StartAnimation("Opacity", _opacityExpression);
+
+
             }
             sprite.Brush = imageBrush;
 
@@ -396,6 +418,7 @@ namespace CompositionSampleGallery
 
             _ambientAnimations = new List<Tuple<AmbientAnimationTarget, CompositionAnimation>>();
 
+            var tracker = _tracker.GetReference();
 
             //
             // Move by an amount 1/2 the distance to the near X edge.
@@ -404,8 +427,9 @@ namespace CompositionSampleGallery
             positionAnimation = _compositor.CreateVector3KeyFrameAnimation();
 
             var vec3StartingValue = ExpressionValues.StartingValue.CreateVector3StartingValue();
-            var minPosExp = positionMargin + (_positionTracker.GetReference().MinPosition + vec3StartingValue) * 0.5f;
+            var minPosExp = positionMargin + (tracker.MinPosition + vec3StartingValue) * 0.5f;
             positionAnimation.InsertExpressionKeyFrame(1, minPosExp);
+
             positionAnimation.Duration = TimeSpan.FromSeconds(15 * timeScale);
 
             _ambientAnimations.Add(new Tuple<AmbientAnimationTarget, CompositionAnimation>(
@@ -418,7 +442,7 @@ namespace CompositionSampleGallery
 
             positionAnimation = _compositor.CreateVector3KeyFrameAnimation();
 
-            var maxPosExp = -positionMargin + (_positionTracker.GetReference().MaxPosition - vec3StartingValue) * 0.5f;
+            var maxPosExp = -positionMargin + (tracker.MaxPosition - vec3StartingValue) * 0.5f;
             positionAnimation.InsertExpressionKeyFrame(1f, maxPosExp);
             positionAnimation.Duration = TimeSpan.FromSeconds(15 * timeScale);
 
@@ -433,7 +457,7 @@ namespace CompositionSampleGallery
 
             positionAnimation = _compositor.CreateVector3KeyFrameAnimation();
 
-            positionAnimation.InsertKeyFrame(1, _positionTracker.MinPosition + positionMargin * 2);
+            positionAnimation.InsertKeyFrame(1, _tracker.MinPosition + positionMargin * 2);
             positionAnimation.Duration = TimeSpan.FromSeconds(15 * timeScale);
 
             _ambientAnimations.Add(new Tuple<AmbientAnimationTarget, CompositionAnimation>(
@@ -448,7 +472,7 @@ namespace CompositionSampleGallery
 
             positionAnimation = _compositor.CreateVector3KeyFrameAnimation();
 
-            positionAnimation.InsertKeyFrame(1, _positionTracker.MaxPosition - positionMargin);
+            positionAnimation.InsertKeyFrame(1, _tracker.MaxPosition - positionMargin);
             positionAnimation.Duration = TimeSpan.FromSeconds(20 * timeScale);
 
             _ambientAnimations.Add(new Tuple<AmbientAnimationTarget, CompositionAnimation>(
@@ -461,7 +485,9 @@ namespace CompositionSampleGallery
             //
 
             positionAnimation = _compositor.CreateVector3KeyFrameAnimation();
-            positionAnimation.InsertExpressionKeyFrame(1, -positionMargin + _positionTracker.GetReference().MaxPosition * 0.85f);
+
+            positionAnimation.InsertExpressionKeyFrame(1, -positionMargin + tracker.MaxPosition * 0.85f);
+
             positionAnimation.Duration = TimeSpan.FromSeconds(15 * timeScale);
 
             _ambientAnimations.Add(new Tuple<AmbientAnimationTarget, CompositionAnimation>(
@@ -475,7 +501,7 @@ namespace CompositionSampleGallery
 
             positionAnimation = _compositor.CreateVector3KeyFrameAnimation();
 
-            positionAnimation.InsertKeyFrame(1, _positionTracker.MinPosition + (_positionTracker.MaxPosition - _positionTracker.MinPosition) * 0.5f);
+            positionAnimation.InsertKeyFrame(1, _tracker.MinPosition + (_tracker.MaxPosition - _tracker.MinPosition) * 0.5f);
             positionAnimation.Duration = TimeSpan.FromSeconds(10 * timeScale);
 
             _ambientAnimations.Add(new Tuple<AmbientAnimationTarget, CompositionAnimation>(
@@ -490,7 +516,7 @@ namespace CompositionSampleGallery
 
             scaleForZAnimation = _compositor.CreateScalarKeyFrameAnimation();
 
-            scaleForZAnimation.InsertKeyFrame(1, _scaleTracker.MinScale);
+            scaleForZAnimation.InsertKeyFrame(1, _tracker.MinScale);
             scaleForZAnimation.Duration = TimeSpan.FromSeconds(18 * timeScale);
 
             _ambientAnimations.Add(new Tuple<AmbientAnimationTarget, CompositionAnimation>(
@@ -503,7 +529,7 @@ namespace CompositionSampleGallery
 
             scaleForZAnimation = _compositor.CreateScalarKeyFrameAnimation();
 
-            scaleForZAnimation.InsertKeyFrame(1, _scaleTracker.MinScale * 1.3f);
+            scaleForZAnimation.InsertKeyFrame(1, _tracker.MinScale * 1.3f);
             scaleForZAnimation.Duration = TimeSpan.FromSeconds(10 * timeScale);
 
             _ambientAnimations.Add(new Tuple<AmbientAnimationTarget, CompositionAnimation>(
@@ -517,7 +543,7 @@ namespace CompositionSampleGallery
 
             scaleForZAnimation = _compositor.CreateScalarKeyFrameAnimation();
 
-            scaleForZAnimation.InsertKeyFrame(1, (_scaleTracker.MaxScale - _scaleTracker.MinScale) / 2.0f);
+            scaleForZAnimation.InsertKeyFrame(1, (_tracker.MaxScale - _tracker.MinScale) / 2.0f);
             scaleForZAnimation.Duration = TimeSpan.FromSeconds(11 * timeScale);
 
             _ambientAnimations.Add(new Tuple<AmbientAnimationTarget, CompositionAnimation>(
@@ -531,7 +557,7 @@ namespace CompositionSampleGallery
 
             scaleForZAnimation = _compositor.CreateScalarKeyFrameAnimation();
 
-            scaleForZAnimation.InsertKeyFrame(1, _scaleTracker.MaxScale * 0.3f);
+            scaleForZAnimation.InsertKeyFrame(1, _tracker.MaxScale * 0.3f);
             scaleForZAnimation.Duration = TimeSpan.FromSeconds(10 * timeScale);
 
             _ambientAnimations.Add(new Tuple<AmbientAnimationTarget, CompositionAnimation>(
@@ -546,7 +572,7 @@ namespace CompositionSampleGallery
 
             scaleForZAnimation = _compositor.CreateScalarKeyFrameAnimation();
 
-            scaleForZAnimation.InsertKeyFrame(1, _scaleTracker.MaxScale);
+            scaleForZAnimation.InsertKeyFrame(1, _tracker.MaxScale);
             scaleForZAnimation.Duration = TimeSpan.FromSeconds(10 * timeScale);
 
             _ambientAnimations.Add(new Tuple<AmbientAnimationTarget, CompositionAnimation>(
@@ -561,7 +587,7 @@ namespace CompositionSampleGallery
             scaleForZAnimation = _compositor.CreateScalarKeyFrameAnimation();
 
             var scalarStartingValue = ExpressionValues.StartingValue.CreateScalarStartingValue();
-            var scaleMinExp = EF.Min(_scaleTracker.GetReference().MaxScale, scalarStartingValue * 1.5f);
+            var scaleMinExp = EF.Min(tracker.MaxScale, scalarStartingValue * 1.5f);
             scaleForZAnimation.InsertExpressionKeyFrame(1, scaleMinExp);
             scaleForZAnimation.Duration = TimeSpan.FromSeconds(10 * timeScale);
 
@@ -575,7 +601,7 @@ namespace CompositionSampleGallery
 
             scaleForZAnimation = _compositor.CreateScalarKeyFrameAnimation();
 
-            var scaleMaxExp = EF.Max(_scaleTracker.GetReference().MinScale, scalarStartingValue * 0.5f);
+            var scaleMaxExp = EF.Max(tracker.MinScale, scalarStartingValue * 0.5f);
             scaleForZAnimation.InsertExpressionKeyFrame(1, scaleMaxExp);
             scaleForZAnimation.Duration = TimeSpan.FromSeconds(10 * timeScale);
 
@@ -612,11 +638,11 @@ namespace CompositionSampleGallery
             switch (transition.Item1)
             {
                 case AmbientAnimationTarget.PositionKeyFrame:
-                    _positionTracker.TryUpdatePositionWithAnimation(transition.Item2);
+                    _tracker.TryUpdatePositionWithAnimation(transition.Item2);
                     break;
 
                 case AmbientAnimationTarget.ScaleKeyFrame:
-                    _scaleTracker.TryUpdateScaleWithAnimation(transition.Item2, new Vector3());
+                    _tracker.TryUpdateScaleWithAnimation(transition.Item2, new Vector3());
                     break;
             }
 
@@ -627,17 +653,15 @@ namespace CompositionSampleGallery
         {
             GridClip.Rect = new Rect(0d, 0d, e.NewSize.Width, e.NewSize.Height);
         }
-        private void Stage_PointerPressed(object sender, PointerRoutedEventArgs e)
+        private void Root_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
             {
                 // Tell the system to use the gestures from this pointer point (if it can).
-                _interactionSource2.TryRedirectForManipulation(e.GetCurrentPoint(Stage));
-                _interactionSource1.TryRedirectForManipulation(e.GetCurrentPoint(Stage));
+                _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(Root));
 
-                // Stop ambient animations for both trackers
-                _positionTracker.TryUpdatePositionBy(Vector3.Zero);
-                _scaleTracker.TryUpdatePositionBy(Vector3.Zero);
+                // Stop ambient animations
+                _tracker.TryUpdatePositionBy(Vector3.Zero);
             }
         }
 
@@ -663,19 +687,16 @@ namespace CompositionSampleGallery
 
         private ContainerVisual         _worldContainer;
         private Random                  _random;
-        private InteractionTracker      _positionTracker;
-        private InteractionTracker      _scaleTracker;
-        private VisualInteractionSource _interactionSource1;
-        private VisualInteractionSource _interactionSource2;
+        private InteractionTracker      _tracker;
+        private VisualInteractionSource _interactionSource;
         private Visual                  _rootContainer;
-        private Visual                  _rootContainer2;
         private List<NodeInfo>          _nodes;
         private Compositor              _compositor;
         private DispatcherTimer         _timer;
         private int                     _lastAmbientAnimationIndex = -1;
         private List<Tuple<AmbientAnimationTarget, CompositionAnimation>> 
                                         _ambientAnimations;
-        private ManagedSurface[]       _managedSurfaces = new ManagedSurface[(int)NamedImage.Count];
+        private ManagedSurface[]        _imageBrushes = new ManagedSurface[(int)NamedImage.Count];
         
         private CompositionSurfaceBrush[]   
                                         _textBrushes;
