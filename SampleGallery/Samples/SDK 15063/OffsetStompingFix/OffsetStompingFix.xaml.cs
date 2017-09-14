@@ -51,10 +51,11 @@ namespace CompositionSampleGallery
             SetupImplicitAnimations();
             
         }
-        public static string StaticSampleName { get { return "Using Translation Instead of Offset"; } }
-        public override string SampleName { get { return StaticSampleName; } }
-        public override string SampleDescription { get { return "By enabling the new Translation property via ElementCompositionPreview you animate a Visual's position without using the Offset property shared the Xaml Framework."; } }
-        public override string SampleCodeUri { get { return "https://go.microsoft.com/fwlink/?linkid=847788"; } }
+        public static string    StaticSampleName => "Using Translation Instead of Offset"; 
+        public override string  SampleName => StaticSampleName; 
+        public static string    StaticSampleDescription => "By enabling the new Translation property via ElementCompositionPreview you animate a Visual's position without using the Offset property shared with the Xaml Framework."; 
+        public override string  SampleDescription => StaticSampleDescription;
+        public override string  SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=847788";
 
         //Green rectangle animation using the new Translation property inserted into the Visual's PropertySet
         void StartAnimationTranslation()

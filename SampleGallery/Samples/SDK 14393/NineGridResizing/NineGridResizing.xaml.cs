@@ -44,9 +44,10 @@ namespace CompositionSampleGallery
         private ValueTimer<float> _valueTimerYSlider;
         private ValueTimer<float> _valueTimerScaleSlider;
 
-        public static string StaticSampleName { get { return "Nine-Grid Resizing"; } }
-        public override string SampleName { get { return StaticSampleName; } }
-        public override string SampleDescription { get { return "Resize and Scale a SpriteVisual painted with a NineGridBrush"; } }
+        public static string StaticSampleName => "Nine-Grid Resizing"; 
+        public override string SampleName => StaticSampleName; 
+        public static string StaticSampleDescription => "Resize and Scale a SpriteVisual painted with a NineGridBrush"; 
+        public override string SampleDescription => StaticSampleDescription;
 
         public NineGridResizing()
         {

@@ -34,9 +34,10 @@ namespace CompositionSampleGallery
             TiltUIElement();
         }
 
-        public static string        StaticSampleName    { get { return "Pointer Rotate"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Animate the Rotation Angle and Axis of an object based on the hover position of the pointer."; } }
+        public static string        StaticSampleName => "Pointer Rotate"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Animate the Rotation Angle and Axis of an object based on the hover position of the pointer."; 
+        public override string      SampleDescription => StaticSampleDescription;
 
         private void TiltUIElement()
         {

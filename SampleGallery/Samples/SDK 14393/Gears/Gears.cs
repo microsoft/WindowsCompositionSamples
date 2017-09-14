@@ -47,7 +47,8 @@ namespace CompositionSampleGallery
 
         public static string StaticSampleName => "Gears";
         public override string SampleName => StaticSampleName;
-        public override string SampleDescription => "Demonstrates how to use ExpressionAnimations to update many Visual properites based off of one driving property. Press the slow or fast buttons to see the gears spin.";
+        public static string StaticSampleDescription => "Demonstrates how to use ExpressionAnimations to update many Visual properites based off of one driving property. Press the slow or fast buttons to see the gears spin.";
+        public override string SampleDescription => StaticSampleDescription;
         public override string SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761162";
 
         public int Count

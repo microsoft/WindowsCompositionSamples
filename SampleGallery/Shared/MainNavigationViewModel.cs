@@ -25,26 +25,18 @@ namespace CompositionSampleGallery
         private List<NavigationItem> _mainMenuList;
 
         // Category description text
-        public const string CategoryDescritpion_SeamlessTransitions = @"How do you delight your users and focus their attention across property changes, page navigations, and layout changes?
-                                                                       
-Transitioning content across pages and choreographing motion lets you smooth out the experiences and help immerse your customers.";
-        public const string CategoryDescription_DynamicHumanInteractions =
-            @"When a customer touches, clicks, or pans, how do you make the interaction with your app feel personal and enjoyable?
-
-The Windows UI Platform lets you have natural feeling interactions out of the box, as well as letting you control all aspects of how things look and feel in response to input.";
-        public const string CategoryDescription_RealWorldUI =
-            @"How do you build an interface that looks natural and intuitive to people who are accustom to living in the real three dimensional world?
-
-By using Lights, Shadows, and responsive Materials, you are empowered to create objects that feel familiar and bridge the gap to the natural physical world.";
-        public const string CategoryDescription_ContextualUI =
-            @"How do you convey the context, importance, and hierarchy of information to drive focus and to help your customers find their way through your app?
-
-By using effects, depth, and perspective you can not only help your customers navigate the mess, but you can captivate their attention.";
-        public const string CategoryDescription_NaturalMotion =
-            @"How do you breathe life into your app and make it feel natural to a real human being?
-
-By using Expressions, constructs like springs, and directly animating velocity/acceleration, your can bring experiences to life with motion that feels real and fits with the world we actually live in.";
-        public const string CategoryDescription_Conceptual = "A collection of samples that illustrate conceptual topics.";
+        public const string CategoryDescription_Light = 
+            @"Light has a way of drawing our attention. It’s warm and inviting; it’s fluid and purposeful. Light creates atmosphere and a sense of place, and it’s a practical tool to illuminate information.  These samples show some examples of bringing Light into your UI.";
+        public const string CategoryDescription_Depth =
+            @"Think about the frame that contains your information. Now break it apart, and reinvent how things relate to each other within a more layered, physical environment. This is how we’ll keep people in their flow – by giving them more space.  These samples show a variety of techniques for bringing the concept of Depth into your UI.";
+        public const string CategoryDescription_Motion =
+            @"Think of motion design like a movie. Seamless transitions keep you focused on the story, and bring experiences to life. We can invite that feeling into our designs, leading people from one task to the next with cinematic ease.  These samples show different ways in which motion can enhance your UI.";
+        public const string CategoryDescription_Material =
+            @"The things that surround us in the real world are sensory and invigorating. They bend, stretch, bounce, shatter, and glide. Those material qualities translate to digital environments, making people want to reach out and touch our designs.  These samples show how to bring new Materials in your UI.";
+        public const string CategoryDescription_Scale =
+            @"The industry lives and breathes 2D design. Now’s the time to expand our toolkit for more dimensions. We’re scaling our design system to work across devices, inviting innovation across new forms. And we’re looking to you to help us imagine this new world.  These samples show some building blocks for making custom UI that is tailored for different devices.";
+        public const string CategoryDescription_APIReference =
+            @"In addition to the samples that display the Fluent building blocks in UI, some simple API reference samples are provided to ramp up and learn about basic API capabilities.";
 
 
         void AddNavigationItem(ref List<NavigationItem> menu, String displayName, SampleCategory cat, Type pageType, string categoryDescription="")
@@ -65,13 +57,13 @@ By using Expressions, constructs like springs, and directly animating velocity/a
             // Build a collection used to populate the navigation menu. This is where you can define the display names of
             // each menu item and which page they map to.
             _mainMenuList = new List<NavigationItem>();
-            _mainMenuList.Add(new NavigationItem("Home", SampleCategory.Conceptual /* unused */, typeof(HomePage)));
-            AddNavigationItem(ref _mainMenuList, "Seamless Transitions",      SampleCategory.SeamlessTransitions,      typeof(BaseCategoryPage),         categoryDescription: CategoryDescritpion_SeamlessTransitions);
-            AddNavigationItem(ref _mainMenuList, "Dynamic Human Interaction", SampleCategory.DynamicHumanInteractions, typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_DynamicHumanInteractions);
-            AddNavigationItem(ref _mainMenuList, "Real-World UI",             SampleCategory.RealWorldUI,              typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_RealWorldUI);
-            AddNavigationItem(ref _mainMenuList, "Contextual UI",             SampleCategory.ContextualUI,             typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_ContextualUI);
-            AddNavigationItem(ref _mainMenuList, "Natural Motion",            SampleCategory.NaturalMotion,            typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_NaturalMotion);
-            AddNavigationItem(ref _mainMenuList, "Conceptual",                SampleCategory.Conceptual,               typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Conceptual);
+            _mainMenuList.Add(new NavigationItem("Home",            SampleCategory.Light /* unused */,      typeof(HomePage)));
+            AddNavigationItem(ref _mainMenuList, "Light",           SampleCategory.Light,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Light);
+            AddNavigationItem(ref _mainMenuList, "Depth",           SampleCategory.Depth,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Depth);
+            AddNavigationItem(ref _mainMenuList, "Motion",          SampleCategory.Motion,                  typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Motion);
+            AddNavigationItem(ref _mainMenuList, "Material",        SampleCategory.Material,                typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Material);
+            AddNavigationItem(ref _mainMenuList, "Scale",           SampleCategory.Scale,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Scale);
+            AddNavigationItem(ref _mainMenuList, "API Reference",   SampleCategory.APIReference,            typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_APIReference);
 
         }
 

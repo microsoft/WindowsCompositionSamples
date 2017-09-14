@@ -15,10 +15,7 @@
 using CompositionSampleGallery.Shared;
 using ExpressionBuilder;
 using SamplesCommon;
-using System.Diagnostics;
 using System.Numerics;
-using System.Threading.Tasks;
-using Windows.Foundation;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -38,10 +35,11 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
         }
 
-        public static string       StaticSampleName     { get { return "Parallaxing ListView Items"; } }
-        public override string     SampleName           { get { return StaticSampleName; } }
-        public override string     SampleDescription    { get { return "Demonstrates how to apply a parallax effect to each item in a ListView control. As you scroll the ListView control watch as each ListView item translates at a different rate in comparison to the ListView's scroll position."; } }
-        public override string     SampleCodeUri        { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761169"; } }
+        public static string       StaticSampleName => "Parallaxing ListView Items"; 
+        public override string     SampleName => StaticSampleName; 
+        public static string       StaticSampleDescription => "Demonstrates how to apply a parallax effect to each item in a ListView control. As you scroll the ListView control watch as each ListView item translates at a different rate in comparison to the ListView's scroll position."; 
+        public override string     SampleDescription => StaticSampleDescription;
+        public override string     SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761169"; 
 
         public LocalDataSource Model { set; get; }
 

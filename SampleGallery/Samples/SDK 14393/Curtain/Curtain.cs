@@ -21,7 +21,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
-using Windows.UI.ViewManagement;
 
 using EF = ExpressionBuilder.ExpressionFunctions;
 
@@ -39,10 +38,11 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
         }
 
-        public static string        StaticSampleName    { get { return "Curtain"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Demonstrates how to provide custom interia expressions in response to touch input. Select a motion and swipe up with touch to see how the UI reacts. \n\n Known Issue: The ListBox can only be changed with mouse input."; } }
-        public override string      SampleCodeUri       { get { return "http://go.microsoft.com/fwlink/p/?LinkID=784885"; } }
+        public static string        StaticSampleName => "Curtain"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Demonstrates how to provide custom interia expressions in response to touch input. Select a motion and swipe up with touch to see how the UI reacts."; 
+        public override string      SampleDescription => StaticSampleDescription; 
+        public override string      SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=784885"; 
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {

@@ -13,19 +13,18 @@
 //*********************************************************
 
 using System;
-using System.Numerics;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Hosting;
-using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 
 namespace CompositionSampleGallery
 {
     public sealed partial class Photos : SamplePage
     {
-        public static string StaticSampleName { get { return "Layout Animations"; } }
-        public override string SampleName { get { return StaticSampleName; } }
-        public override string SampleDescription { get { return "Animate Layout updates using Implicit animations. Resize the window to see pictures animate to their new location."; } }
+        public static string    StaticSampleName => "Layout Animations";
+        public override string  SampleName => StaticSampleName; 
+        public static string    StaticSampleDescription => "Animate Layout updates using Implicit animations. Resize the window to see pictures animate to their new location."; 
+        public override string  SampleDescription => StaticSampleDescription;
 
         Compositor _compositor;
         ImplicitAnimationCollection _elementImplicitAnimation;

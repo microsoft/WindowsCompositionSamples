@@ -69,17 +69,18 @@ namespace CompositionSampleGallery
 
             NewSamples.ItemsSource = result.Take(5);
 
-#if SDKVERSION_14393
 
-            var featuredSamples = from sampleDef in SampleDefinitions.Definitions
-                                  where (sampleDef.Type == typeof(ThumbnailLighting))
-                                  || (sampleDef.Type == typeof(PullToAnimate))
-                                  || (sampleDef.Type == typeof(ShadowPlayground))
-                                  || (sampleDef.Type == typeof(ConnectedAnimationShell))
+#if SDKVERSION_15063
+
+             var featuredSamples = from sampleDef in SampleDefinitions.Definitions
+                                  where (sampleDef.Type == typeof(NavigationFlow))
+                                  || (sampleDef.Type == typeof(SwipeScroller))
+                                  || (sampleDef.Type == typeof(ShadowsAdvanced))
+                                  || (sampleDef.Type == typeof(LightInterop))
                                   select sampleDef;
 
 #else
-            var featuredSamples = from sampleDef in SampleDefinitions.Definitions
+             featuredSamples = from sampleDef in SampleDefinitions.Definitions
                                   where (sampleDef.Type == typeof(ColorBloomTransition))
                                   || (sampleDef.Type == typeof(ConnectedAnimationShell))
                                   || (sampleDef.Type == typeof(ZoomWithPerspective))

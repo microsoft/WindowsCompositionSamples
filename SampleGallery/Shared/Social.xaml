@@ -86,7 +86,7 @@
                            TextAlignment="Center"
                            Padding="0,0,0,10" />
                     <Button 
-                        Content="GET INSIDE"
+                        Content="JOIN NOW"
                         HorizontalAlignment="Center" />
                 </StackPanel>
         </Grid>

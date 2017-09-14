@@ -45,10 +45,11 @@ namespace CompositionSampleGallery
             }
         }
 
-        public static string        StaticSampleName    { get { return "Pull To Animate"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Demonstrates how to use InteractionTracker to create custom resting points with Animations. Pan with Touch or Precision Touchpad, or hit the toggle button to animate.\n\nKnown Issue: The Toggle button can only be clicked with mouse input."; } }
-        public override string      SampleCodeUri       { get { return "http://go.microsoft.com/fwlink/?LinkId=761166"; } }
+        public static string        StaticSampleName => "Pull To Animate"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Demonstrates how to use InteractionTracker to create custom resting points with Animations. Pan with Touch or Precision Touchpad, or hit the toggle button to animate."; 
+        public override string      SampleDescription => StaticSampleDescription;
+        public override string      SampleCodeUri => "http://go.microsoft.com/fwlink/?LinkId=761166"; 
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {

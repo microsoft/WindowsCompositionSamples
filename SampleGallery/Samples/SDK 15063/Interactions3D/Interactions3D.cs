@@ -35,9 +35,10 @@ namespace CompositionSampleGallery
     /// </summary>
     public sealed partial class Interactions3D : SamplePage, IInteractionTrackerOwner
     {
-        public static string    StaticSampleName    { get { return "Interactions 3D"; } }
-        public override string  SampleName          { get { return StaticSampleName; } }
-        public override string  SampleDescription   { get { return "Demonstrates the use of an InteractionTracker to manipulate a 3D space.  Touch the screen to pinch and pan around the 3D scene."; } }
+        public static string    StaticSampleName => "Interactions 3D"; 
+        public override string  SampleName => StaticSampleName; 
+        public static string    StaticSampleDescription => "Demonstrates the use of an InteractionTracker to manipulate a 3D space.  Touch the screen to pinch and pan around the 3D scene.";
+        public override string  SampleDescription => StaticSampleDescription;
 
         public Interactions3D()
         {

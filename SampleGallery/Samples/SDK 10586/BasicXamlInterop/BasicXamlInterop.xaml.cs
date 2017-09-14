@@ -31,10 +31,11 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
         }
 
-        public static string        StaticSampleName    { get { return "Basic Xaml Interop"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Demonstrates how obtain a Windows.UI.Composition Compositor instance using Windows.UI.Xaml.Hosting to create CompositionObjects in a Windows.UI.Xaml based application."; } }
-        public override string      SampleCodeUri       { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761160"; } }
+        public static string        StaticSampleName => "Basic Xaml Interop"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Demonstrates how obtain a Windows.UI.Composition Compositor instance using Windows.UI.Xaml.Hosting to create CompositionObjects in a Windows.UI.Xaml based application."; 
+        public override string      SampleDescription => StaticSampleDescription; 
+        public override string      SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761160"; 
 
         private void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {

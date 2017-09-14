@@ -37,9 +37,10 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
         }
 
-        public static string        StaticSampleName    { get { return "Now Playing"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Demonstrates the use of image lighting with BackdropBrush with a HardLight blend to create an interesting dynamic visual effect."; } }
+        public static string        StaticSampleName => "Now Playing"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Demonstrates the use of image lighting with BackdropBrush with a HardLight blend to create an interesting dynamic visual effect."; 
+        public override string      SampleDescription => StaticSampleDescription;
 
         private void Grid_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {           

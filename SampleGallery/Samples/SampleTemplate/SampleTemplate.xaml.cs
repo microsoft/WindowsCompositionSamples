@@ -12,11 +12,6 @@
 //
 //*********************************************************
 
-using System;
-using System.Numerics;
-using Windows.UI.Composition;
-using Windows.UI.Xaml.Hosting;
-
 namespace CompositionSampleGallery
 {
     public sealed partial class SampleTemplate : SamplePage
@@ -26,8 +21,9 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
         }
 
-        public static string        StaticSampleName    { get { return "Sample Template Page"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Put your description here"; } }
+        public static string        StaticSampleName => "Sample Template Page"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Put your description here"; 
+        public override string      SampleDescription => StaticSampleDescription; 
     }
 }

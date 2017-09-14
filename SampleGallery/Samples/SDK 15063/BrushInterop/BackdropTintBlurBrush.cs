@@ -13,15 +13,10 @@
 //*********************************************************
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Microsoft.Graphics.Canvas.Effects;
-using Windows.UI;
 
 namespace CompositionSampleGallery.Samples.BrushInterop
 {

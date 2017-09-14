@@ -71,10 +71,11 @@ namespace CompositionSampleGallery
             _spotLight = _compositor.CreateSpotLight();
         }
 
-        public static string    StaticSampleName    { get { return "Thumbnail Lighting"; } }
-        public override string  SampleName          { get { return StaticSampleName; } }
-        public override string  SampleDescription   { get { return "Demonstrates how to apply Image Lighting to ListView Items.  Switch between different combinations of light types(point, spot, distant) and lighting properties such as diffuse and specular.  Click on a tile to flip it, or select mouse mode to track the mouse location."; } }
-        public override string  SampleCodeUri       { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761165"; } }
+        public static string    StaticSampleName => "Thumbnail Lighting"; 
+        public override string  SampleName => StaticSampleName; 
+        public static string    StaticSampleDescription => "Demonstrates how to apply Image Lighting to ListView Items.  Switch between different combinations of light types(point, spot, distant) and lighting properties such as diffuse and specular.  Click on a tile to flip it, or select mouse mode to track the mouse location."; 
+        public override string  SampleDescription => StaticSampleDescription;
+        public override string  SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761165"; 
 
         public LocalDataSource Model { get; set; }
 

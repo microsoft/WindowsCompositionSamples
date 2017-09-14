@@ -16,10 +16,8 @@ using CompositionSampleGallery.Shared;
 using SamplesCommon;
 using System;
 using System.Numerics;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Composition;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
@@ -41,10 +39,11 @@ namespace CompositionSampleGallery
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
         }
 
-        public static string    StaticSampleName    { get { return "Zoom With Perspective"; } }
-        public override string  SampleName          { get { return StaticSampleName; } }
-        public override string  SampleDescription   { get { return "Demonstrates how to apply and animate a perspective transform. Click on one of the thumbnails to see the effect applied."; } }
-        public override string  SampleCodeUri       { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761174"; } }
+        public static string    StaticSampleName => "Zoom With Perspective"; 
+        public override string  SampleName => StaticSampleName; 
+        public static string    StaticSampleDescription => "Demonstrates how to apply and animate a perspective transform. Click on one of the thumbnails to see the effect applied."; 
+        public override string  SampleDescription => StaticSampleDescription; 
+        public override string  SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761174"; 
 
         public LocalDataSource Model
         {

@@ -16,7 +16,6 @@ using ExpressionBuilder;
 using SamplesCommon;
 using System;
 using System.Numerics;
-using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
@@ -35,10 +34,11 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
         }
 
-        public static string        StaticSampleName    { get { return "Expressions & PropertySets"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Demonstrates how to use ExpressionAnimations and CompositionPropertySets to create a simple orbiting Visual."; } }
-        public override string      SampleCodeUri       { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761172"; } }
+        public static string        StaticSampleName => "Expressions & PropertySets"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Demonstrates how to use ExpressionAnimations and CompositionPropertySets to create a simple orbiting Visual."; 
+        public override string      SampleDescription => StaticSampleDescription; 
+        public override string      SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761172"; 
 
         private void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {

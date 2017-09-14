@@ -17,7 +17,6 @@ using SamplesCommon;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
@@ -38,10 +37,11 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
         }
 
-        public static string        StaticSampleName    { get { return "Pointer Enter/Exit Effects"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Demonstrates how to apply effects to ListView items that respond to mouse enter, mouse leave, and mouse position. Hover your mouse cursor over a ListView item to trigger the selected effect."; } }
-        public override string      SampleCodeUri       { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761167"; } }
+        public static string        StaticSampleName => "Pointer Enter/Exit Effects"; 
+        public override string      SampleName => StaticSampleName;
+        public static string        StaticSampleDescription => "Demonstrates how to apply effects to ListView items that respond to mouse enter, mouse leave, and mouse position. Hover your mouse cursor over a ListView item to trigger the selected effect."; 
+        public override string      SampleDescription => StaticSampleDescription; 
+        public override string      SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761167"; 
 
         public LocalDataSource Model
         {

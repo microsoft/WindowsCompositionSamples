@@ -38,9 +38,10 @@ namespace CompositionSampleGallery
             Setup();
         }
 
-        public static string StaticSampleName       { get { return "Springy Image"; } }
-        public override string SampleName           { get { return StaticSampleName; } }
-        public override string SampleDescription    { get { return "Animate the Scale property of a Visual with a Spring-based Animation."; } }
+        public static string    StaticSampleName => "Springy Image"; 
+        public override string  SampleName => StaticSampleName; 
+        public static string    StaticSampleDescription => "Animate the Scale property of a Visual with a Spring-based Animation."; 
+        public override string  SampleDescription => StaticSampleDescription;
 
         private void Setup()
         {

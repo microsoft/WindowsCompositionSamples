@@ -44,7 +44,7 @@
                 <!-- Featured transition samples -->
                 <local:FeaturedSamples 
                     x:Name="FeaturedSampleControl" 
-                    Description="take a gander."
+                    Description="Click a sample to learn more"
                     Background="{StaticResource CategoryPageFeaturedSampelsBackground}"
                     Foreground="Black"/>
                 <!-- End featured transition samples -->

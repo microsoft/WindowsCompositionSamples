@@ -13,24 +13,15 @@
 //*********************************************************
 
 using CompositionSampleGallery.Shared;
-using SamplesCommon;
-using System.Diagnostics;
 using System.Numerics;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Windows.Foundation;
 using Windows.UI.Composition;
 using Windows.UI.Composition.Interactions;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.System;
 using ExpressionBuilder;
-
-using EF = ExpressionBuilder.ExpressionFunctions;
 
 namespace CompositionSampleGallery
 {
@@ -49,9 +40,10 @@ namespace CompositionSampleGallery
         }
 
 
-        public static string StaticSampleName { get { return "Pull-To-Refresh ListView Items"; } }
-        public override string SampleName { get { return StaticSampleName; } }
-        public override string SampleDescription { get { return "Demonstrates how to create a custom Pull-to-Refresh control using Interaction Tracker Source Modifiers"; } }
+        public static string        StaticSampleName => "Pull-To-Refresh ListView Items"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Demonstrates how to create a custom Pull-to-Refresh control using Interaction Tracker Source Modifiers";
+        public override string SampleDescription => StaticSampleDescription;
 
         public LocalDataSource Model { set; get; }
         private void Page_Loaded(object sender, RoutedEventArgs e)

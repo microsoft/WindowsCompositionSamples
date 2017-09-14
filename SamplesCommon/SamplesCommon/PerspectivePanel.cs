@@ -12,19 +12,11 @@
 //
 //*********************************************************
 
-using Microsoft.Graphics.Canvas;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Numerics;
-using Windows.Foundation;
-using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Media;
 
 namespace SamplesCommon
 {

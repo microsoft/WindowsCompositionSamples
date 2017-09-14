@@ -12,10 +12,6 @@
 //
 //*********************************************************
 
-using System;
-using System.Numerics;
-using Windows.UI.Composition;
-using Windows.UI.Xaml.Hosting;
 
 namespace CompositionSampleGallery
 {
@@ -26,8 +22,9 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
         }
         
-        public static string        StaticSampleName    { get { return "Brush Interop"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Paint XAML UIElements with CompositionBrushes (and load Surfaces from XAML to CompositionBrushes): Grids, Text, and Shapes painted with EffectBrushes"; } }
+        public static string        StaticSampleName => "Brush Interop"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Paint XAML UIElements with CompositionBrushes (and load Surfaces from XAML to CompositionBrushes): Grids, Text, and Shapes painted with EffectBrushes"; 
+        public override string      SampleDescription => StaticSampleDescription; 
     }
 }

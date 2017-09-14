@@ -43,13 +43,8 @@
             <!-- End headline carousel -->
 
             <!-- Category description -->
-            <TextBlock x:Name="CategoryDescriptionTextBlock">
-                Windows.UI.Composition is an API namespace that enables developers to create beautiful and engaging Windows Universal Platform (UWP) apps. 
-                This application showcases samples of how you can extend UWP apps by adding seamless transitions, dynamic human interaction, real-world UI, contextual UI, and natural motion. 
-                All of the samples shown here are available on the WindowsUIDevLabs repo on GitHub.
-                <LineBreak />
-                <LineBreak />
-                Want the latest samples demonstrating blur, lighting, shadows, animations and interactions?  Become a Windows Insider and rebuild the Windows UI Dev Labs project against the latest Insider SDK to get the latest samples.
+            <TextBlock x:Name="CategoryDescriptionTextBlock" TextWrapping="WrapWholeWords">
+            <Span xml:space="preserve"><Run>Windows.UI.Composition is an API namespace that enables developers to create beautiful and engaging Universal Windows Platform (UWP) apps. This application showcases samples of how you can leverage the core platform building blocks that power Fluent Design to innovate upon and improve your UI. All of the samples shown here are available on the WindowsUIDevLabs repo on </Run><Hyperlink NavigateUri="https://github.com/Microsoft/WindowsUIDevLabs">GitHub</Hyperlink><Run>.</Run></Span>
             </TextBlock>
             <!-- End category description -->
             

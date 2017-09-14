@@ -47,10 +47,11 @@ namespace CompositionSampleGallery
             InitializeComponent();
         }
 
-        public static string    StaticSampleName    { get { return "Layer Depth"; } }
-        public override string  SampleName          { get { return StaticSampleName; } }
-        public override string  SampleDescription   { get { return "Demonstrates how to achieve a depth-of-field effect with LayerVisual and EffectBrush."; } }
-        
+        public static string    StaticSampleName => "Layer Depth"; 
+        public override string  SampleName => StaticSampleName;
+        public static string    StaticSampleDescription => "Demonstrates how to achieve a depth-of-field effect with LayerVisual and EffectBrush."; 
+        public override string  SampleDescription => StaticSampleDescription;
+
         public IReadOnlyList<Layer> Layers { get { return layers; } }
 
         public int SelectedLayerIndex

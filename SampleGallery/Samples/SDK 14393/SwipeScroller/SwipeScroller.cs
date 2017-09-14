@@ -28,9 +28,10 @@ namespace CompositionSampleGallery
             Model = new LocalDataSource();
         }
 
-        public static string StaticSampleName { get { return "Swipe Scroller"; } }
-        public override string SampleName { get { return StaticSampleName; } }
-        public override string SampleDescription { get { return "Demonstrates how to use InteractionTracker to add a swipe behavior to items inside a ScrollViewer"; } }
+        public static string    StaticSampleName => "Swipe Scroller"; 
+        public override string  SampleName => StaticSampleName; 
+        public static string    StaticSampleDescription => "Demonstrates how to use InteractionTracker to add a swipe behavior to items inside a ScrollViewer"; 
+        public override string  SampleDescription => StaticSampleDescription;
 
         public LocalDataSource Model { set; get; }
 

@@ -42,16 +42,11 @@ namespace CompositionSampleGallery
 
         public ObservableCollection<CapabilityWrapper> capabilityDropdownOptions = new ObservableCollection<CapabilityWrapper>();
 
-        public static string StaticSampleName { get { return "Composition Capabilities"; } }
-        public override string SampleName { get { return StaticSampleName; } }
-        public override string SampleDescription
-        {
-            get
-            {
-                return "Demonstrates how to use the capabilities API to detect hardware capabilities, " +
-                       "listen to capability changes, and adjust effect usage and UI based on hardware.";
-            }
-        }
+        public static string    StaticSampleName => "Composition Capabilities";
+        public override string  SampleName => StaticSampleName;
+        public static string    StaticSampleDescription => "Demonstrates how to use the capabilities API to detect hardware capabilities, " +
+                                                            "listen to capability changes, and adjust effect usage and UI based on hardware.";
+        public override string  SampleDescription => StaticSampleDescription;
 
         public CompCapabilities()
         {

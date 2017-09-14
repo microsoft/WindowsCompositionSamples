@@ -39,9 +39,10 @@ namespace CompositionSampleGallery
             this.DataContext = _viewModel;
         }
 
-        public static string        StaticSampleName    { get { return "Video Playground"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Add lighting and effects to video"; } }
+        public static string        StaticSampleName => "Video Playground"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Add lighting and effects to video"; 
+        public override string      SampleDescription => StaticSampleDescription;
 
 
         /// <summary>

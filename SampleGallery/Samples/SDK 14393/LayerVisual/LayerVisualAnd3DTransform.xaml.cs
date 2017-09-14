@@ -238,11 +238,11 @@ namespace CompositionSampleGallery
             DataContext = this;
         }
 
-        public static string        StaticSampleName    { get { return "Layer Visual Sample"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Layer visual in the 3d space with 3D perspective transform"; } }
-        // TODO: To add this sample's url when it is available.
-        //public override string      SampleCodeUri            { get { return ""; } }
+        public static string        StaticSampleName => "Layer Visual Sample"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Layer visual in the 3d space with 3D perspective transform"; 
+        public override string      SampleDescription => StaticSampleDescription;
+        public override string      SampleCodeUri => "https://github.com/Microsoft/WindowsUIDevLabs/tree/master/SampleGallery/Samples/SDK%2014393/LayerVisual";
 
         private async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {

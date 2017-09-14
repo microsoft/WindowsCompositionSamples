@@ -26,10 +26,11 @@ namespace CompositionSampleGallery
     public sealed partial class ColorSlideTransition : SamplePage
     {
 
-        public static string    StaticSampleName    { get { return "Color slide"; } }
-        public override string  SampleName          { get { return StaticSampleName; } }
-        public override string  SampleDescription   { get { return "Demonstrates how to use Visuals and Animations to create a color slide effect during page or state transitions. Click on one of the items in the Pivot control to trigger the color slide effect."; } }
-        public override string  SampleCodeUri       { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761173"; } }
+        public static string    StaticSampleName => "Color slide"; 
+        public override string  SampleName => StaticSampleName; 
+        public static string    StaticSampleDescription => "Demonstrates how to use Visuals and Animations to create a color slide effect during page or state transitions. Click on one of the items in the Pivot control to trigger the color slide effect."; 
+        public override string  SampleDescription => StaticSampleDescription; 
+        public override string  SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761173"; 
         #region Private member variables
 
         PropertySet _colorsByPivotItem;

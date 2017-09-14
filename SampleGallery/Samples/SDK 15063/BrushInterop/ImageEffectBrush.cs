@@ -14,10 +14,7 @@
 
 using Microsoft.Graphics.Canvas.Effects;
 using System;
-using System.Diagnostics;
 using Windows.Graphics.Effects;
-using Windows.UI;
-using Windows.UI.Core;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;

@@ -12,18 +12,15 @@
 //
 //*********************************************************
 
-using CompositionSampleGallery.Shared;
 using Microsoft.Graphics.Canvas.Effects;
 using SamplesCommon;
 using System;
 using System.Collections.Generic;
-using System.Numerics;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace CompositionSampleGallery
 {
@@ -38,9 +35,10 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
         }
 
-        public static string StaticSampleName { get { return "Blur Playground"; } }
-        public override string SampleName { get { return StaticSampleName; } }
-        public override string SampleDescription { get { return "This is a place to play around with different blur and blend recipes"; } }
+        public static string    StaticSampleName => "Blur Playground"; 
+        public override string  SampleName => StaticSampleName;
+        public static string    StaticSampleDescription => "This is a place to play around with different blur and blend recipes";
+        public override string  SampleDescription => StaticSampleDescription; 
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {

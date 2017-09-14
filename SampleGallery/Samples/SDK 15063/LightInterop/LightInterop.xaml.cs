@@ -43,8 +43,9 @@ namespace CompositionSampleGallery
             BackdropGrid.Lights.Add(new AmbLight());
         }
 
-        public static string StaticSampleName { get { return "Light Interop"; } }
-        public override string SampleName { get { return StaticSampleName; } }
-        public override string SampleDescription { get { return "Use XamlLights and XamlCompositionBrushes to create Lights and Materials in XAML"; } }
+        public static string    StaticSampleName => "Light Interop"; 
+        public override string  SampleName => StaticSampleName; 
+        public static string    StaticSampleDescription => "Use XamlLights and XamlCompositionBrushes to create Lights and Materials in XAML"; 
+        public override string  SampleDescription => StaticSampleDescription;
     }
 }
