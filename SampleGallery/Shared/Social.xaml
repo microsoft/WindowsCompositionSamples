@@ -73,9 +73,6 @@
         
         <!-- Windows Insider -->
         <Grid x:Name="InsiderGrid" Grid.Row="0" Grid.Column="0" Tapped="InsiderPanel_Tapped" Background="#204C78">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-            </Grid.RowDefinitions>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock 
                            x:Name="InsiderTextBlock"
@@ -84,7 +81,7 @@
                            HorizontalAlignment="Center" 
                            VerticalAlignment="Center"
                            TextAlignment="Center"
-                           Padding="0,0,0,10" />
+                            />
                     <Button 
                         Content="JOIN NOW"
                         HorizontalAlignment="Center" />
@@ -97,14 +94,14 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="3*" />
-                <RowDefinition Height="1*" />
+                <RowDefinition Height="2*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" HorizontalAlignment="Stretch" Height="38">
                 <Image Source="ms-appx:///Assets/Twitter_Logo_White_On_Blue.png" />
             </Grid>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">
                 <TextBlock HorizontalAlignment="Center" Style="{StaticResource SubSectionHeading}">Follow us</TextBlock>
-                <TextBlock HorizontalAlignment="Center" Style="{StaticResource BaseTextBlockStyleLight}" Margin="0,50,0,0">WindowsUI</TextBlock>
+
                 <TextBlock HorizontalAlignment="Center" Style="{StaticResource BaseTextBlockStyleLight}" Foreground="#BFFFFFFF">@WindowsUI</TextBlock>
             </StackPanel>
             <TextBlock Grid.Row="2" Style="{StaticResource BaseTextBlockStyleSmallLight}" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Bottom">
@@ -115,12 +112,14 @@
         
         <!-- GitHub -->
         <Grid x:Name="GitHubPanel" Grid.Row="0" Grid.Column="2" Tapped="GitHubPanel_Tapped" Background="#798886">
-            <TextBlock Grid.Row="0"
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Grid.Row="0"
                        Style="{StaticResource SubSectionHeading}"
-                       Margin="10"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        TextAlignment="Center">Get the sample code on GitHub</TextBlock>
+                <TextBlock HorizontalAlignment="Center" Style="{StaticResource BaseTextBlockStyleLight}" Foreground="#BFFFFFFF">aka.ms/windowsui</TextBlock>
+            </StackPanel>
         </Grid>
         <!-- End GitHub -->
         

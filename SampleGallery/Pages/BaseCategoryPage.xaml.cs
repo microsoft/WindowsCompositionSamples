@@ -14,6 +14,7 @@
 
 using System.Linq;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Navigation;
 
 namespace CompositionSampleGallery
@@ -58,7 +59,9 @@ namespace CompositionSampleGallery
                 }
 
                 // Populate the category description textblock
-                CategoryDescriptionTextBlock.Text = navItem.CategoryDescription;
+                var paragraph = new Paragraph();
+                paragraph.Inlines.Add(new Run() { Text = navItem.CategoryDescription });
+                CategoryDescriptionTextBlock.Blocks.Add(paragraph);
 
             }
         }

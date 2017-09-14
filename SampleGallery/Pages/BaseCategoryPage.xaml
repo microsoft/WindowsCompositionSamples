@@ -49,7 +49,7 @@
                     Foreground="Black"/>
                 <!-- End featured transition samples -->
 
-                <TextBlock x:Name="CategoryDescriptionTextBlock" Style="{StaticResource CategoryDescriptionTextBlockStyleWide}" />
+                <RichTextBlock x:Name="CategoryDescriptionTextBlock" Style="{StaticResource CategoryDescriptionTextBlockStyleWide}" />
 
                 <!-- Samples list -->
                 <local:BodyAppList
@@ -57,7 +57,7 @@
                 <!-- End samples list -->
 
                 <!-- Footer -->
-                <local:Social />
+                <local:Social Margin="0,50,0,0" />
                 <!-- End footer -->
 
             </StackPanel>
