@@ -7,10 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded">
 
-    <Grid x:Name="Root" SizeChanged="Grid_SizeChanged">
+    <Grid x:Name="Root" SizeChanged="Grid_SizeChanged" Background="White" PointerPressed="Root_PointerPressed">
         <Grid.Clip>
             <RectangleGeometry x:Name="GridClip" />
         </Grid.Clip>
-        <Image x:Name ="Stage" Source="ms-appx:///Samples/SDK 14393/Interactions3D/stage.jpg" Stretch="UniformToFill" PointerPressed="Stage_PointerPressed"/>
+        <Image x:Name ="Stage" Source="ms-appx:///Samples/SDK 15063/Interactions3D/stage.jpg" Stretch="UniformToFill"/>
     </Grid>
 </local:SamplePage>

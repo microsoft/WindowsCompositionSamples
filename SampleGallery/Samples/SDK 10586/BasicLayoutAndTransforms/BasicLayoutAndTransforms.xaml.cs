@@ -12,11 +12,9 @@
 //
 //*********************************************************
 
-using System;
 using System.Numerics;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Controls;
 using System.Collections.Generic;
 
 namespace CompositionSampleGallery
@@ -36,9 +34,10 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
         }
 
-        public static string        StaticSampleName    { get { return "Basic Layout and Transforms"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Adjust the sliders to see how CenterPoint and AnchorPoint affect positioning and transforms"; } }
+        public static string        StaticSampleName => "Basic Layout and Transforms"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Adjust the sliders to see how CenterPoint and AnchorPoint affect positioning and transforms"; 
+        public override string      SampleDescription => StaticSampleDescription; 
 
         private void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {

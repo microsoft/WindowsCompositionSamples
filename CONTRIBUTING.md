@@ -1,12 +1,8 @@
-# Contribute to the Windows.UI.Composition Samples
+# Contributing
 
-Thank you for your interest in the Windows.UI.Composition Samples project!
+The WindowsUIDevLabs repo is built on open source principles. We welcome and encourage community contributions to help improve the codebase, samples, and overall quality of this project. In order to contribute, please follow the guidelines below. Thank you for your interest in the Windows.UI.Composition Samples project!
 
-* [Before we can accept your pull request](#before-we-can-accept-your-pull-request)
-* [Source Directory Structure](#source-directory-structure)
-* [Contribute](#contribute)
-
-## Before we can accept your pull request
+## Prerequisite - CLA
 
 Microsoft asks that all contributors sign a contributor license agreement (CLA).
 CLAs are generally common and accepted in most open source software projects.
@@ -27,76 +23,52 @@ work, you may submit them separately to the Project in accordance with the terms
 of the CLA.
 
 Our Azure Pull Request Bot will automatically check for a signed CLA when you
-submit a pull request as described below in [Contribute](#contribute).
-
-If there isn't a CLA on file, it will walk you through an all electronic process.
-**Note**: your employer may also have to complete an on-line form.
+submit a pull request. If there isn't a CLA on file, it will walk you through an all electronic process. **Note**: your employer may also have to complete an on-line form.
 
 ## Source Directory Structure
 
-Since Windows.UI.Composition is constantly being updated, there is a directory 
-structure intended to allow access to samples that will run on a variety of SDK 
-versions.  Each directory is numbered for the SDK version of the samples it 
-contains.  If you are unsure which SDK version you are using, you can create a 
-new blank C# project and check the SDK version in its manifest.
+Since Windows.UI.Composition is constantly being updated, this project’s directory structure facilitates access to samples that will run on a variety of SDK versions. Each directory is numbered for the SDK version of the samples it contains. If you are unsure which SDK version you are using, you can create a new blank C# project and check the SDK version in its manifest.
 
-## Contribute
+## Contribute - Pull Requests
 
-In order for the contribution process to be as seamless as possible, the
-following procedure has been established.
+Create a pull request in order to submit new samples or fixes. All pull requests should follow the general guidelines below in addition to the guidelines specific to the type of pull request. 
 
-1. Create a new branch
-2. Add new content or edit existing content
-3. Verify your changes
-4. Submit a pull request to the main repository
-5. Delete the branch
+### Pull Request Work Flow
 
-Each branch should be limited to a single feature/bug fix both to streamline
-work flow and reduce the possibility of merge conflicts.
+#### Creating a Branch
 
-#### Create a new branch
+In order to begin making changes for a pull request, first start by creating a new working branch. This can be done either in [Visual Studio](https://docs.microsoft.com/en-us/vsts/git/tutorial/branches?tabs=visual-studio), [via commandline](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging), or in other tools like the [GitHub Desktop app](https://help.github.com/desktop/guides/contributing-to-projects/creating-a-branch-for-your-work/). 
 
-This can be done in Visual Studio:
-- Go to 'View' -> 'Team Explorer' -> 'Branches'
-- Click 'New Branch'
-- Enter the name of your new branch
-- Check the check box 'Checkout branch'
-- Click 'Create Branch'
+Please limit your branch changes to a single feature, sample, or bug fix for easier debugging, verification, and code review. This means for multiple samples or fixes you’ll have to create more than one branch with a correlating number of pull requests.
 
-#### Add new content or edit existing content
+#### Adding Work
 
-Using Visual Studio or your favorite editor, add your new content or edit
-existing files.
+Using Visual Studio or your favorite editor, add your new content or edit existing files. You can commit multiple times while you are doing your work, or you can wait and commit only once when you're done.
 
-You can commit multiple times while you are doing your work, or you can wait
-and commit only once when you're done.
+#### New Samples
 
-#### Verify your changes
+If making a new sample, you’ll want to create a new folder in the appropriate [Samples SDK folder](https://github.com/Microsoft/WindowsUIDevLabs/tree/master/SampleGallery/Samples) with a descriptive name. Copy the [sample template files](https://github.com/Microsoft/WindowsUIDevLabs/tree/master/SampleGallery/Samples/SampleTemplate) into your new folder and rename. You’ll also need to change the class names in both files, and add a good StaticSampleName and SampleDescription in the .cs file. The sample name should be short and match the intention of the sample; it will be the name displayed in the application. The description should be no more than a sentence and needs to concisely describe the purpose of the sample. It may also mention key APIs demonstrated.
 
-To validate your changes, make sure you run all samples you have touched on 
-x64, x86, and ARM.  Please ensure that the project deploys to a mobile device 
-or emulator as well as your desktop machine before submitting.
+References to the new files will need to be added to the [sample definition](https://github.com/Microsoft/WindowsUIDevLabs/blob/master/SampleGallery/Shared/SampleDefinition.cs) page in order for them to show up in the application. Please place the reference under the appropriate SDK version block check and fill in the necessary information. 
 
-#### Submit a pull request to the main repository
+You’ll notice the sample definition takes an imageUrl to use as the sample icon in the application, which you should place in the [Assets/SampleThumbnails](https://github.com/Microsoft/WindowsUIDevLabs/tree/master/SampleGallery/Assets/SampleThumbnails) folder. 
 
-When you are done with your work and are ready to have it merged into the central
-repository follow these steps.
+#### Verifying Changes
 
-1. Push your branch back to GitHub
-2. On the GitHub site, navigate in your fork to the new branch
-3. Click the **Pull Request** button at the top of the page
-4. Ensure that the Base branch is 'composition@master' and the Head branch is
-'<your username>/composition@<branch name>'
-5. Click the **Update Commit Range** button
-6. Give your pull request a Title, and describe all the changes being made.
-If your change fixes a GitHub issue make sure to reference it in the description.
-7. Submit the Pull Request
+To validate your changes, make sure you run all samples you have touched on x64, x86, and ARM. Please ensure that the project deploys to a mobile device or emulator as well as your desktop machine before submitting.
 
-One of the site administrators will now process your pull request. Your pull
-request will surface on the composition site under Issues. When the Pull Request is
-accepted, the issue will be resolved.
+#### Submitting Pull Requests
 
-#### Delete a branch
+After all changes have been committed and pushed to your branch, [create a pull request](https://github.com/Microsoft/WindowsUIDevLabs/compare). Please add a title and include a comment describing what changes have been made in detail. Double check that the Base branch is 'master' and your branch is the compared head. 
 
-Once your changes have been successfully merged into the central repository you
-can delete the branch you used, as you will no longer need it. 
+If creating a pull request to fix an existing open GitHub issue, please make sure to cross-reference the issue in the pull request and vice versa by using [supported GitHub issue and pull request autolinking](https://help.github.com/articles/autolinked-references-and-urls/). If no issue exists, please first [create a GitHub Issue](https://github.com/Microsoft/WindowsUIDevLabs/issues/new) then add the cross-referencing.
+
+Upon submitting the pull request, one of the site administrators will process it, review it, and provide feedback if necessary. Once all feedback is resolved, the pull request will be approved and integrated into the gallery. 
+
+## UserVoice and GitHub Issues
+
+Alternative outlets for community participation are available through UserVoice and Github Issues. 
+
+The [UWP UserVoice site](https://wpdev.uservoice.com/forums/110705-universal-windows-platform/category/58517-xaml-controls-composition) can be used to vote on and create suggestions for improvements to the Windows developer platform. Suggestions are reviewed by the Windows platform developer team and your feedback is used for planning and understanding how developers use the platform. 
+
+This repo’s [GitHub Issues](https://github.com/Microsoft/WindowsUIDevLabs/issues) section can be used for asking questions about usage and bugs, but may also be used to respectfully interact with other community members to collaboratively answer questions and discover the innovative ways others are leveraging Windows APIs.

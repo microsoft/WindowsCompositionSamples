@@ -34,10 +34,11 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
         }
 
-        public static string        StaticSampleName    { get { return "Shadow Playground"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Experiment with the available properties on the DropShadow object to create interesting shadows."; } }
-        public override string      SampleCodeUri       { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761177"; } }
+        public static string        StaticSampleName => "Shadow Playground"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Experiment with the available properties on the DropShadow object to create interesting shadows."; 
+        public override string      SampleDescription => StaticSampleDescription; 
+        public override string      SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761177"; 
 
         private void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {

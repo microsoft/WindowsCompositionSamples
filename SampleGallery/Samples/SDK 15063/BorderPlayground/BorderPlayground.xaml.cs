@@ -45,9 +45,10 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
         }
 
-        public static string StaticSampleName { get { return "Border Effect"; } }
-        public override string SampleName { get { return StaticSampleName; } }
-        public override string SampleDescription { get { return "Demonstrate different border modes with scaling, offset, and rotation."; } }
+        public static string    StaticSampleName => "Border Effect"; 
+        public override string  SampleName => StaticSampleName;
+        public static string    StaticSampleDescription => "Demonstrate different border modes with scaling, offset, and rotation."; 
+        public override string  SampleDescription => StaticSampleDescription;
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {

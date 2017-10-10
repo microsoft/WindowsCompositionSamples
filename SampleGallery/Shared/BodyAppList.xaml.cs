@@ -12,9 +12,7 @@
 //
 //*********************************************************
 
-using System.Diagnostics;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
 
 namespace CompositionSampleGallery
 {

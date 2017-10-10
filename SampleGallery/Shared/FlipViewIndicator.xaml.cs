@@ -15,7 +15,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI;
@@ -41,21 +40,30 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
 
             _model = new FlipViewModel();
-#if SDKVERSION_14393
+
+#if SDKVERSION_15063
+
+            SampleDefinition brushInterop = SampleDefinitions.Definitions.Where(x => x.Type == typeof(BrushInterop)).FirstOrDefault();
+            if (brushInterop != null)
+            {
+                _model.FlipViewItems.Add(new FeaturedFlipViewSample("Apply custom brushes to XAML content", "", "/Assets/BannerImages/BrushInterop.png", brushInterop));
+            }
+            this.DataContext = _model;
             SampleDefinition shyHeader = SampleDefinitions.Definitions.Where(x => x.Type == typeof(ShyHeader)).FirstOrDefault();
             if (shyHeader != null)
             {
                 _model.FlipViewItems.Add(new FeaturedFlipViewSample("Create a shrinking header tied to scroll position", "", "/Assets/BannerImages/ShyHeader.PNG", shyHeader));
             }
-            SampleDefinition interactions3D = SampleDefinitions.Definitions.Where(x => x.Type == typeof(Interactions3D)).FirstOrDefault();
-            if(interactions3D != null)
-            {
-                _model.FlipViewItems.Add(new FeaturedFlipViewSample("Interaction Tracker 3D", "", "/Assets/BannerImages/IneractionTrackerBanner.png", interactions3D));
-            }
             SampleDefinition pullToAnimate = SampleDefinitions.Definitions.Where(x => x.Type == typeof(PullToAnimate)).FirstOrDefault();
             if (pullToAnimate != null)
             {
-                _model.FlipViewItems.Add(new FeaturedFlipViewSample("Create custom resting points with animation", "", "/Assets/BannerImages/PullToAnimateBanner.PNG", pullToAnimate));
+                _model.FlipViewItems.Add(new FeaturedFlipViewSample("Create depth of field with manipulation-based blur", "", "/Assets/BannerImages/PullToAnimateBanner.PNG", pullToAnimate));
+            }
+            this.DataContext = _model;
+            SampleDefinition interactions3D = SampleDefinitions.Definitions.Where(x => x.Type == typeof(Interactions3D)).FirstOrDefault();
+            if (interactions3D != null)
+            {
+                _model.FlipViewItems.Add(new FeaturedFlipViewSample("Create an interactive 3D experience", "", "/Assets/BannerImages/IneractionTrackerBanner.png", interactions3D));
             }
             this.DataContext = _model;
 #endif
@@ -71,7 +79,7 @@ namespace CompositionSampleGallery
         {
             while (_ProgressFlipView)
             {
-                await Task.Delay(3000);
+                await Task.Delay(6000);
                 if (_ProgressFlipView)
                 {
                     BannerFlipView.SelectedIndex = (BannerFlipView.SelectedIndex + 1) % Model.FlipViewItems.Count;

@@ -31,15 +31,10 @@ namespace CompositionSampleGallery
 {
     public sealed partial class NavigationFlow : SamplePage
     {
-        public static string StaticSampleName { get { return "Navigation Flow"; } }
-        public override string SampleName { get { return StaticSampleName; } }
-        public override string SampleDescription
-        {
-            get
-            {
-                return "Demonstrates a full custom navigation experience using ConnectedAnimationService and Implicit Animations.";
-            }
-        }
+        public static string    StaticSampleName => "Navigation Flow"; 
+        public override string  SampleName => StaticSampleName; 
+        public static string    StaticSampleDescription => "Demonstrates a full custom navigation experience using ConnectedAnimationService and Implicit Animations.";
+        public override string  SampleDescription => StaticSampleDescription;
 
         public NavigationFlow()
         {

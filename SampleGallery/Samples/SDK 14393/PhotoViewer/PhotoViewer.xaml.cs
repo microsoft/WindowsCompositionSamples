@@ -14,7 +14,6 @@
 
 using CompositionSampleGallery.Shared;
 using System;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
 namespace CompositionSampleGallery
@@ -27,10 +26,11 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
         }
 
-        public static string        StaticSampleName    { get { return "Photo Popup Viewer"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Demonstrates how use ListView and Effects to create a dynamic basic photo viewing experience. Click on any thumbnail and notice the smooth transition and color shifting in the blurred background."; } }
-        public override string      SampleCodeUri       { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761180"; } }
+        public static string        StaticSampleName => "Photo Popup Viewer"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Demonstrates how use ListView and Effects to create a dynamic basic photo viewing experience. Click on any thumbnail and notice the smooth transition and color shifting in the blurred background."; 
+        public override string      SampleDescription => StaticSampleDescription;
+        public override string      SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761180";
 
         public LocalDataSource Model { set; get; }
 

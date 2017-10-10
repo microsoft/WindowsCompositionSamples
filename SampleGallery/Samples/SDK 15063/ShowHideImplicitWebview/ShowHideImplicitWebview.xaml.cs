@@ -36,10 +36,11 @@ namespace CompositionSampleGallery
         private bool _circlesVisible = true;
         private ImplicitAnimationCollection _implicitAnimationCollection;
 
-        public static string        StaticSampleName    { get { return "Implicit Show/Hide Webview"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Demonstrates how to apply an implicit show/hide animation on a " +
-                    "webview UI element in a realistic app scenario."; } }
+        public static string        StaticSampleName => "Implicit Show/Hide Webview"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Demonstrates how to apply an implicit show/hide animation on a " +
+                                                                    "webview UI element in a realistic app scenario."; 
+        public override string      SampleDescription => StaticSampleDescription;
 
 
         public ShowHideImplicitWebview()

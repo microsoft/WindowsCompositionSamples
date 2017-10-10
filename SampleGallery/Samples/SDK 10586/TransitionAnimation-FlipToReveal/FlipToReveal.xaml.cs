@@ -26,10 +26,12 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
         }
 
-        public static string        StaticSampleName    { get { return "Flip to reveal"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Demonstrates how to use Animations and Transforms to create a flip effect. Tap on the tile to reveal the image underneath. Tap again to see it flip back."; } }
-        public override string      SampleCodeUri       { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761175"; } }
+        public static string        StaticSampleName => "Flip to reveal"; 
+        public override string      SampleName => StaticSampleName;
+        public static string        StaticSampleDescription => "Demonstrates how to use Animations and Transforms to create a flip effect. Tap on the tile to reveal the image underneath. Tap again to see it flip back.";
+        public override string      SampleDescription => StaticSampleDescription;
+        public override string      SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761175"; 
+
 
         private Boolean IsFlipped = false;
 

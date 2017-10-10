@@ -19,13 +19,10 @@ using Microsoft.Graphics.Canvas.UI.Composition;
 using SamplesCommon;
 using System;
 using System.Numerics;
-using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.Graphics.DirectX;
 using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 
 using EF = ExpressionBuilder.ExpressionFunctions;
@@ -41,10 +38,11 @@ namespace CompositionSampleGallery
             this.Unloaded += MainPage_Unloaded;
         }
 
-        public static string        StaticSampleName    { get { return "Z-Order Scrolling"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Demonstrates how to use a ScrollViewer and ExpressionAnimations to drive Visual properties like Scale, Offset, and Opacity based off of the scroll position. Especially notice how the profile image swaps underneath the header."; } }
-        public override string      SampleCodeUri       { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761168"; } }
+        public static string        StaticSampleName => "Z-Order Scrolling"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Demonstrates how to use a ScrollViewer and ExpressionAnimations to drive Visual properties like Scale, Offset, and Opacity based off of the scroll position. Especially notice how the profile image swaps underneath the header."; 
+        public override string      SampleDescription => StaticSampleDescription; 
+        public override string      SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761168"; 
 
         /// <summary>
         /// MainPage_Loaded is used for all of our initialization to keep the UI thread mostly free.

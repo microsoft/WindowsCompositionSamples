@@ -12,15 +12,10 @@
 //
 //*********************************************************
 
-using System;
-using System.Numerics;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
-using Windows.UI;
-using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
 
 namespace CompositionSampleGallery
 {

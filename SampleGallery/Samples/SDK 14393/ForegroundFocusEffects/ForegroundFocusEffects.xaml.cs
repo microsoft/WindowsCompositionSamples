@@ -19,8 +19,6 @@ using SamplesCommon;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using System.Threading.Tasks;
-using Windows.Foundation;
 using Windows.Graphics.Effects;
 using Windows.UI;
 using Windows.UI.Composition;
@@ -57,10 +55,11 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
         }
 
-        public static string StaticSampleName       { get { return "Foreground Focus Effects"; } }
-        public override string SampleName           { get { return StaticSampleName; } }
-        public override string SampleDescription    { get { return "Demonstrates how to use a BackDrop effect to deemphasize background content. Click on any thumbnail to trigger the selected effect."; } }
-        public override string SampleCodeUri        { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761179"; } }
+        public static string    StaticSampleName => "Foreground Focus Effects"; 
+        public override string  SampleName => StaticSampleName;
+        public static string    StaticSampleDescription => "Demonstrates how to use a BackDrop effect to deemphasize background content. Click on any thumbnail to trigger the selected effect.";
+        public override string  SampleDescription => StaticSampleDescription; 
+        public override string  SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761179"; 
 
         public LocalDataSource Model { set; get; }
         private async void Page_Loaded(object sender, RoutedEventArgs e)

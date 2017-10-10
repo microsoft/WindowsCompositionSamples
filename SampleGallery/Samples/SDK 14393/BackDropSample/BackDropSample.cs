@@ -14,10 +14,8 @@
 
 using SamplesCommon;
 using System;
-using System.Numerics;
 using Windows.UI;
 using Windows.UI.Composition;
-using Windows.UI.Xaml.Hosting;
 
 namespace CompositionSampleGallery
 {
@@ -50,9 +48,10 @@ namespace CompositionSampleGallery
             backDrop.VisualProperties.StartAnimation(BackDrop.TintColorProperty, colorAnim);
         }
 
-        public static string        StaticSampleName    { get { return "BackDrop Control Sample"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Demonstrates how to create your own custom BackDrop UserControl that provides Blur and Tint properties that can be animated with Composition Animations."; } }
-        public override string      SampleCodeUri       { get { return "http://go.microsoft.com/fwlink/p/?LinkID=761170"; } }
+        public static string        StaticSampleName => "BackDrop Control Sample"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Demonstrates how to create your own custom BackDrop UserControl that provides Blur and Tint properties that can be animated with Composition Animations."; 
+        public override string      SampleDescription => StaticSampleDescription; 
+        public override string      SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761170"; 
     }
 }

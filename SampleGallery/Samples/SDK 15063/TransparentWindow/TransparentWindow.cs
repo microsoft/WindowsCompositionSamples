@@ -17,7 +17,6 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using Windows.Graphics.Effects;
-using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -46,9 +45,10 @@ namespace CompositionSampleGallery
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
         }
 
-        public static string        StaticSampleName    { get { return "Transparent Window"; } }
-        public override string      SampleName          { get { return StaticSampleName; } }
-        public override string      SampleDescription   { get { return "Demonstrates a few different transparent window effects"; } }
+        public static string        StaticSampleName => "Transparent Window"; 
+        public override string      SampleName => StaticSampleName; 
+        public static string        StaticSampleDescription => "Demonstrates a few different transparent window effects";
+        public override string      SampleDescription => StaticSampleDescription;
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {

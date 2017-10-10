@@ -56,7 +56,7 @@
             </ItemsPanelTemplate>
         </GridView.ItemsPanel>
         <GridView.Header>
-            <GridViewHeaderItem x:Name="HeaderItem" Content="All Samples" Padding="0" Margin="0">
+            <GridViewHeaderItem x:Name="HeaderItem" Content="All Samples" Padding="10" Margin="0" Typography.Capitals="AllSmallCaps" Foreground="{ThemeResource ResourceKey=SystemControlForegroundAccentBrush}">
             </GridViewHeaderItem>
         </GridView.Header>
     </GridView>

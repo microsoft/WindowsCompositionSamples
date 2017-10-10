@@ -35,7 +35,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <Grid.Clip>
+       <Grid.Clip>
             <RectangleGeometry x:Name="GridClip"/>
         </Grid.Clip>
 

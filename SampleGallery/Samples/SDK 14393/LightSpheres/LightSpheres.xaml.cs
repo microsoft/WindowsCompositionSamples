@@ -71,9 +71,10 @@ namespace CompositionSampleGallery
 
         }
 
-        public static string StaticSampleName { get { return "Light Spheres"; } }
-        public override string SampleName { get { return StaticSampleName; } }
-        public override string SampleDescription { get { return "Demonstrates a simulated 3D scene with multiple lights."; } }
+        public static string   StaticSampleName => "Light Spheres"; 
+        public override string SampleName => StaticSampleName; 
+        public static string   StaticSampleDescription => "Demonstrates a simulated 3D scene with multiple lights."; 
+        public override string SampleDescription => StaticSampleDescription;
 
         private async void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
