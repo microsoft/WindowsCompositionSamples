@@ -54,10 +54,12 @@ namespace CompositionSampleGallery
             // appropriate SDK version and the runtime supports this version
             if (_runtimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._15063))
             {
+#if SDKVERSION_15063
                 _capabilities = CompositionCapabilities.GetForCurrentView();
                 _capabilities.Changed += HandleCapabilitiesChangedAsync;
                 _areEffectsSupported = _capabilities.AreEffectsSupported();
                 _areEffectsFast = _capabilities.AreEffectsFast();
+#endif
             }
             else
             {
@@ -75,15 +77,16 @@ namespace CompositionSampleGallery
 
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = false;
 
-#if SDKVERSION_INSIDER
+#if SDKVERSION_16299
             // Apply acrylic styling to the navigation and caption
-            if (_runtimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._INSIDER))
+            if (_runtimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._16299))
             { 
                 // Extend the app into the titlebar so that we can apply acrylic
                 CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
                 ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
                 titleBar.ButtonBackgroundColor = Colors.Transparent;
                 titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+                titleBar.ButtonForegroundColor = Colors.Black;
 
                 // Apply a customized control template to the pivot
                 MainPivot.Template = (ControlTemplate)Application.Current.Resources["PivotControlTemplate"];
@@ -313,6 +316,7 @@ namespace CompositionSampleGallery
             _10586 = 2,   // November Update (1511)
             _14393,       // Anniversary Update (1607)
             _15063,       // Creators Update (1703)
+            _16299,       // Fall Creators Update
             _INSIDER      // Insiders
         };
 

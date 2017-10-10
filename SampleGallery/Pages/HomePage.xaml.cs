@@ -80,7 +80,7 @@ namespace CompositionSampleGallery
                                   select sampleDef;
 
 #else
-             featuredSamples = from sampleDef in SampleDefinitions.Definitions
+             var featuredSamples = from sampleDef in SampleDefinitions.Definitions
                                   where (sampleDef.Type == typeof(ColorBloomTransition))
                                   || (sampleDef.Type == typeof(ConnectedAnimationShell))
                                   || (sampleDef.Type == typeof(ZoomWithPerspective))

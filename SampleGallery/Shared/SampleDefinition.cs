@@ -173,8 +173,11 @@ namespace CompositionSampleGallery
 
 #endif
 
+#if SDKVERSION_16299
+                new SampleDefinition(SpringyImage.StaticSampleName,                 typeof(SpringyImage),                 SampleType.Reference, SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/PointerRotate.PNG",                     description: SpringyImage.StaticSampleDescription,                      sdkVersion: RuntimeSupportedSDKs.SDKVERSION._16299,        dateAdded: new DateTime(2017,08,7)),             
+#endif
+
 #if SDKVERSION_INSIDER
-                new SampleDefinition(SpringyImage.StaticSampleName,                 typeof(SpringyImage),                 SampleType.Reference, SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/PointerRotate.PNG",                     description: SpringyImage.StaticSampleDescription,                      sdkVersion: RuntimeSupportedSDKs.SDKVERSION._INSIDER,        dateAdded: new DateTime(2017,08,7)),             
 #endif
 
     };
