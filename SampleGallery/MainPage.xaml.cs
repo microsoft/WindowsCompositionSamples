@@ -12,9 +12,11 @@
 //
 //*********************************************************
 
+using CompositionSampleGallery.Pages;
 using SamplesCommon;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
@@ -43,6 +45,8 @@ namespace CompositionSampleGallery
         private static RuntimeSupportedSDKs     _runtimeCapabilities;
         private MainNavigationViewModel         _mainNavigation;
         private Frame                           _currentFrame;
+
+        private SampleDefinition                _dummySampleDefinition;
 
         public MainPage(Rect imageBounds)
         {
@@ -302,6 +306,52 @@ namespace CompositionSampleGallery
             pivotItemFrame.Navigate(navItem.PageType, navItem);
 
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+        }
+
+        private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                var matches = from sampleDef in SampleDefinitions.Definitions
+                                 where sampleDef.DisplayName.IndexOf(sender.Text, StringComparison.CurrentCultureIgnoreCase) >= 0 
+                                    || (sampleDef.Tags != null && sampleDef.Tags.Any(str => str.IndexOf(sender.Text, StringComparison.CurrentCultureIgnoreCase) >= 0))
+                              select sampleDef;
+                
+                if(matches.Count() > 0)
+                {
+                    SearchBox.ItemsSource = matches.OrderByDescending(i => i.DisplayName.StartsWith(sender.Text, StringComparison.CurrentCultureIgnoreCase)).ThenBy(i => i.DisplayName);
+                }
+                else
+                {
+                    _dummySampleDefinition = new SampleDefinition("No results found", null, SampleType.Reference, SampleCategory.APIReference, false, false);
+                    SearchBox.ItemsSource = new SampleDefinition[] { _dummySampleDefinition };
+                }
+            }
+        }
+
+        private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            if (!string.IsNullOrEmpty(args.QueryText) && args.ChosenSuggestion == null)
+            {
+                _currentFrame.Navigate(typeof(SearchResultsPage), args.QueryText);
+            }
+        }
+
+        private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            if (((SampleDefinition)(args.SelectedItem)) == _dummySampleDefinition)
+            {
+                SearchBox.Text = "";
+            }
+            else
+            { 
+                _currentFrame.Navigate(((SampleDefinition)(args.SelectedItem)).Type, this);
+            }
+        }
+
+        private void SearchBox_AccessKeyInvoked(UIElement sender, Windows.UI.Xaml.Input.AccessKeyInvokedEventArgs args)
+        {
+            SearchBox.Focus(FocusState.Keyboard);
         }
     }
 

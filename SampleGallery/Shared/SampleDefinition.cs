@@ -44,6 +44,7 @@ namespace CompositionSampleGallery
         private SampleCategory _sampleCategory;
         private string _imageUrl;
         private string _description;
+        private string[] _tags;
         private bool _featured;
         private bool _requiresFastEffects;
         private bool _requiresEffects;
@@ -60,6 +61,7 @@ namespace CompositionSampleGallery
             bool requiresFastEffects, 
             string imageUrl = MissingThumbnailAsset, 
             string description = null, 
+            string[] tags = null,
             bool featured = false, 
             DateTime dateAdded = new DateTime(), 
             RuntimeSupportedSDKs.SDKVERSION sdkVersion = RuntimeSupportedSDKs.SDKVERSION._10586
@@ -71,6 +73,7 @@ namespace CompositionSampleGallery
             _sampleCategory = sampleArea;
             _imageUrl = imageUrl;
             _description = description;                  // used when showing more information about a sample, such as for featured samples
+            _tags = tags;
             _featured = featured;
             _requiresEffects = requiresEffects;
             _requiresFastEffects = requiresFastEffects;
@@ -85,6 +88,7 @@ namespace CompositionSampleGallery
         public string DisplayName { get { return _name; } }
         public string ImageUrl { get { return _imageUrl; } }
         public string Description { get { return _description; } }
+        public string[] Tags { get { return _tags; } }
         public bool Featured { get { return _featured; } }
         public bool RequiresEffects { get { return _requiresEffects; } }
         public bool RequiresFastEffects { get { return _requiresFastEffects; } }
@@ -116,7 +120,7 @@ namespace CompositionSampleGallery
         // Full list of all definitions
         static SampleDefinition[] _allDefinitions =
         {
-            //      StaticSampleName                                                Class                                 SampleType            SampleCategory                      Effects     FastEffects     ThumbnailURL                                                                         StaticSampleDescription                                                 SDKVersion                                                  Date Added                              Featured   
+            //      StaticSampleName                                                Class                                 SampleType            SampleCategory                      Effects     FastEffects     ThumbnailURL                                                                         StaticSampleDescription                                                 SDKVersion                                                  Date Added                              Featured                   Tags
 #if SDKVERSION_10586
                 new SampleDefinition(PropertySets.StaticSampleName,                 typeof(PropertySets),                 SampleType.Reference, SampleCategory.APIReference,        false,      false,          "ms-appx:///Assets/SampleThumbnails/ExpressionsAndPropertySets.PNG",        description: PropertySets.StaticSampleDescription), 
                 new SampleDefinition(PointerEnterEffects.StaticSampleName,          typeof(PointerEnterEffects),          SampleType.EndToEnd,  SampleCategory.Material,            true,       false,          "ms-appx:///Assets/SampleThumbnails/PointerEnterExitEffects.PNG",           description: PointerEnterEffects.StaticSampleDescription),
@@ -174,7 +178,7 @@ namespace CompositionSampleGallery
 #endif
 
 #if SDKVERSION_16299
-                new SampleDefinition(SpringyImage.StaticSampleName,                 typeof(SpringyImage),                 SampleType.Reference, SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/PointerRotate.PNG",                     description: SpringyImage.StaticSampleDescription,                      sdkVersion: RuntimeSupportedSDKs.SDKVERSION._16299,        dateAdded: new DateTime(2017,08,7)),             
+                new SampleDefinition(SpringyImage.StaticSampleName,                 typeof(SpringyImage),                 SampleType.Reference, SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/PointerRotate.PNG",                     description: SpringyImage.StaticSampleDescription,                      sdkVersion: RuntimeSupportedSDKs.SDKVERSION._16299,        dateAdded: new DateTime(2017,08,7),                                          tags: new string[1]{"ExpressionBuilder"}),             
 #endif
 
 #if SDKVERSION_INSIDER
