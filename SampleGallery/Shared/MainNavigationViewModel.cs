@@ -44,19 +44,19 @@ namespace CompositionSampleGallery
 
 
         void AddNavigationItem(
-            List<NavigationItem> menu, 
-            String displayName, 
+            List<NavigationItem> menu,
+            String displayName,
             SampleCategory cat, 
             Type pageType, 
             string categoryDescription="", 
-            bool force=false, 
-            string thumbnail="ms-appx:///Assets/Square44x44Logo.scale-200.png")
+            bool addEvenIfNoMatchingSamples = false, 
+            string thumbnail="")
         {
             var samples = from sample in SampleDefinitions.Definitions
                           where (sample.SampleCategory == cat)
                           select sample;
 
-            if ((samples.Count<SampleDefinition>() > 0) || force)
+            if ((samples.Count<SampleDefinition>() > 0) || addEvenIfNoMatchingSamples)
             {
                 menu.Add(new NavigationItem(displayName, cat, pageType, categoryDescription: categoryDescription, thumbnail:thumbnail));
             }
@@ -85,13 +85,13 @@ namespace CompositionSampleGallery
             // Build a collection used to populate the navigation menu. This is where you can define the display names of
             // each menu item and which page they map to.
             _mainMenuList = new List<NavigationItem>();
-            AddNavigationItem(_mainMenuList, "Home",            SampleCategory.None,                    typeof(HomePage), force:true);
-            AddNavigationItem(_mainMenuList, "Light",           SampleCategory.Light,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Light, thumbnail: "ms-appx:///Assets/SampleThumbnails/LightSpheres.PNG");
-            AddNavigationItem(_mainMenuList, "Depth",           SampleCategory.Depth,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Depth, thumbnail: "ms-appx:///Assets/SampleThumbnails/LayerDepth.PNG");
-            AddNavigationItem(_mainMenuList, "Motion",          SampleCategory.Motion,                  typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Motion, thumbnail: "ms-appx:///Assets/SampleThumbnails/Connected_Animation.PNG");
-            AddNavigationItem(_mainMenuList, "Material",        SampleCategory.Material,                typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Material, thumbnail: "ms-appx:///Assets/SampleThumbnails/LightInterop.png");
-            AddNavigationItem(_mainMenuList, "Scale",           SampleCategory.Scale,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Scale, thumbnail: "ms-appx:///Assets/SampleThumbnails/CompositionCapabilities.PNG");
-            AddNavigationItem(_mainMenuList, "API Reference",   SampleCategory.APIReference,            typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_APIReference, thumbnail: "ms-appx:///Assets/SampleThumbnails/TransparentWindow.PNG");
+            AddNavigationItem(_mainMenuList, "Home",            SampleCategory.None,                    typeof(HomePage), addEvenIfNoMatchingSamples: true);
+            AddNavigationItem(_mainMenuList, "Light",           SampleCategory.Light,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Light, thumbnail: "ms-appx:///Assets/CategoryIcons/table_light_icon.png");
+            AddNavigationItem(_mainMenuList, "Depth",           SampleCategory.Depth,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Depth, thumbnail: "ms-appx:///Assets/CategoryIcons/table_depth_icon.png");
+            AddNavigationItem(_mainMenuList, "Motion",          SampleCategory.Motion,                  typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Motion, thumbnail: "ms-appx:///Assets/CategoryIcons/table_motion_icon.png");
+            AddNavigationItem(_mainMenuList, "Material",        SampleCategory.Material,                typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Material, thumbnail: "ms-appx:///Assets/CategoryIcons/table_material_icon.png");
+            AddNavigationItem(_mainMenuList, "Scale",           SampleCategory.Scale,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Scale, thumbnail: "ms-appx:///Assets/CategoryIcons/table_scale_icon.png");
+            AddNavigationItem(_mainMenuList, "API Reference",   SampleCategory.APIReference,            typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_APIReference);
 
             s_instance = this;
         }

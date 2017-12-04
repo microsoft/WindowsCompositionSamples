@@ -290,6 +290,11 @@
     <Content Include="Assets\Appointment.png" />
     <Content Include="Assets\Background.png" />
     <Content Include="Assets\BannerImages\ShyHeader.png" />
+    <Content Include="Assets\CategoryIcons\table_depth_icon.png" />
+    <Content Include="Assets\CategoryIcons\table_light_icon.png" />
+    <Content Include="Assets\CategoryIcons\table_material_icon.png" />
+    <Content Include="Assets\CategoryIcons\table_motion_icon.png" />
+    <Content Include="Assets\CategoryIcons\table_scale_icon.png" />
     <Content Include="Assets\Damaged_NormalMap.jpg" />
     <Content Include="Assets\FB-f-Logo__blue_57.png" />
     <Content Include="Assets\Landmarks\SpaceNeedle.png" />
