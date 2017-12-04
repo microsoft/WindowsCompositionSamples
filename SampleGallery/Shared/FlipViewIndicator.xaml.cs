@@ -92,13 +92,11 @@ namespace CompositionSampleGallery
             Model.Selected = (FeaturedFlipViewSample)((FlipView)sender).SelectedItem;
         }
 
-        // Get the frame that this flipviewindicator is a child of, and then navigate to the 
-        // sample that the user selected
+        // Navigate to the sample that the user selected
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             FeaturedFlipViewSample SelectedSample = BannerFlipView.SelectedItem as FeaturedFlipViewSample;
-            Frame mainPivotFrame = MainNavigationViewModel.GetPivotFrame(this);
-            mainPivotFrame.Navigate(typeof(SampleHost), SelectedSample.SampleDefinition);
+            MainNavigationViewModel.NavigateToSample(SelectedSample.SampleDefinition);
         }
 
         private void IndicatorClick(object sender, RoutedEventArgs e)
