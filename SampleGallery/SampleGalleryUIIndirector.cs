@@ -46,10 +46,10 @@ namespace CompositionSampleGallery
     {
         ISampleGalleryUIHost _actualContent;
         private object _sampleCategories;
+
         public SampleGalleryUIIndirector()
         {
         }
-
 
         private void LoadUI(UIType type)
         {

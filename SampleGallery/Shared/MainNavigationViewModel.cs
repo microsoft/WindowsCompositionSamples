@@ -108,9 +108,9 @@ namespace CompositionSampleGallery
             s_instance._hostingUI.Navigate(typeof(SampleHost), sample);
         }
 
-        public void ShowSearchResults(string queryText)
+        public static void ShowSearchResults(string queryText)
         {
-            _hostingUI.Navigate(typeof(SearchResultsPage), queryText);
+            s_instance._hostingUI.Navigate(typeof(SearchResultsPage), queryText);
         }
     }
 

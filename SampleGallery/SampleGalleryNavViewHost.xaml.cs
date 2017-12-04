@@ -21,6 +21,7 @@ namespace CompositionSampleGallery
     public sealed partial class SampleGalleryNavViewHost : UserControl, ISampleGalleryUIHost
     {
         object _itemsSource;
+
         public SampleGalleryNavViewHost()
         {
             this.InitializeComponent();

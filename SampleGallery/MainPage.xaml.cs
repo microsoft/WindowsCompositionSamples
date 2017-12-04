@@ -288,7 +288,7 @@ namespace CompositionSampleGallery
         {
             if (!string.IsNullOrEmpty(args.QueryText) && args.ChosenSuggestion == null)
             {
-                _mainNavigation.ShowSearchResults(args.QueryText);
+                MainNavigationViewModel.ShowSearchResults(args.QueryText);
             }
         }
 
