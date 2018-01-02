@@ -35,7 +35,6 @@ namespace CompositionSampleGallery
 {
     public sealed partial class MainPage : Page
     {
-        private static MainPage                 _instance;
         private ManagedSurface                  _splashSurface;
 #if SDKVERSION_15063
         private static CompositionCapabilities  _capabilities;
@@ -43,16 +42,13 @@ namespace CompositionSampleGallery
         private static bool                     _areEffectsSupported;
         private static bool                     _areEffectsFast;
         private static RuntimeSupportedSDKs     _runtimeCapabilities;
-        private MainNavigationViewModel         _mainNavigation;
-        private Frame                           _currentFrame;
+        private MainNavigationViewModel         _mainNavigation;        
 
         private SampleDefinition                _dummySampleDefinition;
 
         public MainPage(Rect imageBounds)
         {
-            _instance = this;
             _runtimeCapabilities = new RuntimeSupportedSDKs();
-            _currentFrame = null;
 
             // Get hardware capabilities and register changed event listener only when targeting the 
             // appropriate SDK version and the runtime supports this version
@@ -71,7 +67,7 @@ namespace CompositionSampleGallery
                 _areEffectsFast = true;
             }
             this.InitializeComponent();
-            _mainNavigation = new MainNavigationViewModel();
+            _mainNavigation = new MainNavigationViewModel(GalleryUI);
 
             // Initialize the image loader
             ImageLoader.Initialize(ElementCompositionPreview.GetElementVisual(this).Compositor);
@@ -92,9 +88,6 @@ namespace CompositionSampleGallery
                 titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
                 titleBar.ButtonForegroundColor = Colors.Black;
 
-                // Apply a customized control template to the pivot
-                MainPivot.Template = (ControlTemplate)Application.Current.Resources["PivotControlTemplate"];
-
                 // Apply acrylic to the main navigation
                 TitleBarRow.Height = new GridLength(31);
                 TitleBarGrid.Background = (Brush)Application.Current.Resources["SystemControlChromeMediumLowAcrylicWindowMediumBrush"];
@@ -103,11 +96,6 @@ namespace CompositionSampleGallery
         }
 
         public MainNavigationViewModel MainNavigation => _mainNavigation;
-
-        public static MainPage Instance
-        {
-            get { return _instance; }
-        }
 
         public static bool AreEffectsSupported
         {
@@ -130,11 +118,7 @@ namespace CompositionSampleGallery
             _areEffectsSupported = _capabilities.AreEffectsSupported();
             _areEffectsFast = _capabilities.AreEffectsFast();
 
-            if (_currentFrame.Content is SampleHost host)
-            {
-                SamplePage page = (SamplePage)host.Content;
-                page.OnCapabiliesChanged(_areEffectsSupported, _areEffectsFast);
-            }
+            GalleryUI.NotifyCompositionCapabilitiesChanged(_areEffectsSupported, _areEffectsFast);
 
             SampleDefinitions.RefreshSampleList();
 
@@ -235,8 +219,8 @@ namespace CompositionSampleGallery
             scaleUpSplashAnimation.Duration = duration;
 
             // Configure the grid visual to scale from the center
-            Visual gridVisual = ElementCompositionPreview.GetElementVisual(MainPivot);
-            gridVisual.Size = new Vector2((float)MainPivot.ActualWidth, (float)MainPivot.ActualHeight);
+            Visual gridVisual = ElementCompositionPreview.GetElementVisual(GalleryUI);
+            gridVisual.Size = new Vector2((float)GalleryUI.ActualWidth, (float)GalleryUI.ActualHeight);
             gridVisual.CenterPoint = new Vector3(gridVisual.Size.X, gridVisual.Size.Y, 0) * .5f;
 
 
@@ -273,40 +257,11 @@ namespace CompositionSampleGallery
             HideCustomSplashScreen();
         }
 
-        private void MainFrame_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
-        {
-            // Cache a reference to the current frame
-            _currentFrame = (Frame)sender;
-
-            // Show or hide the global back button
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                _currentFrame.CanGoBack ?
-                AppViewBackButtonVisibility.Visible :
-                AppViewBackButtonVisibility.Collapsed;
-        }
-
         public static void FeaturedSampleList_ItemClick(object sender, ItemClickEventArgs e)
         {
             MainNavigationViewModel.NavigateToSample(sender, e);
         }
 
-        // Load the category pages into the frame of each PivotItem
-        private void Frame_Loaded(object sender, RoutedEventArgs e)
-        {
-            NavigationItem navItem = (NavigationItem)(((Frame)sender).DataContext);
-            ((Frame)sender).Navigate(navItem.PageType, navItem);
-        }
-
-        // When navigating to a pivotitem, reload the main page and hide the back 
-        // button
-        private void MainPivot_PivotItemLoading(Pivot sender, PivotItemEventArgs args)
-        {
-            NavigationItem navItem = (NavigationItem)((((PivotItemEventArgs)args).Item).DataContext);
-            Frame pivotItemFrame = (Frame)(((PivotItem)args.Item).ContentTemplateRoot);
-            pivotItemFrame.Navigate(navItem.PageType, navItem);
-
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
-        }
 
         private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
@@ -333,7 +288,7 @@ namespace CompositionSampleGallery
         {
             if (!string.IsNullOrEmpty(args.QueryText) && args.ChosenSuggestion == null)
             {
-                _currentFrame.Navigate(typeof(SearchResultsPage), args.QueryText);
+                MainNavigationViewModel.ShowSearchResults(args.QueryText);
             }
         }
 
@@ -344,8 +299,8 @@ namespace CompositionSampleGallery
                 SearchBox.Text = "";
             }
             else
-            { 
-                _currentFrame.Navigate(((SampleDefinition)(args.SelectedItem)).Type, this);
+            {
+                MainNavigationViewModel.NavigateToSample((SampleDefinition)args.SelectedItem);
             }
         }
 

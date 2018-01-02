@@ -27,6 +27,7 @@ namespace CompositionSampleGallery
 
     public enum SampleCategory
     {
+        None,
         Light,
         Depth,
         Motion,
