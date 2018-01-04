@@ -39,6 +39,7 @@ namespace CompositionSampleGallery.Pages
                           where (sampleDef.Tags != null && sampleDef.Tags.Any(str => str.IndexOf(searchText, StringComparison.CurrentCultureIgnoreCase) >= 0))
                           select sampleDef;
 
+            HeaderTextBlock.Text = "Results for '" + searchText + "':";
             MatchingTitleSampleList.SetHeaderText("Matches by Name (" + nameMatches.Count() + ")");
             MatchingTagSampleList.SetHeaderText("Matches by Tag (" + tagMatches.Count() + ")");
             if (nameMatches.Count() > 0)

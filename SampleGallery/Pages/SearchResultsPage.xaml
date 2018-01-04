@@ -12,9 +12,11 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <local:BodyAppList x:Name="MatchingTitleSampleList" Grid.Row="0"/>
-            <local:BodyAppList x:Name="MatchingTagSampleList" Grid.Row="1" Margin="0,20,0,60"/>
+            <TextBlock x:Name="HeaderTextBlock" Grid.Row="0" Style="{StaticResource SubheaderTextBlockStyle}" Margin="35,0"/>
+            <local:BodyAppList x:Name="MatchingTitleSampleList" Grid.Row="1"/>
+            <local:BodyAppList x:Name="MatchingTagSampleList" Grid.Row="2" Margin="0,20,0,60"/>
         </Grid>
     </ScrollViewer>
 </Page>
