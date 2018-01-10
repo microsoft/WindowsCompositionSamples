@@ -29,3 +29,4 @@
 <!-- Provide details on relevant environment version numbers -->
 * SDK #:  
 * Operating System build # :  
+* Visual Studio Version # : 
