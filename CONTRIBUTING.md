@@ -65,10 +65,12 @@ If creating a pull request to fix an existing open GitHub issue, please make sur
 
 Upon submitting the pull request, one of the site administrators will process it, review it, and provide feedback if necessary. Once all feedback is resolved, the pull request will be approved and integrated into the gallery. 
 
-## UserVoice and GitHub Issues
+## UserVoice, GitHub Issues, & StackOverflow
 
-Alternative outlets for community participation are available through UserVoice and Github Issues. 
+Alternative outlets for community participation are available through UserVoice, Github Issues, and StackOverflow. 
 
 The [UWP UserVoice site](https://wpdev.uservoice.com/forums/110705-universal-windows-platform/category/58517-xaml-controls-composition) can be used to vote on and create suggestions for improvements to the Windows developer platform. Suggestions are reviewed by the Windows platform developer team and your feedback is used for planning and understanding how developers use the platform. 
 
 This repo’s [GitHub Issues](https://github.com/Microsoft/WindowsUIDevLabs/issues) section can be used for asking questions about usage and bugs, but may also be used to respectfully interact with other community members to collaboratively answer questions and discover the innovative ways others are leveraging Windows APIs.
+
+Finally, StackOverflow has an active community of Windows UI developers where you can ask questions. Tag with ['uwp'](https://stackoverflow.com/questions/tagged/uwp) (or your appropriate application architecture), and tags indicating your framework. Some known active tags for Composition include ['windows-composition-api'](https://stackoverflow.com/questions/tagged/windows-composition-api?mixed=1) and ['xaml-composition'](https://stackoverflow.com/questions/tagged/xaml-composition?mixed=1). 
