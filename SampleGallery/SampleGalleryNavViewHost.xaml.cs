@@ -103,7 +103,11 @@ namespace CompositionSampleGallery
         {
             NavigationItem navItem = (NavigationItem)((NavigationViewItem)args.SelectedItem).DataContext;
             ContentFrame.Navigate(navItem.PageType, navItem);
-
+            
+            Dictionary<string, string> properties = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            properties.Add("TargetView", navItem.Category.ToString());
+            Shared.AppTelemetryClient.TrackEvent("Navigate", properties, null);
+            
             // Reset the backstack when a new category is selected to avoid having to coordinate the cateogory 
             // selection as we navigate back through the backstack
             ContentFrame.BackStack.Clear();

@@ -80,6 +80,8 @@ namespace CompositionSampleGallery
             }
             // Ensure the current window is active
             Window.Current.Activate();
+
+            Shared.AppTelemetryClient.TrackEvent("SessionStart");
         }
 
         /// <summary>
@@ -103,6 +105,7 @@ namespace CompositionSampleGallery
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
+            Shared.AppTelemetryClient.TrackEvent("SessionStop");
             deferral.Complete();
         }
     }
