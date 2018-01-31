@@ -112,6 +112,11 @@ namespace CompositionSampleGallery
         {
             s_instance._hostingUI.Navigate(typeof(SearchResultsPage), queryText);
         }
+
+        public static void ShowSettings()
+        {
+            s_instance._hostingUI.Navigate((typeof(Settings)), null);
+        }
     }
 
     public class NavigationItem

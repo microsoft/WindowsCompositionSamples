@@ -23,6 +23,7 @@
     <PackageCertificateKeyFile>SampleGallery_TemporaryKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>B3A5EDB57C0F21E52B5CFB1BDFD89039CD803898</PackageCertificateThumbprint>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -139,6 +140,9 @@
       <DependentUpon>BaseCategoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\SDK 16299\SpringyImage\SpringyImage.xaml.cs" Condition="$(TargetPlatformBuild) &gt;15063" />
+    <Compile Include="Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shared\FeaturedSamplesHomePage.xaml.cs">
       <DependentUpon>FeaturedSamplesHomePage.xaml</DependentUpon>
     </Compile>
@@ -421,7 +425,6 @@
     <Content Include="Assets\Windows_logo_Cyan_rgb_D.png" />
     <Content Include="Assets\ZOrderScrolling.jpg" />
     <Content Include="Samples\SDK 15063\Interactions3D\stage.jpg" />
-    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Samples\SDK 10586\Perspective\jellyfish.jpg" />
     <Content Include="Samples\SDK 10586\TransitionAnimation-FlipToReveal\Image.jpg" />
     <Content Include="Samples\SDK 14393\ForegroundFocusEffects\Mask.png" />
@@ -573,6 +576,10 @@
     <Page Include="Samples\SDK 16299\SpringyImage\SpringyImage.xaml" Condition="$(TargetPlatformBuild) &gt;15063">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Shared\FeaturedSamplesHomePage.xaml">
       <Generator>MSBuild:Compile</Generator>

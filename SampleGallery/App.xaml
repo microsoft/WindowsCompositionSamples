@@ -7,7 +7,7 @@
     RequestedTheme="Light"
     xmlns:contractNotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:contractPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)">
-    
+
     <Application.Resources>
         <ResourceDictionary>
             <x:Double x:Key="WideScreenWidthTrigger">720</x:Double>
@@ -214,10 +214,9 @@
             </Style>
 
             <Style x:Key="FooterHyperlinkStyle" TargetType="HyperlinkButton">
-                <Setter Property="Foreground" Value="White" />
-                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="{ThemeResource SystemControlHyperlinkTextBrush}" />
                 <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontSize" Value="15" />
                 <Setter Property="FontStyle" Value="Normal" />
                 <Setter Property="Padding" Value="10" />
             </Style>

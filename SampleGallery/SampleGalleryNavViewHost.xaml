@@ -14,7 +14,7 @@
     <Grid>
         <contract5Present:NavigationView 
             x:Name="NavView"  
-            IsSettingsVisible="False"
+            IsSettingsVisible="True"
             SelectionChanged="NavViewSelectionChanged">
 
             <Frame x:Name="ContentFrame" Margin="24"/>

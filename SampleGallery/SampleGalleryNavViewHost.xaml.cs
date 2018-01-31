@@ -102,12 +102,24 @@ namespace CompositionSampleGallery
         private void NavViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             NavigationItem navItem = (NavigationItem)((NavigationViewItem)args.SelectedItem).DataContext;
-            ContentFrame.Navigate(navItem.PageType, navItem);
-            
-            Dictionary<string, string> properties = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            properties.Add("TargetView", navItem.Category.ToString());
-            Shared.AppTelemetryClient.TrackEvent("Navigate", properties, null);
-            
+
+            // Verify nav item exists for navigation info. Settings page will return no navigation item.
+            if (navItem != null)
+            {
+                Dictionary<string, string> properties = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                properties.Add("TargetView", navItem.Category.ToString());
+                Shared.AppTelemetryClient.TrackEvent("Navigate", properties, null);
+            }
+
+            if (args.IsSettingsSelected)
+            {
+                ContentFrame.Navigate(typeof(Settings));
+            }
+            else
+            {
+                ContentFrame.Navigate(navItem.PageType, navItem);
+            }
+
             // Reset the backstack when a new category is selected to avoid having to coordinate the cateogory 
             // selection as we navigate back through the backstack
             ContentFrame.BackStack.Clear();

@@ -9,25 +9,33 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Pivot 
-            x:Name="MainPivot"
-            ItemsSource="{x:Bind Path=SampleCategories}"
-            PivotItemLoading="MainPivot_PivotItemLoading"
-            IsHeaderItemsCarouselEnabled="False">
-        <Pivot.HeaderTemplate>
-            <DataTemplate x:DataType="local:NavigationItem">
-                <TextBlock Text="{x:Bind Path=DisplayName}" />
-            </DataTemplate>
-        </Pivot.HeaderTemplate>
-        <Pivot.ItemTemplate>
-            <DataTemplate x:DataType="local:NavigationItem">
-                <Frame  
-                    Loaded="Frame_Loaded" 
-                    x:Name="ItemFrame"
-                    Navigated="ItemFrame_Navigated">
-                </Frame>
-            </DataTemplate>
-        </Pivot.ItemTemplate>
-    </Pivot>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        
+        <Pivot  x:Name="MainPivot"
+                Grid.Row="0"
+                ItemsSource="{x:Bind Path=SampleCategories}"
+                PivotItemLoading="MainPivot_PivotItemLoading"
+                IsHeaderItemsCarouselEnabled="False">
+            <Pivot.HeaderTemplate>
+                <DataTemplate x:DataType="local:NavigationItem">
+                    <TextBlock Text="{x:Bind Path=DisplayName}" />
+                </DataTemplate>
+            </Pivot.HeaderTemplate>
+            <Pivot.ItemTemplate>
+                <DataTemplate x:DataType="local:NavigationItem">
+                    <Frame  
+                        Loaded="Frame_Loaded" 
+                        x:Name="ItemFrame"
+                        Navigated="ItemFrame_Navigated">
+                    </Frame>
+                </DataTemplate>
+            </Pivot.ItemTemplate>
+        </Pivot>
 
+        <local:Footer x:Name="Footer" Grid.Row="1" HorizontalAlignment="Center" />
+    </Grid>
 </UserControl>
