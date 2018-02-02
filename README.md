@@ -43,3 +43,10 @@ A native library used to access some lower level functionality that has no WinRT
 We encourage and welcome community involvement and contribution in this project. You'll find some details and guidelines for contribution in the [contributing readme](CONTRIBUTING.md).
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
+## Privacy
+
+We collect basic usage data so we can continually work to improve the samples in this repo. To opt out, comment out or remove the following line of code from SampleGallery\Shared\AppTelemetryClient.cs : 
+`_telemetryClient = new TelemetryClient();`
+
+A detailed privacy agreement can be found [here](https://go.microsoft.com/fwlink/?LinkId=521839) or in the 'Settings' section of the app.
