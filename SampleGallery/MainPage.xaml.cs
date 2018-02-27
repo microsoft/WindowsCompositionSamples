@@ -173,7 +173,7 @@ namespace CompositionSampleGallery
 
             SpriteVisual backgroundSprite = compositor.CreateSpriteVisual();
             backgroundSprite.Size = windowSize;
-            backgroundSprite.Brush = compositor.CreateColorBrush(Color.FromArgb(1, 0, 178, 240));
+            backgroundSprite.Brush = compositor.CreateColorBrush(Color.FromArgb(255, 0, 188, 242));
             container.Children.InsertAtBottom(backgroundSprite);
 
 
