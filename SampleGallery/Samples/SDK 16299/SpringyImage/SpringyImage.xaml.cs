@@ -23,13 +23,9 @@ using Windows.UI.Xaml.Input;
 using EF = ExpressionBuilder.ExpressionFunctions;
 using EV = ExpressionBuilder.ExpressionValues;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace CompositionSampleGallery
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+
     public sealed partial class SpringyImage : SamplePage
     {
         public SpringyImage()
@@ -42,6 +38,7 @@ namespace CompositionSampleGallery
         public override string  SampleName => StaticSampleName; 
         public static string    StaticSampleDescription => "Animate the Scale property of a Visual with a Spring-based Animation."; 
         public override string  SampleDescription => StaticSampleDescription;
+        public override string  SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868957";
 
         private void Setup()
         {

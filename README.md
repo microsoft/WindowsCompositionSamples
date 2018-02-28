@@ -50,3 +50,7 @@ We collect basic usage data so we can continually work to improve the samples in
 `_telemetryClient = new TelemetryClient();`
 
 A detailed privacy agreement can be found [here](https://go.microsoft.com/fwlink/?LinkId=521839) or in the 'Settings' section of the app.
+
+## Images
+
+ The images used in this application are sourced from a variety of Microsoft employees, but we'd like to specially thank Conroy for his contribution. [See more of his content here.]("https://www.instagram.com/conroy.williamson/">).

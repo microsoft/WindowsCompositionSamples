@@ -21,10 +21,7 @@
                 <TextBlock Style="{StaticResource SubheaderTextBlockStyle}"  Margin="0,40,0,20" Text="Settings" />
                 <TextBlock Text="No settings options are available at this time."/>
 
-                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,50,0,0" Text="Feedback" />
-                <TextBlock>Please leave feedback for this app using the Feedback button below.</TextBlock>
-                <Button Click="OnFeedbackButtonClick" Content="Feedback" Margin="0,8,0,0" />
-
+                <!--- About Section -->
                 <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,20,0,0" Text="About" />
 
                 <RichTextBlock MaxWidth="840" Margin="0,10,0,0" IsTextSelectionEnabled="True">
@@ -36,6 +33,20 @@
                     </Paragraph>
                 </RichTextBlock>
 
+                <!---Image Information Section -->
+                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,20,0,0" Text="Images" />
+
+                <RichTextBlock MaxWidth="840" Margin="0,10,0,0" IsTextSelectionEnabled="True">
+                    <Paragraph>
+                        The images used in this application are sourced from a variety of Microsoft employees, but we'd like to specially thank Conroy
+                        for his contribution.
+                        <Hyperlink NavigateUri="https://www.instagram.com/conroy.williamson/">
+                            See more of his content here.
+                        </Hyperlink>
+                    </Paragraph>
+                </RichTextBlock>
+
+                <!---Disclaimer Section-->
                 <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,20,0,0" Text="Disclaimer" />
 
                 <RichTextBlock MaxWidth="840" Margin="0,10,0,50" IsTextSelectionEnabled="True">
@@ -49,6 +60,8 @@
                         <Hyperlink NavigateUri="https://go.microsoft.com/fwlink/?LinkId=521839">Microsoft Privacy Statement</Hyperlink>
                     </Paragraph>
                 </RichTextBlock>
+
+                
             </StackPanel>
         </ScrollViewer>
     </Grid>

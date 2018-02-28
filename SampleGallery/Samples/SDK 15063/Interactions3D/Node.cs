@@ -30,14 +30,14 @@ namespace CompositionSampleGallery
         }
 
 
-        public ImageNodeInfo GenerateRandomImageNode()
+        public ImageNodeInfo GenerateRandomImageNode(int maxCount)
         {
-            m_nextImageIndex = (m_nextImageIndex + 1) % (int)NamedImage.Count;
+            m_nextImageIndex = (m_nextImageIndex + 1) % maxCount;
 
             m_nextPlaneIndex = (m_nextPlaneIndex + 1) % m_zPlanes.Length;
 
             var imageNode = new ImageNodeInfo(
-                                        (NamedImage)m_nextImageIndex,
+                                        m_nextImageIndex,
                                         new Vector3(
                                             m_random.Next((int)(MinPosition.X * 100), (int)(MaxPosition.X * 100)) * 0.01f,
                                             m_random.Next((int)(MinPosition.Y * 100), (int)(MaxPosition.Y * 100)) * 0.01f,
@@ -160,13 +160,13 @@ namespace CompositionSampleGallery
 
     internal class ImageNodeInfo : NodeInfo
     {
-        public ImageNodeInfo(NamedImage namedImage, Vector3 offset, float scale, float opacity = 1.0f) :
+        public ImageNodeInfo(int imageIndex, Vector3 offset, float scale, float opacity = 1.0f) :
             base(offset, scale, opacity)
         {
-            NamedImage = namedImage;
+            ImageIndex = imageIndex;
         }
 
-        public NamedImage NamedImage
+        public int ImageIndex
         {
             get; set;
         }
@@ -209,58 +209,5 @@ namespace CompositionSampleGallery
         {
             get; set;
         }
-    }
-
-
-    internal enum NamedImage
-    {
-        Pic00,
-        Pic01,
-        Pic02,
-        Pic03,
-        Pic04,
-        Pic05,
-        Pic06,
-        Pic07,
-        Pic08,
-        Pic09,
-        Pic10,
-        Pic11,
-        Pic12,
-        Pic13,
-        Pic14,
-        Pic15,
-        Pic16,
-        Pic17,
-        Pic18,
-        Pic19,
-        Pic20,
-        Pic21,
-        Pic22,
-        Pic23,
-        Pic24,
-        Pic25,
-        Pic26,
-        Pic27,
-        Pic28,
-        Pic29,
-        Pic30,
-        Pic31,
-        Pic32,
-        Pic33,
-        Pic34,
-        Pic35,
-        Pic36,
-        Pic37,
-        Pic38,
-        Pic39,
-        Pic40,
-        Pic41,
-        Pic42,
-        Pic43,
-        Pic44,
-        Pic45,
-
-        Count,
     }
 }

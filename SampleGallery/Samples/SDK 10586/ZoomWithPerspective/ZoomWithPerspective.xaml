@@ -19,7 +19,7 @@
                           ContainerContentChanging="ListView_ContainerContentChanging"
                           ItemClick="ThumbnailList_ItemClick"
                           IsItemClickEnabled="True"
-                          ItemsSource="{x:Bind Model.Items}">
+                          ItemsSource="{x:Bind Model.Landscapes}">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsWrapGrid Orientation="Horizontal"/>
@@ -31,7 +31,7 @@
                             <RelativePanel Width="240"
                                 Height="160"
                                 Margin="0,10,0,10">
-                                <common:CompositionImage Width="240" Height="160"/>
+                                <common:CompositionImage Width="240" Height="160" Stretch="UniformToFill"/>
                             </RelativePanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

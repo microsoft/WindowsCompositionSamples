@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Image Source="ms-appx:///Samples/SDK 10586/Z-Order Scrolling/RollingWaves.jpg"/>
+        <Image Source="ms-appx:///Assets/Landscapes/Landscape-9.jpg"/>
         <TextBlock Text="Animated Blur Sample With TintColor" Foreground="Black" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
         <common:BackDrop x:Name="backDrop" BlurAmount="10" TintColor="#880000FF"/>
     </Grid>

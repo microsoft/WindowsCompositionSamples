@@ -132,7 +132,7 @@ namespace SamplesCommon
             OnSizeChanged(this, null);
 
 #if SDKVERSION_14393
-            m_noiseSurface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Assets/Noise.jpg"));
+            m_noiseSurface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Assets/Other/Noise.jpg"));
             m_noiseSurface.Brush.Stretch = CompositionStretch.UniformToFill;
             m_blurBrush.SetSourceParameter("NoiseImage", m_noiseSurface.Brush);
 #endif

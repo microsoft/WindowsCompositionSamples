@@ -340,7 +340,7 @@ namespace CompositionSampleGallery.PointerEffectTechniques
             _effectFactory = _compositor.CreateEffectFactory(graphicsEffect, new[] { "LightMapTransform.TransformMatrix" });
 
             // Create the image
-            _lightMap = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Samples/SDK 10586/PointerEnterEffects/conemap.jpg"));
+            _lightMap = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Assets/NormalMapsAndMasks/conemap.jpg"));
 
             // Create the animations
             float sweep = (float)Math.PI / 10f;
@@ -468,7 +468,7 @@ namespace CompositionSampleGallery.PointerEffectTechniques
             _effectFactory = _compositor.CreateEffectFactory(graphicsEffect, new[] { "LightMapTransform.TransformMatrix" });
 
             // Create the image
-            _lightMap = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Samples/SDK 10586/PointerEnterEffects/pointmap.jpg"));
+            _lightMap = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Assets/NormalMapsAndMasks/pointmap.jpg"));
 
             // Create the animations
             CubicBezierEasingFunction easeIn = _compositor.CreateCubicBezierEasingFunction(new Vector2(0.0f, 0.51f), new Vector2(1.0f, 0.51f));

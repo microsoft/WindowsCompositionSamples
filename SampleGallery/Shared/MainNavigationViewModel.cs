@@ -91,7 +91,7 @@ namespace CompositionSampleGallery
             AddNavigationItem(_mainMenuList, "Motion",          SampleCategory.Motion,                  typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Motion, thumbnail: "ms-appx:///Assets/CategoryIcons/table_motion_icon.png");
             AddNavigationItem(_mainMenuList, "Material",        SampleCategory.Material,                typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Material, thumbnail: "ms-appx:///Assets/CategoryIcons/table_material_icon.png");
             AddNavigationItem(_mainMenuList, "Scale",           SampleCategory.Scale,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Scale, thumbnail: "ms-appx:///Assets/CategoryIcons/table_scale_icon.png");
-            AddNavigationItem(_mainMenuList, "API Reference",   SampleCategory.APIReference,            typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_APIReference);
+            AddNavigationItem(_mainMenuList, "API Reference",   SampleCategory.APIReference,            typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_APIReference, thumbnail: "ms-appx:///Assets/CategoryIcons/table_reference_icon.png");
 
             s_instance = this;
         }

@@ -28,7 +28,7 @@
             SelectionMode="None"
             IsItemClickEnabled="True"
             ItemClick="ItemsGridView_ItemClick"
-            ItemsSource="{x:Bind Model.Items}">
+            ItemsSource="{x:Bind Model.Landscapes}">
             <GridView.ItemContainerTransitions>
                 <TransitionCollection>
                     <EntranceThemeTransition x:Name="EntranceTransition" />

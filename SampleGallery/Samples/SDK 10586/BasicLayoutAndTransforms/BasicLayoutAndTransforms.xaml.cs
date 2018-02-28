@@ -37,7 +37,8 @@ namespace CompositionSampleGallery
         public static string        StaticSampleName => "Basic Layout and Transforms"; 
         public override string      SampleName => StaticSampleName; 
         public static string        StaticSampleDescription => "Adjust the sliders to see how CenterPoint and AnchorPoint affect positioning and transforms"; 
-        public override string      SampleDescription => StaticSampleDescription; 
+        public override string      SampleDescription => StaticSampleDescription;
+        public override string      SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868942";
 
         private void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {

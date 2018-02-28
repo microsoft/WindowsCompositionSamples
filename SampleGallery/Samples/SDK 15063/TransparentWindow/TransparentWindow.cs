@@ -49,6 +49,7 @@ namespace CompositionSampleGallery
         public override string      SampleName => StaticSampleName; 
         public static string        StaticSampleDescription => "Demonstrates a few different transparent window effects";
         public override string      SampleDescription => StaticSampleDescription;
+        public override string      SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868956";
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {

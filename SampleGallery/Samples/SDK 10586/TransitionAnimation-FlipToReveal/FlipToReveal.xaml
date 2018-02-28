@@ -12,7 +12,7 @@
           Tapped="MainPanel_Tapped">
         
         <!-- ImageTile and CaptionTile occupy the same cell in the Grid -->
-        <Image Source="Image.jpg" Width="350" Height="192"
+        <Image Source="ms-appx:///Assets/Nature/Nature-7.jpg" Width="350" Height="192"
                 HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ImageTile" />
         
         <Border BorderThickness="2" BorderBrush="#B91C8D" Background="#250E35" x:Name="CaptionTile"

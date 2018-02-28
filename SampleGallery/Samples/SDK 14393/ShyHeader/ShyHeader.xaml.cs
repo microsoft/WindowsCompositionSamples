@@ -45,7 +45,7 @@ namespace CompositionSampleGallery
         public override string  SampleName => StaticSampleName; 
         public static string    StaticSampleDescription => "Demonstrates how to use ExpressionAnimations with a ScrollViewer to create a shinking header tied to scroll position.";
         public override string  SampleDescription => StaticSampleDescription;
-        public override string  SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761172"; 
+        public override string  SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=869003"; 
 
         private void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {

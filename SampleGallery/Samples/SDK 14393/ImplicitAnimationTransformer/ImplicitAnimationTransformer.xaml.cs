@@ -88,7 +88,7 @@ namespace CompositionSampleGallery
             _imageList = new List<ManagedSurface>(10);
             for (int k = 0; k < imageNames.Length; k++)
             {
-                ManagedSurface surface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Samples/SDK 14393/ImplicitAnimationTransformer/" + imageNames[k]));
+                ManagedSurface surface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Assets/Other/" + imageNames[k]));
                 _imageList.Add(surface);
             }
 

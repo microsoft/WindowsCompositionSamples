@@ -31,6 +31,7 @@ namespace CompositionSampleGallery
         public override string      SampleName => StaticSampleName; 
         public static string        StaticSampleDescription => "Use LayerVisual to apply an animated effect to a tree of SpriteVisuals"; 
         public override string      SampleDescription => StaticSampleDescription;
+        public override string      SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=869006";
 
         public TreeEffects()
         {

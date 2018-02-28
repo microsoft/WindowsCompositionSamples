@@ -41,7 +41,7 @@ namespace CompositionSampleGallery
                 return new Uri(((Thumbnail)o).ImageUrl);
             };
 
-            ImagePopupViewer.Show(Model.Items[0].ImageUrl, Model.Items, getImageForThumbnail, new Thickness(50, 50, 50, 50), this);
+            ImagePopupViewer.Show(Model.Nature[0].ImageUrl, Model.Nature, getImageForThumbnail, new Thickness(50, 50, 50, 50), this);
         }
 
         private void SamplePage_Loading(Windows.UI.Xaml.FrameworkElement sender, object args)

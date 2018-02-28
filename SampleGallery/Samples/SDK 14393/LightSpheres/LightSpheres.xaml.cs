@@ -75,12 +75,13 @@ namespace CompositionSampleGallery
         public override string SampleName => StaticSampleName; 
         public static string   StaticSampleDescription => "Demonstrates a simulated 3D scene with multiple lights."; 
         public override string SampleDescription => StaticSampleDescription;
+        public override string SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=869000";
 
         private async void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             ConstructWalls();
 
-            _normalMap = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Samples/SDK 14393/LightSpheres/SphericalWithMask.png"));
+            _normalMap = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Assets/NormalMapsAndMasks/SphericalWithMask.png"));
 
             LightControl1.Offset = new Vector3(-77, 21, -768);
             LightControl1.LightColor.Color = Color.FromArgb(255, 255, 255, 255);

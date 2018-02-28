@@ -16,6 +16,7 @@ using CompositionSampleGallery.Samples.SDK_14393.SwipeScroller.Models;
 using CompositionSampleGallery.Shared;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 
 namespace CompositionSampleGallery
@@ -32,20 +33,20 @@ namespace CompositionSampleGallery
         public override string  SampleName => StaticSampleName; 
         public static string    StaticSampleDescription => "Demonstrates how to use InteractionTracker to add a swipe behavior to items inside a ScrollViewer"; 
         public override string  SampleDescription => StaticSampleDescription;
+        public override string SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=869004";
 
         public LocalDataSource Model { set; get; }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             List<PhotoModel> list = new List<PhotoModel>();
-            foreach (Thumbnail thumbnail in Model.Cities)
+            foreach (Thumbnail thumbnail in Model.AggregateDataSources(new ObservableCollection<Thumbnail>[] { Model.Landscapes, Model.Nature }))
             {
                 list.Add(new PhotoModel()
                 {
                     Name = thumbnail.Name,
                     Image = new Uri(thumbnail.ImageUrl),
-                    Info = thumbnail.Description,
-                    Details = thumbnail.Details
+                    Info = thumbnail.Description
                 });
             }
             Items.ItemsSource = list;

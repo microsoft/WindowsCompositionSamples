@@ -84,7 +84,7 @@ namespace CompositionSampleGallery
                 var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("Image");
                 if (animation != null)
                 {
-                    var item = Model.Items.Where(compare => compare.ImageUrl == _navigatedUri).First();
+                    var item = Model.Landscapes.Where(compare => compare.ImageUrl == _navigatedUri).First();
 
                     ItemsGridView.ScrollIntoView(item, ScrollIntoViewAlignment.Default);
                     ItemsGridView.UpdateLayout();

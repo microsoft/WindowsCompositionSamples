@@ -27,53 +27,53 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="ms-appx:///Assets/Photos/pic00.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic01.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic02.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic03.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic04.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Abstract/Abstract-1.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Abstract/Abstract-2.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Abstract/Abstract-3.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Abstract/Abstract-4.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Abstract/Abstract-5.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
 
-                        <Image Source="ms-appx:///Assets/Photos/pic05.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic06.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic07.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic08.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic09.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Abstract/Abstract-6.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Abstract/Abstract-7.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Nature/Nature-1.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Nature/Nature-2.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Nature/Nature-3.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
 
-                        <Image Source="ms-appx:///Assets/Photos/pic10.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic11.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic12.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic13.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic14.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Nature/Nature-4.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Nature/Nature-5.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Nature/Nature-6.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Nature/Nature-7.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Nature/Nature-8.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
 
-                        <Image Source="ms-appx:///Assets/Photos/pic15.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic16.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic17.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic18.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic19.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Nature/Nature-9.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Nature/Nature-10.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Landscapes/Landscape-1.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Landscapes/Landscape-2.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Landscapes/Landscape-3.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
 
-                        <Image Source="ms-appx:///Assets/Photos/pic20.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic21.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic22.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic23.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic24.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Landscapes/Landscape-4.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Landscapes/Landscape-5.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Landscapes/Landscape-6.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Landscapes/Landscape-7.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Landscapes/Landscape-8.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
 
-                        <Image Source="ms-appx:///Assets/Photos/pic25.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic26.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic27.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic28.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic29.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Landscapes/Landscape-9.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Landscapes/Landscape-10.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Landscapes/Landscape-11.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Landscapes/Landscape-12.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Abstract/Abstract-1.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
 
-                        <Image Source="ms-appx:///Assets/Photos/pic30.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic31.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic32.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic33.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic34.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Abstract/Abstract-2.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Abstract/Abstract-3.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Abstract/Abstract-4.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Abstract/Abstract-5.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Abstract/Abstract-6.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
 
-                        <Image Source="ms-appx:///Assets/Photos/pic35.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="7" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic36.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="7" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic37.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="7" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic38.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="7" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
-                        <Image Source="ms-appx:///Assets/Photos/pic39.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="7" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Abstract/Abstract-7.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="7" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Nature/Nature-1.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="7" Grid.Column="1" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Nature/Nature-2.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="7" Grid.Column="2" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Nature/Nature-3.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="7" Grid.Column="3" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
+                        <Image Source="ms-appx:///Assets/Nature/Nature-4.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="7" Grid.Column="4" Width="200" Height="200" Stretch="UniformToFill" Margin="5"/>
 
                     </Grid>
                     <Grid x:Name="Header" Height="300" VerticalAlignment="Top">
@@ -81,14 +81,14 @@
                             <Grid>
                                 <Rectangle x:Name="BackgroundRectangle" Width="1050" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top" >
                                     <Rectangle.Fill>
-                                        <ImageBrush x:Name="BackgroundImage" ImageSource="ms-appx:///Assets/Photos/no_border_pic27.jpg" Stretch="UniformToFill" Opacity="0.6"/>
+                                        <ImageBrush x:Name="BackgroundImage" ImageSource="ms-appx:///Assets/Abstract/Abstract-4.jpg" Stretch="UniformToFill" Opacity="0.6"/>
                                     </Rectangle.Fill>
                                 </Rectangle>
                                 <Rectangle x:Name="OverlayRectangle" Fill="#BFCFB5C0" Width="1050" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="TextContainer">
                                     <Ellipse x:Name="ProfileImage" Height="150" Width="150" Margin="20,70,20,20">
                                         <Ellipse.Fill>
-                                            <ImageBrush ImageSource="ms-appx:///Assets/Photos/no_border_pic27.jpg" Stretch="UniformToFill"/>
+                                            <ImageBrush ImageSource="ms-appx:///Assets/Abstract/Abstract-2.jpg" Stretch="UniformToFill"/>
                                         </Ellipse.Fill>
                                     </Ellipse>
                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,70,0,0">

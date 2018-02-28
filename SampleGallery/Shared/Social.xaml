@@ -97,7 +97,7 @@
                 <RowDefinition Height="2*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" HorizontalAlignment="Stretch" Height="38">
-                <Image Source="ms-appx:///Assets/Twitter_Logo_White_On_Blue.png" />
+                <Image Source="ms-appx:///Assets/Other/Twitter_Logo_White_On_Blue.png" />
             </Grid>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">
                 <TextBlock HorizontalAlignment="Center" Style="{StaticResource SubSectionHeading}">Follow us</TextBlock>
