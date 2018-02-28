@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -34,7 +35,7 @@ namespace CompositionSampleGallery
                 return _itemsSource;
             }
             set
-            {                
+            {
                 NavView.MenuItems.Clear();
                 _itemsSource = value;
 
@@ -99,36 +100,48 @@ namespace CompositionSampleGallery
             BackStackStateChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        private void NavViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            NavigationItem navItem = (NavigationItem)((NavigationViewItem)args.SelectedItem).DataContext;
+            NavView.SelectedItem = NavView.MenuItems[0];
+            NavigateToSelectedItem();
+        }
 
-            // Verify nav item exists for navigation info. Settings page will return no navigation item.
-            if (navItem != null)
+        private void NavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        {
+            if (args.IsSettingsInvoked)
             {
-                Dictionary<string, string> properties = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-                properties.Add("TargetView", navItem.Category.ToString());
-                Shared.AppTelemetryClient.TrackEvent("Navigate", properties, null);
-            }
-
-            if (args.IsSettingsSelected)
-            {
-                ContentFrame.Navigate(typeof(Settings));
+                Navigate(typeof(Settings), null);
+                ClearBackstack();
             }
             else
             {
-                ContentFrame.Navigate(navItem.PageType, navItem);
-            }
+                // The NavigationViewItemInvokedEventArgs only give us the string label of the item that was invoked.  Rather than writing
+                // awkward code to string compare the arg against each category name, we instead can just fetch the selected item
+                // off of the navigation view.  However, if the selection is actually changing as a result of this invocation, the NavView doesn't
+                // reflect that change until *after* this event has fired.  So, use the thread's DispatcherQueue to defer the navigation until 
+                // after the nav view has processed the potential selection change.
 
+                DispatcherQueue.GetForCurrentThread().TryEnqueue(DispatcherQueuePriority.High, () => { NavigateToSelectedItem(); } );                
+            }
+        }
+
+        private void NavigateToSelectedItem()
+        {
+            NavigationItem navItem = (NavigationItem)((NavigationViewItem)NavView.SelectedItem).DataContext;
+
+            Dictionary<string, string> properties = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            properties.Add("TargetView", navItem.Category.ToString());
+            Shared.AppTelemetryClient.TrackEvent("Navigate", properties, null);
+            Navigate(navItem.PageType, navItem);
+            ClearBackstack();
+        }
+
+        private void ClearBackstack()
+        {
             // Reset the backstack when a new category is selected to avoid having to coordinate the cateogory 
             // selection as we navigate back through the backstack
             ContentFrame.BackStack.Clear();
             FireBackStackChangedEvent();
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            NavView.SelectedItem = NavView.MenuItems[0];
         }
     }
 }
