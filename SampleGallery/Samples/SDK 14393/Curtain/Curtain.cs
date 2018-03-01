@@ -40,7 +40,7 @@ namespace CompositionSampleGallery
 
         public static string        StaticSampleName => "Curtain"; 
         public override string      SampleName => StaticSampleName; 
-        public static string        StaticSampleDescription => "Demonstrates how to provide custom interia expressions in response to touch input. Select a motion and swipe up with touch to see how the UI reacts."; 
+        public static string        StaticSampleDescription => "Demonstrates how to provide custom inertia expressions in response to touch input. Select a motion and swipe up with touch to see how the UI reacts."; 
         public override string      SampleDescription => StaticSampleDescription; 
         public override string      SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868996"; 
 

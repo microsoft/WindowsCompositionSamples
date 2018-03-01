@@ -28,7 +28,7 @@ namespace CompositionSampleGallery
 
         public static string        StaticSampleName => "Photo Popup Viewer"; 
         public override string      SampleName => StaticSampleName; 
-        public static string        StaticSampleDescription => "Demonstrates how use ListView and Effects to create a dynamic basic photo viewing experience. Click on any thumbnail and notice the smooth transition and color shifting in the blurred background."; 
+        public static string        StaticSampleDescription => "Demonstrates how to use ListView and Effects to create a dynamic basic photo viewing experience. Click on any thumbnail and notice the smooth transition and color shifting in the blurred background."; 
         public override string      SampleDescription => StaticSampleDescription;
         public override string      SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761180";
 

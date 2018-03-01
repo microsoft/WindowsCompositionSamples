@@ -121,10 +121,10 @@ namespace CompositionSampleGallery.Shared
                 }
             }
 
-            return RandomizeDataSources(items);
+            return RandomizeDataSource(items);
         }
 
-        public static ObservableCollection<Thumbnail> RandomizeDataSources(ObservableCollection<Thumbnail> list)
+        public static ObservableCollection<Thumbnail> RandomizeDataSource(ObservableCollection<Thumbnail> list)
         {
             Random rng = new Random();
             for (int i = list.Count-1; i > 0; i--)

@@ -59,7 +59,7 @@ namespace CompositionSampleGallery
             var parallax = (scrollPropSet.Translation.Y + startOffset);
             _parallaxExpression = parallax * parallaxValue - parallax;
 
-            ThumbnailList.ItemsSource = Model.AggregateDataSources(new ObservableCollection<Thumbnail>[] { Model.Landscapes, Model.Nature });
+            ThumbnailList.ItemsSource = LocalDataSource.RandomizeDataSource(Model.Nature);
         }
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)

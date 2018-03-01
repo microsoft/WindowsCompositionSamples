@@ -299,6 +299,7 @@
     <Content Include="Assets\BannerImages\BrushInterop.PNG" />
     <Content Include="Assets\BannerImages\IneractionTrackerBanner.png" />
     <Content Include="Assets\BannerImages\PullToAnimateBanner.PNG" />
+    <Content Include="Assets\CategoryIcons\table_home_icon.png" />
     <Content Include="Assets\CategoryIcons\table_reference_icon.png" />
     <Content Include="Assets\Other\Appointment.png" />
     <Content Include="Assets\BannerImages\ShyHeader.png" />

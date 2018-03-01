@@ -28,7 +28,7 @@
             <TextBlock
                 Margin="30"
                 TextWrapping="Wrap"
-                Text="All three Rectangles have an explicit Keyframe anaimation that runs on appliaction load and an implicit animation that runs when you resize the window. Notice the red rectangle's animation is broken." />
+                Text="All three rectangles have an explicit Keyframe animation that runs on application load and an implicit animation that runs when you resize the window. Notice the red rectangle's animation is broken." />
         </StackPanel>
         <!-- Green Rectangle #1 works using the new injected translation property. No changes to Mark-Up-->
         <Rectangle
@@ -75,7 +75,7 @@
             <TextBlock
                 Margin="30"
                 TextWrapping="Wrap"
-                Text="The green rectangle uses the new Translation property injected into the Visual's propertyset introduced in the Creator's Update. This is useful for animating a position change expcitly on any Visual handed out from ElementCompositionPreview as it is unaffected by Offset stomping. " />
+                Text="The green rectangle uses the new Translation property injected into the Visual's propertyset introduced in the Creator's Update. This is useful for animating a position change explicitly on any Visual handed out from ElementCompositionPreview as it is unaffected by Offset stomping. " />
         </StackPanel>
         <StackPanel
             Grid.Row="2"
@@ -87,7 +87,7 @@
             <TextBlock
                 Margin="30"
                 TextWrapping="Wrap"
-                Text="The Yellow rectangle shows the 14393 Aniversary Update workaround, wraping a border around layout properties in Mark-up. While the Yellow Rect looks fine, note that the code is less inutitive and requires work in both mark-up and and the code-behind. You need to wrap the rectangle in a border and then animate the border not the rect." />
+                Text="The yellow rectangle shows the 14393 Aniversary Update workaround, wrapping a border around layout properties in Mark-up. While the yellow rectangle looks fine, note that the code is less intuitive and requires work in both mark-up and the code-behind. You need to wrap the rectangle in a border and then animate the border not the rect." />
         </StackPanel>
         <StackPanel
             Grid.Row="2"
@@ -99,7 +99,7 @@
             <TextBlock
                 Margin="30"
                 TextWrapping="Wrap"
-                Text="The red rectangle's animation is broken. As XAML framework layout runs on load it clobbers the Offset property used for it's animation. Hit the Restart Animation to see it animate then resize the widown and note that it's animation stops when layout runs again." />
+                Text="The red rectangle's animation is broken. As XAML framework layout runs on load it clobbers the Offset property used for its animation. Hit the Restart Animation button to see it animate then resize the window and note that its animation stops when layout runs again." />
         </StackPanel>
     </Grid>
         

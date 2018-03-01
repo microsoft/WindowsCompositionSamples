@@ -59,7 +59,7 @@ namespace CompositionSampleGallery
 
         public static string    StaticSampleName => "Implicit Animations"; 
         public override string  SampleName => StaticSampleName; 
-        public static string    StaticSampleDescription => "Demonstrates how to use Animations triggered by property changes. Choose different layouts by clicking the buttons below. The layout of visual elments are transformed using implicit animations that are triggered on offset change. The last button allows you to apply scale implicit animation to any layout that is triggered by scale change.";
+        public static string    StaticSampleDescription => "Demonstrates how to use Animations triggered by property changes. Choose different layouts by clicking the buttons below. The layout of visual elements are transformed using implicit animations that are triggered on offset change. The last button allows you to apply scale implicit animation to any layout that is triggered by scale change.";
         public override string  SampleDescription => StaticSampleDescription;
         public override string  SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761163"; 
 
