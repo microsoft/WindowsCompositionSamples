@@ -232,6 +232,33 @@ namespace CompositionSampleGallery
             }
         }
 
+        private void StopAnimations()
+        {
+            ComboBoxItem item = LightingSelection.SelectedValue as ComboBoxItem;
+            switch ((LightingTypes)item.Tag)
+            {
+                case LightingTypes.PointDiffuse:
+                case LightingTypes.PointSpecular:
+                    _pointLight.StopAnimation("Offset");
+                    _pointLight.StopAnimation("Color");
+                    break;
+
+                case LightingTypes.SpotLightDiffuse:
+                case LightingTypes.SpotLightSpecular:
+                    _spotLight.StopAnimation("Offset");
+                    _spotLight.StopAnimation("InnerConeColor");
+                    break;
+
+                case LightingTypes.DistantDiffuse:
+                case LightingTypes.DistantSpecular:
+                    _distantLight.StopAnimation("Direction");
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
         private void SetImageEffect(CompositionImage image)
         {
             // Create the effect brush and bind the normal map
@@ -605,6 +632,7 @@ namespace CompositionSampleGallery
             if(MouseHover.IsChecked == true)
             {
                 ThumbnailList.PointerMoved += ThumbnailList_PointerMoved;
+                StopAnimations();
             }
             else
             {
