@@ -180,6 +180,7 @@ namespace CompositionSampleGallery
                 _brushList.Add(brush);
 
                 SpriteVisual sprite = _compositor.CreateSpriteVisual();
+                sprite.BorderMode = CompositionBorderMode.Hard;
                 sprite.Brush = brush;
                 sprite.Size = new Vector2(200, 200);
                 sprite.Offset = new Vector3(xOffset, 0, 0) + _defaultSphereOffset;
