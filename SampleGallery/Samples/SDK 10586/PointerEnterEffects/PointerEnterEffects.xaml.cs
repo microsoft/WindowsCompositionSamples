@@ -153,6 +153,8 @@ namespace CompositionSampleGallery
             // Set the effect surface as input
             if (effectSurface != null)
             {
+                // Set to UniformToFill to match the stretch mode of the original image
+                effectSurface.Brush.Stretch = CompositionStretch.UniformToFill;
                 brush.SetSourceParameter("EffectSource", effectSurface.Brush);
             }
         }
