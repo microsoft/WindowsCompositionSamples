@@ -73,7 +73,7 @@
                     VerticalAlignment="Center">
                 <common:CompositionImage x:Name="Image"
                         Width="400" Height="267"
-                        Source="ms-appx:///Samples/SDK 14393/ShadowPlayground/win11_-15607.jpg"
+                        Source="ms-appx:///Assets/Nature/Nature-13.jpg"
                         Stretch="Fill">
                 </common:CompositionImage>
             </common:CompositionShadow>

@@ -46,7 +46,7 @@
             <Grid>
                 <StackPanel Name="ContentPanel">
                     <Border Style="{StaticResource DividingBorder}">
-                        <TextBlock Text="Career" Style="{StaticResource DividingText}"></TextBlock>
+                        <TextBlock Text="Nomenclature" Style="{StaticResource DividingText}"></TextBlock>
                     </Border>
                     <TextBlock Style="{StaticResource BasicText}" xml:space="default" Text=
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce iaculis eget tellus sodales feugiat. Proin risus nunc,
@@ -76,7 +76,7 @@ Curabitur ut neque sit amet lectus lacinia tempor faucibus gravida lorem. ">
 
 
                     <Border Style="{StaticResource DividingBorder}">
-                        <TextBlock Style="{StaticResource DividingText}"  Text="Basic Background"/>
+                        <TextBlock Style="{StaticResource DividingText}"  Text="Classification"/>
                     </Border>
 
                     <TextBlock Style="{StaticResource BasicText}" Text=
@@ -89,7 +89,7 @@ massa ex accumsan lectus, sit amet ultrices leo velit sed leo. Nunc in enim enim
 
 
                     <Border Style="{StaticResource DividingBorder}">
-                        <TextBlock Style="{StaticResource DividingText}"  Text="Early life">
+                        <TextBlock Style="{StaticResource DividingText}"  Text="Morphology">
                         </TextBlock>
                     </Border>
                     <TextBlock Style="{StaticResource BasicText}" Text=
@@ -123,10 +123,10 @@ ornare porttitor. Nam fermentum ante quis ipsum porta, nec auctor quam imperdiet
                 </StackPanel>
                 <Grid Name="MainGrid" VerticalAlignment="Top">
                     <Grid Name="BackGrid"></Grid>
-                    <common:CompositionImage x:Name="ParallaxingImage"  IsHitTestVisible="False"></common:CompositionImage>
+                    <common:CompositionImage x:Name="ParallaxingImage" IsHitTestVisible="False"></common:CompositionImage>
                     <StackPanel Name="ProfileContent" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <TextBlock Style="{StaticResource ProfileName}">Satya Nadella</TextBlock>
-                        <TextBlock Style="{StaticResource ProfileTitle}">Chief Executive Officer</TextBlock>
+                        <TextBlock Style="{StaticResource ProfileName}">Vanessa</TextBlock>
+                        <TextBlock Style="{StaticResource ProfileTitle}">The Brush Footed Butterfly</TextBlock>
                     </StackPanel>
                 </Grid>
                 

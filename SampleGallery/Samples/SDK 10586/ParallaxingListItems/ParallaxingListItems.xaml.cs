@@ -15,6 +15,7 @@
 using CompositionSampleGallery.Shared;
 using ExpressionBuilder;
 using SamplesCommon;
+using System.Collections.ObjectModel;
 using System.Numerics;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
@@ -58,7 +59,7 @@ namespace CompositionSampleGallery
             var parallax = (scrollPropSet.Translation.Y + startOffset);
             _parallaxExpression = parallax * parallaxValue - parallax;
 
-            ThumbnailList.ItemsSource = Model.Items;
+            ThumbnailList.ItemsSource = LocalDataSource.RandomizeDataSource(Model.Nature);
         }
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)

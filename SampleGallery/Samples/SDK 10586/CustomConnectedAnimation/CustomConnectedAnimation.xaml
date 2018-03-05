@@ -17,7 +17,7 @@
                   IsItemClickEnabled="True" 
                   ItemClick="ThumbnailList_Click"
                   Loaded="ThumbnailList_Loaded"
-                  ItemsSource="{x:Bind Model.Items}">
+                  ItemsSource="{x:Bind Model.Nature}">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="data:Thumbnail">
                         <common:CompositionImage Source="{x:Bind ImageUrl}"

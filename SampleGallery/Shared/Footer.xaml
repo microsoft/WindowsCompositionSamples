@@ -7,13 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <RichTextBlock FontSize="12" Margin="20">
-            <Paragraph>THIS CODE AND INFORMATION IS PROVIDED 'AS IS' WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
-            </Paragraph>
-            <Paragraph>
-                <LineBreak/> Copyright (c) Microsoft Corporation. All rights
-            </Paragraph>
-        </RichTextBlock>
+    <Grid x:Name="FooterPartial">
+        <HyperlinkButton x:Name="SettingsButton" Click="SettingsButton_Click"  Style="{ThemeResource FooterHyperlinkStyle}" >
+            <StackPanel Orientation="Horizontal">
+                <SymbolIcon x:Name="Settings" Symbol="Setting"/>
+                <TextBlock Text="View Settings and About" Margin="10,0,0,0"/>
+            </StackPanel>
+        </HyperlinkButton>
     </Grid>
 </UserControl>

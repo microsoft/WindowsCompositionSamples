@@ -20,6 +20,8 @@ using Windows.UI.Composition;
 using Windows.UI.Xaml.Hosting;
 
 using EF = ExpressionBuilder.ExpressionFunctions;
+using CompositionSampleGallery.Shared;
+using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 namespace CompositionSampleGallery
@@ -33,6 +35,7 @@ namespace CompositionSampleGallery
         CompositionPropertySet _scrollerPropertySet;
         Compositor _compositor;
         private SpriteVisual _blurredBackgroundImageVisual;
+        public LocalDataSource Model { set; get; }
 
         public ShyHeader()
         {
@@ -43,15 +46,18 @@ namespace CompositionSampleGallery
 
         public static string    StaticSampleName => "Shy Header"; 
         public override string  SampleName => StaticSampleName; 
-        public static string    StaticSampleDescription => "Demonstrates how to use ExpressionAnimations with a ScrollViewer to create a shinking header tied to scroll position.";
+        public static string    StaticSampleDescription => "Demonstrates how to use ExpressionAnimations with a ScrollViewer to create a shrinking header tied to scroll position.";
         public override string  SampleDescription => StaticSampleDescription;
-        public override string  SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761172"; 
+        public override string  SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=869003"; 
 
         private void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             // Get the PropertySet that contains the scroll values from MyScrollViewer
             _scrollerPropertySet = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(MyScrollviewer);
             _compositor = _scrollerPropertySet.Compositor;
+            Model = new LocalDataSource();
+
+            gridView.ItemsSource = Model.AggregateDataSources(new ObservableCollection<Thumbnail>[] { Model.Landscapes, Model.Nature, Model.Abstract });
 
             // Create a PropertySet that has values to be referenced in the ExpressionAnimations below
             _props = _compositor.CreatePropertySet();

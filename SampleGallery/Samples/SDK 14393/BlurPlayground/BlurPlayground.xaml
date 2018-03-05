@@ -67,7 +67,7 @@
                Grid.Column="1" 
                Grid.Row="0"
                Margin="10"
-               Source="ms-appx:///Assets/WindowsInsiders/Ninjacat-2.png"/>
+               Source="ms-appx:///Assets/Abstract/Abstract-1.jpg"/>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>

@@ -14,7 +14,8 @@
             Margin="10"
             VerticalAlignment="Top"
             ScrollViewer.VerticalScrollBarVisibility="Hidden"
-            ScrollViewer.VerticalScrollMode="Disabled">
+            ScrollViewer.VerticalScrollMode="Disabled"
+            AutomationProperties.Name="{Binding DisplayName}">
             <Image x:Name="Thumbnail" Width="160" Height="160" Stretch="UniformToFill">
                 <Image.Source>
                     <BitmapImage UriSource="{x:Bind ImageUrl}" DecodePixelHeight="160" DecodePixelType="Logical"/>

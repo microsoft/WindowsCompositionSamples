@@ -6,6 +6,7 @@
 
 namespace ExpressionBuilder
 {
+    using System.Numerics;
     using Windows.UI.Composition;
     using Windows.UI.Composition.Interactions;
 
@@ -94,6 +95,21 @@ namespace ExpressionBuilder
         public static void SetMotion(this InteractionTrackerInertiaMotion modifier, ExpressionNode expressionNode)
         {
             modifier.Motion = CreateExpressionAnimationFromNode(modifier.Compositor, expressionNode);
+        }
+
+        /// <summary> Tries to update the InteractionTracker's position by applying an animation. </summary>
+        /// <param name="expressionNode">The root ExpressionNode that represents the ExpressionAnimation to apply to the InteractionTracker's position.</param>
+        public static void TryUpdatePositionWithAnimation(this InteractionTracker tracker, ExpressionNode expressionNode)
+        {
+            tracker.TryUpdatePositionWithAnimation(CreateExpressionAnimationFromNode(tracker.Compositor, expressionNode));
+        }
+
+        /// <summary> Tries to update the InteractionTracker's scale by applying an animation. </summary>
+        /// <param name="expressionNode">The root ExpressionNode that represents the ExpressionAnimation to apply to the InteractionTracker's scale.</param>
+        /// <param name="centerPoint">The centerPoint to use when scaling.</param>
+        public static void TryUpdateScaleWithAnimation(this InteractionTracker tracker, ExpressionNode expressionNode, Vector3 centerPoint)
+        {
+            tracker.TryUpdateScaleWithAnimation(CreateExpressionAnimationFromNode(tracker.Compositor, expressionNode), centerPoint);
         }
 
         

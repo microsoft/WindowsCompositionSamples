@@ -49,6 +49,7 @@ namespace CompositionSampleGallery
         public override string  SampleName => StaticSampleName;
         public static string    StaticSampleDescription => "Demonstrate different border modes with scaling, offset, and rotation."; 
         public override string  SampleDescription => StaticSampleDescription;
+        public override string  SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868944";
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -136,10 +137,10 @@ namespace CompositionSampleGallery
             switch ((ImageName)image.Tag)
             {
                 case ImageName.Checkerboard:
-                    SetImageBrush("ms-appx:///Samples/SDK Insider/BorderPlayground/Checkerboard.png");
+                    SetImageBrush("ms-appx:///Assets/Other/Checkerboard.png");
                     break;
                 case ImageName.Flower:
-                    SetImageBrush("ms-appx:///Samples/SDK Insider/BorderPlayground/FlowerSmall.png");
+                    SetImageBrush("ms-appx:///Assets/Nature/Nature-5.jpg");
                     break;
             }
 

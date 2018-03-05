@@ -47,6 +47,7 @@ namespace CompositionSampleGallery
         public static string    StaticSampleDescription => "Demonstrates how to use the capabilities API to detect hardware capabilities, " +
                                                             "listen to capability changes, and adjust effect usage and UI based on hardware.";
         public override string  SampleDescription => StaticSampleDescription;
+        public override string  SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868946";
 
         public CompCapabilities()
         {

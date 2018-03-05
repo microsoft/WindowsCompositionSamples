@@ -38,6 +38,7 @@ namespace CompositionSampleGallery
         public override string      SampleName => StaticSampleName; 
         public static string        StaticSampleDescription => "Animate the Rotation Angle and Axis of an object based on the hover position of the pointer."; 
         public override string      SampleDescription => StaticSampleDescription;
+        public override string      SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868951";
 
         private void TiltUIElement()
         {

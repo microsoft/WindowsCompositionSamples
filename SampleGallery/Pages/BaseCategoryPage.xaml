@@ -45,7 +45,7 @@
                 <local:FeaturedSamples 
                     x:Name="FeaturedSampleControl" 
                     Description="Click a sample to learn more"
-                    Background="{StaticResource CategoryPageFeaturedSampelsBackground}"
+                    Background="{StaticResource CategoryPageFeaturedSamplesBackground}"
                     Foreground="Black"/>
                 <!-- End featured transition samples -->
 

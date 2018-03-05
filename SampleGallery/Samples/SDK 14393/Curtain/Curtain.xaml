@@ -28,7 +28,7 @@
                    per conubia nostra, per inceptos himenaeos. Etiam suscipit tellus a mattis pulvinar. Sed et libero vel ligula elementum suscipit. Ut elementum libero at sagittis pharetra. Fusce ultrices 
                    odio sapien, a posuere est consectetur ut. 
 " Margin="0,100,0,50" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Image x:Name="Clock" Source="ms-appx:///Assets/Clock.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1000" Height="1000"/>
+        <Image x:Name="Cover" Source="ms-appx:///Assets/Landscapes/Landscape-11.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1000" Height="1000"/>
         <ListBox x:Name="Selector" Margin="0,0,0,0" SelectionChanged="Selector_SelectionChanged" SelectedIndex="0" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.8">
             <TextBlock Text="Default" />
             <TextBlock Text="Springy" />

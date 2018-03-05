@@ -13,32 +13,13 @@
 //*********************************************************
 
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Composition;
 using System.Numerics;
-using Windows.Foundation.Metadata;
-
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace CompositionSampleGallery
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
 
     public sealed partial class OffsetStompingFix : SamplePage
     {
@@ -55,7 +36,7 @@ namespace CompositionSampleGallery
         public override string  SampleName => StaticSampleName; 
         public static string    StaticSampleDescription => "By enabling the new Translation property via ElementCompositionPreview you animate a Visual's position without using the Offset property shared with the Xaml Framework."; 
         public override string  SampleDescription => StaticSampleDescription;
-        public override string  SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=847788";
+        public override string  SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868950";
 
         //Green rectangle animation using the new Translation property inserted into the Visual's PropertySet
         void StartAnimationTranslation()

@@ -2,7 +2,6 @@
     x:Class="CompositionSampleGallery.SampleHost"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:CompositionSampleGallery"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -59,8 +58,9 @@
                 x:Name="SampleCode"
                 x:FieldModifier="public"
                 Content="Click here to see the sample code on GitHub" />
+            <TextBlock x:Name="SampleTagsTextBlock" TextWrapping="WrapWholeWords" x:FieldModifier="public" Visibility="Collapsed"/>
         </StackPanel>
 
-        <Frame x:Name="ContentFrame" x:FieldModifier="Public" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Frame x:Name="ContentFrame" x:FieldModifier="Public" Grid.Row="1" Grid.ColumnSpan="2" />
     </Grid>
 </Page>

@@ -23,30 +23,22 @@
 
         <StackPanel Grid.Column="0" x:Name="LeftStackPanel" Grid.Row="0">
             <Canvas x:Name="CircleCanvas" Height="290" Width="{Binding ElementName=LeftStackPanel, Path=ActualWidth}" Margin="0,0,0,0">
-                <Ellipse x:Name="Image3" Width="200" Height="200" Visibility="Collapsed" Tapped="Image3_Tapped" >
+                <Ellipse x:Name="Image3" Width="200" Height="200" Visibility="Collapsed" Tapped="Image3_Tapped" Stretch="UniformToFill">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="ms-appx:///Assets/Landmarks/FerrisWheel.png"/>
+                        <ImageBrush ImageSource="ms-appx:///Assets/Nature/Nature-4.jpg" Stretch="UniformToFill"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <Ellipse x:Name="Image2" Width="200" Height="200" Visibility="Collapsed" Tapped="Image2_Tapped">
+                <Ellipse x:Name="Image2" Width="200" Height="200" Visibility="Collapsed" Tapped="Image2_Tapped" Stretch="UniformToFill">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="ms-appx:///Assets/Landmarks/PikePlaceMarket.png"/>
+                        <ImageBrush ImageSource="ms-appx:///Assets/Nature/Nature-7.jpg" Stretch="UniformToFill"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <Ellipse x:Name="Image1" Width="200" Height="200" Visibility="Collapsed" Tapped="Image1_Tapped">
+                <Ellipse x:Name="Image1" Width="200" Height="200" Visibility="Collapsed" Tapped="Image1_Tapped" Stretch="UniformToFill">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="ms-appx:///Assets/Landmarks/SpaceNeedle.png"/>
+                        <ImageBrush ImageSource="ms-appx:///Assets/Nature/Nature-10.jpg" Stretch="UniformToFill"/>
                     </Ellipse.Fill>
                 </Ellipse>
             </Canvas>
-            <Button x:Name="LearnMoreButton" Click="LearnMoreButton_Click" Margin="0,0,0,20" HorizontalAlignment="Center">Learn More</Button>
-            <Button x:Name="FacebookButton" Click="FacebookButton_Click" HorizontalAlignment="Center">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="ms-appx:///Assets/FB-f-Logo__blue_57.png" Width="20" Margin ="0,0,10,0"/>
-                    <TextBlock>Find on Facebook
-                    </TextBlock>
-                </StackPanel>
-            </Button>
         </StackPanel>
 
         <Button x:Name="ViewMoreButton" Click="ViewMoreButton_Click"  Visibility="Collapsed" Grid.Row="0" Grid.Column="1">

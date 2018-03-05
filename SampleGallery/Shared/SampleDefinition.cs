@@ -27,6 +27,7 @@ namespace CompositionSampleGallery
 
     public enum SampleCategory
     {
+        None,
         Light,
         Depth,
         Motion,
@@ -37,13 +38,14 @@ namespace CompositionSampleGallery
 
     public class SampleDefinition
     {
-        private const string MissingThumbnailAsset = "ms-appx:///Assets/MissingThumbnail.png";
+        private const string MissingThumbnailAsset = "ms-appx:///Assets/Other/MissingThumbnail.png";
         private string _name;
         private Type _pageType;
         private SampleType _sampleType;
         private SampleCategory _sampleCategory;
         private string _imageUrl;
         private string _description;
+        private string[] _tags;
         private bool _featured;
         private bool _requiresFastEffects;
         private bool _requiresEffects;
@@ -60,6 +62,7 @@ namespace CompositionSampleGallery
             bool requiresFastEffects, 
             string imageUrl = MissingThumbnailAsset, 
             string description = null, 
+            string[] tags = null,
             bool featured = false, 
             DateTime dateAdded = new DateTime(), 
             RuntimeSupportedSDKs.SDKVERSION sdkVersion = RuntimeSupportedSDKs.SDKVERSION._10586
@@ -71,6 +74,7 @@ namespace CompositionSampleGallery
             _sampleCategory = sampleArea;
             _imageUrl = imageUrl;
             _description = description;                  // used when showing more information about a sample, such as for featured samples
+            _tags = tags;
             _featured = featured;
             _requiresEffects = requiresEffects;
             _requiresFastEffects = requiresFastEffects;
@@ -85,6 +89,7 @@ namespace CompositionSampleGallery
         public string DisplayName { get { return _name; } }
         public string ImageUrl { get { return _imageUrl; } }
         public string Description { get { return _description; } }
+        public string[] Tags { get { return _tags; } }
         public bool Featured { get { return _featured; } }
         public bool RequiresEffects { get { return _requiresEffects; } }
         public bool RequiresFastEffects { get { return _requiresFastEffects; } }
@@ -116,12 +121,12 @@ namespace CompositionSampleGallery
         // Full list of all definitions
         static SampleDefinition[] _allDefinitions =
         {
-            //      StaticSampleName                                                Class                                 SampleType            SampleCategory                      Effects     FastEffects     ThumbnailURL                                                                         StaticSampleDescription                                                 SDKVersion                                                  Date Added                              Featured   
+            //      StaticSampleName                                                Class                                 SampleType            SampleCategory                      Effects     FastEffects     ThumbnailURL                                                                         StaticSampleDescription                                                 SDKVersion                                                  Date Added                              Featured                   Tags
 #if SDKVERSION_10586
-                new SampleDefinition(PropertySets.StaticSampleName,                 typeof(PropertySets),                 SampleType.Reference, SampleCategory.APIReference,        false,      false,          "ms-appx:///Assets/SampleThumbnails/ExpressionsAndPropertySets.PNG",        description: PropertySets.StaticSampleDescription), 
-                new SampleDefinition(PointerEnterEffects.StaticSampleName,          typeof(PointerEnterEffects),          SampleType.EndToEnd,  SampleCategory.Material,            true,       false,          "ms-appx:///Assets/SampleThumbnails/PointerEnterExitEffects.PNG",           description: PointerEnterEffects.StaticSampleDescription),
+                new SampleDefinition(PropertySets.StaticSampleName,                 typeof(PropertySets),                 SampleType.Reference, SampleCategory.APIReference,        false,      false,          "ms-appx:///Assets/SampleThumbnails/ExpressionsAndPropertySets.PNG",        description: PropertySets.StaticSampleDescription,                                                                                                                                                            tags: new string[1]{"ExpressionBuilder"}),
+                new SampleDefinition(PointerEnterEffects.StaticSampleName,          typeof(PointerEnterEffects),          SampleType.EndToEnd,  SampleCategory.Material,            true,       false,          "ms-appx:///Assets/SampleThumbnails/PointerEnterExitEffects.PNG",           description: PointerEnterEffects.StaticSampleDescription,                                                                                                                                                     tags: new string[1]{"ExpressionBuilder"}),
                 new SampleDefinition(ParallaxingListItems.StaticSampleName,         typeof(ParallaxingListItems),         SampleType.EndToEnd,  SampleCategory.Depth,               false,      false,          "ms-appx:///Assets/SampleThumbnails/ParallaxingListviewItem.PNG",           description: ParallaxingListItems.StaticSampleDescription),
-                new SampleDefinition(Z_OrderScrolling.StaticSampleName,             typeof(Z_OrderScrolling),             SampleType.EndToEnd,  SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/Z-OrderScrolling.PNG",                  description: Z_OrderScrolling.StaticSampleDescription),
+                new SampleDefinition(Z_OrderScrolling.StaticSampleName,             typeof(Z_OrderScrolling),             SampleType.EndToEnd,  SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/Z-OrderScrolling.PNG",                  description: Z_OrderScrolling.StaticSampleDescription,                                                                                                                                                        tags: new string[2]{"ExpressionBuilder", "ZOrder"}),
                 new SampleDefinition(BasicXamlInterop.StaticSampleName,             typeof(BasicXamlInterop),             SampleType.Reference, SampleCategory.APIReference,        false,      false,          "ms-appx:///Assets/SampleThumbnails/BasicXAMLInterop.PNG",                  description: BasicXamlInterop.StaticSampleDescription),
                 new SampleDefinition(ZoomWithPerspective.StaticSampleName,          typeof(ZoomWithPerspective),          SampleType.EndToEnd,  SampleCategory.Depth,               false,      false,          "ms-appx:///Assets/SampleThumbnails/ZoomWithPerspective.PNG",               description: ZoomWithPerspective.StaticSampleDescription),
                 new SampleDefinition(BasicLayoutAndTransforms.StaticSampleName,     typeof(BasicLayoutAndTransforms),     SampleType.Reference, SampleCategory.APIReference,        false,      false,          "ms-appx:///Assets/SampleThumbnails/BasicLayoutAndTransitions.PNG",         description: BasicLayoutAndTransforms.StaticSampleDescription),
@@ -129,7 +134,7 @@ namespace CompositionSampleGallery
                 new SampleDefinition(ColorBloomTransition.StaticSampleName,         typeof(ColorBloomTransition),         SampleType.EndToEnd,  SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/ColorBloom.jpg",                        description: ColorBloomTransition.StaticSampleDescription),
                 new SampleDefinition(ColorSlideTransition.StaticSampleName,         typeof(ColorSlideTransition),         SampleType.EndToEnd,  SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/ColorSlide.png",                        description: ColorSlideTransition.StaticSampleDescription),
                 new SampleDefinition(FlipToReveal.StaticSampleName,                 typeof(FlipToReveal),                 SampleType.EndToEnd,  SampleCategory.Depth,               false,      false,          "ms-appx:///Assets/SampleThumbnails/FlipToReveal.png",                      description: FlipToReveal.StaticSampleDescription),
-                new SampleDefinition(ConnectedAnimationShell.StaticSampleName,      typeof(ConnectedAnimationShell),      SampleType.EndToEnd,  SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/ContinuityAnimations.jpg",              description: ConnectedAnimationShell.StaticSampleDescription,                                                                                                               featured: true),
+                new SampleDefinition(ConnectedAnimationShell.StaticSampleName,      typeof(ConnectedAnimationShell),      SampleType.EndToEnd,  SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/ContinuityAnimations.jpg",              description: ConnectedAnimationShell.StaticSampleDescription,                                                                                                                  featured: true,                 tags: new string[1]{"ExpressionBuilder"}),
 #endif
 
 #if SDKVERSION_14393
@@ -143,7 +148,7 @@ namespace CompositionSampleGallery
                 new SampleDefinition(ForegroundFocusEffects.StaticSampleName,       typeof(ForegroundFocusEffects),       SampleType.EndToEnd,  SampleCategory.Depth,               true,       true,           "ms-appx:///Assets/SampleThumbnails/ForegroundFocusEffects.PNG",            description: ForegroundFocusEffects.StaticSampleDescription,            sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
                 new SampleDefinition(PhotoViewer.StaticSampleName,                  typeof(PhotoViewer),                  SampleType.EndToEnd,  SampleCategory.Motion,              true,       false,          "ms-appx:///Assets/SampleThumbnails/PhotoPopupViewer.PNG",                  description: PhotoViewer.StaticSampleDescription,                       sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
                 new SampleDefinition(ThumbnailLighting.StaticSampleName,            typeof(ThumbnailLighting),            SampleType.EndToEnd,  SampleCategory.Light,               true,       true,           "ms-appx:///Assets/SampleThumbnails/ThumbnailLighting.jpg",                 description: ThumbnailLighting.StaticSampleDescription,                 sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
-                new SampleDefinition(Curtain.StaticSampleName,                      typeof(Curtain),                      SampleType.Reference, SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/Curtain.PNG",                           description: Curtain.StaticSampleDescription,                           sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
+                new SampleDefinition(Curtain.StaticSampleName,                      typeof(Curtain),                      SampleType.Reference, SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/Curtain.PNG",                           description: Curtain.StaticSampleDescription,                           sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393,                                                                                    tags: new string[1]{"ExpressionBuilder"}),
                 new SampleDefinition(PullToAnimate.StaticSampleName,                typeof(PullToAnimate),                SampleType.EndToEnd,  SampleCategory.Depth,               true,       true,           "ms-appx:///Assets/SampleThumbnails/PullToAnimate.jpg",                     description: PullToAnimate.StaticSampleDescription,                     sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393,                                                 featured: true),
                 new SampleDefinition(NowPlaying.StaticSampleName,                   typeof(NowPlaying),                   SampleType.EndToEnd,  SampleCategory.APIReference,        true,       true,           "ms-appx:///Assets/SampleThumbnails/NowPlaying.PNG",                        description: NowPlaying.StaticSampleDescription,                        sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
                 new SampleDefinition(ShadowPlayground.StaticSampleName,             typeof(ShadowPlayground),             SampleType.Reference, SampleCategory.APIReference,        true,       true,           "ms-appx:///Assets/SampleThumbnails/ShadowPlayground.jpg",                  description: ShadowPlayground.StaticSampleDescription,                  sdkVersion: RuntimeSupportedSDKs.SDKVERSION._14393),
@@ -158,14 +163,14 @@ namespace CompositionSampleGallery
 #endif
 
 #if SDKVERSION_15063
-                new SampleDefinition(Interactions3D.StaticSampleName,               typeof(Interactions3D),               SampleType.EndToEnd,  SampleCategory.Depth,               false,      false,          "ms-appx:///Assets/SampleThumbnails/Interaction3D.PNG",                     description: Interactions3D.StaticSampleDescription,                    sdkVersion: RuntimeSupportedSDKs.SDKVERSION._15063,                                                 featured: true),
+                new SampleDefinition(Interactions3D.StaticSampleName,               typeof(Interactions3D),               SampleType.EndToEnd,  SampleCategory.Depth,               false,      false,          "ms-appx:///Assets/SampleThumbnails/Interaction3D.PNG",                     description: Interactions3D.StaticSampleDescription,                    sdkVersion: RuntimeSupportedSDKs.SDKVERSION._15063,                                                 featured: true,                    tags: new string[2]{"3d", "InteractionTracker"}),
                 new SampleDefinition(BorderPlayground.StaticSampleName,             typeof(BorderPlayground),             SampleType.Reference, SampleCategory.APIReference,        false,      true,           "ms-appx:///Assets/SampleThumbnails/BorderEffects.PNG",                     description: BorderPlayground.StaticSampleDescription,                  sdkVersion: RuntimeSupportedSDKs.SDKVERSION._15063,         dateAdded: new DateTime(2017,02,08)),
                 new SampleDefinition(CompCapabilities.StaticSampleName,             typeof(CompCapabilities),             SampleType.Reference, SampleCategory.Scale,               false,      false,          "ms-appx:///Assets/SampleThumbnails/CompositionCapabilities.PNG",           description: CompCapabilities.StaticSampleDescription,                  sdkVersion: RuntimeSupportedSDKs.SDKVERSION._15063,         dateAdded: new DateTime(2017,02,08),    featured: true),
                 new SampleDefinition(TransparentWindow.StaticSampleName,            typeof(TransparentWindow),            SampleType.EndToEnd,  SampleCategory.APIReference,        true,       true,           "ms-appx:///Assets/SampleThumbnails/TransparentWindow.PNG",                 description: TransparentWindow.StaticSampleDescription,                 sdkVersion: RuntimeSupportedSDKs.SDKVERSION._15063,         dateAdded: new DateTime(2017,02,08),    featured: true),
                 new SampleDefinition(NavigationFlow.StaticSampleName,               typeof(NavigationFlow),               SampleType.EndToEnd,  SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/NavigationFlow.PNG",                    description: NavigationFlow.StaticSampleDescription,                    sdkVersion: RuntimeSupportedSDKs.SDKVERSION._15063,         dateAdded: new DateTime(2017,02,08),    featured: true),
                 new SampleDefinition(ShowHideImplicitWebview.StaticSampleName,      typeof(ShowHideImplicitWebview),      SampleType.EndToEnd,  SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/ShowHideImplicitWebview.PNG",           description: ShowHideImplicitWebview.StaticSampleDescription,           sdkVersion: RuntimeSupportedSDKs.SDKVERSION._15063,         dateAdded: new DateTime(2017,02,28)),
                 new SampleDefinition(ShadowsAdvanced.StaticSampleName,              typeof(ShadowsAdvanced),              SampleType.Reference, SampleCategory.Depth,               false,      false,          "ms-appx:///Assets/SampleThumbnails/AdvancedShadows.PNG",                   description: ShadowsAdvanced.StaticSampleDescription,                   sdkVersion: RuntimeSupportedSDKs.SDKVERSION._15063,                                                 featured: true),
-                new SampleDefinition(OffsetStompingFix.StaticSampleName,            typeof(OffsetStompingFix),            SampleType.Reference, SampleCategory.APIReference,        false,      false,          "ms-appx:///Assets/SampleThumbnails/Offset_Stomping.gif",                   description: OffsetStompingFix.StaticSampleDescription,                 sdkVersion: RuntimeSupportedSDKs.SDKVERSION._15063,         dateAdded: new DateTime(2017,04,18),    featured: true),
+                new SampleDefinition(OffsetStompingFix.StaticSampleName,            typeof(OffsetStompingFix),            SampleType.Reference, SampleCategory.APIReference,        false,      false,          "ms-appx:///Assets/SampleThumbnails/OffsetStompingFix.PNG",                 description: OffsetStompingFix.StaticSampleDescription,                 sdkVersion: RuntimeSupportedSDKs.SDKVERSION._15063,         dateAdded: new DateTime(2017,04,18),    featured: true),
                 new SampleDefinition(PointerRotate.StaticSampleName,                typeof(PointerRotate),                SampleType.Reference, SampleCategory.Depth,               false,      false,          "ms-appx:///Assets/SampleThumbnails/PointerRotate.PNG",                     description: PointerRotate.StaticSampleDescription,                     sdkVersion: RuntimeSupportedSDKs.SDKVERSION._15063,         dateAdded: new DateTime(2017,04,25),    featured: true),
                 new SampleDefinition(BrushInterop.StaticSampleName,                 typeof(BrushInterop),                 SampleType.Reference, SampleCategory.APIReference,        true,       true,           "ms-appx:///Assets/SampleThumbnails/BrushInterop.PNG",                      description: BrushInterop.StaticSampleDescription,                      sdkVersion: RuntimeSupportedSDKs.SDKVERSION._15063,         dateAdded: new DateTime(2017,06,21),    featured: true),
                 new SampleDefinition(LightInterop.StaticSampleName,                 typeof(LightInterop),                 SampleType.Reference, SampleCategory.Material,            true,       true,           "ms-appx:///Assets/SampleThumbnails/LightInterop.PNG",                      description: LightInterop.StaticSampleDescription,                      sdkVersion: RuntimeSupportedSDKs.SDKVERSION._15063,         dateAdded: new DateTime(2017,06,21),    featured: true),
@@ -174,7 +179,7 @@ namespace CompositionSampleGallery
 #endif
 
 #if SDKVERSION_16299
-                new SampleDefinition(SpringyImage.StaticSampleName,                 typeof(SpringyImage),                 SampleType.Reference, SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/PointerRotate.PNG",                     description: SpringyImage.StaticSampleDescription,                      sdkVersion: RuntimeSupportedSDKs.SDKVERSION._16299,        dateAdded: new DateTime(2017,08,7)),             
+                new SampleDefinition(SpringyImage.StaticSampleName,                 typeof(SpringyImage),                 SampleType.Reference, SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/SpringyImage.PNG",                      description: SpringyImage.StaticSampleDescription,                      sdkVersion: RuntimeSupportedSDKs.SDKVERSION._16299,         dateAdded: new DateTime(2017,08,7),                                        tags: new string[1]{"ExpressionBuilder"}),             
 #endif
 
 #if SDKVERSION_INSIDER

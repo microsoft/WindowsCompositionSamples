@@ -14,19 +14,13 @@
 
 using CompositionSampleGallery.Shared;
 using ExpressionBuilder;
-using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Effects;
 using SamplesCommon;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Graphics.Effects;
-using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 
 using EF = ExpressionBuilder.ExpressionFunctions;
@@ -51,6 +45,7 @@ namespace CompositionSampleGallery
         public override string  SampleName => StaticSampleName;
         public static string    StaticSampleDescription => "Demonstrates how to achieve a depth-of-field effect with LayerVisual and EffectBrush."; 
         public override string  SampleDescription => StaticSampleDescription;
+        public override string SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868997";
 
         public IReadOnlyList<Layer> Layers { get { return layers; } }
 
@@ -83,9 +78,13 @@ namespace CompositionSampleGallery
             selectedLayerIndex = layers.Count / 2;
 
             int layerIndex = 0;
-            foreach (var item in new LocalDataSource().Items)
+            // Divide the images from the data source over the layer items
+            // Recycle data source images if necessary
+            var datasource = (new LocalDataSource()).Nature;
+
+            for (int i=0; i<layers.Count*4; i++)
             {
-                var uri = new Uri(item.ImageUrl);
+                var uri = new Uri(datasource[i % datasource.Count].ImageUrl);
                 var layer = layers[layerIndex];
                 layer.AddItem(uri);
 
@@ -255,7 +254,9 @@ namespace CompositionSampleGallery
             public SpriteVisual CreateVisual(Compositor compositor)
             {
                 _visual = compositor.CreateSpriteVisual();
-                _visual.Brush = _surface.Brush;
+                var brush = _surface.Brush;
+                brush.Stretch = CompositionStretch.UniformToFill;
+                _visual.Brush = brush;
                 return _visual;
             }
         }

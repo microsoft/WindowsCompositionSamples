@@ -14,7 +14,8 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <GridView x:Name="FullSampleList" Foreground="Red" IsItemClickEnabled="True" ItemClick="FullSampleList_ItemClick">
+
+    <StackPanel>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
 
@@ -44,20 +45,27 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <GridView.ItemContainerStyle>
-            <Style TargetType="GridViewItem">
-                <Setter Property="VerticalAlignment" Value="Top" />
-                <Setter Property="Padding" Value="0" />
-            </Style>
-        </GridView.ItemContainerStyle>
-        <GridView.ItemsPanel>
-            <ItemsPanelTemplate>
-                <ItemsWrapGrid Orientation="Horizontal" ScrollViewer.VerticalScrollMode="Disabled"/>
-            </ItemsPanelTemplate>
-        </GridView.ItemsPanel>
-        <GridView.Header>
-            <GridViewHeaderItem x:Name="HeaderItem" Content="All Samples" Padding="10" Margin="0" Typography.Capitals="AllSmallCaps" Foreground="{ThemeResource ResourceKey=SystemControlForegroundAccentBrush}">
-            </GridViewHeaderItem>
-        </GridView.Header>
-    </GridView>
+        <GridView x:Name="FullSampleList" Foreground="Red" IsItemClickEnabled="True" ItemClick="FullSampleList_ItemClick">
+            
+
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="VerticalAlignment" Value="Top" />
+                    <Setter Property="Padding" Value="0" />
+                </Style>
+            </GridView.ItemContainerStyle>
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid Orientation="Horizontal" ScrollViewer.VerticalScrollMode="Disabled"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+            <GridView.Header>
+                <GridViewHeaderItem x:Name="HeaderItem" Content="All Samples" Padding="10" Margin="0" Typography.Capitals="AllSmallCaps" Foreground="{ThemeResource ResourceKey=SystemControlForegroundAccentBrush}">
+                </GridViewHeaderItem>
+            </GridView.Header>
+        </GridView>
+        <StackPanel Margin="40,10,0,0" >
+            <TextBlock x:Name="NoResultsTextBlock" Text="No results" Visibility="Collapsed" />
+        </StackPanel>
+    </StackPanel>
 </UserControl>

@@ -22,6 +22,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using ExpressionBuilder;
+using System.Collections.ObjectModel;
 
 namespace CompositionSampleGallery
 {
@@ -43,12 +44,13 @@ namespace CompositionSampleGallery
         public static string        StaticSampleName => "Pull-To-Refresh ListView Items"; 
         public override string      SampleName => StaticSampleName; 
         public static string        StaticSampleDescription => "Demonstrates how to create a custom Pull-to-Refresh control using Interaction Tracker Source Modifiers";
-        public override string SampleDescription => StaticSampleDescription;
+        public override string      SampleDescription => StaticSampleDescription;
+        public override string      SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868952";
 
         public LocalDataSource Model { set; get; }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            ThumbnailList.ItemsSource = Model.Cities;
+            ThumbnailList.ItemsSource = ThumbnailList.ItemsSource = Model.AggregateDataSources(new ObservableCollection<Thumbnail>[] { Model.Landscapes, Model.Nature });
             _contentPanelVisual = ElementCompositionPreview.GetElementVisual(ContentPanel);
             _root = ElementCompositionPreview.GetElementVisual(Root);
             _compositor = _root.Compositor;

@@ -24,5 +24,10 @@ namespace CompositionSampleGallery
         {
             this.InitializeComponent();
         }
+
+        private void SettingsButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            MainNavigationViewModel.ShowSettings();
+        }                                       
     }
 }

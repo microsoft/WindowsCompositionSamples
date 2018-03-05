@@ -16,6 +16,7 @@ using CompositionSampleGallery.Shared;
 using SamplesCommon;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Numerics;
 using Windows.Foundation;
 using Windows.UI.Composition;
@@ -66,7 +67,7 @@ namespace CompositionSampleGallery
             EffectSelection.ItemsSource = effectList;
             EffectSelection.SelectedIndex = 0;
 
-            ThumbnailList.ItemsSource = Model.Items;
+            ThumbnailList.ItemsSource = ThumbnailList.ItemsSource = Model.AggregateDataSources(new ObservableCollection<Thumbnail>[] { Model.Landscapes, Model.Nature });
         }
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
@@ -152,6 +153,8 @@ namespace CompositionSampleGallery
             // Set the effect surface as input
             if (effectSurface != null)
             {
+                // Set to UniformToFill to match the stretch mode of the original image
+                effectSurface.Brush.Stretch = CompositionStretch.UniformToFill;
                 brush.SetSourceParameter("EffectSource", effectSurface.Brush);
             }
         }

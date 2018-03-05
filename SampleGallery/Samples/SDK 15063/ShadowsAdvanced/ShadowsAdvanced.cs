@@ -45,7 +45,7 @@ namespace CompositionSampleGallery
         public override string  SampleName => StaticSampleName; 
         public static string    StaticSampleDescription => "Demonstrates advanced shadow scenarios."; 
         public override string  SampleDescription => StaticSampleDescription;
-        public override string  SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761171";
+        public override string  SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868954";
 
         public ShadowsAdvanced()
         {

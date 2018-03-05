@@ -1,0 +1,68 @@
+﻿<Page
+    x:Class="CompositionSampleGallery.Settings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ScrollViewer
+            x:Name="contentSV"
+            Grid.Row="0"
+            Padding="20,0,0,0"
+            IsTabStop="False"
+            UseSystemFocusVisuals="False"
+            VerticalScrollBarVisibility="Auto"
+            VerticalScrollMode="Auto">
+
+            <StackPanel HorizontalAlignment="Left">
+                <TextBlock Style="{StaticResource SubheaderTextBlockStyle}"  Margin="0,40,0,20" Text="Settings" />
+                <TextBlock Text="No settings options are available at this time."/>
+
+                <!--- About Section -->
+                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,20,0,0" Text="About" />
+
+                <RichTextBlock MaxWidth="840" Margin="0,10,0,0" IsTextSelectionEnabled="True">
+                    <Paragraph>
+                        This app showcases core platform building blocks which power Fluent design and can be used to create more delightful, engaging experiences. The source code to this app is available on
+                        <Hyperlink NavigateUri="https://github.com/Microsoft/WindowsUIDevLabs">
+                            https://github.com/Microsoft/WindowsUIDevLabs
+                        </Hyperlink>.
+                    </Paragraph>
+                </RichTextBlock>
+
+                <!---Image Information Section -->
+                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,20,0,0" Text="Images" />
+
+                <RichTextBlock MaxWidth="840" Margin="0,10,0,0" IsTextSelectionEnabled="True">
+                    <Paragraph>
+                        The images used in this application are sourced from a variety of Microsoft employees, but we'd like to specially thank Conroy
+                        for his contribution.
+                        <Hyperlink NavigateUri="https://www.instagram.com/conroy.williamson/">
+                            See more of his content here.
+                        </Hyperlink>
+                    </Paragraph>
+                </RichTextBlock>
+
+                <!---Disclaimer Section-->
+                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,20,0,0" Text="Disclaimer" />
+
+                <RichTextBlock MaxWidth="840" Margin="0,10,0,50" IsTextSelectionEnabled="True">
+                    <Paragraph>THIS CODE AND INFORMATION IS PROVIDED ‘AS IS’ WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.</Paragraph>
+                    <Paragraph>
+                        <LineBreak /> Copyright (c) Microsoft Corporation. All rights reserved.
+                    </Paragraph>
+
+                    <Paragraph Margin="0,10,0,10">
+                        <Hyperlink NavigateUri="https://go.microsoft.com/fwlink/?LinkId=822631">Microsoft Services Agreement</Hyperlink>,
+                        <Hyperlink NavigateUri="https://go.microsoft.com/fwlink/?LinkId=521839">Microsoft Privacy Statement</Hyperlink>
+                    </Paragraph>
+                </RichTextBlock>
+
+                
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

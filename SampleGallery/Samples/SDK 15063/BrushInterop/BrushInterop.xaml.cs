@@ -25,6 +25,7 @@ namespace CompositionSampleGallery
         public static string        StaticSampleName => "Brush Interop"; 
         public override string      SampleName => StaticSampleName; 
         public static string        StaticSampleDescription => "Paint XAML UIElements with CompositionBrushes (and load Surfaces from XAML to CompositionBrushes): Grids, Text, and Shapes painted with EffectBrushes"; 
-        public override string      SampleDescription => StaticSampleDescription; 
+        public override string      SampleDescription => StaticSampleDescription;
+        public override string      SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868945";
     }
 }
