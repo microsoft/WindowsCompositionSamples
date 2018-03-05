@@ -12,9 +12,9 @@
             <StackPanel Orientation="Horizontal" />
         </ItemsPanelTemplate>
         <DataTemplate x:Key="FeaturedSampleWideDataTemplate" x:DataType="local:SampleDefinition">
-            <UserControl>
+            <UserControl AutomationProperties.Name="{Binding Name}">
                 <StackPanel MaxWidth="260" Margin="20,20,20,0">
-                    <common:CompositionImage Width="260" Height="175" Source="{x:Bind ImageUrl}" Stretch="UniformToFill" />
+                    <common:CompositionImage Width="260" Height="175" Source="{x:Bind ImageUrl}" Stretch="UniformToFill"/>
                     <TextBlock x:Name="SampleName"
                             Text="{x:Bind Name}"
                             Style="{ThemeResource FeaturedSampleTextBlockStyle}"

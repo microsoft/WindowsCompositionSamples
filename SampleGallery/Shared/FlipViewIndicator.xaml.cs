@@ -46,24 +46,24 @@ namespace CompositionSampleGallery
             SampleDefinition brushInterop = SampleDefinitions.Definitions.Where(x => x.Type == typeof(BrushInterop)).FirstOrDefault();
             if (brushInterop != null)
             {
-                _model.FlipViewItems.Add(new FeaturedFlipViewSample("Apply custom brushes to XAML content", "", "/Assets/BannerImages/BrushInterop.png", brushInterop));
+                _model.FlipViewItems.Add(new FeaturedFlipViewSample("Apply custom brushes to XAML content", "", "/Assets/BannerImages/BrushInterop.png", 0, brushInterop));
             }
             this.DataContext = _model;
             SampleDefinition shyHeader = SampleDefinitions.Definitions.Where(x => x.Type == typeof(ShyHeader)).FirstOrDefault();
             if (shyHeader != null)
             {
-                _model.FlipViewItems.Add(new FeaturedFlipViewSample("Create a shrinking header tied to scroll position", "", "/Assets/BannerImages/ShyHeader.PNG", shyHeader));
+                _model.FlipViewItems.Add(new FeaturedFlipViewSample("Create a shrinking header tied to scroll position", "", "/Assets/BannerImages/ShyHeader.PNG", 1, shyHeader));
             }
             SampleDefinition pullToAnimate = SampleDefinitions.Definitions.Where(x => x.Type == typeof(PullToAnimate)).FirstOrDefault();
             if (pullToAnimate != null)
             {
-                _model.FlipViewItems.Add(new FeaturedFlipViewSample("Create depth of field with manipulation-based blur", "", "/Assets/BannerImages/PullToAnimateBanner.PNG", pullToAnimate));
+                _model.FlipViewItems.Add(new FeaturedFlipViewSample("Create depth of field with manipulation-based blur", "", "/Assets/BannerImages/PullToAnimateBanner.PNG", 2, pullToAnimate));
             }
             this.DataContext = _model;
             SampleDefinition interactions3D = SampleDefinitions.Definitions.Where(x => x.Type == typeof(Interactions3D)).FirstOrDefault();
             if (interactions3D != null)
             {
-                _model.FlipViewItems.Add(new FeaturedFlipViewSample("Create an interactive 3D experience", "", "/Assets/BannerImages/IneractionTrackerBanner.png", interactions3D));
+                _model.FlipViewItems.Add(new FeaturedFlipViewSample("Create an interactive 3D experience", "", "/Assets/BannerImages/IneractionTrackerBanner.png", 3, interactions3D));
             }
             this.DataContext = _model;
 #endif
@@ -152,23 +152,26 @@ namespace CompositionSampleGallery
         private string _Description;
         private string _navigationUrl;
         private string _backgroundImage;
+        private int _index;
         private SampleDefinition _sampleDefinition;
         private bool _selected = default(bool);
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public FeaturedFlipViewSample(string title, string description, string backgroundImageUrl, SampleDefinition sampleDefinition = null, string navigationUrl = null)
+        public FeaturedFlipViewSample(string title, string description, string backgroundImageUrl, int index, SampleDefinition sampleDefinition = null, string navigationUrl = null)
         {
             _title = title;
             _Description = description;
             _navigationUrl = navigationUrl;
             _backgroundImage = backgroundImageUrl;
             _sampleDefinition = sampleDefinition;
+            _index = index;
         }
 
         public string Title { get { return _title; } }
         public string Description { get { return _Description; } }
         public string NavigationUrl { get { return _navigationUrl; } }
         public string BackgroundImage { get { return _backgroundImage; } }
+        public string AccessibilityIndexInfo { get { return "Skip to "+_index+"-"+_title; } }
         public SampleDefinition SampleDefinition { get { return _sampleDefinition; } }
         public bool Selected
         {

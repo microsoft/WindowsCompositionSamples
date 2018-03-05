@@ -102,7 +102,7 @@
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">
                 <TextBlock HorizontalAlignment="Center" Style="{StaticResource SubSectionHeading}">Follow us</TextBlock>
 
-                <TextBlock HorizontalAlignment="Center" Style="{StaticResource BaseTextBlockStyleLight}" Foreground="#BFFFFFFF">@WindowsUI</TextBlock>
+                <HyperlinkButton HorizontalAlignment="Center" Foreground="White"  Content="@WindowsUI" NavigateUri="https://twitter.com/windowsui"></HyperlinkButton> 
             </StackPanel>
             <TextBlock Grid.Row="2" Style="{StaticResource BaseTextBlockStyleSmallLight}" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                 TWITTER, TWEET, RETWEET and the Twitter logo are trademarks of Twitter, Inc. or its affiliates
@@ -118,7 +118,7 @@
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        TextAlignment="Center">Get the sample code on GitHub</TextBlock>
-                <TextBlock HorizontalAlignment="Center" Style="{StaticResource BaseTextBlockStyleLight}" Foreground="#BFFFFFFF">aka.ms/windowsui</TextBlock>
+                <HyperlinkButton HorizontalAlignment="Center" Foreground="White" Content="aka.ms/windowsui" NavigateUri="https://aka.ms/windowsui"></HyperlinkButton>
             </StackPanel>
         </Grid>
         <!-- End GitHub -->

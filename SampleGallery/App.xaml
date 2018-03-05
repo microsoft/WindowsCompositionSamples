@@ -19,7 +19,7 @@
             <SolidColorBrush x:Key="DarkThemeForeground" Color="#363636" />
             <SolidColorBrush x:Key="DarkThemeForegroundPointerOver" Color="#3F3F3F" />
             <SolidColorBrush x:Key="LightThemeBackgroundColorBrush" Color="White" />
-            <SolidColorBrush x:Key="CategoryPageFeaturedSamplesBackground" Color="#204C78" />
+            <SolidColorBrush x:Key="CategoryPageFeaturedSamplesBackground" Color="Azure" />
             <SolidColorBrush x:Key="MainNavigationForegroundColor" Color="#666666" />
             <SolidColorBrush x:Key="MainNavigationSelectedForegroundColor" Color="#00BCF2" />
             <!-- SplitViewTogglePaneButtonTemplate -->

@@ -32,7 +32,7 @@
             x:Name="GalleryUI"
             UIType="Auto"
             SampleCategories="{x:Bind Path=MainNavigation.MainMenuList}"/>
-                        
+
             <AutoSuggestBox x:Name="SearchBox" QueryIcon="Find" PlaceholderText="Search Samples (Alt+Q)" 
                             Width="300" HorizontalAlignment="Right" Margin="0,7,10,0"
                             TextChanged="AutoSuggestBox_TextChanged"
@@ -40,7 +40,9 @@
                             SuggestionChosen="AutoSuggestBox_SuggestionChosen"
                             DisplayMemberPath="DisplayName"
                             TextMemberPath="DisplayName" 
-                            AccessKey="Q" AccessKeyInvoked="SearchBox_AccessKeyInvoked"/>
+                            AccessKey="Q" AccessKeyInvoked="SearchBox_AccessKeyInvoked"
+                            KeyTipPlacementMode="Bottom"
+                            AutomationProperties.AccessKey="ALT+Q"/>
         </Grid>
     </Grid>
 </Page>
