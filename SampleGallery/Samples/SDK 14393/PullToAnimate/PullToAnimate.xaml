@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded">
     <RelativePanel x:Name="Root" Background="Black" PointerPressed="Pointer_Pressed">
-        <Image x:Name="BackgroundImage" Source="ms-appx:///Assets/Background.png"
+        <Image x:Name="BackgroundImage" Source="ms-appx:///Assets/Landscapes/Landscape-12.jpg"
                RelativePanel.AlignBottomWithPanel="True"
                RelativePanel.AlignLeftWithPanel="True"
                RelativePanel.AlignRightWithPanel="True"
@@ -26,14 +26,14 @@
         <Grid x:Name="WeatherLayer" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,36,36"
               RelativePanel.AlignRightWithPanel="True"
               RelativePanel.AlignBottomWithPanel="True">
-            <Image x:Name="WeatherInfoImage" Source="ms-appx:///Assets/WeatherInfo.png" HorizontalAlignment="Center" VerticalAlignment="Top" Width="383" Height="351" Margin="0,0,0,0"/>
+            <Image x:Name="WeatherInfoImage" Source="ms-appx:///Assets/Other/WeatherInfo.png" HorizontalAlignment="Center" VerticalAlignment="Top" Width="383" Height="351" Margin="0,0,0,0"/>
         </Grid>
         <Grid x:Name="ToDoLayer" Width="500" Height="145" Margin="0,0,0,0"
               RelativePanel.AlignHorizontalCenterWithPanel="True"
               RelativePanel.AlignVerticalCenterWithPanel="True">
-            <Image x:Name="Appointment" Source="ms-appx:///Assets/Appointment.png" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="500" Height="145" Margin="0,0,0,0"/>
+            <Image x:Name="Appointment" Source="ms-appx:///Assets/Other/Appointment.png" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="500" Height="145" Margin="0,0,0,0"/>
         </Grid>
-        <Image x:Name="CalendarIcon" Source="ms-appx:///Assets/Calendar.png"
+        <Image x:Name="CalendarIcon" Source="ms-appx:///Assets/Other/Calendar.png"
                RelativePanel.AlignHorizontalCenterWithPanel="True"
                RelativePanel.AlignVerticalCenterWithPanel="True"
                Margin="0,280,0,0" Width="58" Height="59"/>

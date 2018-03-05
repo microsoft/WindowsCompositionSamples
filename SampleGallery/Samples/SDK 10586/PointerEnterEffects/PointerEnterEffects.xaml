@@ -43,7 +43,7 @@
                                 Margin="10,10,10,10"
                                 Background="Black">
 
-                            <common:CompositionImage Width="240" Height="160"/>
+                            <common:CompositionImage Width="240" Height="160" Stretch="UniformToFill"/>
 
                             <TextBlock RelativePanel.AlignBottomWithPanel="True"
                                    RelativePanel.AlignRightWithPanel="True"

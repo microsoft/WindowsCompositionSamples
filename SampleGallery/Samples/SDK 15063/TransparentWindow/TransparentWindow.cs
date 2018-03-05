@@ -49,6 +49,7 @@ namespace CompositionSampleGallery
         public override string      SampleName => StaticSampleName; 
         public static string        StaticSampleDescription => "Demonstrates a few different transparent window effects";
         public override string      SampleDescription => StaticSampleDescription;
+        public override string      SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868956";
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -126,11 +127,11 @@ namespace CompositionSampleGallery
                     {
                         Matrix5x4 mat = new Matrix5x4()
                         {
-                            M11 = 1,  M12 = 0f, M13 = 0f, M14 = 2,
-                            M21 = 0f, M22 = 1f, M23 = 0f, M24 = -1,
-                            M31 = 0f, M32 = 0f, M33 = 1f, M34 = -1,
-                            M41 = 0f, M42 = 0f, M43 = 0f, M44 = 0,
-                            M51 = 0,  M52 = 0,  M53 = 0,  M54 = 0
+                            M11 = 0.8f, M12 = 0f,   M13 = 0f,   M14 = 1.0f / 3,
+                            M21 = 0f,   M22 = 0.8f, M23 = 0f,   M24 = 1.0f / 3,
+                            M31 = 0f,   M32 = 0f,   M33 = 0.8f, M34 = 1.0f / 3,
+                            M41 = 0f,   M42 = 0f,   M43 = 0f,   M44 = 0,
+                            M51 = 0,    M52 = 0,    M53 = 0,    M54 = 0
                         };
 
                         IGraphicsEffect graphicsEffect = new ColorMatrixEffect()

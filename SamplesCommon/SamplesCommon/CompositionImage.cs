@@ -221,6 +221,18 @@ namespace SamplesCommon
 
         private void CompImage_Unloaded(object sender, RoutedEventArgs e)
         {
+            // The Unloaded event can be fired asynchronously, and can occur spuriously, while we are still connected into the tree.
+            // In that case, we don't want to unload our surface and visual because this will result in the displayed image
+            // not being displayed.   Since we don't actually reparent this control in any samples, we can detect the Unloaded event we 
+            // actually care about by checking our Parent for null - it will be null when the UI tree is being torn down, at which point 
+            // it is appropriate to actually free our resources.            
+
+            if (Parent != null)
+            {
+                return;
+            }
+
+
             _unloaded = true;
 
             ReleaseSurface();

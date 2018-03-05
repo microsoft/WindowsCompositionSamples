@@ -8,10 +8,10 @@
     mc:Ignorable="d">
 
     <Grid x:Name="root" Background="LightGray">
-        <Image x:Name="image" Source="ms-appx:///Assets/Photos/pic01.jpg" Width="150" Height="100" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50, 120, 0, 0" PointerEntered="image_PointerEntered" PointerExited="image_PointerExited" PointerReleased="image_PointerReleased"/>
-        <Image x:Name="image2" Source="ms-appx:///Assets/Photos/pic02.jpg" Width="150" Height="100" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50, 240, 0, 0" PointerEntered="image_PointerEntered" PointerExited="image_PointerExited" PointerReleased="image_PointerReleased"/>
-        <Image x:Name="image3" Source="ms-appx:///Assets/Photos/pic03.jpg" Width="150" Height="100" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50, 360, 0, 0" PointerEntered="image_PointerEntered" PointerExited="image_PointerExited" PointerReleased="image_PointerReleased"/>
-        <Image x:Name="image4" Source="ms-appx:///Assets/Photos/pic04.jpg" Width="150" Height="100" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50, 480, 0, 0" PointerEntered="image_PointerEntered" PointerExited="image_PointerExited" PointerReleased="image_PointerReleased"/>
+        <Image x:Name="image" Source="ms-appx:///Assets/Abstract/Abstract-2.jpg" Width="150" Height="100" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50, 120, 0, 0" PointerEntered="image_PointerEntered" PointerExited="image_PointerExited" PointerReleased="image_PointerReleased"/>
+        <Image x:Name="image2" Source="ms-appx:///Assets/Abstract/Abstract-4.jpg" Width="150" Height="100" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50, 240, 0, 0" PointerEntered="image_PointerEntered" PointerExited="image_PointerExited" PointerReleased="image_PointerReleased"/>
+        <Image x:Name="image3" Source="ms-appx:///Assets/Abstract/Abstract-5.jpg" Width="150" Height="100" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50, 360, 0, 0" PointerEntered="image_PointerEntered" PointerExited="image_PointerExited" PointerReleased="image_PointerReleased"/>
+        <Image x:Name="image4" Source="ms-appx:///Assets/Abstract/Abstract-6.jpg" Width="150" Height="100" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50, 480, 0, 0" PointerEntered="image_PointerEntered" PointerExited="image_PointerExited" PointerReleased="image_PointerReleased"/>
         <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,0,50">
             <TextBlock HorizontalAlignment="Right" Margin="0,0,5,0" Foreground="Black" FontWeight="Bold" FontSize="16">Spring Properties</TextBlock>
             <TextBlock HorizontalAlignment="Right" Margin="0,0,5,0" Foreground="Black">Damping Ratio</TextBlock>

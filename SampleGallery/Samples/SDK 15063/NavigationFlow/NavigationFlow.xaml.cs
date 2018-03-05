@@ -35,6 +35,7 @@ namespace CompositionSampleGallery
         public override string  SampleName => StaticSampleName; 
         public static string    StaticSampleDescription => "Demonstrates a full custom navigation experience using ConnectedAnimationService and Implicit Animations.";
         public override string  SampleDescription => StaticSampleDescription;
+        public override string  SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868949";
 
         public NavigationFlow()
         {

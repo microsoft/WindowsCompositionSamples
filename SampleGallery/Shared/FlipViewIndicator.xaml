@@ -96,7 +96,7 @@
                   ItemsSource="{x:Bind Path=Model.FlipViewItems, Mode=OneWay}" >
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:DataType="local:FeaturedFlipViewSample">
-                    <UserControl>
+                    <UserControl AutomationProperties.Name="{Binding Title}">
                         <Grid HorizontalAlignment="Stretch" x:Name="DataTempalteGrid">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
@@ -158,7 +158,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:DataType="local:FeaturedFlipViewSample">
-                    <Grid Width="10" Height="10" Margin="5">
+                    <Grid Width="10" Height="10" Margin="5" AutomationProperties.Name="{Binding AccessibilityIndexInfo}">
                         <Button Width="10" Height="10" Click="IndicatorClick">
                             <Button.Style>
                                 <Style TargetType="Button">

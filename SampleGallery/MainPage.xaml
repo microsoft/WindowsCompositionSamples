@@ -26,26 +26,23 @@
         <Grid x:Name="TitleBarGrid" Grid.Row="0">
             <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Padding="59,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">Windows UI Sample Gallery</TextBlock>
         </Grid>
-        <Pivot 
-            x:Name="MainPivot" 
-            Grid.Row="1" 
-            ItemsSource="{x:Bind Path=MainNavigation.MainMenuList}"
-            PivotItemLoading="MainPivot_PivotItemLoading"
-            IsHeaderItemsCarouselEnabled="False">
-            <Pivot.HeaderTemplate>
-                <DataTemplate x:DataType="local:NavigationItem">
-                    <TextBlock Text="{x:Bind Path=DisplayName}" />
-                </DataTemplate>
-            </Pivot.HeaderTemplate>
-            <Pivot.ItemTemplate>
-                <DataTemplate x:DataType="local:NavigationItem">
-                    <Frame  
-                           Loaded="Frame_Loaded" 
-                           x:Name="PivotItemFrame"
-                           Navigated="MainFrame_Navigated">
-                    </Frame>
-                </DataTemplate>
-            </Pivot.ItemTemplate>
-        </Pivot>
+        <Grid Grid.Row="1" >
+            <local:SampleGalleryUIIndirector
+            Grid.Row="1"
+            x:Name="GalleryUI"
+            UIType="Auto"
+            SampleCategories="{x:Bind Path=MainNavigation.MainMenuList}"/>
+
+            <AutoSuggestBox x:Name="SearchBox" QueryIcon="Find" PlaceholderText="Search Samples (Alt+Q)" 
+                            Width="300" HorizontalAlignment="Right" Margin="0,7,10,0"
+                            TextChanged="AutoSuggestBox_TextChanged"
+                            QuerySubmitted="AutoSuggestBox_QuerySubmitted"
+                            SuggestionChosen="AutoSuggestBox_SuggestionChosen"
+                            DisplayMemberPath="DisplayName"
+                            TextMemberPath="DisplayName" 
+                            AccessKey="Q" AccessKeyInvoked="SearchBox_AccessKeyInvoked"
+                            KeyTipPlacementMode="Bottom"
+                            AutomationProperties.AccessKey="ALT+Q"/>
+        </Grid>
     </Grid>
 </Page>

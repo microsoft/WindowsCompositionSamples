@@ -18,6 +18,7 @@ using Microsoft.Graphics.Canvas.Effects;
 using SamplesCommon;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Numerics;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -94,14 +95,14 @@ namespace CompositionSampleGallery
             LightingSelection.ItemsSource = lightList;
             LightingSelection.SelectedIndex = 0;
 
-            ThumbnailList.ItemsSource = Model.Items;
+            ThumbnailList.ItemsSource = Model.AggregateDataSources(new ObservableCollection<Thumbnail>[] { Model.Landscapes, Model.Nature} );
 
             //
             // Create the sperical normal map.  The normals will give the appearance of a sphere, and the alpha channel is used
             // for masking off the rectangular edges.
             //
 
-            _sphereNormalMap = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Samples/SDK 14393/ThumbnailLighting/SphericalWithMask.png"));
+            _sphereNormalMap = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Assets/NormalMapsAndMasks/SphericalWithMask.png"));
             _sphereNormalMap.Brush.Stretch = CompositionStretch.Fill;
 
 
@@ -110,7 +111,7 @@ namespace CompositionSampleGallery
             // the edges, flat in the middle.
             //
 
-            _edgeNormalMap = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Samples/SDK 14393/ThumbnailLighting/BeveledEdges.jpg"));
+            _edgeNormalMap = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Assets/NormalMapsAndMasks/BeveledEdges.jpg"));
             _edgeNormalMap.Brush.Stretch = CompositionStretch.Fill;
        
             // Update the effect brushes now that the normal maps are available.
@@ -224,6 +225,33 @@ namespace CompositionSampleGallery
                         
                         _distantLight.StartAnimation("Direction", lightDirectionAnimation);
                     }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void StopAnimations()
+        {
+            ComboBoxItem item = LightingSelection.SelectedValue as ComboBoxItem;
+            switch ((LightingTypes)item.Tag)
+            {
+                case LightingTypes.PointDiffuse:
+                case LightingTypes.PointSpecular:
+                    _pointLight.StopAnimation("Offset");
+                    _pointLight.StopAnimation("Color");
+                    break;
+
+                case LightingTypes.SpotLightDiffuse:
+                case LightingTypes.SpotLightSpecular:
+                    _spotLight.StopAnimation("Offset");
+                    _spotLight.StopAnimation("InnerConeColor");
+                    break;
+
+                case LightingTypes.DistantDiffuse:
+                case LightingTypes.DistantSpecular:
+                    _distantLight.StopAnimation("Direction");
                     break;
 
                 default:
@@ -604,6 +632,7 @@ namespace CompositionSampleGallery
             if(MouseHover.IsChecked == true)
             {
                 ThumbnailList.PointerMoved += ThumbnailList_PointerMoved;
+                StopAnimations();
             }
             else
             {

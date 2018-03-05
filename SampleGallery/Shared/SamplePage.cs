@@ -14,6 +14,7 @@
 
 using System;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Navigation;
 
 namespace CompositionSampleGallery
@@ -28,28 +29,29 @@ namespace CompositionSampleGallery
         {
             base.OnNavigatedTo(e);
 
-            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += SamplePage_BackRequested;
-
-            if (e.Parameter is SampleHost)
+            if (e.Parameter is SampleHost host)
             {
-                SampleHost host = (SampleHost)e.Parameter;
-
                 host.SampleDescription.Text = SampleDescription;
                 host.SampleName.Text = SampleName;
                 host.SampleCode.NavigateUri = new Uri(SampleCodeUri);
+
+                // Show sample tags if any exist
+                if(host.SampleDefinition.Tags != null)
+                {
+                    host.SampleTagsTextBlock.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    host.SampleTagsTextBlock.Inlines.Add(new Run() { Text = "Tags: " });
+                    foreach (string t in host.SampleDefinition.Tags)
+                    {
+                        var hyperlink = new Hyperlink();
+                        hyperlink.Click += host.TagHyperlink_Click;
+                        hyperlink.Inlines.Add(new Run() { Text = t });
+                        host.SampleTagsTextBlock.Inlines.Add(hyperlink);
+                        host.SampleTagsTextBlock.Inlines.Add(new Run() { Text = " " });
+                    }
+                }
             }
         }
-
-        private void SamplePage_BackRequested(object sender, Windows.UI.Core.BackRequestedEventArgs e)
-        {
-            Frame pivotItemFrame = MainNavigationViewModel.GetPivotFrame(this);
-            if (pivotItemFrame != null)
-            {
-                e.Handled = true;
-                (pivotItemFrame).GoBack();
-            }
-        }
-
+        
         public virtual void OnCapabiliesChanged(bool areEffectSupported, bool areEffectsFast)
         {
 

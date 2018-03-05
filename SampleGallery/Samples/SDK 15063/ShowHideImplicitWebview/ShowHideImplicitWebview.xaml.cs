@@ -41,6 +41,7 @@ namespace CompositionSampleGallery
         public static string        StaticSampleDescription => "Demonstrates how to apply an implicit show/hide animation on a " +
                                                                     "webview UI element in a realistic app scenario."; 
         public override string      SampleDescription => StaticSampleDescription;
+        public override string      SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868955";
 
 
         public ShowHideImplicitWebview()
@@ -102,9 +103,9 @@ namespace CompositionSampleGallery
         /// </summary>
         private void CreateImageObjects()
         {
-            ImageItem imageItem1 = new ImageItem("https://en.wikipedia.org/wiki/Space_Needle", "https://www.facebook.com/spaceneedle/", "https://www.spaceneedle.com/home/");
-            ImageItem imageItem2 = new ImageItem("https://en.wikipedia.org/wiki/Pike_Place_Market", "https://www.facebook.com/PublicMarketCenter/", "http://pikeplacemarket.org/");
-            ImageItem imageItem3 = new ImageItem("https://en.wikipedia.org/wiki/Seattle_Great_Wheel", "https://www.facebook.com/TheSeattleGreatWheel/", "https://seattlegreatwheel.com/");
+            ImageItem imageItem1 = new ImageItem("https://en.wikipedia.org/wiki/Slug");
+            ImageItem imageItem2 = new ImageItem("https://en.wikipedia.org/wiki/Nymphalidae");
+            ImageItem imageItem3 = new ImageItem("https://en.wikipedia.org/wiki/Dahlia#Flower_type");
 
             imageDictionary.Add(Image1, imageItem1);
             imageDictionary.Add(Image2, imageItem2);
@@ -291,54 +292,23 @@ namespace CompositionSampleGallery
             PageWebview.Visibility = Visibility.Collapsed;
             this.UpdateWebview(Image1);
         }
-
-        /// <summary>
-        /// Launches external Facebook site for current view
-        /// </summary>
-        private async void FacebookButton_Click(object sender, RoutedEventArgs e)
-        {
-            var success = await Windows.System.Launcher.LaunchUriAsync(new Uri(imageDictionary[_currentPrimary].GetFacebookString()));
-        }
-
-        /// <summary>
-        /// Launches external information site for current view
-        /// </summary>
-        private async void LearnMoreButton_Click(object sender, RoutedEventArgs e)
-        {
-            var success = await Windows.System.Launcher.LaunchUriAsync(new Uri(imageDictionary[_currentPrimary].GetLearnMoreString()));
-        }
-
     }
 
     /// <summary>
-    /// Stores information about an image including the image file location, and link strings
+    /// Stores information about an image 
     /// </summary>
     public class ImageItem
     {
         private string webviewString;
-        private string facebookString;
-        private string learnMoreString;
 
-        public ImageItem( string webviewString, string facebookString, string learnMoreString)
+        public ImageItem( string webviewString)
         {
             this.webviewString = webviewString;
-            this.facebookString = facebookString;
-            this.learnMoreString = learnMoreString;
         }
         
         public string GetWebviewString()
         {
             return webviewString;
-        }
-
-        public string GetFacebookString()
-        {
-            return facebookString;
-        }
-
-        public string GetLearnMoreString()
-        {
-            return learnMoreString;
         }
     }
 }

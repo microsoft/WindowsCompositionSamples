@@ -51,8 +51,8 @@ namespace CompositionSampleGallery
             // Create a couple of SurfaceBrushes for the orbiters and center
             //
 
-            _redBallSurface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Samples/SDK 10586/PropertySets/RedBall.png"));
-            _blueBallSurface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Samples/SDK 10586/PropertySets/BlueBall.png"));
+            _redBallSurface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Assets/Other/RedBall.png"));
+            _blueBallSurface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Assets/Other/BlueBall.png"));
 
 
             //

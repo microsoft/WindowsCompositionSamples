@@ -54,7 +54,7 @@ namespace CompositionSampleGallery
             _compositor = ElementCompositionPreview.GetElementVisual(sender as UIElement).Compositor;
             var scrollProperties = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(Scroller);
 
-            var uri = new Uri("ms-appx:///Samples/SDK 10586/Z-Order Scrolling/RollingWaves.jpg");
+            var uri = new Uri("ms-appx:///Assets/Landscapes/Landscape-4.jpg");
             _blurSurface = ImageLoader.Instance.LoadFromUri(uri, Size.Empty, ApplyBlurEffect);
             ParallaxingImage.Source = uri;
             ParallaxingImage.Brush = InitializeCrossFadeEffect();
@@ -337,7 +337,7 @@ namespace CompositionSampleGallery
             //
             // Load in the profile picture as a brush using the Composition Toolkit.
             //
-            _profilePictureSurface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Samples/SDK 10586/Z-Order Scrolling/teched3ae5a27b-4f78-e111-94ad-001ec953730b.jpg"));
+            _profilePictureSurface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Assets/Nature/Nature-8.jpg"));
             brush.SetSourceParameter("image", _profilePictureSurface.Brush);
 
             //
@@ -416,12 +416,12 @@ namespace CompositionSampleGallery
         private ManagedSurface _profilePictureSurface;
         private ManagedSurface _blurSurface;
 
-        private float _initialScaleAmount = .8f;
+        private float _initialScaleAmount = .7f;
         private float _finalScaleAmount = .4f;
         private float _followMargin = 20f;
-        private float _backgroundShowRatio = .7f;
+        private float _backgroundShowRatio = .5f;
         private float _backgroundScaleAmount = .25f;
         private float _parallaxRatio = .2f;
-        private float _contentShrinkRatio = .7f;
+        private float _contentShrinkRatio = .6f;
     }
 }

@@ -31,7 +31,7 @@ namespace CompositionSampleGallery
         public override string      SampleName => StaticSampleName; 
         public static string        StaticSampleDescription => "Demonstrates how to apply and animate perspective to Composition Visuals."; 
         public override string      SampleDescription => StaticSampleDescription; 
-        public override string      SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761171"; 
+        public override string      SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868943"; 
 
         private void SamplePage_Loaded(object sender, RoutedEventArgs e)
         {

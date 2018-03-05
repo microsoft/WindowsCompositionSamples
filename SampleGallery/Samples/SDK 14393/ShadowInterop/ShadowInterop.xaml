@@ -70,7 +70,7 @@
                     HorizontalScrollBarVisibility="Auto">
                 <StackPanel Orientation="Horizontal">
                     <RelativePanel Margin="10" Padding="0">
-                        <Image x:Name="Image1" Source="ms-appx:///Assets/WindowsInsiders/Unicorn.png"
+                        <Image x:Name="Image1" Source="ms-appx:///Assets/Other/Gear.png"
                                Width="200" Height="200"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"/>
@@ -82,11 +82,11 @@
                     </RelativePanel>
 
                     <RelativePanel Margin="10" Padding="0">
-                        <common:CompositionShadow x:Name="Image2" Color="HotPink" BlurRadius="12"
+                        <common:CompositionShadow x:Name="Image2" Color="HotPink" BlurRadius="20"
                                                   Width="200" Height="200"
                                                   HorizontalAlignment="Left"
                                                   VerticalAlignment="Top">
-                            <Image Source="ms-appx:///Assets/WindowsInsiders/Unicorn.png" 
+                            <Image Source="ms-appx:///Assets/Other/Gear.png" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"/>
                         </common:CompositionShadow>
@@ -98,7 +98,7 @@
                     </RelativePanel>
 
                     <RelativePanel Margin="10" Padding="0">
-                        <Image x:Name="Image3" Source="ms-appx:///Assets/WindowsInsiders/Ninjacat-3.png"
+                        <Image x:Name="Image3" Source="ms-appx:///Assets/NormalMapsAndMasks/SphericalWithMask.png"
                                Width="200" Height="200"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"/>
@@ -110,11 +110,11 @@
                     </RelativePanel>
 
                     <RelativePanel Margin="10" Padding="0">
-                        <common:CompositionShadow x:Name="Image4" OffsetY="5" OffsetX="2"
+                        <common:CompositionShadow x:Name="Image4" OffsetY="5" OffsetX="2" BlurRadius="15"
                             Width="200" Height="200"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top">
-                            <Image Source="ms-appx:///Assets/WindowsInsiders/Ninjacat-3.png"
+                            <Image Source="ms-appx:///Assets/NormalMapsAndMasks/SphericalWithMask.png"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"/>
                         </common:CompositionShadow>

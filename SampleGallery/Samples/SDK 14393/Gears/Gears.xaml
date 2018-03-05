@@ -19,7 +19,7 @@
             <TextBlock x:Name="GearCount" Text="{x:Bind Count, Mode=OneWay}" FontSize="32" Foreground="White" />
         </StackPanel>
         <Canvas x:Name="Container" Margin="50,130,0,0" >
-            <Image x:Name="FirstGear" Source="ms-appx:///Assets/FirstGear.png" Width="100" Height="100"/>
+            <Image x:Name="FirstGear" Source="ms-appx:///Assets/Other/FirstGear.png" Width="100" Height="100"/>
         </Canvas>
     </Grid>
 </local:SamplePage>

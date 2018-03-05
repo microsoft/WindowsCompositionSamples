@@ -62,14 +62,6 @@ namespace CompositionSampleGallery
         {
             this.InitializeComponent();
 
-            // Specify "New Samples"
-            var result = from sampleDef in SampleDefinitions.Definitions
-                         orderby sampleDef.DateAdded descending
-                         select sampleDef;
-
-            NewSamples.ItemsSource = result.Take(5);
-
-
 #if SDKVERSION_15063
 
              var featuredSamples = from sampleDef in SampleDefinitions.Definitions

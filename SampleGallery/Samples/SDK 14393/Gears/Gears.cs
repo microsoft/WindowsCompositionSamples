@@ -93,7 +93,7 @@ namespace CompositionSampleGallery
         private void AddGear_Click(object sender, RoutedEventArgs e)
         {
             // Create an image
-            var bitmapImage = new BitmapImage(new Uri("ms-appx:///Assets/Gear.png"));
+            var bitmapImage = new BitmapImage(new Uri("ms-appx:///Assets/Other/Gear.png"));
             var image = new Image
             {
                 Source = bitmapImage,

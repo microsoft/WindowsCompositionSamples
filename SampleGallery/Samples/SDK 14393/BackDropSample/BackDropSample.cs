@@ -25,8 +25,6 @@ namespace CompositionSampleGallery
         {
             this.InitializeComponent();
 
-
-
             var compositor = backDrop.VisualProperties.Compositor;
             var blurAnim = compositor.CreateScalarKeyFrameAnimation();
             blurAnim.Duration = TimeSpan.FromSeconds(10);
@@ -52,6 +50,6 @@ namespace CompositionSampleGallery
         public override string      SampleName => StaticSampleName; 
         public static string        StaticSampleDescription => "Demonstrates how to create your own custom BackDrop UserControl that provides Blur and Tint properties that can be animated with Composition Animations."; 
         public override string      SampleDescription => StaticSampleDescription; 
-        public override string      SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761170"; 
+        public override string      SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868994"; 
     }
 }

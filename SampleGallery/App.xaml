@@ -4,7 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CompositionSampleGallery"
     xmlns:shared="using:CompositionSampleGallery.Shared"
-    RequestedTheme="Light">
+    RequestedTheme="Light"
+    xmlns:contractNotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:contractPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)">
+
     <Application.Resources>
         <ResourceDictionary>
             <x:Double x:Key="WideScreenWidthTrigger">720</x:Double>
@@ -16,7 +19,7 @@
             <SolidColorBrush x:Key="DarkThemeForeground" Color="#363636" />
             <SolidColorBrush x:Key="DarkThemeForegroundPointerOver" Color="#3F3F3F" />
             <SolidColorBrush x:Key="LightThemeBackgroundColorBrush" Color="White" />
-            <SolidColorBrush x:Key="CategoryPageFeaturedSampelsBackground" Color="#F2CB00" />
+            <SolidColorBrush x:Key="CategoryPageFeaturedSamplesBackground" Color="Azure" />
             <SolidColorBrush x:Key="MainNavigationForegroundColor" Color="#666666" />
             <SolidColorBrush x:Key="MainNavigationSelectedForegroundColor" Color="#00BCF2" />
             <!-- SplitViewTogglePaneButtonTemplate -->
@@ -211,10 +214,9 @@
             </Style>
 
             <Style x:Key="FooterHyperlinkStyle" TargetType="HyperlinkButton">
-                <Setter Property="Foreground" Value="White" />
-                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="{ThemeResource SystemControlHyperlinkTextBrush}" />
                 <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontSize" Value="15" />
                 <Setter Property="FontStyle" Value="Normal" />
                 <Setter Property="Padding" Value="10" />
             </Style>
@@ -744,7 +746,8 @@
                                     <ContentControl.Clip>
                                         <RectangleGeometry x:Name="HeaderClipperGeometry" />
                                     </ContentControl.Clip>
-                                        <Grid Background="{ThemeResource SystemControlChromeMediumLowAcrylicWindowMediumBrush}">
+                                        <Grid contractPresent:Background="{ThemeResource SystemControlChromeMediumLowAcrylicWindowMediumBrush}"
+                                              contractNotPresent:Background="Transparent"> <!--Based on default pivot style-->
                                         <Grid.RenderTransform>
                                             <CompositeTransform x:Name="HeaderOffsetTranslateTransform" />
                                         </Grid.RenderTransform>

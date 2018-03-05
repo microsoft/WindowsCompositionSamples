@@ -31,7 +31,7 @@
                 <Border Margin="10" HorizontalAlignment="Center">
                     <!-- This border is needed to ensure XAML does not explicitly set Offset on the 
                          TextBlock which we are animating.  -->
-                    <Image x:Name="RotatedImage" Source="ms-appx:///Samples/SDK 10586/Perspective/jellyfish.jpg"  Width="300" Height="100" Stretch="Fill"/>
+                    <Image x:Name="RotatedImage" Source="ms-appx:///Assets/Abstract/Abstract-6.jpg" Width="300" Height="100" Stretch="Fill"/>
                 </Border>
 
             </StackPanel>

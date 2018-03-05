@@ -12,9 +12,11 @@
 //
 //*********************************************************
 
+using CompositionSampleGallery.Pages;
 using SamplesCommon;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
@@ -33,7 +35,6 @@ namespace CompositionSampleGallery
 {
     public sealed partial class MainPage : Page
     {
-        private static MainPage                 _instance;
         private ManagedSurface                  _splashSurface;
 #if SDKVERSION_15063
         private static CompositionCapabilities  _capabilities;
@@ -41,14 +42,13 @@ namespace CompositionSampleGallery
         private static bool                     _areEffectsSupported;
         private static bool                     _areEffectsFast;
         private static RuntimeSupportedSDKs     _runtimeCapabilities;
-        private MainNavigationViewModel         _mainNavigation;
-        private Frame                           _currentFrame;
+        private MainNavigationViewModel         _mainNavigation;        
+
+        private SampleDefinition                _dummySampleDefinition;
 
         public MainPage(Rect imageBounds)
         {
-            _instance = this;
             _runtimeCapabilities = new RuntimeSupportedSDKs();
-            _currentFrame = null;
 
             // Get hardware capabilities and register changed event listener only when targeting the 
             // appropriate SDK version and the runtime supports this version
@@ -67,7 +67,7 @@ namespace CompositionSampleGallery
                 _areEffectsFast = true;
             }
             this.InitializeComponent();
-            _mainNavigation = new MainNavigationViewModel();
+            _mainNavigation = new MainNavigationViewModel(GalleryUI);
 
             // Initialize the image loader
             ImageLoader.Initialize(ElementCompositionPreview.GetElementVisual(this).Compositor);
@@ -88,9 +88,6 @@ namespace CompositionSampleGallery
                 titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
                 titleBar.ButtonForegroundColor = Colors.Black;
 
-                // Apply a customized control template to the pivot
-                MainPivot.Template = (ControlTemplate)Application.Current.Resources["PivotControlTemplate"];
-
                 // Apply acrylic to the main navigation
                 TitleBarRow.Height = new GridLength(31);
                 TitleBarGrid.Background = (Brush)Application.Current.Resources["SystemControlChromeMediumLowAcrylicWindowMediumBrush"];
@@ -99,11 +96,6 @@ namespace CompositionSampleGallery
         }
 
         public MainNavigationViewModel MainNavigation => _mainNavigation;
-
-        public static MainPage Instance
-        {
-            get { return _instance; }
-        }
 
         public static bool AreEffectsSupported
         {
@@ -126,11 +118,7 @@ namespace CompositionSampleGallery
             _areEffectsSupported = _capabilities.AreEffectsSupported();
             _areEffectsFast = _capabilities.AreEffectsFast();
 
-            if (_currentFrame.Content is SampleHost host)
-            {
-                SamplePage page = (SamplePage)host.Content;
-                page.OnCapabiliesChanged(_areEffectsSupported, _areEffectsFast);
-            }
+            GalleryUI.NotifyCompositionCapabilitiesChanged(_areEffectsSupported, _areEffectsFast);
 
             SampleDefinitions.RefreshSampleList();
 
@@ -185,7 +173,7 @@ namespace CompositionSampleGallery
 
             SpriteVisual backgroundSprite = compositor.CreateSpriteVisual();
             backgroundSprite.Size = windowSize;
-            backgroundSprite.Brush = compositor.CreateColorBrush(Color.FromArgb(1, 0, 178, 240));
+            backgroundSprite.Brush = compositor.CreateColorBrush(Color.FromArgb(255, 0, 188, 242));
             container.Children.InsertAtBottom(backgroundSprite);
 
 
@@ -231,8 +219,8 @@ namespace CompositionSampleGallery
             scaleUpSplashAnimation.Duration = duration;
 
             // Configure the grid visual to scale from the center
-            Visual gridVisual = ElementCompositionPreview.GetElementVisual(MainPivot);
-            gridVisual.Size = new Vector2((float)MainPivot.ActualWidth, (float)MainPivot.ActualHeight);
+            Visual gridVisual = ElementCompositionPreview.GetElementVisual(GalleryUI);
+            gridVisual.Size = new Vector2((float)GalleryUI.ActualWidth, (float)GalleryUI.ActualHeight);
             gridVisual.CenterPoint = new Vector3(gridVisual.Size.X, gridVisual.Size.Y, 0) * .5f;
 
 
@@ -269,39 +257,56 @@ namespace CompositionSampleGallery
             HideCustomSplashScreen();
         }
 
-        private void MainFrame_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
-        {
-            // Cache a reference to the current frame
-            _currentFrame = (Frame)sender;
-
-            // Show or hide the global back button
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                _currentFrame.CanGoBack ?
-                AppViewBackButtonVisibility.Visible :
-                AppViewBackButtonVisibility.Collapsed;
-        }
-
         public static void FeaturedSampleList_ItemClick(object sender, ItemClickEventArgs e)
         {
             MainNavigationViewModel.NavigateToSample(sender, e);
         }
 
-        // Load the category pages into the frame of each PivotItem
-        private void Frame_Loaded(object sender, RoutedEventArgs e)
+
+        private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            NavigationItem navItem = (NavigationItem)(((Frame)sender).DataContext);
-            ((Frame)sender).Navigate(navItem.PageType, navItem);
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                var matches = from sampleDef in SampleDefinitions.Definitions
+                                 where sampleDef.DisplayName.IndexOf(sender.Text, StringComparison.CurrentCultureIgnoreCase) >= 0 
+                                    || (sampleDef.Tags != null && sampleDef.Tags.Any(str => str.IndexOf(sender.Text, StringComparison.CurrentCultureIgnoreCase) >= 0))
+                              select sampleDef;
+                
+                if(matches.Count() > 0)
+                {
+                    SearchBox.ItemsSource = matches.OrderByDescending(i => i.DisplayName.StartsWith(sender.Text, StringComparison.CurrentCultureIgnoreCase)).ThenBy(i => i.DisplayName);
+                }
+                else
+                {
+                    _dummySampleDefinition = new SampleDefinition("No results found", null, SampleType.Reference, SampleCategory.APIReference, false, false);
+                    SearchBox.ItemsSource = new SampleDefinition[] { _dummySampleDefinition };
+                }
+            }
         }
 
-        // When navigating to a pivotitem, reload the main page and hide the back 
-        // button
-        private void MainPivot_PivotItemLoading(Pivot sender, PivotItemEventArgs args)
+        private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            NavigationItem navItem = (NavigationItem)((((PivotItemEventArgs)args).Item).DataContext);
-            Frame pivotItemFrame = (Frame)(((PivotItem)args.Item).ContentTemplateRoot);
-            pivotItemFrame.Navigate(navItem.PageType, navItem);
+            if (!string.IsNullOrEmpty(args.QueryText) && args.ChosenSuggestion == null)
+            {
+                MainNavigationViewModel.ShowSearchResults(args.QueryText);
+            }
+        }
 
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+        private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            if (((SampleDefinition)(args.SelectedItem)) == _dummySampleDefinition)
+            {
+                SearchBox.Text = "";
+            }
+            else
+            {
+                MainNavigationViewModel.NavigateToSample((SampleDefinition)args.SelectedItem);
+            }
+        }
+
+        private void SearchBox_AccessKeyInvoked(UIElement sender, Windows.UI.Xaml.Input.AccessKeyInvokedEventArgs args)
+        {
+            SearchBox.Focus(FocusState.Keyboard);
         }
     }
 

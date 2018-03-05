@@ -12,13 +12,23 @@
 //
 //*********************************************************
 
+using System;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Navigation;
 
 namespace CompositionSampleGallery
 {
     public sealed partial class SampleHost : Page
     {
+        private SampleDefinition _sampleDefinition;
+
+        public SampleDefinition SampleDefinition
+        {
+            get { return _sampleDefinition; }
+            set { _sampleDefinition = value;  }
+        }
+
         public SampleHost()
         {
             this.InitializeComponent();
@@ -29,7 +39,20 @@ namespace CompositionSampleGallery
             base.OnNavigatedTo(e);
 
             SampleDefinition definition = (SampleDefinition)e.Parameter;
+            SampleDefinition = definition;
             ContentFrame.Navigate(definition.Type, this);
+        }
+
+        public void TagHyperlink_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var inline = ((Hyperlink)sender).Inlines[0];
+            var run = (Run)inline;
+            var searchString = run.Text;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                MainNavigationViewModel.ShowSearchResults(searchString);
+            }
         }
     }
 }

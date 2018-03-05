@@ -47,5 +47,6 @@ namespace CompositionSampleGallery
         public override string  SampleName => StaticSampleName; 
         public static string    StaticSampleDescription => "Use XamlLights and XamlCompositionBrushes to create Lights and Materials in XAML"; 
         public override string  SampleDescription => StaticSampleDescription;
+        public override string  SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868948";
     }
 }

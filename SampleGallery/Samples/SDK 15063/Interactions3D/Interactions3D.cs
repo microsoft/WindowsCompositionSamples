@@ -27,6 +27,8 @@ using Windows.UI.Xaml.Input;
 using Microsoft.Graphics.Canvas.Text;
 
 using EF = ExpressionBuilder.ExpressionFunctions;
+using CompositionSampleGallery.Shared;
+using System.Collections.ObjectModel;
 
 namespace CompositionSampleGallery
 {
@@ -39,11 +41,14 @@ namespace CompositionSampleGallery
         public override string  SampleName => StaticSampleName; 
         public static string    StaticSampleDescription => "Demonstrates the use of an InteractionTracker to manipulate a 3D space.  Touch the screen to pinch and pan around the 3D scene.";
         public override string  SampleDescription => StaticSampleDescription;
+        public override string  SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868947";
 
         public Interactions3D()
         {
             this.InitializeComponent();
-
+            Model = new LocalDataSource();
+            _thumbnails = Model.AggregateDataSources(new ObservableCollection<Thumbnail>[] { Model.Landscapes, Model.Nature });
+             
             _random = new Random();
         }
 
@@ -232,7 +237,7 @@ namespace CompositionSampleGallery
 
             for (int i = _nodes.Count; i < _nodes.Capacity; i++)
             {
-                _nodes.Add(NodeManager.Instance.GenerateRandomImageNode());
+                _nodes.Add(NodeManager.Instance.GenerateRandomImageNode(_thumbnails.Count));
             }
 
 
@@ -252,12 +257,12 @@ namespace CompositionSampleGallery
             // Populate/load our unique list of image textures.
             //
 
-            for (int i = 0; i < (int)NamedImage.Count; i++)
-            {
-                var name = (NamedImage)i;
+            _imageBrushes = new ManagedSurface[_thumbnails.Count];
 
-                Uri uri = new Uri($"ms-appx:///Assets/Photos/{name.ToString()}.jpg");
-                _imageBrushes[i] = await ImageLoader.Instance.LoadFromUriAsync(uri);
+            for (int i = 0; i < _thumbnails.Count; i++)
+            {
+                Uri uri = new Uri(_thumbnails[i].ImageUrl);
+                _imageBrushes[i] = await ImageLoader.Instance.LoadFromUriAsync(uri, new Size(500, 300));
 
                 loadedImageCount++;
             }
@@ -330,7 +335,7 @@ namespace CompositionSampleGallery
 
         private void AddImage(ImageNodeInfo imageNodeInfo)
         {
-            AddImage(_imageBrushes[(int)imageNodeInfo.NamedImage].Brush, imageNodeInfo);
+            AddImage(_imageBrushes[(int)imageNodeInfo.ImageIndex].Brush, imageNodeInfo);
         }
 
 
@@ -686,6 +691,8 @@ namespace CompositionSampleGallery
             // Unused for this sample
         }
 
+        public LocalDataSource Model { get; set; }
+        ObservableCollection<Thumbnail> _thumbnails;
         private ContainerVisual         _worldContainer;
         private Random                  _random;
         private InteractionTracker      _tracker;
@@ -697,7 +704,8 @@ namespace CompositionSampleGallery
         private int                     _lastAmbientAnimationIndex = -1;
         private List<Tuple<AmbientAnimationTarget, CompositionAnimation>> 
                                         _ambientAnimations;
-        private ManagedSurface[]        _imageBrushes = new ManagedSurface[(int)NamedImage.Count];
+
+        private ManagedSurface[]        _imageBrushes;
         
         private CompositionSurfaceBrush[]   
                                         _textBrushes;

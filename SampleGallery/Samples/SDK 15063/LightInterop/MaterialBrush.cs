@@ -49,7 +49,7 @@ namespace CompositionSampleGallery.Samples.LightInterop
             }
 
             // Load NormalMap onto an ICompositionSurface using LoadedImageSurface
-            _surface = LoadedImageSurface.StartLoadFromUri(new Uri("ms-appx:///Assets/Damaged_NormalMap.jpg"), new Size(400,400));
+            _surface = LoadedImageSurface.StartLoadFromUri(new Uri("ms-appx:///Assets/NormalMapsAndMasks/bubblenm.jpg"), new Size(400,400));
 
             // Load Surface onto SurfaceBrush
             CompositionSurfaceBrush normalMap = compositor.CreateSurfaceBrush(_surface);

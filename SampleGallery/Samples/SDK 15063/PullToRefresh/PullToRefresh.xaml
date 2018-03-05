@@ -12,7 +12,7 @@
     <Grid x:Name ="Root" Background="White"  >
         <StackPanel Height="500" MaxHeight="500" x:Name="ContentPanel" HorizontalAlignment="Left" VerticalAlignment="Top" >
             <Canvas Width="400" Height="100"   x:Name="RefreshPanel" >
-                <Image x:Name="FirstGear" Source="ms-appx:///Assets/Loading.png" Width="20" Height="20"  Canvas.Left="200" Canvas.Top="70"/>
+                <SymbolIcon x:Name="FirstGear" Symbol="Refresh" Width="20" Height="20"  Canvas.Left="200" Canvas.Top="70"/>
             </Canvas>
             <ListView x:Name="ThumbnailList" 
                       MaxWidth="400"

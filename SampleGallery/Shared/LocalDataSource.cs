@@ -28,16 +28,11 @@ namespace CompositionSampleGallery.Shared
 
         }
 
-        public Thumbnail(string name, string url, string description) : this(name, url, description, null)
-        {
-        }
-
-        public Thumbnail(string name, string url, string description, string details)
+        public Thumbnail(string name, string url, string description) 
         {
             Name = name;
             ImageUrl = url;
             Description = description;
-            Details = details;
         }
 
         public string Name
@@ -55,57 +50,97 @@ namespace CompositionSampleGallery.Shared
             get; set;
         }
 
-        public string Details
-        {
-            get; set;
-        }
     }
 
     public class LocalDataSource
     {
         public LocalDataSource()
         {
-            Items = new ObservableCollection<Thumbnail>();
-            Items.Add(new Thumbnail("Landscape 1",  PREFIX_URL_LANDSCAPE + "Landscape-1.jpg",   "24mm f/4.0 1/2500 ISO 200"));
-            Items.Add(new Thumbnail("Landscape 2",  PREFIX_URL_LANDSCAPE + "Landscape-2.jpg",   "24mm f/8.0 1/2000 ISO 100"));
-            Items.Add(new Thumbnail("Landscape 3",  PREFIX_URL_LANDSCAPE + "Landscape-3.jpg",   "24mm f/8.0 1/640 ISO 100"));
-            Items.Add(new Thumbnail("Landscape 4",  PREFIX_URL_LANDSCAPE + "Landscape-4.jpg",   "70mm f/2.8 1/8000 ISO 400"));
-            Items.Add(new Thumbnail("Landscape 5",  PREFIX_URL_LANDSCAPE + "Landscape-5.jpg",   "70mm f/2.8 1/5000 ISO 400"));
-            Items.Add(new Thumbnail("Landscape 6",  PREFIX_URL_LANDSCAPE + "Landscape-6.jpg",   "70mm f/2.8 1/1250 ISO 100"));
-            Items.Add(new Thumbnail("Landscape 7",  PREFIX_URL_LANDSCAPE + "Landscape-7.jpg",   "70mm f/4.0 1/250 ISO 100"));
-            Items.Add(new Thumbnail("Landscape 8",  PREFIX_URL_LANDSCAPE + "Landscape-8.jpg",   "70mm f/2.8 1/1250 ISO 100"));
-            Items.Add(new Thumbnail("Landscape 9",  PREFIX_URL_LANDSCAPE + "Landscape-9.jpg",   "70mm f/2.8 1/2000 ISO 100"));
-            Items.Add(new Thumbnail("Landscape 10", PREFIX_URL_LANDSCAPE + "Landscape-10.jpg",  "24mm f/4.0 1/1000 ISO 100"));
-            Items.Add(new Thumbnail("Landscape 11", PREFIX_URL_LANDSCAPE + "Landscape-11.jpg",  "50mm f/16 1/125 ISO 100"));
-            Items.Add(new Thumbnail("Landscape 12", PREFIX_URL_LANDSCAPE + "Landscape-12.jpg",  "24mm f/4.0 1/250 ISO 100"));
+            Landscapes = new ObservableCollection<Thumbnail>();
+            Landscapes.Add(new Thumbnail("Rocky Mountains",     PREFIX_URL_LANDSCAPE + "Landscape-1.jpg",   "Landscape shot of mountains in rocky terrain"));
+            Landscapes.Add(new Thumbnail("Sunny Landscape",     PREFIX_URL_LANDSCAPE + "Landscape-2.jpg",   "Picturesque scene with the sun high in the sky"));
+            Landscapes.Add(new Thumbnail("Mountain Road",       PREFIX_URL_LANDSCAPE + "Landscape-3.jpg",   "Winding road through a mountain pass"));
+            Landscapes.Add(new Thumbnail("Harvest",             PREFIX_URL_LANDSCAPE + "Landscape-4.jpg",   "Corn stalks on a clear day"));
+            Landscapes.Add(new Thumbnail("Rock Formation",      PREFIX_URL_LANDSCAPE + "Landscape-5.jpg",   "Unique rock formation off of a mountain"));
+            Landscapes.Add(new Thumbnail("At Sea",              PREFIX_URL_LANDSCAPE + "Landscape-6.jpg",   "Sunset over the water"));
+            Landscapes.Add(new Thumbnail("Snowy Mountain",      PREFIX_URL_LANDSCAPE + "Landscape-7.jpg",   "A snowy mountain framed by pine trees"));
+            Landscapes.Add(new Thumbnail("Sea to Sky",          PREFIX_URL_LANDSCAPE + "Landscape-8.jpg",   "A lake framed by mountains and pine trees"));
+            Landscapes.Add(new Thumbnail("On the Beach",        PREFIX_URL_LANDSCAPE + "Landscape-9.jpg",   "Shot of the beach with greenery"));
+            Landscapes.Add(new Thumbnail("Lush Mountains",      PREFIX_URL_LANDSCAPE + "Landscape-10.jpg",  "Landscape shot of mountains in the forrest"));
+            Landscapes.Add(new Thumbnail("White Dunes",         PREFIX_URL_LANDSCAPE + "Landscape-11.jpg",  "White sand dunes and a clear sky"));
+            Landscapes.Add(new Thumbnail("Dunes with Tracks",   PREFIX_URL_LANDSCAPE + "Landscape-12.jpg",  "Sand dunes after driving on an ATV"));
+            Landscapes.Add(new Thumbnail("Shadowed Dunes",      PREFIX_URL_LANDSCAPE + "Landscape-13.jpg",  "Sand dunes casting a shadow"));
 
-            Cities = new ObservableCollection<Thumbnail>();
-            Cities.Add(new Thumbnail("Athens",      PREFIX_URL_CITY + "athens.jpg",     "Acropolis",            "The Acropolis is an ancient citadel containing the remains of ancient buildings, such as the Parthenon."));
-            Cities.Add(new Thumbnail("Barcelona",   PREFIX_URL_CITY + "barcelona.jpg",  "Sagrada Familia",      "Sagrada Familia is a large church in Barcelona designed by Antoni Gaudi."));
-            Cities.Add(new Thumbnail("Berlin",      PREFIX_URL_CITY + "berlin.jpg",     "Brandenburg Gate",     "This neoclassical monument in Berlin stands as a symbol of unity and peace."));
-            Cities.Add(new Thumbnail("Brussels",    PREFIX_URL_CITY + "brussels.jpg",   "Atomium",              "This structure in Brussels connects spheres so that it matches the shape of an iron crystal."));
-            Cities.Add(new Thumbnail("Copenhagen",  PREFIX_URL_CITY + "copenhagen.jpg", "Nyhavn",               "Nyhavn is a 17th century waterfront canal and entertainment district."));
-            Cities.Add(new Thumbnail("Dubrovnik",   PREFIX_URL_CITY + "dubrovnik.jpg",  "Old Town",             "Dubrovnik is a Croatian city on the Adriatic Sea in Dalmatia."));
-            Cities.Add(new Thumbnail("London",      PREFIX_URL_CITY + "london.jpg",     "Big Ben",              "Big Ben is the nickname of the clock in London's parliament building."));
-            Cities.Add(new Thumbnail("Lucerne",     PREFIX_URL_CITY + "lucerne.jpg",    "Chapel Bridge",        "Chapel Bridge is a covered wooden footbridge spanning across Reuss River."));
-            Cities.Add(new Thumbnail("Paris",       PREFIX_URL_CITY + "paris.jpg",      "Eiffel Tower",         "The Eiffel Tower is a wrought iron lattice tower on the Champ de Mars in Paris."));
-            Cities.Add(new Thumbnail("Prague",      PREFIX_URL_CITY + "prague.jpg",     "Astronomical Clock",   "This clock in Prague Old Town Hall was installed in 1410."));
-            Cities.Add(new Thumbnail("Rome",        PREFIX_URL_CITY + "rome.jpg",       "Colosseum",            "The Colosseum is an oval amphitheatre in the center of Rome."));
+            Abstract = new ObservableCollection<Thumbnail>();
+            Abstract.Add(new Thumbnail("Pink Bubbles",          PREFIX_URL_ABSTRACT + "Abstract-1.jpg",     "A macro shot of bubbles with a pink background"));
+            Abstract.Add(new Thumbnail("Blue Bubbles",          PREFIX_URL_ABSTRACT + "Abstract-2.jpg",     "A macro shot of bubbles with a blue background"));
+            Abstract.Add(new Thumbnail("Orange Bubbles",        PREFIX_URL_ABSTRACT + "Abstract-3.jpg",     "A portrait macro shot orange bubbles"));
+            Abstract.Add(new Thumbnail("Green Bubbles",         PREFIX_URL_ABSTRACT + "Abstract-4.jpg",     "A macro shot of green oil bubbles"));
+            Abstract.Add(new Thumbnail("Drop",                  PREFIX_URL_ABSTRACT + "Abstract-5.jpg",     "A macro shot of a droplet of water against nature"));
+            Abstract.Add(new Thumbnail("Petals",                PREFIX_URL_ABSTRACT + "Abstract-6.jpg",     "A close up shot of flower petals"));
+            Abstract.Add(new Thumbnail("Up Close",              PREFIX_URL_ABSTRACT + "Abstract-7.jpg",     "A zoomed in shot of the center of a flower"));
 
+            Nature = new ObservableCollection<Thumbnail>();
+            Nature.Add(new Thumbnail("Cardoon",                 PREFIX_URL_NATURE + "Nature-1.jpg",         "Close up shot of a purple cardoon"));
+            Nature.Add(new Thumbnail("Meadow",                  PREFIX_URL_NATURE + "Nature-2.jpg",         "Purple flowers in a meadow"));
+            Nature.Add(new Thumbnail("Pink Flower",             PREFIX_URL_NATURE + "Nature-3.jpg",         "A close up shot of a unique pink and yellow flower"));
+            Nature.Add(new Thumbnail("Red Flowers",             PREFIX_URL_NATURE + "Nature-4.jpg",         "A close up shot of a red flower amid a flower patch"));
+            Nature.Add(new Thumbnail("Dahlia",                  PREFIX_URL_NATURE + "Nature-5.jpg",         "A pink dahlia on a window sill"));
+            Nature.Add(new Thumbnail("Petals",                  PREFIX_URL_NATURE + "Nature-6.jpg",         "A shot focused on the petals of a pink flower"));
+            Nature.Add(new Thumbnail("Cynthia",                 PREFIX_URL_NATURE + "Nature-7.jpg",         "Cynthia butterfly landing on a flower"));
+            Nature.Add(new Thumbnail("Painted Lady",            PREFIX_URL_NATURE + "Nature-8.jpg",         "Cynthia butterfly showing its painted lady wings"));
+            Nature.Add(new Thumbnail("Macro Snail",             PREFIX_URL_NATURE + "Nature-9.jpg",         "A macro shot of a snail in the grass"));
+            Nature.Add(new Thumbnail("Snail",                   PREFIX_URL_NATURE + "Nature-10.jpg",        "A curious snail raising his head to take a look around"));
+            Nature.Add(new Thumbnail("Mushroom",                PREFIX_URL_NATURE + "Nature-11.jpg",        "A small mushroom coming out for spring"));
+            Nature.Add(new Thumbnail("Japanese Macaques",       PREFIX_URL_NATURE + "Nature-12.jpg",        "Two japanese macaque monkeys take care of each other"));
+            Nature.Add(new Thumbnail("Bird Calls",              PREFIX_URL_NATURE + "Nature-13.jpg",        "A bird calls out looking for its family"));
         }
 
-        public ObservableCollection<Thumbnail> Items
+        public ObservableCollection<Thumbnail> Landscapes
         {
             get; set;
         }
 
-        public ObservableCollection<Thumbnail> Cities
+        public ObservableCollection<Thumbnail> Abstract
         {
             get; set;
+        }
+        public ObservableCollection<Thumbnail> Nature
+        {
+            get; set;
+        }
+
+        public ObservableCollection<Thumbnail> AggregateDataSources(ObservableCollection<Thumbnail>[] sources)
+        {
+            ObservableCollection<Thumbnail> items = new ObservableCollection<Thumbnail>();
+            foreach(ObservableCollection<Thumbnail> list in sources)
+            {
+                foreach(Thumbnail thumbnail in list)
+                {
+                    items.Add(thumbnail);
+                }
+            }
+
+            return RandomizeDataSource(items);
+        }
+
+        public static ObservableCollection<Thumbnail> RandomizeDataSource(ObservableCollection<Thumbnail> list)
+        {
+            Random rng = new Random();
+            for (int i = list.Count-1; i > 0; i--)
+            {
+                int swapIndex = rng.Next(i + 1);
+                Thumbnail tmp = list[i];
+                list[i] = list[swapIndex];
+                list[swapIndex] = tmp;
+            }
+
+            return list;
         }
 
         private static readonly string PREFIX_URL_LANDSCAPE = "ms-appx:///Assets/Landscapes/";
-        private static readonly string PREFIX_URL_CITY = "ms-appx:///Assets/Cities/";
+        private static readonly string PREFIX_URL_NATURE = "ms-appx:///Assets/Nature/";
+        private static readonly string PREFIX_URL_ABSTRACT = "ms-appx:///Assets/Abstract/";
     }
 
 }

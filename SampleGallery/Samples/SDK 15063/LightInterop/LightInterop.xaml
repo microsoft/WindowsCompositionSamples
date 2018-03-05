@@ -11,7 +11,7 @@
     <Grid Name="BackgroundGrid" Background="Black">
         <Grid Name="ImageGrid" >
             <Grid.Background>
-                <ImageBrush ImageSource="ms-appx:///Assets/Background.png" Stretch="Uniform"/>
+                <ImageBrush ImageSource="ms-appx:///Assets/Landscapes/Landscape-12.jpg" Stretch="Uniform"/>
             </Grid.Background>
 
             <!-- TODO: In a future iteration, make the sizing adaptive for different form factors-->

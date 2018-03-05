@@ -41,6 +41,7 @@ namespace CompositionSampleGallery
         public override string      SampleName => StaticSampleName; 
         public static string        StaticSampleDescription => "Demonstrates the use of image lighting with BackdropBrush with a HardLight blend to create an interesting dynamic visual effect."; 
         public override string      SampleDescription => StaticSampleDescription;
+        public override string      SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=869002";
 
         private void Grid_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {           

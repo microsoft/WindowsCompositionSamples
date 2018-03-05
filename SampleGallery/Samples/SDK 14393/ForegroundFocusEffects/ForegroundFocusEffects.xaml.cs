@@ -18,6 +18,7 @@ using Microsoft.Graphics.Canvas.Effects;
 using SamplesCommon;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Numerics;
 using Windows.Graphics.Effects;
 using Windows.UI;
@@ -64,7 +65,7 @@ namespace CompositionSampleGallery
         public LocalDataSource Model { set; get; }
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            ThumbnailList.ItemsSource = Model.Items;
+            ThumbnailList.ItemsSource = ThumbnailList.ItemsSource = Model.AggregateDataSources(new ObservableCollection<Thumbnail>[] { Model.Landscapes, Model.Nature });
 
             // Populate the Effect combobox
             IList<ComboBoxItem> effectList = new List<ComboBoxItem>();
@@ -89,8 +90,8 @@ namespace CompositionSampleGallery
             // Start out with the destination layer invisible to avoid any cost until necessary
             _destinationSprite.IsVisible = false;
 
-            // Create the mask surface
-            _maskSurface = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Samples/SDK 14393/ForegroundFocusEffects/mask.png"));
+            // Create the .png surface
+            _maskSurface = await ImageLoader.Instance.LoadFromUriAsync(new Uri("ms-appx:///Assets/NormalMapsAndMasks/ForegroundFocusMask.png"));
 
             ElementCompositionPreview.SetElementChildVisual(ThumbnailList, _destinationSprite);
 

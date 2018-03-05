@@ -12,9 +12,11 @@
 //
 //*********************************************************
 
+using CompositionSampleGallery.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -22,6 +24,8 @@ namespace CompositionSampleGallery
 {
     public class MainNavigationViewModel
     {
+        private static MainNavigationViewModel s_instance;
+        public ISampleGalleryUIHost _hostingUI;
         private List<NavigationItem> _mainMenuList;
 
         // Category description text
@@ -39,68 +43,87 @@ namespace CompositionSampleGallery
             @"In addition to the samples that display the Fluent building blocks in UI, some simple API reference samples are provided to ramp up and learn about basic API capabilities.";
 
 
-        void AddNavigationItem(ref List<NavigationItem> menu, String displayName, SampleCategory cat, Type pageType, string categoryDescription="")
+        void AddNavigationItem(
+            List<NavigationItem> menu,
+            String displayName,
+            SampleCategory cat, 
+            Type pageType, 
+            string categoryDescription="", 
+            bool addEvenIfNoMatchingSamples = false, 
+            string thumbnail="")
         {
             var samples = from sample in SampleDefinitions.Definitions
                           where (sample.SampleCategory == cat)
                           select sample;
 
-            if (samples.Count<SampleDefinition>() > 0)
+            if ((samples.Count<SampleDefinition>() > 0) || addEvenIfNoMatchingSamples)
             {
-                menu.Add(new NavigationItem(displayName, cat, pageType, categoryDescription: categoryDescription));
+                menu.Add(new NavigationItem(displayName, cat, pageType, categoryDescription: categoryDescription, thumbnail:thumbnail));
             }
         }
 
-        public MainNavigationViewModel()
+        public MainNavigationViewModel(ISampleGalleryUIHost hostingUI)
         {
+            _hostingUI = hostingUI;
+
+            _hostingUI.BackStackStateChanged += (object sender, EventArgs args) =>
+            {
+                // Show or hide the global back button
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                    _hostingUI.CanGoBack ?
+                    AppViewBackButtonVisibility.Visible :
+                    AppViewBackButtonVisibility.Collapsed;
+            };
+
+            SystemNavigationManager.GetForCurrentView().BackRequested += (object backSender, BackRequestedEventArgs backArgs) =>
+            {
+                _hostingUI.GoBack();
+            };
+
+
 
             // Build a collection used to populate the navigation menu. This is where you can define the display names of
             // each menu item and which page they map to.
             _mainMenuList = new List<NavigationItem>();
-            _mainMenuList.Add(new NavigationItem("Home",            SampleCategory.Light /* unused */,      typeof(HomePage)));
-            AddNavigationItem(ref _mainMenuList, "Light",           SampleCategory.Light,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Light);
-            AddNavigationItem(ref _mainMenuList, "Depth",           SampleCategory.Depth,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Depth);
-            AddNavigationItem(ref _mainMenuList, "Motion",          SampleCategory.Motion,                  typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Motion);
-            AddNavigationItem(ref _mainMenuList, "Material",        SampleCategory.Material,                typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Material);
-            AddNavigationItem(ref _mainMenuList, "Scale",           SampleCategory.Scale,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Scale);
-            AddNavigationItem(ref _mainMenuList, "API Reference",   SampleCategory.APIReference,            typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_APIReference);
+            AddNavigationItem(_mainMenuList, "Home",            SampleCategory.None,                    typeof(HomePage),                 addEvenIfNoMatchingSamples: true,                         thumbnail: "ms-appx:///Assets/CategoryIcons/table_home_icon.png");
+            AddNavigationItem(_mainMenuList, "Light",           SampleCategory.Light,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Light,           thumbnail: "ms-appx:///Assets/CategoryIcons/table_light_icon_bw.png");
+            AddNavigationItem(_mainMenuList, "Depth",           SampleCategory.Depth,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Depth,           thumbnail: "ms-appx:///Assets/CategoryIcons/table_depth_icon_bw.png");
+            AddNavigationItem(_mainMenuList, "Motion",          SampleCategory.Motion,                  typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Motion,          thumbnail: "ms-appx:///Assets/CategoryIcons/table_motion_icon_bw.png");
+            AddNavigationItem(_mainMenuList, "Material",        SampleCategory.Material,                typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Material,        thumbnail: "ms-appx:///Assets/CategoryIcons/table_material_icon_bw.png");
+            AddNavigationItem(_mainMenuList, "Scale",           SampleCategory.Scale,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Scale,           thumbnail: "ms-appx:///Assets/CategoryIcons/table_scale_icon_bw.png");
+            AddNavigationItem(_mainMenuList, "API Reference",   SampleCategory.APIReference,            typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_APIReference,    thumbnail: "ms-appx:///Assets/CategoryIcons/table_reference_icon.png");
 
+            s_instance = this;
         }
 
         public List<NavigationItem> MainMenuList => _mainMenuList;
 
-        // When a sample item is clicked, walk up and find the parent frame and
-        // have that frame navigate to the sample
         public static void NavigateToSample(object sender, ItemClickEventArgs e)
         {
-            Frame pivotItemFrame = GetPivotFrame((FrameworkElement)sender);
-            if(pivotItemFrame != null)
-            {
-                SampleDefinition sample = (SampleDefinition)e.ClickedItem;
-                pivotItemFrame.Navigate(typeof(SampleHost), sample);
-            }
+            NavigateToSample((SampleDefinition)e.ClickedItem);
         }
 
-        // Given a UIElement, walk up the logical tree until the main pivot frame
-        // is found
-        public static Frame GetPivotFrame(FrameworkElement element)
+        public static void NavigateToSample(SampleDefinition sample)
+        {            
+            s_instance._hostingUI.Navigate(typeof(SampleHost), sample);
+        }
+
+        public static void ShowSearchResults(string queryText)
         {
-            FrameworkElement parent = (FrameworkElement)element.Parent;
-            while (parent != null)
-            {
-                if (parent.GetType() == typeof(Frame) && parent.Name == "PivotItemFrame")
-                {
-                    break;
-                }
-                parent = (FrameworkElement)parent.Parent;
-            }
-            return (Frame)parent;
+            s_instance._hostingUI.Navigate(typeof(SearchResultsPage), queryText);
+        }
+
+        public static void ShowSettings()
+        {
+            s_instance._hostingUI.Navigate((typeof(Settings)), null);
         }
     }
 
     public class NavigationItem
     {
-        private string _displayName, _featuredSamplesTitle;
+        private string _thumbnail;
+        private string _displayName;
+        private string _featuredSamplesTitle;
         private Type _pageType;
         private SampleCategory _cat;
         private string _categoryDescription;
@@ -110,13 +133,20 @@ namespace CompositionSampleGallery
         public SampleCategory Category { get { return _cat; } set { _cat = value; } }
         public string FeaturedSamplesTitle { get { return _featuredSamplesTitle; } set { _featuredSamplesTitle = value; } }
         public string CategoryDescription { get { return _categoryDescription; } }
-        public NavigationItem(string displayName, SampleCategory cat, Type pageType, string featuredSamplesTitle = "", string categoryDescription="")
+        public string ThumbnailUri { get { return _thumbnail; } }
+        public NavigationItem(
+            string displayName, 
+            SampleCategory cat, 
+            Type pageType, 
+            string categoryDescription, 
+            string thumbnail)
         {
             _displayName = displayName;
             _pageType = pageType;
             _cat = cat;
-            _featuredSamplesTitle = featuredSamplesTitle;
+            _featuredSamplesTitle = "";
             _categoryDescription = categoryDescription;
+            _thumbnail = thumbnail;
         }
     }
 }

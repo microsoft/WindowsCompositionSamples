@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <Grid x:Name="root" Background="LightGray" SizeChanged="Root_SizeChanged">
-        <Image x:Name="tiltImage" Source="ms-appx:///Assets/Photos/pic01.jpg" Width="300" Height="200" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Image x:Name="tiltImage" Source="ms-appx:///Assets/Abstract/Abstract-1.jpg" Width="300" Height="200" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
         <Rectangle x:Name="HitTestRect" Fill="Transparent" Width="300" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
 </local:SamplePage>
