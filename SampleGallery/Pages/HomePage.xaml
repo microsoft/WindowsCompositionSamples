@@ -68,10 +68,6 @@
             <!-- Social -->
             <local:Social />
             <!-- End Social -->
-
-            <!-- New samples -->
-            <local:FeaturedSamples x:Name="NewSamples" Title="New Samples" Background="#97549B" />
-            <!-- End new sample -->
           </StackPanel>
     </ScrollViewer>
 </Page>
