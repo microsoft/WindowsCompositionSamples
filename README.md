@@ -7,7 +7,7 @@ The code samples and demos in this repo are targeted at developers who are inter
 Inside this repo, you’ll find the following additional info:
 
 * [Getting started building and deploying readme](STARTUP.md)
-* [Contributing to the repo readme](CONTRIBUTING.md)
+* [Info on Questions and Contributing](CONTRIBUTING.md)
 * [Additional Resources & FAQ wiki](https://github.com/Microsoft/WindowsUIDevLabs/wiki)
 
 If you are a developer getting familiar with the Windows UI platform, want to build beautiful and innovative UI experiences, and don't mind a few bugs here and there, then this is the place for you!
