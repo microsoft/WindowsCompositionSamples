@@ -10,76 +10,68 @@
     Loaded="SamplePage_Loaded"
     SizeChanged="Page_SizeChanged">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid>
-            <ScrollViewer x:Name="MyScrollviewer">
-                <Grid>
-                    <GridView x:Name="gridView" Margin="0,300,0,0">
-                        <GridView.ItemTemplate>
-                            <DataTemplate x:DataType="data:Thumbnail">
-                                <Image Source="{x:Bind ImageUrl}"
-                                   Width="200"
-                                   Height="200"
-                                   Margin="4"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"    
-                                   Stretch="UniformToFill"/>
-                            </DataTemplate>
-                        </GridView.ItemTemplate>
-                    </GridView>
-                    <Grid x:Name="Header" Height="300" VerticalAlignment="Top">
-                        <ScrollViewer>
-                            <Grid>
-                                <Rectangle x:Name="BackgroundRectangle" Height="300" Width="1050" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                                    <Rectangle.Fill>
-                                        <ImageBrush x:Name="BackgroundImage" ImageSource="ms-appx:///Assets/Abstract/Abstract-4.jpg" Stretch="UniformToFill" Opacity="0.6"/>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                                <Rectangle x:Name="OverlayRectangle" Fill="#BFCFB5C0" Width="1050" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="TextContainer">
-                                    <Ellipse x:Name="ProfileImage" Height="150" Width="150" Margin="20,70,20,20">
-                                        <Ellipse.Fill>
-                                            <ImageBrush ImageSource="ms-appx:///Assets/Abstract/Abstract-2.jpg" Stretch="UniformToFill"/>
-                                        </Ellipse.Fill>
-                                    </Ellipse>
-                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,70,0,0">
-                                        <TextBlock x:Name="TitleBlock" Text="Lorem Ipsum" Foreground="White" FontSize="20"/>
-                                        <TextBlock x:Name="SubtitleBlock" Text="dolor sit amet" Foreground="White" FontSize="10" Margin="0,10,0,0"/>
-                                        <TextBlock x:Name="Blurb" Foreground="White" FontSize="12" Width="400" TextWrapping="Wrap" Margin="0,20,0,0">
-                                                <Run>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-                                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                                                </Run>
-                                        </TextBlock>
-                                        <TextBlock x:Name="MoreText" Text="More" Foreground="White" Margin="0,10,0,0"/>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
-                                            <StackPanel Orientation="Horizontal" x:Name="ButtonPanel">
-                                                <Button Padding="0" Foreground="White" Style="{ThemeResource TextBlockButtonStyle}">
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <SymbolIcon Symbol="Play"/>
-                                                        <TextBlock Text="Play" Margin="10,0,0,0"/>
-                                                    </StackPanel>
-                                                </Button>
-                                                <Button Padding="0" Foreground="White" Style="{ThemeResource TextBlockButtonStyle}">
-                                                    <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
-                                                        <SymbolIcon Symbol="Add"/>
-                                                        <TextBlock Text="Add" Margin="10,0,0,0"/>
-                                                    </StackPanel>
-                                                </Button>
-                                                <Button Padding="0" Foreground="White" Style="{ThemeResource TextBlockButtonStyle}">
-                                                    <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
-                                                        <SymbolIcon Symbol="More"/>
-                                                    </StackPanel>
-                                                </Button>
-                                            </StackPanel>
+        <GridView x:Name="gridView">
+            <GridView.Header>
+                <Grid x:Name="Header" Height="300" VerticalAlignment="Top">
+                    <Rectangle x:Name="BackgroundRectangle" Height="300" Width="1050" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                        <Rectangle.Fill>
+                            <ImageBrush x:Name="BackgroundImage" ImageSource="ms-appx:///Assets/Abstract/Abstract-4.jpg" Stretch="UniformToFill" Opacity="0.6"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle x:Name="OverlayRectangle" Fill="#BFCFB5C0" Width="1050" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="TextContainer">
+                        <Ellipse x:Name="ProfileImage" Height="150" Width="150" Margin="20,70,20,20">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="ms-appx:///Assets/Abstract/Abstract-2.jpg" Stretch="UniformToFill"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,70,0,0">
+                            <TextBlock x:Name="TitleBlock" Text="Lorem Ipsum" Foreground="White" FontSize="20"/>
+                            <TextBlock x:Name="SubtitleBlock" Text="dolor sit amet" Foreground="White" FontSize="10" Margin="0,10,0,0"/>
+                            <TextBlock x:Name="Blurb" Foreground="White" FontSize="12" Width="400" TextWrapping="Wrap" Margin="0,20,0,0">
+                                        <Run>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+                                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+                                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                                        </Run>
+                            </TextBlock>
+                            <TextBlock x:Name="MoreText" Text="More" Foreground="White" Margin="0,10,0,0"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
+                                <StackPanel Orientation="Horizontal" x:Name="ButtonPanel">
+                                    <Button Padding="0" Foreground="White" Style="{ThemeResource TextBlockButtonStyle}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <SymbolIcon Symbol="Play"/>
+                                            <TextBlock Text="Play" Margin="10,0,0,0"/>
                                         </StackPanel>
-                                    </StackPanel>
+                                    </Button>
+                                    <Button Padding="0" Foreground="White" Style="{ThemeResource TextBlockButtonStyle}">
+                                        <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                                            <SymbolIcon Symbol="Add"/>
+                                            <TextBlock Text="Add" Margin="10,0,0,0"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Padding="0" Foreground="White" Style="{ThemeResource TextBlockButtonStyle}">
+                                        <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                                            <SymbolIcon Symbol="More"/>
+                                        </StackPanel>
+                                    </Button>
                                 </StackPanel>
-                            </Grid>
-                        </ScrollViewer>
-                    </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
                 </Grid>
-            </ScrollViewer>
-        </Grid>
+            </GridView.Header>
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="data:Thumbnail">
+                    <Image Source="{x:Bind ImageUrl}"
+                        Width="200"
+                        Height="200"
+                        Margin="4"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"    
+                        Stretch="UniformToFill"/>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
     </Grid>
 </local:SamplePage>

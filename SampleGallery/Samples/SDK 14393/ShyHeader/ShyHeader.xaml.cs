@@ -17,11 +17,13 @@ using Microsoft.Graphics.Canvas.Effects;
 using System.Numerics;
 using Windows.UI.Xaml;
 using Windows.UI.Composition;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
-
+using Windows.UI.Xaml.Media;
 using EF = ExpressionBuilder.ExpressionFunctions;
 using CompositionSampleGallery.Shared;
 using System.Collections.ObjectModel;
+using SamplesCommon;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 namespace CompositionSampleGallery
@@ -52,8 +54,16 @@ namespace CompositionSampleGallery
 
         private void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            // Get the PropertySet that contains the scroll values from MyScrollViewer
-            _scrollerPropertySet = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(MyScrollviewer);
+            // Retrieve the ScrollViewer that the GridView is using internally
+            var scrollViewer = gridView.GetFirstDescendantOfType<ScrollViewer>();
+
+            // Update the ZIndex of the header container so that the header is above the items when scrolling
+            var headerPresenter = (UIElement)VisualTreeHelper.GetParent((UIElement)gridView.Header);
+            var headerContainer = (UIElement)VisualTreeHelper.GetParent(headerPresenter);
+            Canvas.SetZIndex((UIElement)headerContainer, 1);
+
+            // Get the PropertySet that contains the scroll values from the ScrollViewer
+            _scrollerPropertySet = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(scrollViewer);
             _compositor = _scrollerPropertySet.Compositor;
             Model = new LocalDataSource();
 
