@@ -323,18 +323,27 @@ namespace CompositionSampleGallery.PointerEffectTechniques
 
         public override async Task<CompositionDrawingSurface> LoadResources()
         {
-            var graphicsEffect = new ArithmeticCompositeEffect
+            var graphicsEffect = new CompositeEffect
             {
-                Name = "Arithmetic",
-                Source1 = new CompositionEffectSourceParameter("ImageSource"),
-                Source1Amount = .25f,
-                Source2 = new Transform2DEffect
-                {
-                    Name = "LightMapTransform",
-                    Source = new CompositionEffectSourceParameter("LightMap")
-                },
-                Source2Amount = 0,
-                MultiplyAmount = 1
+                Sources = {
+                    new ColorSourceEffect
+                    {
+                        Color = Windows.UI.Colors.Black
+                    },
+                    new ArithmeticCompositeEffect
+                    {
+                        Name = "Arithmetic",
+                        Source1 = new CompositionEffectSourceParameter("ImageSource"),
+                        Source1Amount = .25f,
+                        Source2 = new Transform2DEffect
+                        {
+                            Name = "LightMapTransform",
+                            Source = new CompositionEffectSourceParameter("LightMap")
+                        },
+                        Source2Amount = 0,
+                        MultiplyAmount = 1
+                    }
+                }
             };
 
             _effectFactory = _compositor.CreateEffectFactory(graphicsEffect, new[] { "LightMapTransform.TransformMatrix" });
@@ -451,18 +460,27 @@ namespace CompositionSampleGallery.PointerEffectTechniques
 
         public override async Task<CompositionDrawingSurface> LoadResources()
         {
-            var graphicsEffect = new ArithmeticCompositeEffect
+            var graphicsEffect = new CompositeEffect
             {
-                Name = "Arithmetic",
-                Source1 = new CompositionEffectSourceParameter("ImageSource"),
-                Source1Amount = .1f,
-                Source2 = new Transform2DEffect
-                {
-                    Name = "LightMapTransform",
-                    Source = new CompositionEffectSourceParameter("LightMap")
-                },
-                Source2Amount = 0,
-                MultiplyAmount = 1
+                Sources = {
+                    new ColorSourceEffect
+                    {
+                        Color = Windows.UI.Colors.Black
+                    },
+                    new ArithmeticCompositeEffect
+                    {
+                        Name = "Arithmetic",
+                        Source1 = new CompositionEffectSourceParameter("ImageSource"),
+                        Source1Amount = .1f,
+                        Source2 = new Transform2DEffect
+                        {
+                            Name = "LightMapTransform",
+                            Source = new CompositionEffectSourceParameter("LightMap")
+                        },
+                        Source2Amount = 0,
+                        MultiplyAmount = 1
+                    }
+                }
             };
 
             _effectFactory = _compositor.CreateEffectFactory(graphicsEffect, new[] { "LightMapTransform.TransformMatrix" });
