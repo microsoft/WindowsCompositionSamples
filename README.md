@@ -53,4 +53,4 @@ A detailed privacy agreement can be found [here](https://go.microsoft.com/fwlink
 
 ## Images
 
- The images used in this application are sourced from a variety of Microsoft employees, but we'd like to specially thank Conroy for his contribution. [See more of his content here.]("https://www.instagram.com/conroy.williamson/">).
+ The images used in this application are sourced from a variety of Microsoft employees, but we'd like to specially thank Conroy for his contribution. [See more of his content here.](https://www.instagram.com/conroy.williamson/)
