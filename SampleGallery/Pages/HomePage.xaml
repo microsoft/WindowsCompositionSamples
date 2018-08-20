@@ -52,10 +52,10 @@
                 </Paragraph>
                 <Paragraph Margin="15">
                     All of the samples shown here are available on Microsoft's
-                    <Hyperlink NavigateUri="http://aka.ms/windowsui">Windows UI Dev Labs</Hyperlink> repo on GitHub.
+                    <Hyperlink NavigateUri="http://aka.ms/windowsui">Windows Composition Samples</Hyperlink> repo on GitHub.
                 </Paragraph>
                 <Paragraph Margin="15">
-                    Want to preview and experiment with the very latest pre-release samples demonstrating visual effects, animations and interactions?  Become a Windows Insider and rebuild the Windows UI Dev Labs project against the latest Insider SDK and OS build to get samples that are otherwise hidden on major OS release builds.
+                    Want to preview and experiment with the very latest pre-release samples demonstrating visual effects, animations and interactions?  Become a Windows Insider and rebuild the Windows Composition Samples project against the latest Insider SDK and OS build to get samples that are otherwise hidden on major OS release builds.
                 </Paragraph>
             </RichTextBlock>
 

@@ -30,6 +30,6 @@ namespace CompositionSampleGallery
 
         private async void TwitterPanel_Tapped(object sender, TappedRoutedEventArgs e){ await Launcher.LaunchUriAsync(new Uri("https://twitter.com/WindowsUI")); }
 
-        private async void GitHubPanel_Tapped(object sender, TappedRoutedEventArgs e){ await Launcher.LaunchUriAsync(new Uri("https://github.com/Microsoft/WindowsUIDevLabs")); }
+        private async void GitHubPanel_Tapped(object sender, TappedRoutedEventArgs e){ await Launcher.LaunchUriAsync(new Uri("http://aka.ms/windowsui")); }
     }
 }
