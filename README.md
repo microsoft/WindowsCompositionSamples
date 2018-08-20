@@ -1,11 +1,8 @@
 # Windows UI Dev Labs
 
-Welcome to the Windows UI Dev Labs repository!  This is the place for the latest code samples, demos, and developer feedback around building beautiful and engaging Universal Windows Platform apps.  This repo focuses on the platform building blocks that make up the [Fluent Design System](https://fluent.microsoft.com/).  If you’re not quite ready for the code, check out the gallery app in the store [here](https://www.microsoft.com/store/productId/9N1H8CZHBPXB). 
+Welcome to the Windows UI Dev Labs repository!  This is the place for the latest code samples, demos, and developer feedback around building beautiful and engaging Universal Windows Platform apps.  This repo focuses on the platform building blocks that make up the [Fluent Design System](https://fluent.microsoft.com/), with emphasis on creating UI using APIs in both the [Windows.UI.Xaml](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.aspx) and [Windows.UI.Composition](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.composition.aspx) namespaces. The code samples and demos in this repo are targeted at developers who are interested in experimenting, building, and providing feedback on the latest flighting Windows UI APIs.
 
-The code samples and demos in this repo are targeted at developers who are interested in experimenting, building, and providing feedback on the latest flighting Windows UI APIs. We are focused on creating UI using APIs in both the [Windows.UI.Xaml](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.aspx) and [Windows.UI.Composition](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.composition.aspx) namespaces.  If instead you’re looking to get started with higher-level UI concepts, check out related projects: 
-
- * [XamlUIBasics](https://github.com/Microsoft/Windows-universal-samples/tree/dev/Samples/XamlUIBasics) for XAML controls-based UI
- * [Windows UI Library (WinUI)](https://docs.microsoft.com/en-us/uwp/toolkits/winui/) NuGet packages for XAML controls 
+If you’re not quite ready for the code, [check out the app in the Store](https://www.microsoft.com/store/productId/9N1H8CZHBPXB). 
 
 Inside this repo, you’ll find the following additional info:
 
@@ -46,6 +43,13 @@ A native library used to access some lower level functionality that has no WinRT
 We encourage and welcome community involvement and contribution in this project. You'll find some details and guidelines for contribution in the [contributing readme](CONTRIBUTING.md).
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
+## Related Projects
+
+ If instead you’re looking to get started with higher-level UI concepts, check out related projects: 
+
+ * [XamlUIBasics](https://github.com/Microsoft/Windows-universal-samples/tree/dev/Samples/XamlUIBasics) for XAML controls-based UI
+ * [Windows UI Library (WinUI)](https://docs.microsoft.com/en-us/uwp/toolkits/winui/) NuGet packages for XAML controls 
 
 ## Privacy
 
