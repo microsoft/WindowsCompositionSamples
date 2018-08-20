@@ -1,14 +1,14 @@
-# Windows UI Dev Labs
+# Windows Composition Samples
 
-Welcome to the Windows UI Dev Labs repository!  This is the place for the latest code samples, demos, and developer feedback around building beautiful and engaging Universal Windows Platform apps.  This repo focuses on the platform building blocks that make up the [Fluent Design System](https://fluent.microsoft.com/).  If you’re not quite ready for the code, check out the gallery app in the store [here](https://www.microsoft.com/en-us/store/p/windows-ui-dev-labs-sample-gallery/9pp1sb5wgnww). 
+Welcome to the Windows Composition Samples repository!  This is the place for the latest code samples, demos, and developer feedback around building beautiful and engaging Universal Windows Platform apps.  This repo focuses on the platform building blocks that make up the [Fluent Design System](https://fluent.microsoft.com/), with emphasis on creating UI using APIs in both the [Windows.UI.Xaml](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.aspx) and [Windows.UI.Composition](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.composition.aspx) namespaces. The code samples and demos in this repo are targeted at developers who are interested in experimenting, building, and providing feedback on the latest flighting Windows UI APIs.
 
-The code samples and demos in this repo are targeted at developers who are interested in experimenting, building, and providing feedback on the latest flighting Windows UI APIs. We are focused on creating UI using APIs in both the [Windows.UI.Xaml](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.aspx) and [Windows.UI.Composition](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.composition.aspx) namespaces.  If you’re looking to get started with more simple UI concepts, check out the [XamlUIBasics](https://github.com/Microsoft/Windows-universal-samples/tree/dev/Samples/XamlUIBasics).  
+If you’re not quite ready for the code, [check out the app in the Store](https://www.microsoft.com/store/productId/9N1H8CZHBPXB). 
 
 Inside this repo, you’ll find the following additional info:
 
 * [Getting started building and deploying readme](STARTUP.md)
 * [Info on Questions and Contributing](CONTRIBUTING.md)
-* [Additional Resources & FAQ wiki](https://github.com/Microsoft/WindowsUIDevLabs/wiki)
+* [Additional Resources & FAQ wiki](https://github.com/Microsoft/WindowsCompositionSamples/wiki)
 
 If you are a developer getting familiar with the Windows UI platform, want to build beautiful and innovative UI experiences, and don't mind a few bugs here and there, then this is the place for you!
 
@@ -44,6 +44,13 @@ We encourage and welcome community involvement and contribution in this project.
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
+## Related Projects
+
+ If instead you’re looking to get started with higher-level UI concepts, check out related projects: 
+
+ * [XamlUIBasics](https://github.com/Microsoft/Windows-universal-samples/tree/dev/Samples/XamlUIBasics) for XAML controls-based UI
+ * [Windows UI Library (WinUI)](https://docs.microsoft.com/en-us/uwp/toolkits/winui/) NuGet packages for XAML controls 
+
 ## Privacy
 
 We collect basic usage data so we can continually work to improve the samples in this repo. To opt out, comment out or remove the following line of code from SampleGallery\Shared\AppTelemetryClient.cs : 
@@ -53,4 +60,4 @@ A detailed privacy agreement can be found [here](https://go.microsoft.com/fwlink
 
 ## Images
 
- The images used in this application are sourced from a variety of Microsoft employees, but we'd like to specially thank Conroy for his contribution. [See more of his content here.]("https://www.instagram.com/conroy.williamson/">).
+ The images used in this application are sourced from a variety of Microsoft employees, but we'd like to specially thank Conroy for his contribution. [See more of his content here.](https://www.instagram.com/conroy.williamson/)
