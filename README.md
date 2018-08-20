@@ -1,6 +1,6 @@
-# Windows UI Dev Labs
+# Windows Composition Samples
 
-Welcome to the Windows UI Dev Labs repository!  This is the place for the latest code samples, demos, and developer feedback around building beautiful and engaging Universal Windows Platform apps.  This repo focuses on the platform building blocks that make up the [Fluent Design System](https://fluent.microsoft.com/), with emphasis on creating UI using APIs in both the [Windows.UI.Xaml](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.aspx) and [Windows.UI.Composition](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.composition.aspx) namespaces. The code samples and demos in this repo are targeted at developers who are interested in experimenting, building, and providing feedback on the latest flighting Windows UI APIs.
+Welcome to the Windows Composition Samples repository!  This is the place for the latest code samples, demos, and developer feedback around building beautiful and engaging Universal Windows Platform apps.  This repo focuses on the platform building blocks that make up the [Fluent Design System](https://fluent.microsoft.com/), with emphasis on creating UI using APIs in both the [Windows.UI.Xaml](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.aspx) and [Windows.UI.Composition](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.composition.aspx) namespaces. The code samples and demos in this repo are targeted at developers who are interested in experimenting, building, and providing feedback on the latest flighting Windows UI APIs.
 
 If you’re not quite ready for the code, [check out the app in the Store](https://www.microsoft.com/store/productId/9N1H8CZHBPXB). 
 
@@ -8,7 +8,7 @@ Inside this repo, you’ll find the following additional info:
 
 * [Getting started building and deploying readme](STARTUP.md)
 * [Info on Questions and Contributing](CONTRIBUTING.md)
-* [Additional Resources & FAQ wiki](https://github.com/Microsoft/WindowsUIDevLabs/wiki)
+* [Additional Resources & FAQ wiki](https://github.com/Microsoft/WindowsCompositionSamples/wiki)
 
 If you are a developer getting familiar with the Windows UI platform, want to build beautiful and innovative UI experiences, and don't mind a few bugs here and there, then this is the place for you!
 
