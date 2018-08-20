@@ -1,4 +1,4 @@
-<!-- Thanks for contributing to WindowsUIDevLabs! Someone from our team will take a look and get back to you as soon as possible. -->
+<!-- Thanks for contributing to WindowsCompositionSamples! Someone from our team will take a look and get back to you as soon as possible. -->
 
 ##  Pull Request Type
 [ ] Bugfix <!—Please add link to related Issue below -->  
