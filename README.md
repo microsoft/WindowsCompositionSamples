@@ -46,7 +46,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 
 ## Related Projects
 
- If instead you’re looking to get started with higher-level UI concepts, check out related projects: 
+This project is focused on experimenting with Windows.UI.Composition and XAML APIs to create beautiful, unique, and engaging user experiences. If instead you’re looking to get started with higher-level UI concepts with heavier focus on XAML-based controls, check out related projects: 
 
  * [XamlUIBasics](https://github.com/Microsoft/Windows-universal-samples/tree/dev/Samples/XamlUIBasics) for XAML controls-based UI
  * [Windows UI Library (WinUI)](https://docs.microsoft.com/en-us/uwp/toolkits/winui/) NuGet packages for XAML controls 
