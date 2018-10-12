@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Microsoft.UI.Composition.Toolkit", "Microsoft.UI.Composition.Toolkit.vcxproj", "{08A7D060-593A-4978-8DCC-B2029ACA7C95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositionImageSample", "..\CompositionImageSample\CompositionImageSample.csproj", "{B4BCF99C-78C3-4BB6-8DB1-1B49101892F7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
