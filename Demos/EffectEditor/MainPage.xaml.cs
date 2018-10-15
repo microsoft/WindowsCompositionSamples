@@ -40,7 +40,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using SamplesCommon;
-using SamplesCommon.ImageLoader;
+using static SamplesCommon.ImageLoader;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -108,8 +108,8 @@ namespace EffectEditor
 
         private CompositionSurfaceBrush CreateBrushFromAsset(string name, out Size size)
         {
-            IImageLoader imageLoader = ImageLoaderFactory.CreateImageLoader(m_compositor);
-            CompositionDrawingSurface surface = imageLoader.LoadImageFromUri(new Uri("ms-appx:///Assets/" + name));
+            ImageLoader imageLoader = ImageLoader.Instance;
+            CompositionDrawingSurface surface = imageLoader.LoadFromUri(new Uri("ms-appx:///Assets/" + name)).Surface;
             size = surface.Size;
             return m_compositor.CreateSurfaceBrush(surface);
         }
