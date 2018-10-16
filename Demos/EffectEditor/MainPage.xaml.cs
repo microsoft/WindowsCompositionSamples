@@ -108,8 +108,7 @@ namespace EffectEditor
 
         private CompositionSurfaceBrush CreateBrushFromAsset(string name, out Size size)
         {
-            ImageLoader imageLoader = ImageLoader.Instance;
-            CompositionDrawingSurface surface = imageLoader.LoadFromUri(new Uri("ms-appx:///Assets/" + name)).Surface;
+            CompositionDrawingSurface surface = ImageLoader.Instance.LoadFromUri(new Uri("ms-appx:///Assets/" + name)).Surface;
             size = surface.Size;
             return m_compositor.CreateSurfaceBrush(surface);
         }
@@ -125,6 +124,8 @@ namespace EffectEditor
             m_compositor = ElementCompositionPreview.GetElementVisual(MainGrid).Compositor;
             m_root = m_compositor.CreateContainerVisual();
             ElementCompositionPreview.SetElementChildVisual(MainGrid, m_root);
+
+            ImageLoader.Initialize(m_compositor);
 
             Size imageSize;
             m_noEffectBrush = CreateBrushFromAsset(
