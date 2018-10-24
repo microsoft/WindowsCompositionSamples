@@ -1,6 +1,6 @@
-# Windows Composition Samples
+﻿# Windows Composition Samples
 
-Welcome to the Windows Composition Samples repository!  This is the place for the latest code samples, demos, and developer feedback around building beautiful and engaging Universal Windows Platform apps.  This repo focuses on the platform building blocks that make up the [Fluent Design System](https://fluent.microsoft.com/), with emphasis on creating UI using APIs in both the [Windows.UI.Xaml](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.aspx) and [Windows.UI.Composition](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.composition.aspx) namespaces. The code samples and demos in this repo are targeted at developers who are interested in experimenting, building, and providing feedback on the latest flighting Windows UI APIs.
+Welcome to the Windows Composition Samples repository!  This is the place for the latest code samples, demos, and developer feedback around building beautiful and engaging Universal Windows Platform apps.  This repo focuses on the platform building blocks that make up the [Fluent Design System](https://fluent.microsoft.com/), with emphasis on creating UI using APIs in the [Windows.UI.Composition](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.composition.aspx) namespace. The code samples and demos in this repo are targeted at developers who are interested in experimenting, building, and providing feedback on the latest flighting Windows UI APIs.
 
 If you’re not quite ready for the code, [check out the app in the Store](https://www.microsoft.com/store/productId/9N1H8CZHBPXB). 
 
@@ -46,7 +46,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 
 ## Related Projects
 
-This project is focused on experimenting with Windows.UI.Composition and XAML APIs to create beautiful, unique, and engaging user experiences. If instead you’re looking to get started with higher-level UI concepts with heavier focus on XAML-based controls, check out related projects: 
+This project is focused on experimenting with Windows.UI.Composition APIs to create beautiful, unique, and engaging user experiences. If instead you’re looking to get started with higher-level UI concepts with heavier focus on XAML-based controls, check out related projects: 
 
  * [XamlUIBasics](https://github.com/Microsoft/Windows-universal-samples/tree/dev/Samples/XamlUIBasics) for XAML controls-based UI
  * [Windows UI Library (WinUI)](https://docs.microsoft.com/en-us/uwp/toolkits/winui/) NuGet packages for XAML controls 
