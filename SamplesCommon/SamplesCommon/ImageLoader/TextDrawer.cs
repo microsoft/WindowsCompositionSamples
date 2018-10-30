@@ -39,6 +39,7 @@ namespace SamplesCommon
             _backgroundColor = bgColor;
         }
 
+#pragma warning disable 1998
         public async Task Draw(CompositionGraphicsDevice device, Object drawingLock, CompositionDrawingSurface surface, Size size)
         {
             using (var ds = CanvasComposition.CreateDrawingSession(surface))

@@ -11,6 +11,6 @@
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-        <TextBox Text="{x:Bind EffectText, Mode=OneWay}" IsReadOnly="True" TextWrapping="Wrap"/>
+        <TextBox Text="{x:Bind EffectText, Mode=OneTime}" IsReadOnly="True" TextWrapping="Wrap"/>
     </ScrollViewer>
 </ContentDialog>
