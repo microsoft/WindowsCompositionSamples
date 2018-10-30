@@ -1,0 +1,11 @@
+### YamlMime:Sample
+sample:
+- name: Windows Composition Samples
+  description: The latest code samples and demos for building beautiful and engaging Universal Windows Platform apps. Focused on the platform building blocks that make up the Fluent Design System, these samples emphasize creating UI using APIs in the Windows.UI.Composition namespace. 
+  generateZip: true
+  author: daneuber
+  languages:
+  - csharp
+  technologies:
+  - windows
+  vssolution: SampleGallery\SampleGallery.sln
