@@ -6,11 +6,11 @@ Here you'll find some helpful guidance on how to locally build and run this proj
 
 For local development, you’ll need Visual Studio 2017 and the Windows Software Development Kit (SDK) for Windows 10.  A free copy of Visual Studio 2017 Community Edition is available [here](http://go.microsoft.com/fwlink/?LinkID=280676). The latest Windows SDK is available [here](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk), and archived SDK releases can be found on the [Windows SDK archive site](https://developer.microsoft.com/en-us/windows/downloads/sdk-archive).
 
-To stay on top of the latest updates to Windows and development tools, become a Windows Insider by [joining the Windows Insider Program](https://insider.windows.com/). After joining, Windows Insider SDKs can be found [here](https://www.microsoft.com/en-us/software-download/windowsinsiderpreviewSDK). More information on the Insider program can be found in our [Wiki page](https://github.com/Microsoft/WindowsUIDevLabs/wiki) or on the program [join page](https://insider.windows.com/).
+To stay on top of the latest updates to Windows and development tools, become a Windows Insider by [joining the Windows Insider Program](https://insider.windows.com/). After joining, Windows Insider SDKs can be found [here](https://www.microsoft.com/en-us/software-download/windowsinsiderpreviewSDK). More information on the Insider program can be found in our [Wiki page](https://github.com/Microsoft/WindowsCompositionSamples/wiki) or on the program [join page](https://insider.windows.com/).
 
 ## Cloning and Building
 
-Once you have Visual Studio and the appropriate SDK(s) installed, clone the WindowsUIDevLabs repo locally. Cloning instructions can be found [here](https://help.github.com/articles/cloning-a-repository/). 
+Once you have Visual Studio and the appropriate SDK(s) installed, clone the Windows Composition Samples repo locally. Cloning instructions can be found [here](https://help.github.com/articles/cloning-a-repository/). 
 
 Open the SampleGallery solution file (.sln extension) in Visual Studio to view and manage the project.
 
