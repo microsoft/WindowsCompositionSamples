@@ -37,7 +37,7 @@ namespace CompositionSampleGallery
         public override string      SampleDescription => StaticSampleDescription;
         private void AnimationSetup()
         {
-            _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
+            _compositor = Window.Current.Compositor;
             _visual = ElementCompositionPreview.GetElementVisual(Rectangle);
             _pause = true;
             _interval = TimeSpan.FromMilliseconds(16); // based on 60f/sec
@@ -58,7 +58,7 @@ namespace CompositionSampleGallery
 
             // set up dispatcher timer to animate slider
             _sliderAnimator = new DispatcherTimer();
-            _sliderAnimator.Tick += sliderBehavior;
+            _sliderAnimator.Tick += SliderBehavior;
             _sliderAnimator.Interval = _interval;
 
             // initialize amount to change slider value per tick
@@ -134,7 +134,7 @@ namespace CompositionSampleGallery
             // this enables scrubbing
             _controller.Progress = (float)slider.Value * .01f;
         }
-        private void sliderBehavior(object sender, object e)
+        private void SliderBehavior(object sender, object e)
         {
             // update slider.Value based on time elapsed
             DateTimeOffset currentTime = DateTimeOffset.Now;
