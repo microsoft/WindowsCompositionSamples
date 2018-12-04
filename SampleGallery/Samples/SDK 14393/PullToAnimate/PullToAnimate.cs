@@ -241,6 +241,10 @@ namespace CompositionSampleGallery
 
             _interactionSource = VisualInteractionSource.Create(_backgroundVisual);
             _interactionSource.PositionYSourceMode = InteractionSourceMode.EnabledWithInertia;
+
+#if SDKVERSION_17763
+            _interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadAndPointerWheel;
+#endif
             _tracker.InteractionSources.Add(_interactionSource);
 
             var trackerNode = _tracker.GetReference();
@@ -372,12 +376,14 @@ namespace CompositionSampleGallery
 
         private void Pointer_Pressed(object sender, PointerRoutedEventArgs e)
         {
-            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
+            try
             {
-                //Capture pointer to system for gestures
                 _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(Root));
             }
-
+            catch (UnauthorizedAccessException)
+            {
+                //catch to avoid app crash based on unauthorized input
+            }
         }
 
         private Compositor _compositor;

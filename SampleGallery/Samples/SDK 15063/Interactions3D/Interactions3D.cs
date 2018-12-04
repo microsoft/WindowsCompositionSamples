@@ -89,6 +89,9 @@ namespace CompositionSampleGallery
             _interactionSource = VisualInteractionSource.Create(_rootContainer);
             _interactionSource.ScaleSourceMode = InteractionSourceMode.EnabledWithInertia;
             _interactionSource.PositionXSourceMode = InteractionSourceMode.EnabledWithInertia;
+#if SDKVERSION_17763
+            _interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadAndPointerWheel;
+#endif
 
             _tracker = InteractionTracker.CreateWithOwner(_compositor, this);
             _tracker.MinScale = 0.6f;
@@ -661,13 +664,14 @@ namespace CompositionSampleGallery
         }
         private void Root_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
+            try
             {
-                // Tell the system to use the gestures from this pointer point (if it can).
                 _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(Root));
-
-                // Stop ambient animations
                 _tracker.TryUpdatePositionBy(Vector3.Zero);
+            }
+            catch (Exception)
+            {
+                return;
             }
         }
 

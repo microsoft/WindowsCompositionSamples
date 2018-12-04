@@ -13,6 +13,7 @@
 //*********************************************************
 
 using ExpressionBuilder;
+using System;
 using System.Numerics;
 using Windows.Foundation;
 using Windows.UI.Composition;
@@ -59,9 +60,9 @@ namespace CompositionSampleGallery
 
             _interactionSource = VisualInteractionSource.Create(_root);
             _interactionSource.PositionYSourceMode = InteractionSourceMode.EnabledWithInertia;
-            _interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadOnly; 
             _tracker.InteractionSources.Add(_interactionSource);        
             _tracker.MaxPosition = new Vector3(0, (float)Root.ActualHeight, 0);
+            SetDefaultInertia();
 
             //
             // Use the Tacker's Position (negated) to apply to the Offset of the Image.
@@ -85,6 +86,23 @@ namespace CompositionSampleGallery
             modifier.SetMotion((-target.Position.Y * springConstant) - (dampingConstant * target.PositionVelocityInPixelsPerSecond.Y));
 
             _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
+        }
+
+        //
+        // Setup the spring inertia using the NaturalMotion type
+        //
+        private void ActivateSpringForce2()
+        {
+            var modifier = InteractionTrackerInertiaNaturalMotion.Create(_compositor);
+            var springAnimation = _compositor.CreateSpringScalarAnimation();
+            springAnimation.Period = TimeSpan.FromSeconds(.15);
+            springAnimation.DampingRatio = .4f;
+            springAnimation.FinalValue = 0.0f;
+
+            modifier.Condition = _compositor.CreateExpressionAnimation("true");
+            modifier.NaturalMotion = springAnimation;
+            _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
+
         }
         private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -156,17 +174,33 @@ namespace CompositionSampleGallery
             _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
         }
 
-        private void ClearInertiaModifiers()
+        //
+        // Create a snap point in the "down" position using default inertia
+        //
+        private void SetDefaultInertia()
         {
-            _tracker.ConfigurePositionYInertiaModifiers(null);
+            var modifier = InteractionTrackerInertiaRestingValue.Create(_compositor);
+            modifier.RestingValue = _compositor.CreateExpressionAnimation("0");
+            modifier.Condition = _compositor.CreateExpressionAnimation("true");
+            _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
         }
 
         private void Root_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
+            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
-                // Tell the system to use the gestures from this pointer point (if it can).
-                _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(Root));
+                _tracker.TryUpdatePositionWithAdditionalVelocity(new Vector3(0.0f, 1000.0f, 0.0f));
+            }
+            else
+            {
+                try
+                {
+                    _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(Root));
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    //catch to avoid app crash based on unauthorized input
+                }
             }
         }
 
@@ -177,11 +211,14 @@ namespace CompositionSampleGallery
                 switch (((ListBox)sender).SelectedIndex)
                 {
                     case 0:
-                        ClearInertiaModifiers();
+                        SetDefaultInertia();
                         break;
 
                     case 1:
                         ActivateSpringForce();
+#if SDKVERSION_15063
+                        ActivateSpringForce2();
+#endif
                         break;
 
                     case 2:
