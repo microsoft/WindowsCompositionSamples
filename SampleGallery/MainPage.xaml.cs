@@ -322,7 +322,7 @@ namespace CompositionSampleGallery
             _14393,       // Anniversary Update (1607)
             _15063,       // Creators Update (1703)
             _16299,       // Fall Creators Update
-            _17134        // Version 1803
+            _17134,       // Version 1803
             _17763        // Version 1810
         };
 

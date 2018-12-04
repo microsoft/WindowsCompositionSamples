@@ -197,7 +197,7 @@ namespace CompositionSampleGallery
                 {
                     _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(Root));
                 }
-                catch (UnauthorizedAccessException)
+                catch (Exception)
                 {
                     //catch to avoid app crash based on unauthorized input
                 }

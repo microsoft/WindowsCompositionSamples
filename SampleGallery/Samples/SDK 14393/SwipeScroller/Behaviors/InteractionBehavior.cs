@@ -115,7 +115,7 @@ namespace CompositionSampleGallery.Samples.SDK_14393.SwipeScroller.Behaviors
                     {
                         interactionSource.TryRedirectForManipulation(a.GetCurrentPoint(s as UIElement));
                     }
-                    catch (UnauthorizedAccessException)
+                    catch (Exception)
                     {
                         // Ignoring the failed redirect to prevent app crashing
                     }
