@@ -15,7 +15,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>CompositionSampleGallery_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <TargetPlatformVersion>10.0.17763.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.17134.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
@@ -79,7 +79,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>$(DefineConstants);DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;SDKVERSION_10586;SDKVERSION_14393;SDKVERSION_15063;SDKVERSION_16299;SDKVERSION_17134;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -132,6 +132,7 @@
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\SDK 14393\NineGridResizing\INineGridScenario.cs" />
+    <Compile Include="Samples\SDK 17134\AnimationController\AnimationControl.cs" />
     <Compile Include="Shared\AppTelemetryClient.cs" />
     <None Include="SampleGallery_TemporaryKey.pfx" />
   </ItemGroup>
@@ -325,6 +326,7 @@
     <Content Include="Assets\Nature\Nature-7.jpg" />
     <Content Include="Assets\NormalMapsAndMasks\bubblenm.jpg" />
     <Content Include="Assets\SampleThumbnails\AdvancedShadows.PNG" />
+    <Content Include="Assets\SampleThumbnails\AnimationController.PNG" />
     <Content Include="Assets\SampleThumbnails\BackDropControlSample.PNG" />
     <Content Include="Assets\SampleThumbnails\BasicLayoutAndTransitions.PNG" />
     <Content Include="Assets\SampleThumbnails\BasicXAMLInterop.PNG" />
@@ -480,6 +482,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\SDK 16299\SpringyImage\SpringyImage.xaml" Condition="$(TargetPlatformBuild) &gt;15063">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK 17134\AnimationController\AnimationControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -727,9 +733,7 @@
       <Name>SamplesCommon</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Samples\SDK Insider\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights">
       <Version>2.8.0</Version>
