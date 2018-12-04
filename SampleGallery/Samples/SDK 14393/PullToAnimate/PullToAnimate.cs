@@ -385,7 +385,9 @@ namespace CompositionSampleGallery
             }
             catch (Exception)
             {
-                //catch to avoid app crash based on unauthorized input
+                //
+                // Catch to avoid app crash based on unauthorized input.
+                //
             }
         }
 
