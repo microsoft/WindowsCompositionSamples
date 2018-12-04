@@ -243,7 +243,10 @@ namespace CompositionSampleGallery
             _interactionSource.PositionYSourceMode = InteractionSourceMode.EnabledWithInertia;
 
 #if SDKVERSION_17763
-            _interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadAndPointerWheel;
+            if (MainPage.RuntimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._17763))
+            {
+                 _interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadAndPointerWheel;
+            }
 #endif
             _tracker.InteractionSources.Add(_interactionSource);
 

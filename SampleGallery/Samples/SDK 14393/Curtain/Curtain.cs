@@ -217,7 +217,10 @@ namespace CompositionSampleGallery
                     case 1:
                         ActivateSpringForce();
 #if SDKVERSION_15063
-                        ActivateSpringForce2();
+                        if (MainPage.RuntimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._15063))
+                        {
+                            ActivateSpringForce2();
+                        }
 #endif
                         break;
 

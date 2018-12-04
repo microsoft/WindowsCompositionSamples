@@ -90,9 +90,12 @@ namespace CompositionSampleGallery
             _interactionSource.ScaleSourceMode = InteractionSourceMode.EnabledWithInertia;
             _interactionSource.PositionXSourceMode = InteractionSourceMode.EnabledWithInertia;
 #if SDKVERSION_17763
-            _interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadAndPointerWheel;
-#endif
 
+            if (MainPage.RuntimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._17763))
+            {
+                 _interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadAndPointerWheel;
+            }
+#endif
             _tracker = InteractionTracker.CreateWithOwner(_compositor, this);
             _tracker.MinScale = 0.6f;
             _tracker.MaxScale = 5.0f;
