@@ -73,36 +73,41 @@ namespace CompositionSampleGallery
 
         private void ActivateSpringForce()
         {
-            var dampingConstant = 5;
-            var springConstant = 20;
 
-            var modifier = InteractionTrackerInertiaMotion.Create(_compositor);
+#if SDKVERSION_15063
+            //
+            // On newer builds, use the Spring NaturalMotion 
+            //
+            if (MainPage.RuntimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._15063))
+            {
+                var modifier = InteractionTrackerInertiaNaturalMotion.Create(_compositor);
+                var springAnimation = _compositor.CreateSpringScalarAnimation();
+                springAnimation.Period = TimeSpan.FromSeconds(.15);
+                springAnimation.DampingRatio = .4f;
+                springAnimation.FinalValue = 0.0f;
 
-            // Set the condition to true (always)
-            modifier.SetCondition((BooleanNode)true);
+                modifier.Condition = _compositor.CreateExpressionAnimation("true");
+                modifier.NaturalMotion = springAnimation;
+                _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
+            }
+            //
+            // On older builds, use a custom force that behaves like a spring
+            //
+            else
+#endif
+            {
+                var dampingConstant = 5;
+                var springConstant = 20;
+                var modifier = InteractionTrackerInertiaMotion.Create(_compositor);
 
-            // Define a spring-like force, anchored at position 0.
-            var target = ExpressionValues.Target.CreateInteractionTrackerTarget();
-            modifier.SetMotion((-target.Position.Y * springConstant) - (dampingConstant * target.PositionVelocityInPixelsPerSecond.Y));
+                // Set the condition to true (always)
+                modifier.SetCondition((BooleanNode)true);
 
-            _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
-        }
-
-        //
-        // Setup the spring inertia using the NaturalMotion type
-        //
-        private void ActivateSpringForce2()
-        {
-            var modifier = InteractionTrackerInertiaNaturalMotion.Create(_compositor);
-            var springAnimation = _compositor.CreateSpringScalarAnimation();
-            springAnimation.Period = TimeSpan.FromSeconds(.15);
-            springAnimation.DampingRatio = .4f;
-            springAnimation.FinalValue = 0.0f;
-
-            modifier.Condition = _compositor.CreateExpressionAnimation("true");
-            modifier.NaturalMotion = springAnimation;
-            _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
-
+                // Define a spring-like force, anchored at position 0.
+                var target = ExpressionValues.Target.CreateInteractionTrackerTarget();
+                modifier.SetMotion((-target.Position.Y * springConstant) - (dampingConstant * target.PositionVelocityInPixelsPerSecond.Y));
+                _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
+            }
         }
         private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -216,12 +221,6 @@ namespace CompositionSampleGallery
 
                     case 1:
                         ActivateSpringForce();
-#if SDKVERSION_15063
-                        if (MainPage.RuntimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._15063))
-                        {
-                            ActivateSpringForce2();
-                        }
-#endif
                         break;
 
                     case 2:

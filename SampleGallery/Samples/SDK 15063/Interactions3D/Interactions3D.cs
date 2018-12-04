@@ -90,7 +90,6 @@ namespace CompositionSampleGallery
             _interactionSource.ScaleSourceMode = InteractionSourceMode.EnabledWithInertia;
             _interactionSource.PositionXSourceMode = InteractionSourceMode.EnabledWithInertia;
 #if SDKVERSION_17763
-
             if (MainPage.RuntimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._17763))
             {
                  _interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadAndPointerWheel;
