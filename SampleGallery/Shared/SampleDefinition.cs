@@ -179,10 +179,11 @@ namespace CompositionSampleGallery
 #endif
 
 #if SDKVERSION_16299
-                new SampleDefinition(SpringyImage.StaticSampleName,                 typeof(SpringyImage),                 SampleType.Reference, SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/SpringyImage.PNG",                      description: SpringyImage.StaticSampleDescription,                      sdkVersion: RuntimeSupportedSDKs.SDKVERSION._16299,         dateAdded: new DateTime(2017,08,7),                                        tags: new string[1]{"ExpressionBuilder"}),             
+                new SampleDefinition(SpringyImage.StaticSampleName,                 typeof(SpringyImage),                 SampleType.Reference, SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/SpringyImage.PNG",                      description: SpringyImage.StaticSampleDescription,                      sdkVersion: RuntimeSupportedSDKs.SDKVERSION._16299,         dateAdded: new DateTime(2017,08,7),                                        tags: new string[1]{"ExpressionBuilder"}),
 #endif
 
-#if SDKVERSION_INSIDER
+#if SDKVERSION_17134
+                 new SampleDefinition(AnimationControl.StaticSampleName,            typeof(AnimationControl),             SampleType.Reference, SampleCategory.APIReference,        false,      false,          "ms-appx:///Assets/SampleThumbnails/AnimationController.PNG",               description: AnimationControl.StaticSampleDescription,                  sdkVersion: RuntimeSupportedSDKs.SDKVERSION._17134,         dateAdded: new DateTime(2018,12,3)),    
 #endif
 
     };
