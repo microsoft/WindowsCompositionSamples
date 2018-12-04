@@ -113,17 +113,14 @@ namespace CompositionSampleGallery
 
         private void Window_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
+            try
             {
-                try
-                {
-                    // Tell the system to use the gestures from this pointer point (if it can).
-                    _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(null));
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    // Ignoring the failed redirect to prevent app crashing
-                }
+                // Tell the system to use the gestures from this pointer point (if it can).
+                _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(null));
+            }
+            catch (Exception)
+            {
+                // Ignoring the failed redirect to prevent app crashing
             }
         }
 

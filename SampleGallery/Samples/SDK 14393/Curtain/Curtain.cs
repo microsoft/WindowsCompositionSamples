@@ -13,6 +13,7 @@
 //*********************************************************
 
 using ExpressionBuilder;
+using System;
 using System.Numerics;
 using Windows.Foundation;
 using Windows.UI.Composition;
@@ -59,9 +60,9 @@ namespace CompositionSampleGallery
 
             _interactionSource = VisualInteractionSource.Create(_root);
             _interactionSource.PositionYSourceMode = InteractionSourceMode.EnabledWithInertia;
-            _interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadOnly; 
             _tracker.InteractionSources.Add(_interactionSource);        
             _tracker.MaxPosition = new Vector3(0, (float)Root.ActualHeight, 0);
+            SetDefaultInertia();
 
             //
             // Use the Tacker's Position (negated) to apply to the Offset of the Image.
@@ -72,19 +73,41 @@ namespace CompositionSampleGallery
 
         private void ActivateSpringForce()
         {
-            var dampingConstant = 5;
-            var springConstant = 20;
 
-            var modifier = InteractionTrackerInertiaMotion.Create(_compositor);
+#if SDKVERSION_15063
+            //
+            // On newer builds, use the Spring NaturalMotion 
+            //
+            if (MainPage.RuntimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._15063))
+            {
+                var modifier = InteractionTrackerInertiaNaturalMotion.Create(_compositor);
+                var springAnimation = _compositor.CreateSpringScalarAnimation();
+                springAnimation.Period = TimeSpan.FromSeconds(.15);
+                springAnimation.DampingRatio = .4f;
+                springAnimation.FinalValue = 0.0f;
 
-            // Set the condition to true (always)
-            modifier.SetCondition((BooleanNode)true);
+                modifier.Condition = _compositor.CreateExpressionAnimation("true");
+                modifier.NaturalMotion = springAnimation;
+                _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
+            }
+            //
+            // On older builds, use a custom force that behaves like a spring
+            //
+            else
+#endif
+            {
+                var dampingConstant = 5;
+                var springConstant = 20;
+                var modifier = InteractionTrackerInertiaMotion.Create(_compositor);
 
-            // Define a spring-like force, anchored at position 0.
-            var target = ExpressionValues.Target.CreateInteractionTrackerTarget();
-            modifier.SetMotion((-target.Position.Y * springConstant) - (dampingConstant * target.PositionVelocityInPixelsPerSecond.Y));
+                // Set the condition to true (always)
+                modifier.SetCondition((BooleanNode)true);
 
-            _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
+                // Define a spring-like force, anchored at position 0.
+                var target = ExpressionValues.Target.CreateInteractionTrackerTarget();
+                modifier.SetMotion((-target.Position.Y * springConstant) - (dampingConstant * target.PositionVelocityInPixelsPerSecond.Y));
+                _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
+            }
         }
         private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -156,17 +179,33 @@ namespace CompositionSampleGallery
             _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
         }
 
-        private void ClearInertiaModifiers()
+        //
+        // Create a snap point in the "down" position using default inertia
+        //
+        private void SetDefaultInertia()
         {
-            _tracker.ConfigurePositionYInertiaModifiers(null);
+            var modifier = InteractionTrackerInertiaRestingValue.Create(_compositor);
+            modifier.RestingValue = _compositor.CreateExpressionAnimation("0");
+            modifier.Condition = _compositor.CreateExpressionAnimation("true");
+            _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
         }
 
         private void Root_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
+            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
-                // Tell the system to use the gestures from this pointer point (if it can).
-                _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(Root));
+                _tracker.TryUpdatePositionWithAdditionalVelocity(new Vector3(0.0f, 1000.0f, 0.0f));
+            }
+            else
+            {
+                try
+                {
+                    _interactionSource.TryRedirectForManipulation(e.GetCurrentPoint(Root));
+                }
+                catch (Exception)
+                {
+                    //catch to avoid app crash based on unauthorized input
+                }
             }
         }
 
@@ -177,7 +216,7 @@ namespace CompositionSampleGallery
                 switch (((ListBox)sender).SelectedIndex)
                 {
                     case 0:
-                        ClearInertiaModifiers();
+                        SetDefaultInertia();
                         break;
 
                     case 1:
