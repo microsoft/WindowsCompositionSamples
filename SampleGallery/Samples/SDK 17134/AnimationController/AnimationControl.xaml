@@ -1,0 +1,30 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.AnimationControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Canvas>
+            <Rectangle x:Name="Rectangle" Width="50" Height="50" Fill="Blue" Canvas.Left="20" Canvas.Top="20"/>
+        </Canvas>
+        <Button x:Name="PlayButton" Width="50" HorizontalAlignment="Left" Margin="20,250,0,0" VerticalAlignment="Center" Click="PlayPause_Animation" >
+            <SymbolIcon x:Name="PlayIcon" Symbol="Play"/>
+        </Button>
+        <Button x:Name="StopButton" Width="50" HorizontalAlignment="Left" Margin="80,250,0,0" VerticalAlignment="Center" Click="Stop_Animation">
+            <SymbolIcon Symbol="Stop"/>
+        </Button>
+        <Button x:Name="SpeedUp" Content="2.0x" Width="50" HorizontalAlignment="Left" Margin="140,250,0,0" VerticalAlignment="Center" Click="SpeedUp_Animation"/>
+        <Button x:Name="SlowDown" Content="0.5x" Width="50" HorizontalAlignment="Left" Margin="200,250,0,0" VerticalAlignment="Center" Click="SlowDown_Animation"/>
+        <Button x:Name="Reverse" Width="50" HorizontalAlignment="Left" Margin="260,250,0,0" VerticalAlignment="Center" Click="Reverse_Animation">
+            <SymbolIcon Symbol="Back"/>
+        </Button>
+
+        <StackPanel HorizontalAlignment="Left" Margin="20,150,0,0" VerticalAlignment="Center" Width="290" >
+			<Slider x:Name="slider" Minimum="0" Maximum="100" TickFrequency="25" TickPlacement="BottomRight" ValueChanged="OnSliderValueChanged" />
+        </StackPanel>
+    </Grid>
+</local:SamplePage>

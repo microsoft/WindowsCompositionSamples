@@ -12,7 +12,7 @@
     <DefineConstants Condition="$(TargetPlatformBuild) &gt;=14393">$(DefineConstants);SDKVERSION_14393</DefineConstants>
     <DefineConstants Condition="$(TargetPlatformBuild) &gt;=15063">$(DefineConstants);SDKVERSION_15063</DefineConstants>
     <DefineConstants Condition="$(TargetPlatformBuild) &gt;=16299">$(DefineConstants);SDKVERSION_16299</DefineConstants>
-    <DefineConstants Condition="$(TargetPlatformBuild) &gt; 16299">$(DefineConstants);SDKVERSION_INSIDER</DefineConstants>
+    <DefineConstants Condition="$(TargetPlatformBuild) &gt;=17134">$(DefineConstants);SDKVERSION_17134</DefineConstants>
 
   </PropertyGroup>
 </Project>
