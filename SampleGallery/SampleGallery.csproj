@@ -329,6 +329,7 @@
     <Content Include="Assets\Nature\Nature-7.jpg" />
     <Content Include="Assets\NormalMapsAndMasks\bubblenm.jpg" />
     <Content Include="Assets\SampleThumbnails\AdvancedShadows.PNG" />
+    <Content Include="Assets\SampleThumbnails\AnimationCompleted.PNG" />
     <Content Include="Assets\SampleThumbnails\AnimationController.PNG" />
     <Content Include="Assets\SampleThumbnails\BackDropControlSample.PNG" />
     <Content Include="Assets\SampleThumbnails\BasicLayoutAndTransitions.PNG" />
