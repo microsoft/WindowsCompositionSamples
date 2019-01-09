@@ -16,7 +16,7 @@
             x:Name="NavView"  
             IsSettingsVisible="True"
             ItemInvoked="NavViewItemInvoked">
-
+            
             <Frame x:Name="ContentFrame" Margin="24"/>
                         
         </contract5Present:NavigationView>

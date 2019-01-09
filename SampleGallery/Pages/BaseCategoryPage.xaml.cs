@@ -12,10 +12,19 @@
 //
 //*********************************************************
 
+using CompositionSampleGallery.Shared;
+using ExpressionBuilder;
+using SamplesCommon;
 using System.Linq;
+using Windows.UI.Composition;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
+using Windows.UI.Xaml.Hosting;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+
+using EF = ExpressionBuilder.ExpressionFunctions;
 
 namespace CompositionSampleGallery
 {
@@ -64,6 +73,44 @@ namespace CompositionSampleGallery
                 CategoryDescriptionTextBlock.Blocks.Add(paragraph);
 
             }
+        }
+
+        /*
+         * On page load, add logic for sticky 'featured samples' header
+         */ 
+        private void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            // Get the backing visual for the header so that its properties can be animated
+            Visual headerVisual = ElementCompositionPreview.GetElementVisual(FeaturedSampleControl);
+            var compositor = headerVisual.Compositor;
+
+            // Set Z of Featured Samples so content scrolls behind it
+            var headerPresenter = (UIElement)VisualTreeHelper.GetParent((UIElement)MainGrid.Header);
+            var headerContainer = (UIElement)VisualTreeHelper.GetParent(headerPresenter);
+            Canvas.SetZIndex((UIElement)headerContainer, 1);
+
+            // Get scrollviewer
+            ScrollViewer myScrollViewer = MainGrid.GetFirstDescendantOfType<ScrollViewer>();
+            var _scrollerPropertySet = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(myScrollViewer);
+
+            // Get references to our property sets for use with ExpressionNodes
+            var scrollingProperties = _scrollerPropertySet.GetSpecializedReference<ManipulationPropertySetReferenceNode>();
+            var _props = compositor.CreatePropertySet();
+            _props.InsertScalar("progress", 0);
+            _props.InsertScalar("clampSize", (float)FeaturedSampleControl.ActualHeight);
+
+            // Bind property references
+            var props = _props.GetReference();
+            var progressNode = props.GetScalarProperty("progress");
+            var clampSizeNode = props.GetScalarProperty("clampSize");
+
+            // Create and start an ExpressionAnimation to track scroll progress over the desired distance
+            ExpressionNode progressAnimation = EF.Clamp(-scrollingProperties.Translation.Y / clampSizeNode, 0, 1);
+            _props.StartAnimation("progress", progressAnimation);
+
+            // Create and start an ExpressionAnimation to clamp the header's offset to keep it onscreen
+            ExpressionNode headerTranslationAnimation =  -scrollingProperties.Translation.Y;
+            headerVisual.StartAnimation("Offset.Y", headerTranslationAnimation);
         }
     }
 }

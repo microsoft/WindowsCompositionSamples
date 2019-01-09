@@ -90,7 +90,7 @@ namespace CompositionSampleGallery
 
                 // Apply acrylic to the main navigation
                 TitleBarRow.Height = new GridLength(31);
-                TitleBarGrid.Background = (Brush)Application.Current.Resources["SystemControlChromeMediumLowAcrylicWindowMediumBrush"];
+                TitleBarGrid.Background = (Brush)Application.Current.Resources["CustomTitleBarAcrylic"];
             }
 #endif
         }

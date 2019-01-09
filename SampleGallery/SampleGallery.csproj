@@ -256,6 +256,7 @@
       <DependentUpon>FeaturedSamples.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shared\MainNavigationViewModel.cs" />
+    <Compile Include="NavViewXCBB.cs" />
     <Compile Include="Shared\SharedResourceDictionaries.xaml.cs">
       <DependentUpon>SharedResourceDictionaries.xaml</DependentUpon>
     </Compile>

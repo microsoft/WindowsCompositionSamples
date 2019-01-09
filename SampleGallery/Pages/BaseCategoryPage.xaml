@@ -7,10 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="400"
+    Loaded="Page_Loaded">
 
-    <Grid x:Name="MainGrid">
-
+    <GridView x:Name="MainGrid">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
 
@@ -21,7 +21,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="CategoryDescriptionTextBlock.Style" Value="{StaticResource CategoryDescriptionTextBlockStyleWide}" />
-                        <Setter Target="MainGrid.Background" Value="White" />
+
                     </VisualState.Setters>
                 </VisualState>
 
@@ -32,36 +32,37 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="CategoryDescriptionTextBlock.Style" Value="{StaticResource CategoryDescriptionTextBlockStyleNarrow}" />
-                        <Setter Target="MainGrid.Background" Value="Black" />
+           
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
             
         </VisualStateManager.VisualStateGroups>
-        <ScrollViewer HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Disabled">
 
-            <StackPanel>
-                <!-- Featured transition samples -->
-                <local:FeaturedSamples 
-                    x:Name="FeaturedSampleControl" 
-                    Description="Click a sample to learn more"
-                    Background="{StaticResource CategoryPageFeaturedSamplesBackground}"
-                    Foreground="Black"/>
-                <!-- End featured transition samples -->
+        <GridView.Header>
+            <!-- Featured transition samples -->
+            <local:FeaturedSamples 
+                x:Name="FeaturedSampleControl" 
+                Description="Click a sample to learn more"
+                Background="{StaticResource CustomFeaturedSamplesAcrylic}"
+                Foreground="Black"/>
+            <!-- End featured transition samples -->
+        </GridView.Header>
 
-                <RichTextBlock x:Name="CategoryDescriptionTextBlock" Style="{StaticResource CategoryDescriptionTextBlockStyleWide}" />
+        <StackPanel>
+            <RichTextBlock x:Name="CategoryDescriptionTextBlock" Style="{StaticResource CategoryDescriptionTextBlockStyleWide}" />
 
-                <!-- Samples list -->
-                <local:BodyAppList
-                    x:Name="FullSampleList" />
-                <!-- End samples list -->
+            <!-- Samples list -->
+            <local:BodyAppList
+                x:Name="FullSampleList" />
+            <!-- End samples list -->
 
-                <!-- Footer -->
-                <local:Social Margin="0,50,0,0" />
-                <!-- End footer -->
+            <!-- Footer -->
+            <local:Social Margin="0,50,0,0" />
+            <!-- End footer -->
 
-            </StackPanel>
-            
-        </ScrollViewer>
-    </Grid>
+
+        </StackPanel>
+
+    </GridView>
 </Page>

@@ -19,9 +19,28 @@
             <SolidColorBrush x:Key="DarkThemeForeground" Color="#363636" />
             <SolidColorBrush x:Key="DarkThemeForegroundPointerOver" Color="#3F3F3F" />
             <SolidColorBrush x:Key="LightThemeBackgroundColorBrush" Color="White" />
-            <SolidColorBrush x:Key="CategoryPageFeaturedSamplesBackground" Color="Azure" />
             <SolidColorBrush x:Key="MainNavigationForegroundColor" Color="#666666" />
             <SolidColorBrush x:Key="MainNavigationSelectedForegroundColor" Color="#00BCF2" />
+
+            <AcrylicBrush x:Key="CustomTitleBarAcrylic"
+                          BackgroundSource="HostBackdrop"
+                          TintColor="#00B2F0" 
+                          TintOpacity="0.7"/>
+
+            <AcrylicBrush x:Key="CustomFeaturedSamplesAcrylic"
+                          BackgroundSource="Backdrop"
+                          TintColor="#00B2F0" TintOpacity="0.7" />
+            
+            <!--Override navview style keys-->
+            <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
+                                   BackgroundSource="Backdrop"
+                                   TintOpacity=".6" TintColor="#00B2F0" />
+            <AcrylicBrush x:Key="NavigationViewTopPaneBackground"
+                            BackgroundSource="Backdrop"
+                            TintOpacity=".6" TintColor="#00B2F0" />
+            <local:NavViewXCBB x:Key="NavigationViewExpandedPaneBackground"/>
+
+
             <!-- SplitViewTogglePaneButtonTemplate -->
             <ControlTemplate x:Key="SplitViewTogglePaneButtonTemplate" TargetType="Button">
                 <Grid x:Name="RootGrid" Background="{TemplateBinding Background}" Width="{StaticResource BackButtonWidth}" Height="{StaticResource BackButtonWidth}">

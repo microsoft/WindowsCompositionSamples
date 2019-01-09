@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:common="using:SamplesCommon"
     Loaded="UserControl_Loaded"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Background="Transparent">
     <UserControl.Resources>
 
         <ResourceDictionary>
@@ -22,10 +22,11 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid x:Name="MainGrid"
-          Background="{x:Bind Background}" 
+    <Grid x:Name="MainGrid"       
+         Background="{x:Bind Background}"
           MaxHeight="{x:Bind MaxHeight}" >
-    <Grid.RowDefinitions>
+        
+        <Grid.RowDefinitions>
             <RowDefinition x:Name="Row0" />
             <RowDefinition x:Name="Row1" />
         </Grid.RowDefinitions>
@@ -76,7 +77,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <StackPanel x:Name="TextStackPanel" 
+        <StackPanel x:Name="TextStackPanel" Background="Transparent"
                     Grid.Row="0" 
                     Grid.Column="0" 
                     Grid.RowSpan="2"
