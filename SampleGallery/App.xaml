@@ -23,12 +23,12 @@
             <SolidColorBrush x:Key="MainNavigationSelectedForegroundColor" Color="#00BCF2" />
             <SolidColorBrush x:Key="CustomThemeSecondarySolidColor" Color="#00B2F0"/>
 
-            <AcrylicBrush x:Key="CustomTitleBarAcrylic"
+            <contractPresent:AcrylicBrush x:Key="CustomTitleBarAcrylic"
                           BackgroundSource="HostBackdrop"
                           TintColor="#00B2F0" 
                           TintOpacity="0.7"/>
 
-            <AcrylicBrush x:Key="CustomFeaturedSamplesAcrylic"
+            <contractPresent:AcrylicBrush x:Key="CustomFeaturedSamplesAcrylic"
                           BackgroundSource="Backdrop"
                           TintColor="#00B2F0" TintOpacity="0.7" />
             
