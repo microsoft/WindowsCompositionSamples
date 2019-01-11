@@ -5,6 +5,8 @@
     xmlns:local="using:CompositionSampleGallery"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:contractNotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:contractPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:common="using:SamplesCommon"
     Loaded="UserControl_Loaded"
     mc:Ignorable="d" Background="Transparent">
@@ -23,9 +25,10 @@
     </UserControl.Resources>
 
     <Grid x:Name="MainGrid"       
-         Background="{x:Bind Background}"
+          contractPresent:Background="{StaticResource CustomFeaturedSamplesAcrylic}"
+          contractNotPresent:Background="{StaticResource CustomThemeSecondarySolidColor}" 
           MaxHeight="{x:Bind MaxHeight}" >
-        
+
         <Grid.RowDefinitions>
             <RowDefinition x:Name="Row0" />
             <RowDefinition x:Name="Row1" />

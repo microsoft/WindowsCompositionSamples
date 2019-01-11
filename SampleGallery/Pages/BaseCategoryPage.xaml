@@ -44,7 +44,6 @@
             <local:FeaturedSamples 
                 x:Name="FeaturedSampleControl" 
                 Description="Click a sample to learn more"
-                Background="{StaticResource CustomFeaturedSamplesAcrylic}"
                 Foreground="Black"/>
             <!-- End featured transition samples -->
         </GridView.Header>

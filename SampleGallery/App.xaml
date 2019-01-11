@@ -21,6 +21,7 @@
             <SolidColorBrush x:Key="LightThemeBackgroundColorBrush" Color="White" />
             <SolidColorBrush x:Key="MainNavigationForegroundColor" Color="#666666" />
             <SolidColorBrush x:Key="MainNavigationSelectedForegroundColor" Color="#00BCF2" />
+            <SolidColorBrush x:Key="CustomThemeSecondarySolidColor" Color="#00B2F0"/>
 
             <AcrylicBrush x:Key="CustomTitleBarAcrylic"
                           BackgroundSource="HostBackdrop"
@@ -31,13 +32,17 @@
                           BackgroundSource="Backdrop"
                           TintColor="#00B2F0" TintOpacity="0.7" />
             
-            <!--Override navview style keys-->
-            <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
+            <!--Override navview style keys; with fallbacks on some keys for acrylic if api not present-->
+            <contractPresent:AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
                                    BackgroundSource="Backdrop"
                                    TintOpacity=".6" TintColor="#00B2F0" />
-            <AcrylicBrush x:Key="NavigationViewTopPaneBackground"
+            <contractNotPresent:SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="#00B2F0"/>
+            
+            <contractPresent:AcrylicBrush x:Key="NavigationViewTopPaneBackground"
                             BackgroundSource="Backdrop"
                             TintOpacity=".6" TintColor="#00B2F0" />
+            <contractNotPresent:SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="#00B2F0"/>
+            
             <local:NavViewXCBB x:Key="NavigationViewExpandedPaneBackground"/>
 
 

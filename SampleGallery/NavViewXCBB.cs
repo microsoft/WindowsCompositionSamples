@@ -1,4 +1,5 @@
-﻿using Windows.UI;
+﻿using Windows.Foundation.Metadata;
+using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
@@ -13,13 +14,23 @@ namespace CompositionSampleGallery
         {
             Compositor compositor = Window.Current.Compositor;
 
-            var brush = compositor.CreateLinearGradientBrush();
-            var colorStop1 = compositor.CreateColorGradientStop(0.0f, Color.FromArgb((byte)(255*0.7), 0, 178, 240));  // Match color to hex used by FeaturedSamples and titlebar
-            var colorStop2 = compositor.CreateColorGradientStop(0.8f, Colors.White);
+            // Use LBG if Api contract exists 
+            var customBlue = Color.FromArgb((byte)(255 * 0.7), 0, 178, 240);  // Match color to hex used by FeaturedSamples and titlebar
+            CompositionBrush brush;
+            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
+            {
+                brush = compositor.CreateLinearGradientBrush();
+                var colorStop1 = compositor.CreateColorGradientStop(0.0f, customBlue); 
+                var colorStop2 = compositor.CreateColorGradientStop(0.8f, Colors.White);
 
-            brush.ColorStops.Add(colorStop1);
-            brush.ColorStops.Add(colorStop2);
-
+                ((CompositionLinearGradientBrush)brush).ColorStops.Add(colorStop1);
+                ((CompositionLinearGradientBrush)brush).ColorStops.Add(colorStop2);
+            }
+            else
+            {
+                brush = compositor.CreateColorBrush(customBlue);
+            }
+            
             CompositionBrush = brush;
         }
 
