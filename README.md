@@ -11,6 +11,8 @@ statusNotificationTargets:
 
 # Windows Composition Samples
 
+![app gif](https://media.giphy.com/media/1qebS8Xah2p7PaMxHO/giphy.gif)
+
 Welcome to the Windows Composition Samples repository!  This is the place for the latest code samples, demos, and developer feedback around building beautiful and engaging Universal Windows Platform apps.  This repo focuses on the platform building blocks that make up the [Fluent Design System](https://fluent.microsoft.com/), with emphasis on creating UI using APIs in the [Windows.UI.Composition](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.composition.aspx) namespace. The code samples and demos in this repo are targeted at developers who are interested in experimenting, building, and providing feedback on the latest flighting Windows UI APIs.
 
 If you’re not quite ready for the code, [check out the app in the Store](https://www.microsoft.com/store/productId/9N1H8CZHBPXB). 
