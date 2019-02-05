@@ -1,4 +1,4 @@
-﻿---
+---
 topic: sample
 languages:
 - csharp
