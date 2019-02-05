@@ -1,10 +1,10 @@
----
+﻿---
 topic: sample
 languages:
 - csharp
 products:
 - windows
-- uwp
+- windows-uwp
 statusNotificationTargets:
 - WinComposition
 ---
