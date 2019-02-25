@@ -1,0 +1,45 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.LinearGradients"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Name="MyGrid">
+
+            <Grid HorizontalAlignment="Center" Height="400" VerticalAlignment="Center" Width="300">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+
+                <Canvas Name="c1" Grid.Row="0" Margin="0,10" PointerEntered="c1_PointerEntered">
+                    <Rectangle Name="Rectangle1" Fill="Transparent" Width="400" Height="90" PointerEntered="Rectangle1_PointerEntered"></Rectangle>
+                    <TextBlock Name="TextBlock1" Text="About" TextWrapping="Wrap" HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="70"/>
+                </Canvas>
+
+                <Canvas Name="c2" Grid.Row="1" Margin="0,10" PointerEntered="c2_PointerEntered">
+                    <Rectangle Name="Rectangle2" Fill="Transparent" Width="400" Height="90" PointerEntered="Rectangle2_PointerEntered"></Rectangle>
+                    <TextBlock Name="TextBlock2" Text="Work" TextWrapping="Wrap" HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="70"/>
+                </Canvas>
+
+                <Canvas Name="c3" Grid.Row="2" Margin="0,10" PointerEntered="c3_PointerEntered">
+                    <Rectangle Name="Rectangle3" Fill="Transparent" Width="400" Height="90" PointerEntered="Rectangle3_PointerEntered"></Rectangle>
+                    <TextBlock Name="TextBlock3" Text="Partners" TextWrapping="Wrap" HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="70"/>
+                </Canvas>
+
+                <Canvas Name="c4" Grid.Row="3" Margin="0,10" PointerEntered="c4_PointerEntered">
+                    <Rectangle Name="Rectangle4" Fill="Transparent" Width="400" Height="90" PointerEntered="Rectangle4_PointerEntered"></Rectangle>
+                    <TextBlock Name="TextBlock4" Text="Awards" TextWrapping="Wrap" HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="70"/>
+                </Canvas>
+            </Grid>
+        </Grid>
+    </Grid>
+</local:SamplePage>

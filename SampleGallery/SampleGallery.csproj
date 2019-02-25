@@ -132,6 +132,7 @@
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\SDK 14393\NineGridResizing\INineGridScenario.cs" />
+    <Compile Include="Samples\SDK 16299\LinearGradients\LinearGradients.xaml.cs" />
     <Compile Include="Samples\SDK 17134\AnimationController\AnimationControl.cs" />
     <Compile Include="Shared\AppTelemetryClient.cs" />
     <None Include="SampleGallery_TemporaryKey.pfx" />
@@ -349,6 +350,7 @@
     <Content Include="Assets\SampleThumbnails\LayerVisualSample.PNG" />
     <Content Include="Assets\SampleThumbnails\LightInterop.PNG" />
     <Content Include="Assets\SampleThumbnails\LightSpheres.PNG" />
+    <Content Include="Assets\SampleThumbnails\lineargradients.PNG" />
     <Content Include="Assets\SampleThumbnails\NavigationFlow.PNG" />
     <Content Include="Assets\SampleThumbnails\NineGridResizing.PNG" />
     <Content Include="Assets\SampleThumbnails\NowPlaying.PNG" />
@@ -478,6 +480,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\SDK 15063\BrushInterop\BrushInterop.xaml" Condition="$(TargetPlatformBuild) &gt;14393">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\SDK 16299\LinearGradients\LinearGradients.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
