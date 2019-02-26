@@ -42,9 +42,8 @@ namespace CompositionSampleGallery
 
         public static string StaticSampleName => "Linear Gradients";
         public override string SampleName => StaticSampleName;
-        public static string StaticSampleDescription => "Simple visual effect showing linear gradient animations";
+        public static string StaticSampleDescription => "Simple visual effect showing linear gradient animations.The first and last words will flip the colors from left to right.Clicking on any of the words will change the color scheme from warm to cool and back when clicked again." + Environment.NewLine + "This sample is to show how linear gradients can highlight content in colorful ways.";
         public override string SampleDescription => StaticSampleDescription;
-
 
         private Compositor _compositor;
 
@@ -63,6 +62,8 @@ namespace CompositionSampleGallery
 
         private ColorKeyFrameAnimation _colorAnimBrush1Stop1;
         private ColorKeyFrameAnimation _colorAnimBrush1Stop2;
+        private ColorKeyFrameAnimation _changeb1stop1;
+        private ColorKeyFrameAnimation _changeb1stop2;
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -90,34 +91,26 @@ namespace CompositionSampleGallery
             b1GradientStop2.Color = Colors.Honeydew;
             _brush1.ColorStops.Add(b1GradientStop1);
             _brush1.ColorStops.Add(b1GradientStop2);
-
-            // _brush1.ColorStops.Add(_compositor.CreateColorGradientStop(0, Colors.Purple));
-            //_brush1.ColorStops.Add(_compositor.CreateColorGradientStop(1, Colors.Orange));
+            
 
             // Paint visuals with brushes and set their locations
-            //TODO update so the brushes are initially transparent, then on hover change out brush for the gradient and animate
             _vis1.Brush = _brush1;
             _vis1.Scale = new Vector3(0, 1, 0);
             _vis1.Size = new Vector2((float)Rectangle1.ActualWidth, (float)Rectangle1.ActualHeight);
-            //_vis1.AnchorPoint = new Vector2(1f, 0f);
-            //_vis1.AnchorPoint = new Vector2((float)Rectangle1.ActualWidth, .5f);
+
 
             _vis2.Brush = _brush1;
             _vis2.Scale = new Vector3(0, 1, 0);
             _vis2.Size = new Vector2((float)Rectangle2.ActualWidth, (float)Rectangle2.ActualHeight);
 
-
-            //_vis2.AnchorPoint = new Vector2((float)Rectangle2.ActualWidth, .5f);
-
+            
             _vis3.Brush = _brush1;
             _vis3.Scale = new Vector3(0, 1, 0);
             _vis3.Size = new Vector2((float)Rectangle3.ActualWidth, (float)Rectangle3.ActualHeight);
-            //_vis3.AnchorPoint = new Vector2((float)Rectangle3.ActualWidth, .5f);
 
             _vis4.Brush = _brush1;
             _vis4.Scale = new Vector3(0, 1, 0);
             _vis4.Size = new Vector2((float)Rectangle4.ActualWidth, (float)Rectangle4.ActualHeight);
-            // _vis4.AnchorPoint = new Vector2((float)Rectangle4.ActualWidth, .5f);
 
             // Parent visuals to XAML rectangles
             ElementCompositionPreview.SetElementChildVisual(Rectangle1, _vis1);
@@ -127,14 +120,10 @@ namespace CompositionSampleGallery
 
 
             //create the scale & offset animation
-
             Vector3KeyFrameAnimation offsetAnim_r1 = _compositor.CreateVector3KeyFrameAnimation();
             offsetAnim_r1.InsertKeyFrame(1, new Vector3((float)Rectangle1.ActualWidth, (float)Rectangle1.ActualHeight, 0));
             offsetAnim_r1.Duration = TimeSpan.FromSeconds(1);
 
-
-            // Instantiate animation
-            //TODO update to animate gradient stops instaed of scale
             _scaleAnim = _compositor.CreateVector3KeyFrameAnimation();
             _scaleAnim.InsertKeyFrame(0, new Vector3(0, 1, 0));
             _scaleAnim.InsertKeyFrame(.5f, new Vector3(1, 1, 0));
@@ -153,15 +142,44 @@ namespace CompositionSampleGallery
 
             _offsetAnim = _compositor.CreateScalarKeyFrameAnimation();
             _offsetAnim.Duration = TimeSpan.FromSeconds(1);
+
+            // when the buttons of text are pressed, the brush will change colors. Below is the set up for animation
+            _changeb1stop1 = _compositor.CreateColorKeyFrameAnimation();
+            _changeb1stop1.InsertKeyFrame(.5f, Colors.LightSkyBlue);
+            _changeb1stop1.Duration = TimeSpan.FromSeconds(2);
+
+            _changeb1stop2 = _compositor.CreateColorKeyFrameAnimation();
+            _changeb1stop2.InsertKeyFrame(.5f, Colors.Teal);
+            _changeb1stop2.Duration = TimeSpan.FromSeconds(2);
         }
 
         /*
          * Run animation on target visual brush
          */
+
+        private void Pointer_Pressed(object sender, RoutedEventArgs e)
+        {
+            pointerPressedChangeColors(b1GradientStop1, b1GradientStop2);
+        }
+
+        private void pointerPressedChangeColors(CompositionColorGradientStop target, CompositionColorGradientStop target1)
+        {
+
+            if (target.Color == Colors.DeepPink || target.Color == Colors.Honeydew)
+            {
+                target.StartAnimation(nameof(target.Color), _changeb1stop1);
+                target1.StartAnimation(nameof(target1.Color), _changeb1stop2);
+            }
+            else if (target.Color == Colors.LightSkyBlue || target.Color == Colors.Teal)
+            {
+                target1.StartAnimation(nameof(target1.Color), _colorAnimBrush1Stop1);
+                target.StartAnimation(nameof(target.Color), _colorAnimBrush1Stop2);
+            }
+        }
+
         private void AnimateGradient(SpriteVisual target)
         {
             target.StartAnimation("Scale", _scaleAnim);
-            //target.StartAnimation("Offset", offsetAnim_r1);
         }
 
         private void AnimateBrushStop1(CompositionColorGradientStop target, CompositionColorGradientStop target1)
@@ -170,6 +188,10 @@ namespace CompositionSampleGallery
             {
                 target.StartAnimation(nameof(target.Color), _colorAnimBrush1Stop1);
                 target1.StartAnimation(nameof(target1.Color), _colorAnimBrush1Stop2);
+            } else if (target.Color == Colors.Teal)
+            {
+                target.StartAnimation(nameof(target.Color), _changeb1stop1);
+                target1.StartAnimation(nameof(target1.Color), _changeb1stop2);
             }
         }
 
@@ -179,6 +201,10 @@ namespace CompositionSampleGallery
             {
                 target1.StartAnimation(nameof(target1.Color), _colorAnimBrush1Stop1);
                 target.StartAnimation(nameof(target.Color), _colorAnimBrush1Stop2);
+            } else if (target.Color == Colors.LightSkyBlue)
+            {
+                target1.StartAnimation(nameof(target1.Color), _changeb1stop1);
+                target.StartAnimation(nameof(target.Color), _changeb1stop2);
             }
         }
 
@@ -222,31 +248,6 @@ namespace CompositionSampleGallery
         }
 
         private void c4_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            AnimateGradient(_vis4);
-            ChangeBrushBack(b1GradientStop1, b1GradientStop2);
-            AnimateOffset(_vis4);
-        }
-
-        private void Rectangle1_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            AnimateGradient(_vis1);
-            AnimateOffset(_vis1);
-        }
-
-        private void Rectangle2_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            AnimateGradient(_vis2);
-            AnimateOffset(_vis2);
-        }
-
-        private void Rectangle3_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            AnimateGradient(_vis3);
-            AnimateOffset(_vis3);
-        }
-
-        private void Rectangle4_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
             AnimateGradient(_vis4);
             ChangeBrushBack(b1GradientStop1, b1GradientStop2);
