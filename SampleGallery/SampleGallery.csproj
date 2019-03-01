@@ -350,7 +350,7 @@
     <Content Include="Assets\SampleThumbnails\LayerVisualSample.PNG" />
     <Content Include="Assets\SampleThumbnails\LightInterop.PNG" />
     <Content Include="Assets\SampleThumbnails\LightSpheres.PNG" />
-    <Content Include="Assets\SampleThumbnails\lineargradients.PNG" />
+    <Content Include="Assets\SampleThumbnails\LinearGradients.PNG" />
     <Content Include="Assets\SampleThumbnails\NavigationFlow.PNG" />
     <Content Include="Assets\SampleThumbnails\NineGridResizing.PNG" />
     <Content Include="Assets\SampleThumbnails\NowPlaying.PNG" />

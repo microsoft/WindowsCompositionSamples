@@ -180,7 +180,7 @@ namespace CompositionSampleGallery
 
 #if SDKVERSION_16299
                 new SampleDefinition(SpringyImage.StaticSampleName,                 typeof(SpringyImage),                 SampleType.Reference, SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/SpringyImage.PNG",                      description: SpringyImage.StaticSampleDescription,                      sdkVersion: RuntimeSupportedSDKs.SDKVERSION._16299,         dateAdded: new DateTime(2017,08,7),                                        tags: new string[1]{"ExpressionBuilder"}),
-                new SampleDefinition(LinearGradients.StaticSampleName,              typeof(LinearGradients),                 SampleType.Reference, SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/lineargradients.PNG",                      description: LinearGradients.StaticSampleDescription,                      sdkVersion: RuntimeSupportedSDKs.SDKVERSION._16299,         dateAdded: new DateTime(2017,08,7),                                        tags: new string[1]{"ExpressionBuilder"}),
+                new SampleDefinition(LinearGradients.StaticSampleName,              typeof(LinearGradients),              SampleType.Reference, SampleCategory.Motion,              false,      false,          "ms-appx:///Assets/SampleThumbnails/LinearGradients.PNG",                   description: LinearGradients.StaticSampleDescription,                   sdkVersion: RuntimeSupportedSDKs.SDKVERSION._16299,         dateAdded: new DateTime(2019,02,27)),
 
 #endif
 

@@ -13,19 +13,8 @@
 //*********************************************************
 
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI;
@@ -53,21 +42,26 @@ namespace CompositionSampleGallery
         private SpriteVisual _vis4;
 
         private CompositionLinearGradientBrush _brush1;
-        private CompositionColorGradientStop b1GradientStop1;
-        private CompositionColorGradientStop b1GradientStop2;
+        private CompositionColorGradientStop _b1GradientStop1;
+        private CompositionColorGradientStop _b1GradientStop2;
 
 
         private Vector3KeyFrameAnimation _scaleAnim;
         private ScalarKeyFrameAnimation _offsetAnim;
 
-        private ColorKeyFrameAnimation _colorAnimBrush1Stop1;
-        private ColorKeyFrameAnimation _colorAnimBrush1Stop2;
-        private ColorKeyFrameAnimation _changeb1stop1;
-        private ColorKeyFrameAnimation _changeb1stop2;
+        private ColorKeyFrameAnimation _changeStopToHoneydew;
+        private ColorKeyFrameAnimation _changeStopToDeepPink;
+        private ColorKeyFrameAnimation _changeStopToLightSkyBlue;
+        private ColorKeyFrameAnimation _changeStopToTeal;
+
+        private Color _deepPink;
+        private Color _honeydew;
+        private Color _lightSkyBlue;
+        private Color _teal;
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
+            _compositor = Window.Current.Compositor;
 
             // Update Rectangle widths to match text width
             Rectangle1.Width = TextBlock1.ActualWidth;
@@ -75,25 +69,31 @@ namespace CompositionSampleGallery
             Rectangle3.Width = TextBlock3.ActualWidth;
             Rectangle4.Width = TextBlock4.ActualWidth;
 
-            // Create the four visuals that will be used to hold the LG brush
+            // Create the four visuals that will be used to hold the linear gradient brush
             _vis1 = _compositor.CreateSpriteVisual();
             _vis2 = _compositor.CreateSpriteVisual();
             _vis3 = _compositor.CreateSpriteVisual();
             _vis4 = _compositor.CreateSpriteVisual();
 
-            // Create the purple to orange brush that will be used on all visuals
+            // Create the four colors that will be used on the two stops of the linear gradient brush
+            _deepPink = Colors.DeepPink;
+            _honeydew = Colors.Honeydew;
+            _lightSkyBlue = Colors.LightSkyBlue;
+            _teal = Colors.Teal;
+
+            // Create the linear gradient brush and set up the first colors for it, DeepPink and HoneyDew. This brush will paint all of the visuals.
             _brush1 = _compositor.CreateLinearGradientBrush();
-            b1GradientStop1 = _compositor.CreateColorGradientStop();
-            b1GradientStop1.Offset = 0;
-            b1GradientStop1.Color = Colors.DeepPink;
-            b1GradientStop2 = _compositor.CreateColorGradientStop();
-            b1GradientStop2.Offset = 1;
-            b1GradientStop2.Color = Colors.Honeydew;
-            _brush1.ColorStops.Add(b1GradientStop1);
-            _brush1.ColorStops.Add(b1GradientStop2);
+            _b1GradientStop1 = _compositor.CreateColorGradientStop();
+            _b1GradientStop1.Offset = 0;
+            _b1GradientStop1.Color = _deepPink;
+            _b1GradientStop2 = _compositor.CreateColorGradientStop();
+            _b1GradientStop2.Offset = 1;
+            _b1GradientStop2.Color = _honeydew;
+            _brush1.ColorStops.Add(_b1GradientStop1);
+            _brush1.ColorStops.Add(_b1GradientStop2);
             
 
-            // Paint visuals with brushes and set their locations
+            // Paint visuals with brushes and set their locations to match the locations of their corresponding XAML UI Element
             _vis1.Brush = _brush1;
             _vis1.Scale = new Vector3(0, 1, 0);
             _vis1.Size = new Vector2((float)Rectangle1.ActualWidth, (float)Rectangle1.ActualHeight);
@@ -119,10 +119,7 @@ namespace CompositionSampleGallery
             ElementCompositionPreview.SetElementChildVisual(Rectangle4, _vis4);
 
 
-            //create the scale & offset animation
-            Vector3KeyFrameAnimation offsetAnim_r1 = _compositor.CreateVector3KeyFrameAnimation();
-            offsetAnim_r1.InsertKeyFrame(1, new Vector3((float)Rectangle1.ActualWidth, (float)Rectangle1.ActualHeight, 0));
-            offsetAnim_r1.Duration = TimeSpan.FromSeconds(1);
+            // Create the scale & offset animation that animate the visuals' scale and offset
 
             _scaleAnim = _compositor.CreateVector3KeyFrameAnimation();
             _scaleAnim.InsertKeyFrame(0, new Vector3(0, 1, 0));
@@ -131,89 +128,89 @@ namespace CompositionSampleGallery
             _scaleAnim.Duration = TimeSpan.FromSeconds(2);
 
 
-            // animation of color stops
-            _colorAnimBrush1Stop1 = _compositor.CreateColorKeyFrameAnimation();
-            _colorAnimBrush1Stop1.InsertKeyFrame(.5f, Colors.Honeydew);
-            _colorAnimBrush1Stop1.Duration = TimeSpan.FromSeconds(4);
+            // Color animations that change the color of a stop when called to that stop. These animations are triggered from different intereactions with the XAML UI elements
+            _changeStopToHoneydew = _compositor.CreateColorKeyFrameAnimation();
+            _changeStopToHoneydew.InsertKeyFrame(1f, _honeydew);
+            _changeStopToHoneydew.Duration = TimeSpan.FromSeconds(2);
 
-            _colorAnimBrush1Stop2 = _compositor.CreateColorKeyFrameAnimation();
-            _colorAnimBrush1Stop2.InsertKeyFrame(.5f, Colors.DeepPink);
-            _colorAnimBrush1Stop2.Duration = TimeSpan.FromSeconds(4);
+            _changeStopToDeepPink = _compositor.CreateColorKeyFrameAnimation();
+            _changeStopToDeepPink.InsertKeyFrame(1f, _deepPink);
+            _changeStopToDeepPink.Duration = TimeSpan.FromSeconds(2);
 
-            _offsetAnim = _compositor.CreateScalarKeyFrameAnimation();
-            _offsetAnim.Duration = TimeSpan.FromSeconds(1);
+            _changeStopToLightSkyBlue = _compositor.CreateColorKeyFrameAnimation();
+            _changeStopToLightSkyBlue.InsertKeyFrame(1f, _lightSkyBlue);
+            _changeStopToLightSkyBlue.Duration = TimeSpan.FromSeconds(2);
 
-            // when the buttons of text are pressed, the brush will change colors. Below is the set up for animation
-            _changeb1stop1 = _compositor.CreateColorKeyFrameAnimation();
-            _changeb1stop1.InsertKeyFrame(.5f, Colors.LightSkyBlue);
-            _changeb1stop1.Duration = TimeSpan.FromSeconds(2);
-
-            _changeb1stop2 = _compositor.CreateColorKeyFrameAnimation();
-            _changeb1stop2.InsertKeyFrame(.5f, Colors.Teal);
-            _changeb1stop2.Duration = TimeSpan.FromSeconds(2);
+            _changeStopToTeal = _compositor.CreateColorKeyFrameAnimation();
+            _changeStopToTeal.InsertKeyFrame(1f, _teal);
+            _changeStopToTeal.Duration = TimeSpan.FromSeconds(2);
         }
 
-        /*
-         * Run animation on target visual brush
-         */
-
+        // When pointer is pressed whatever is the current set of colors (DeepPink/Honeydew and LightSkyBlue/Teal) is swtiched to the set not displayed
         private void Pointer_Pressed(object sender, RoutedEventArgs e)
         {
-            pointerPressedChangeColors(b1GradientStop1, b1GradientStop2);
+            SwitchColorSetOnPressed(_b1GradientStop1, _b1GradientStop2);
         }
 
-        private void pointerPressedChangeColors(CompositionColorGradientStop target, CompositionColorGradientStop target1)
+        // That switches the sets of colors (DeepPink/Honeydew and LightSkyBlue/Teal)
+        private void SwitchColorSetOnPressed(CompositionColorGradientStop stop1, CompositionColorGradientStop stop2)
         {
 
-            if (target.Color == Colors.DeepPink || target.Color == Colors.Honeydew)
+            if (stop1.Color == Colors.DeepPink || stop1.Color == Colors.Honeydew)
             {
-                target.StartAnimation(nameof(target.Color), _changeb1stop1);
-                target1.StartAnimation(nameof(target1.Color), _changeb1stop2);
+                stop1.StartAnimation(nameof(stop1.Color), _changeStopToLightSkyBlue);
+                stop2.StartAnimation(nameof(stop2.Color), _changeStopToTeal);
             }
-            else if (target.Color == Colors.LightSkyBlue || target.Color == Colors.Teal)
+            else
             {
-                target1.StartAnimation(nameof(target1.Color), _colorAnimBrush1Stop1);
-                target.StartAnimation(nameof(target.Color), _colorAnimBrush1Stop2);
+                stop1.StartAnimation(nameof(stop1.Color), _changeStopToDeepPink);
+                stop2.StartAnimation(nameof(stop2.Color), _changeStopToHoneydew);
             }
         }
 
-        private void AnimateGradient(SpriteVisual target)
+        // Animates scale of visual that method is called on
+        private void AnimateScale(SpriteVisual target)
         {
             target.StartAnimation("Scale", _scaleAnim);
         }
 
-        private void AnimateBrushStop1(CompositionColorGradientStop target, CompositionColorGradientStop target1)
+        // Switch the current colors of the two color stops in the linear gradient brush. Called when first XAML UI Element is entered by the mouse pointer
+        private void ChangeStopColorsOnEntered(CompositionColorGradientStop stop1, CompositionColorGradientStop stop2)
         {
-            if (target.Color == Colors.DeepPink)
+            if (stop1.Color == Colors.DeepPink)
             {
-                target.StartAnimation(nameof(target.Color), _colorAnimBrush1Stop1);
-                target1.StartAnimation(nameof(target1.Color), _colorAnimBrush1Stop2);
-            } else if (target.Color == Colors.Teal)
+                stop1.StartAnimation(nameof(stop1.Color), _changeStopToHoneydew);
+                stop2.StartAnimation(nameof(stop2.Color), _changeStopToDeepPink);
+            } else if (stop1.Color == Colors.Teal)
             {
-                target.StartAnimation(nameof(target.Color), _changeb1stop1);
-                target1.StartAnimation(nameof(target1.Color), _changeb1stop2);
+                stop1.StartAnimation(nameof(stop1.Color), _changeStopToLightSkyBlue);
+                stop2.StartAnimation(nameof(stop2.Color), _changeStopToTeal);
             }
         }
 
-        private void ChangeBrushBack(CompositionColorGradientStop target, CompositionColorGradientStop target1)
+        // Switch the current colors of the two color stops in the linear gradient brush. Called when last XAML UI Element is entered by the mouse pointer
+        private void ReverseStopColorsOnEntered(CompositionColorGradientStop stop1, CompositionColorGradientStop stop2)
         {
-            if (target.Color == Colors.Honeydew)
+            if (stop1.Color == Colors.Honeydew)
+            {            
+                stop1.StartAnimation(nameof(stop1.Color), _changeStopToDeepPink);
+                stop2.StartAnimation(nameof(stop2.Color), _changeStopToHoneydew);
+            } else if (stop1.Color == Colors.LightSkyBlue)
             {
-                target1.StartAnimation(nameof(target1.Color), _colorAnimBrush1Stop1);
-                target.StartAnimation(nameof(target.Color), _colorAnimBrush1Stop2);
-            } else if (target.Color == Colors.LightSkyBlue)
-            {
-                target1.StartAnimation(nameof(target1.Color), _changeb1stop1);
-                target.StartAnimation(nameof(target.Color), _changeb1stop2);
+                stop1.StartAnimation(nameof(stop1.Color), _changeStopToTeal);
+                stop2.StartAnimation(nameof(stop2.Color), _changeStopToLightSkyBlue);
             }
         }
 
+        // Animate the offset of the visuals to move back and forth the length of the given visual that this method is called on
         private void AnimateOffset(SpriteVisual target)
         {
             float endPoint = target.Size.X;
-            float startPoint = target.Size.X - target.Size.X;
 
-            if (target.Offset.X == startPoint)
+            _offsetAnim = _compositor.CreateScalarKeyFrameAnimation();
+            _offsetAnim.Duration = TimeSpan.FromSeconds(1);
+
+            if (target.Offset.X == 0)
             {
                 target.AnchorPoint = new Vector2(1f, 0f);
                 _offsetAnim.InsertKeyFrame(1, endPoint);
@@ -222,35 +219,39 @@ namespace CompositionSampleGallery
             else if (target.Offset.X == endPoint)
             {
                 target.AnchorPoint = new Vector2(0f, 0f);
-                _offsetAnim.InsertKeyFrame(1, startPoint);
+                _offsetAnim.InsertKeyFrame(1, 0);
             }
             target.StartAnimation("Offset.X", _offsetAnim);
 
         }
 
-        private void c1_PointerEntered(object sender, PointerRoutedEventArgs e)
+        // Method for setting animations for the first canvas. This method is unique in that it contains a call to switch the color stops when this canvas is entered by mouse pointer
+        private void Canvas1_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            AnimateGradient(_vis1);
-            AnimateBrushStop1(b1GradientStop1, b1GradientStop2);
+            AnimateScale(_vis1);
+            ChangeStopColorsOnEntered(_b1GradientStop1, _b1GradientStop2);
             AnimateOffset(_vis1);
         }
 
-        private void c2_PointerEntered(object sender, PointerRoutedEventArgs e)
+        // Method for setting animations for the second canvas
+        private void Canvas2_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            AnimateGradient(_vis2);
+            AnimateScale(_vis2);
             AnimateOffset(_vis2);
         }
 
-        private void c3_PointerEntered(object sender, PointerRoutedEventArgs e)
+        // Method for setting animations for the third canvas
+        private void Canvas3_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            AnimateGradient(_vis3);
+            AnimateScale(_vis3);
             AnimateOffset(_vis3);
         }
 
-        private void c4_PointerEntered(object sender, PointerRoutedEventArgs e)
+        // Method for setting animations for the last canvas. This method is unique in that it contains a call to switch the color stops when this canvas is entered by mouse pointer
+        private void Canvas4_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            AnimateGradient(_vis4);
-            ChangeBrushBack(b1GradientStop1, b1GradientStop2);
+            AnimateScale(_vis4);
+            ReverseStopColorsOnEntered(_b1GradientStop1, _b1GradientStop2);
             AnimateOffset(_vis4);
         }
     }

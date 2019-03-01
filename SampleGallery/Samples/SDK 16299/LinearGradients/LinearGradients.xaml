@@ -20,22 +20,22 @@
                 </Grid.RowDefinitions>
 
 
-                <Canvas Name="c1" Grid.Row="0" Margin="0,10" PointerEntered="c1_PointerEntered" PointerPressed="Pointer_Pressed">
+                <Canvas Name="Canvas1" Grid.Row="0" Margin="0,10" PointerEntered="Canvas1_PointerEntered" PointerPressed="Pointer_Pressed">
                     <Rectangle Name="Rectangle1" Fill="Transparent" Width="400" Height="90"></Rectangle>
                     <TextBlock Name="TextBlock1" Text="About" TextWrapping="Wrap" HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="70"/>
                 </Canvas>
 
-                <Canvas Name="c2" Grid.Row="1" Margin="0,10" PointerEntered="c2_PointerEntered" PointerPressed="Pointer_Pressed">
+                <Canvas Name="Canvas2" Grid.Row="1" Margin="0,10" PointerEntered="Canvas2_PointerEntered" PointerPressed="Pointer_Pressed">
                     <Rectangle Name="Rectangle2" Fill="Transparent" Width="400" Height="90"></Rectangle>
                     <TextBlock Name="TextBlock2" Text="Work" TextWrapping="Wrap" HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="70"/>
                 </Canvas>
 
-                <Canvas Name="c3" Grid.Row="2" Margin="0,10" PointerEntered="c3_PointerEntered" PointerPressed="Pointer_Pressed">
+                <Canvas Name="Canvas3" Grid.Row="2" Margin="0,10" PointerEntered="Canvas3_PointerEntered" PointerPressed="Pointer_Pressed">
                     <Rectangle Name="Rectangle3" Fill="Transparent" Width="400" Height="90"></Rectangle>
                     <TextBlock Name="TextBlock3" Text="Partners" TextWrapping="Wrap" HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="70"/>
                 </Canvas>
 
-                <Canvas Name="c4" Grid.Row="3" Margin="0,10" PointerEntered="c4_PointerEntered" PointerPressed="Pointer_Pressed">
+                <Canvas Name="Canvas4" Grid.Row="3" Margin="0,10" PointerEntered="Canvas4_PointerEntered" PointerPressed="Pointer_Pressed">
                     <Rectangle Name="Rectangle4" Fill="Transparent" Width="400" Height="90"></Rectangle>
                     <TextBlock Name="TextBlock4" Text="Awards" TextWrapping="Wrap" HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="70"/>
                 </Canvas>
