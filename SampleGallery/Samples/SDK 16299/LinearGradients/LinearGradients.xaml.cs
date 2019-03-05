@@ -31,7 +31,7 @@ namespace CompositionSampleGallery
 
         public static string StaticSampleName => "Linear Gradients";
         public override string SampleName => StaticSampleName;
-        public static string StaticSampleDescription => "Simple visual effect showing linear gradient animations.The first and last words will flip the colors from left to right.Clicking on any of the words will change the color scheme from warm to cool and back when clicked again." + Environment.NewLine + "This sample is to show how linear gradients can highlight content in colorful ways.";
+        public static string StaticSampleDescription => "Simple visual effect showing linear gradient animations. The first and last words will flip the colors from left to right.Clicking on any of the words will change the color scheme from warm to cool and back when clicked again." + Environment.NewLine + "This sample is to show how linear gradients can highlight content in colorful ways.";
         public override string SampleDescription => StaticSampleDescription;
 
         private Compositor _compositor;
@@ -47,7 +47,6 @@ namespace CompositionSampleGallery
 
 
         private Vector3KeyFrameAnimation _scaleAnim;
-        private ScalarKeyFrameAnimation _offsetAnim;
 
         private ColorKeyFrameAnimation _changeStopToHoneydew;
         private ColorKeyFrameAnimation _changeStopToDeepPink;
@@ -61,6 +60,7 @@ namespace CompositionSampleGallery
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            // Create the Compositor 
             _compositor = Window.Current.Compositor;
 
             // Update Rectangle widths to match text width
@@ -120,7 +120,6 @@ namespace CompositionSampleGallery
 
 
             // Create the scale & offset animation that animate the visuals' scale and offset
-
             _scaleAnim = _compositor.CreateVector3KeyFrameAnimation();
             _scaleAnim.InsertKeyFrame(0, new Vector3(0, 1, 0));
             _scaleAnim.InsertKeyFrame(.5f, new Vector3(1, 1, 0));
@@ -155,13 +154,14 @@ namespace CompositionSampleGallery
         // That switches the sets of colors (DeepPink/Honeydew and LightSkyBlue/Teal)
         private void SwitchColorSetOnPressed(CompositionColorGradientStop stop1, CompositionColorGradientStop stop2)
         {
-
-            if (stop1.Color == Colors.DeepPink || stop1.Color == Colors.Honeydew)
+            // If stop 1 is currently one of the warmer colors that are set together, it will call animations to switch both stops to the cooler color sets when the mouse clicks on the visuals
+            if (stop1.Color == _deepPink || stop1.Color == _honeydew)
             {
                 stop1.StartAnimation(nameof(stop1.Color), _changeStopToLightSkyBlue);
                 stop2.StartAnimation(nameof(stop2.Color), _changeStopToTeal);
             }
-            else
+            // If stop 1 is currently one of the cooler colors that are set together, it will call animations to switch both stops to the warmer color sets when the mouse clicks on the visuals
+            else if (stop1.Color == _lightSkyBlue || stop1.Color == _teal)
             {
                 stop1.StartAnimation(nameof(stop1.Color), _changeStopToDeepPink);
                 stop2.StartAnimation(nameof(stop2.Color), _changeStopToHoneydew);
@@ -205,23 +205,28 @@ namespace CompositionSampleGallery
         // Animate the offset of the visuals to move back and forth the length of the given visual that this method is called on
         private void AnimateOffset(SpriteVisual target)
         {
+            // The endpoint is the width of the inidividual sprite visual being targetted. The offset of the individual visuals will travel back and forth between these points
             float endPoint = target.Size.X;
+            
+            // Create offset animation
+            ScalarKeyFrameAnimation offsetAnim = _compositor.CreateScalarKeyFrameAnimation();
+            offsetAnim.Duration = TimeSpan.FromSeconds(1);
 
-            _offsetAnim = _compositor.CreateScalarKeyFrameAnimation();
-            _offsetAnim.Duration = TimeSpan.FromSeconds(1);
-
+            // When the visual is on the left, we set the anchor point to the right edge of the visual and the offset animation to end on the right side
             if (target.Offset.X == 0)
             {
                 target.AnchorPoint = new Vector2(1f, 0f);
-                _offsetAnim.InsertKeyFrame(1, endPoint);
+                offsetAnim.InsertKeyFrame(1, endPoint);
 
             }
+
+            // When the visual is on the right, we set the anchor point to the left edge of the visual and the offset animation to end on the left side
             else if (target.Offset.X == endPoint)
             {
                 target.AnchorPoint = new Vector2(0f, 0f);
-                _offsetAnim.InsertKeyFrame(1, 0);
+                offsetAnim.InsertKeyFrame(1, 0);
             }
-            target.StartAnimation("Offset.X", _offsetAnim);
+            target.StartAnimation("Offset.X", offsetAnim);
 
         }
 
