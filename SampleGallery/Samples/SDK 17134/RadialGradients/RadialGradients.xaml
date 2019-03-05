@@ -1,0 +1,33 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.RadialGradients"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Name="root" Width="500" Height="500">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Canvas Name="Canvas1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Rectangle Name="Rectangle1" Fill="Transparent" Grid.Column="0" Grid.Row="0" Width="500" Height="500"></Rectangle>
+                    <Rectangle Name="Rectangle2" IsHitTestVisible="True" Fill="Transparent" Grid.Column="0" Grid.Row="0" Width="500" Height="500"></Rectangle>
+                    <Rectangle Name="Rectangle3" IsHitTestVisible="True" Fill="Transparent" Grid.Column="0" Grid.Row="0" Width="500" Height="500"></Rectangle>
+                    <Button Name="Timer" Grid.Column="0" Grid.Row="0" Width="500" Height="500" Background="Transparent" Click="OnClick1" FontSize="36" FontFamily="Microsoft YaHei UI" AllowFocusOnInteraction="False" BackgroundSizing="OuterBorderEdge">START</Button>
+                </Canvas>
+            </Grid>
+        </Grid>
+    </Grid>
+</local:SamplePage>

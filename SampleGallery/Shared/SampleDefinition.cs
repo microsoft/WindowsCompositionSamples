@@ -183,7 +183,8 @@ namespace CompositionSampleGallery
 #endif
 
 #if SDKVERSION_17134
-                 new SampleDefinition(AnimationControl.StaticSampleName,            typeof(AnimationControl),             SampleType.Reference, SampleCategory.APIReference,        false,      false,          "ms-appx:///Assets/SampleThumbnails/AnimationController.PNG",               description: AnimationControl.StaticSampleDescription,                  sdkVersion: RuntimeSupportedSDKs.SDKVERSION._17134,         dateAdded: new DateTime(2018,12,3)),    
+                 new SampleDefinition(AnimationControl.StaticSampleName,            typeof(AnimationControl),             SampleType.Reference, SampleCategory.APIReference,        false,      false,          "ms-appx:///Assets/SampleThumbnails/AnimationController.PNG",               description: AnimationControl.StaticSampleDescription,                  sdkVersion: RuntimeSupportedSDKs.SDKVERSION._17134,         dateAdded: new DateTime(2018,12,3)),
+                 new SampleDefinition(RadialGradients.StaticSampleName,            typeof(RadialGradients),             SampleType.Reference, SampleCategory.Motion,        false,      false,          "ms-appx:///Assets/SampleThumbnails/AnimationController.PNG",               description: RadialGradients.StaticSampleDescription,                  sdkVersion: RuntimeSupportedSDKs.SDKVERSION._17134,         dateAdded: new DateTime(2019,05,3)),   
 #endif
 
     };

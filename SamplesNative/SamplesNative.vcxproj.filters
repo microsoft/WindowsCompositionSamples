@@ -14,4 +14,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="DeviceLostHelper.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
 </Project>
