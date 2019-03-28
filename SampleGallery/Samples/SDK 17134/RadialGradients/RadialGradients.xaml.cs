@@ -64,7 +64,7 @@ namespace CompositionSampleGallery
         private Color _transparent;
         private Color _aliceBlue;
 
-        private Boolean animationOn;
+        private bool _isAnimationOn;
 
         private Stopwatch _stopwatch;
         private string _currentTime;
@@ -155,29 +155,28 @@ namespace CompositionSampleGallery
             ElementCompositionPreview.SetElementChildVisual(Rectangle2, _buttonVisual);
 
             // WHen the page first loads we want the animations to be off so we set this boolean flag to false
-            animationOn = false;
+            _isAnimationOn = false;
         }
 
         // When the XAML element is clicked, this method with kick off the animation of the stop watch or turn it back to it's original state depending on if it's on or off
         private void OnClick1(object sender, RoutedEventArgs e)
         {
 
-            if (animationOn == false)
-            {
+            if (_isAnimationOn == false) {
                 // Animation for changing the colors of the button from cool colors to warm colors to signal the timer is now on
                 _changeButtonGradientStop1 = _compositor.CreateColorKeyFrameAnimation();
                 _changeButtonGradientStop1.InsertKeyFrame(0, _blueViolet);
                 _changeButtonGradientStop1.InsertKeyFrame(1, _indianRed);
                 _changeButtonGradientStop1.Duration = TimeSpan.FromSeconds(2);
 
-                _BBGradientStop1.StartAnimation(nameof(_BBGradientStop1.Color), _changeButtonGradientStop1);
+                _BBGradientStop1.StartAnimation("Color", _changeButtonGradientStop1);
 
                 _changeButtonGradientStop2 = _compositor.CreateColorKeyFrameAnimation();
                 _changeButtonGradientStop2.InsertKeyFrame(0, _lightBlue);
                 _changeButtonGradientStop2.InsertKeyFrame(1, _orangeRed);
                 _changeButtonGradientStop2.Duration = TimeSpan.FromSeconds(2);
 
-                _BBGradientStop2.StartAnimation(nameof(_BBGradientStop2.Color), _changeButtonGradientStop2);
+                _BBGradientStop2.StartAnimation("Color", _changeButtonGradientStop2);
 
                 // Creating the animation for outer visual to create the pulsing effect that radiates from the center of the button out
                 // Animation for the first stop of the radial gradient brush applied on the pulsing sprite visual
@@ -207,7 +206,7 @@ namespace CompositionSampleGallery
                 _pulseColor.Duration = TimeSpan.FromSeconds(1);
                 _pulseColor.IterationBehavior = AnimationIterationBehavior.Forever;
 
-                _PBGradientStop1.StartAnimation(nameof(_PBGradientStop1.Color), _pulseColor);
+                _PBGradientStop1.StartAnimation("Color", _pulseColor);
 
                 // Create the animation that animates the scale of the pulsing sprite visual
                 _scale = _compositor.CreateVector3KeyFrameAnimation();
@@ -226,25 +225,23 @@ namespace CompositionSampleGallery
                 _dt.Start();
                 _stopwatch.Start();
 
-                // Set boolean flag for if the stopwatch animation is on to true
-                animationOn = true;
-            }
-            else
-            {
+
+                _isAnimationOn = true;
+            } else {
                 // Button turns the colors of it's gradient stops back to cooler colors when it is shut off
                 _changeButtonGradientStop1 = _compositor.CreateColorKeyFrameAnimation();
                 _changeButtonGradientStop1.InsertKeyFrame(0, _indianRed);
                 _changeButtonGradientStop1.InsertKeyFrame(1, _blueViolet);
                 _changeButtonGradientStop1.Duration = TimeSpan.FromSeconds(2);
 
-                _BBGradientStop1.StartAnimation(nameof(_BBGradientStop1.Color), _changeButtonGradientStop1);
+                _BBGradientStop1.StartAnimation("Color", _changeButtonGradientStop1);
 
                 _changeButtonGradientStop2 = _compositor.CreateColorKeyFrameAnimation();
                 _changeButtonGradientStop2.InsertKeyFrame(0, _orangeRed);
                 _changeButtonGradientStop2.InsertKeyFrame(1, _lightBlue);
                 _changeButtonGradientStop2.Duration = TimeSpan.FromSeconds(2);
 
-                _BBGradientStop2.StartAnimation(nameof(_BBGradientStop2.Color), _changeButtonGradientStop2);
+                _BBGradientStop2.StartAnimation("Color", _changeButtonGradientStop2);
 
                 // Animations for the pulsing effect are turned off
                 _stop1OffsetAnim = _compositor.CreateScalarKeyFrameAnimation();
@@ -269,7 +266,7 @@ namespace CompositionSampleGallery
                 _pulseColor.InsertKeyFrame(1, _transparent);
                 _pulseColor.Duration = TimeSpan.FromSeconds(1.5);
 
-                _PBGradientStop1.StartAnimation(nameof(_PBGradientStop1.Color), _pulseColor);
+                _PBGradientStop1.StartAnimation("Color", _pulseColor);
 
                 // Create scale animation the helps with the final visual end result of create a pulsing effect
                 _scale = _compositor.CreateVector3KeyFrameAnimation();
@@ -286,23 +283,18 @@ namespace CompositionSampleGallery
                 Timer.Content = ("Start");
 
                 // Set our boolean flag for the stopwatch animation to false to indicate it's off
-                animationOn = false;
+                _isAnimationOn = false;
             }
         }
 
         // Method that sets up the stopwatch to display the time or "Start" when clicked on and off
         private void Dt_Tick(object sender, object e)
         {
-            TimeSpan ts = _stopwatch.Elapsed;
-            _currentTime = String.Format("{0:00}:{1:00}:{2:00}", ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
-
-            if (animationOn == true)
-            {
-
+            if (_isAnimationOn == true) {
+                TimeSpan ts = _stopwatch.Elapsed;
+                _currentTime = String.Format("{0:00}:{1:00}.{2:00}", ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
                 Timer.Content = _currentTime;
-            }
-            else
-            {
+            } else {
                 Timer.Content = ("Start");
             }
         }
