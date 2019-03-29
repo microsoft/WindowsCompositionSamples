@@ -157,14 +157,14 @@ namespace CompositionSampleGallery
             // If stop 1 is currently one of the warmer colors that are set together, it will call animations to switch both stops to the cooler color sets when the mouse clicks on the visuals
             if (stop1.Color == _deepPink || stop1.Color == _honeydew)
             {
-                stop1.StartAnimation(nameof(stop1.Color), _changeStopToLightSkyBlue);
-                stop2.StartAnimation(nameof(stop2.Color), _changeStopToTeal);
+                stop1.StartAnimation("Color", _changeStopToLightSkyBlue);
+                stop2.StartAnimation("Color", _changeStopToTeal);
             }
             // If stop 1 is currently one of the cooler colors that are set together, it will call animations to switch both stops to the warmer color sets when the mouse clicks on the visuals
             else if (stop1.Color == _lightSkyBlue || stop1.Color == _teal)
             {
-                stop1.StartAnimation(nameof(stop1.Color), _changeStopToDeepPink);
-                stop2.StartAnimation(nameof(stop2.Color), _changeStopToHoneydew);
+                stop1.StartAnimation("Color", _changeStopToDeepPink);
+                stop2.StartAnimation("Color", _changeStopToHoneydew);
             }
         }
 
@@ -177,28 +177,28 @@ namespace CompositionSampleGallery
         // Switch the current colors of the two color stops in the linear gradient brush. Called when first XAML UI Element is entered by the mouse pointer
         private void ChangeStopColorsOnEntered(CompositionColorGradientStop stop1, CompositionColorGradientStop stop2)
         {
-            if (stop1.Color == Colors.DeepPink)
+            if (stop1.Color == _deepPink)
             {
-                stop1.StartAnimation(nameof(stop1.Color), _changeStopToHoneydew);
-                stop2.StartAnimation(nameof(stop2.Color), _changeStopToDeepPink);
-            } else if (stop1.Color == Colors.Teal)
+                stop1.StartAnimation("Color", _changeStopToHoneydew);
+                stop2.StartAnimation("Color", _changeStopToDeepPink);
+            } else if (stop1.Color == _teal)
             {
-                stop1.StartAnimation(nameof(stop1.Color), _changeStopToLightSkyBlue);
-                stop2.StartAnimation(nameof(stop2.Color), _changeStopToTeal);
+                stop1.StartAnimation("Color", _changeStopToLightSkyBlue);
+                stop2.StartAnimation("Color", _changeStopToTeal);
             }
         }
 
         // Switch the current colors of the two color stops in the linear gradient brush. Called when last XAML UI Element is entered by the mouse pointer
         private void ReverseStopColorsOnEntered(CompositionColorGradientStop stop1, CompositionColorGradientStop stop2)
         {
-            if (stop1.Color == Colors.Honeydew)
+            if (stop1.Color == _honeydew)
             {            
-                stop1.StartAnimation(nameof(stop1.Color), _changeStopToDeepPink);
-                stop2.StartAnimation(nameof(stop2.Color), _changeStopToHoneydew);
-            } else if (stop1.Color == Colors.LightSkyBlue)
+                stop1.StartAnimation("Color", _changeStopToDeepPink);
+                stop2.StartAnimation("Color", _changeStopToHoneydew);
+            } else if (stop1.Color == _lightSkyBlue)
             {
-                stop1.StartAnimation(nameof(stop1.Color), _changeStopToTeal);
-                stop2.StartAnimation(nameof(stop2.Color), _changeStopToLightSkyBlue);
+                stop1.StartAnimation("Color", _changeStopToTeal);
+                stop2.StartAnimation("Color", _changeStopToLightSkyBlue);
             }
         }
 
