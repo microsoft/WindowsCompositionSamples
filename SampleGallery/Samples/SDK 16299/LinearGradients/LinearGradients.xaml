@@ -19,22 +19,25 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
+                <Canvas Name="Canvas1" Grid.Row="0" Margin="0,10" PointerEntered="Canvas1_PointerEntered" PointerPressed="Pointer_Pressed">
+                    <Rectangle Name="Rectangle1" Fill="Transparent" Width="400" Height="90" Grid.Row="0" Margin="0,10"></Rectangle>
+                    <TextBlock Name="TextBlock1" Text="About" TextWrapping="Wrap" HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="70" Grid.Row="0" Margin="0,10"/>
+                </Canvas>
+                
+                <Canvas Name="Canvas2" Grid.Row="1" Margin="0,10" PointerEntered="Canvas2_PointerEntered" PointerPressed="Pointer_Pressed">
+                    <Rectangle Name="Rectangle2" Fill="Transparent" Width="400" Height="90"  Grid.Row="1" Margin="0,10"></Rectangle>
+                    <TextBlock Name="TextBlock2" Text="Work" TextWrapping="Wrap" HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="70" Grid.Row="1" Margin="0,10"/>
+                </Canvas>
 
-                <Rectangle Name="Rectangle1" Fill="Transparent" Width="400" Height="90" Grid.Row="0" Margin="0,10" PointerEntered="Canvas1_PointerEntered" PointerPressed="Pointer_Pressed"></Rectangle>
-                <TextBlock Name="TextBlock1" Text="About" TextWrapping="Wrap" HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="70" Grid.Row="0" Margin="0,10"/>
-             
-
-                    <Rectangle Name="Rectangle2" Fill="Transparent" Width="400" Height="90"  Grid.Row="1" Margin="0,10" PointerEntered="Canvas2_PointerEntered" PointerPressed="Pointer_Pressed"></Rectangle>
-                <TextBlock Name="TextBlock2" Text="Work" TextWrapping="Wrap" HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="70" Grid.Row="1" Margin="0,10"/>
-         
-
-                    <Rectangle Name="Rectangle3" Fill="Transparent" Width="400" Height="90" Grid.Row="2" Margin="0,10" PointerEntered="Canvas3_PointerEntered" PointerPressed="Pointer_Pressed"></Rectangle>
+                <Canvas Name="Canvas3" Grid.Row="2" Margin="0,10" PointerEntered="Canvas3_PointerEntered" PointerPressed="Pointer_Pressed">
+                    <Rectangle Name="Rectangle3" Fill="Transparent" Width="400" Height="90" Grid.Row="2" Margin="0,10"></Rectangle>
                     <TextBlock Name="TextBlock3" Text="Partners" TextWrapping="Wrap" HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="70" Grid.Row="2" Margin="0,10" />
-      
+                </Canvas>
 
-                    <Rectangle Name="Rectangle4" Fill="Transparent" Width="400" Height="90" Grid.Row="3" Margin="0,10" PointerEntered="Canvas4_PointerEntered" PointerPressed="Pointer_Pressed"></Rectangle>
+                <Canvas Name="Canvas4" Grid.Row="3" Margin="0,10" PointerEntered="Canvas4_PointerEntered" PointerPressed="Pointer_Pressed">
+                    <Rectangle Name="Rectangle4" Fill="Transparent" Width="400" Height="90" Grid.Row="3" Margin="0,10"></Rectangle>
                     <TextBlock Name="TextBlock4" Text="Awards" TextWrapping="Wrap" HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="70" Grid.Row="3" Margin="0,10"/>
-              
+                </Canvas>
             </Grid>
         </Grid>
     </Grid>
