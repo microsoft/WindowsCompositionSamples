@@ -219,12 +219,10 @@ namespace CompositionSampleGallery
 
                 // Set up the stopwatch to reset each it is started again
                 _dt = new DispatcherTimer();
-                _stopwatch = new Stopwatch();
-                _dt.Interval = TimeSpan.FromMilliseconds(0.00f);
+                _stopwatch = Stopwatch.StartNew();
                 _dt.Tick += Dt_Tick;
+                _dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
                 _dt.Start();
-                _stopwatch.Start();
-
 
                 _isAnimationOn = true;
             } else {
