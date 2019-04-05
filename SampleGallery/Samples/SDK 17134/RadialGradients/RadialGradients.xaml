@@ -24,7 +24,7 @@
             <Rectangle Name="Rectangle1" Fill="Transparent" Grid.Column="1" Grid.Row="1" Width="500" Height="500"></Rectangle>
             <Rectangle Name="Rectangle2" IsHitTestVisible="True" Fill="Transparent" Grid.Column="1" Grid.Row="1" Width="500" Height="500"></Rectangle>
             <Rectangle Name="Rectangle3" IsHitTestVisible="True" Fill="Transparent" Grid.Column="1" Grid.Row="1" Width="500" Height="500"></Rectangle>
-            <Button Name="Timer" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1" Width="500" Height="500" Background="Transparent"
+            <Button Name="Timer" Grid.Column="1" Grid.Row="1" Width="500" Height="500" Background="Transparent"
                         Click="OnClick1" FontSize="36" FontFamily="Microsoft YaHei UI" Canvas.Left="200" Foreground="White" HorizontalContentAlignment="Center"
                         Style="{StaticResource BorderlessNoHoverButton}" AllowFocusOnInteraction="False">Start</Button>
         </Canvas>

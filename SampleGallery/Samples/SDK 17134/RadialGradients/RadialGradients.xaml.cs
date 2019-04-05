@@ -12,288 +12,277 @@
 //
 //*********************************************************
 using System;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
+using System.Diagnostics;
+using System.Numerics;
 using Windows.UI;
 using Windows.UI.Composition;
-using System.Numerics;
-using System.Diagnostics;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Hosting;
 
 namespace CompositionSampleGallery
 {
     public sealed partial class RadialGradients : SamplePage
     {
-        public RadialGradients()
-        {
-            this.InitializeComponent();
-        }
-
         public static string StaticSampleName => "Radial Gradients";
         public override string SampleName => StaticSampleName;
         public static string StaticSampleDescription => "Sample application for radial gradient brush";
         public override string SampleDescription => StaticSampleDescription;
 
 
-        private Compositor _compositor;
+        // Create the compositor
+        private readonly Compositor _compositor = Window.Current.Compositor;
 
-        private SpriteVisual _buttonVisual;
-        private SpriteVisual _pulseVisual;
+        // create the various colors that will be used by the various radial gradient brushes
+        private static readonly Color s_innerRingCoolColor = Colors.BlueViolet;
+        private static readonly Color s_outerRingCoolColor = Colors.LightBlue;
+        private static readonly Color s_innerRingWarmColor = Colors.IndianRed;
+        private static readonly Color s_outerRingWarmColor = Colors.OrangeRed;
+        private static readonly Color s_innerPulseColor = Colors.Transparent;
+        private static readonly Color s_outerPulseColor = Colors.AliceBlue;
 
-        private CompositionRadialGradientBrush _buttonBrush;
-        private CompositionRadialGradientBrush _pulseBrush;
+        private static readonly DispatcherTimer s_dt = new DispatcherTimer();
 
-        private CompositionColorGradientStop _BBGradientStop1;
-        private CompositionColorGradientStop _BBGradientStop2;
+        private static SpriteVisual s_buttonVisual;
+        private static SpriteVisual s_pulseVisual;
 
-        private CompositionColorGradientStop _PBGradientStop1;
-        private CompositionColorGradientStop _PBGradientStop2;
-        
-        private ScalarKeyFrameAnimation _stop1OffsetAnim;
-        private ScalarKeyFrameAnimation _stop2offsetAnim2;
-        private ColorKeyFrameAnimation _pulseColor;
-        private Vector3KeyFrameAnimation _scale;
+        private static CompositionRadialGradientBrush s_buttonBrush;
+        private static CompositionRadialGradientBrush s_pulseBrush;
 
-        private ColorKeyFrameAnimation _changeButtonGradientStop1;
-        private ColorKeyFrameAnimation _changeButtonGradientStop2;
+        private static CompositionColorGradientStop s_BBGradientStop1;
+        private static CompositionColorGradientStop s_BBGradientStop2;
 
-        private Color _blueViolet;
-        private Color _lightBlue;
-        private Color _indianRed;
-        private Color _orangeRed;
-        private Color _transparent;
-        private Color _aliceBlue;
+        private static CompositionColorGradientStop s_PBGradientStop1;
+        private static CompositionColorGradientStop s_PBGradientStop2;
 
-        private bool _isAnimationOn;
+        private static ScalarKeyFrameAnimation s_stop1OffsetAnim;
+        private static ScalarKeyFrameAnimation s_stop2offsetAnim2;
+        private static ColorKeyFrameAnimation s_pulseColor;
+        private static Vector3KeyFrameAnimation s_scale;
 
-        private Stopwatch _stopwatch;
-        private string _currentTime;
-        private DispatcherTimer _dt;
+        private static ColorKeyFrameAnimation s_changeButtonGradientStop1;
+        private static ColorKeyFrameAnimation s_changeButtonGradientStop2;
 
+        private static bool s_isAnimationOn = false;
 
+        private static Stopwatch s_stopwatch;
+        private string s_currentTime;
+
+        public RadialGradients()
+        {
+            this.InitializeComponent();
+        }
+ 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            // Create the compositor
-            _compositor = Window.Current.Compositor;
-
             // Create the two visuals that will represent the stopwatch button and the backing pulse visual
-            _buttonVisual = _compositor.CreateSpriteVisual();
-            _pulseVisual = _compositor.CreateSpriteVisual();
-
-            // create the various colors that will be used by the various radial gradient brushes
-            _blueViolet = Colors.BlueViolet;
-            _lightBlue = Colors.LightBlue;
-            _indianRed = Colors.IndianRed;
-            _orangeRed = Colors.OrangeRed;
-            _transparent = Colors.Transparent;
-            _aliceBlue = Colors.AliceBlue;
+            s_buttonVisual = _compositor.CreateSpriteVisual();
+            s_pulseVisual = _compositor.CreateSpriteVisual();
 
             // Create the brush that will paint the button visual
-            _buttonBrush = _compositor.CreateRadialGradientBrush();
-            _buttonBrush.EllipseCenter = new Vector2(.5f, .5f);
-            _buttonBrush.EllipseRadius = new Vector2(.85f, .85f);
+            s_buttonBrush = _compositor.CreateRadialGradientBrush();
+            s_buttonBrush.EllipseCenter = new Vector2(.5f, .5f);
+            s_buttonBrush.EllipseRadius = new Vector2(.85f, .85f);
 
             // Create the different gradient stops for the radial gradient brush and set them to the brush
-            _BBGradientStop1 = _compositor.CreateColorGradientStop();
-            _BBGradientStop1.Offset = .3f;
-            _BBGradientStop1.Color = _blueViolet;
+            s_BBGradientStop1 = _compositor.CreateColorGradientStop();
+            s_BBGradientStop1.Offset = .3f;
+            s_BBGradientStop1.Color = s_innerRingCoolColor;
 
-            _BBGradientStop2 = _compositor.CreateColorGradientStop();
-            _BBGradientStop2.Offset = .75f;
-            _BBGradientStop2.Color = _lightBlue;
+            s_BBGradientStop2 = _compositor.CreateColorGradientStop();
+            s_BBGradientStop2.Offset = .75f;
+            s_BBGradientStop2.Color = s_outerRingCoolColor;
 
-            _buttonBrush.ColorStops.Add(_BBGradientStop1);
-            _buttonBrush.ColorStops.Add(_BBGradientStop2);
+            s_buttonBrush.ColorStops.Add(s_BBGradientStop1);
+            s_buttonBrush.ColorStops.Add(s_BBGradientStop2);
 
             // Finishing defining the properties of the button visual
-            _buttonVisual.Size = new Vector2(300, 300);
-            _buttonVisual.Offset = new Vector3(((float)Rectangle3.ActualWidth / 2), ((float)Rectangle3.ActualHeight / 2), 0);
-            _buttonVisual.AnchorPoint = new Vector2(.5f, .5f);
-            _buttonVisual.Brush = _buttonBrush;
+            s_buttonVisual.Size = new Vector2(300, 300);
+            s_buttonVisual.Offset = new Vector3(((float)Rectangle3.ActualWidth / 2), ((float)Rectangle3.ActualHeight / 2), 0);
+            s_buttonVisual.AnchorPoint = new Vector2(.5f, .5f);
+            s_buttonVisual.Brush = s_buttonBrush;
 
             // Create a geometric clip that clips the rectangular sprite visual to a circle shape
             CompositionGeometricClip gClip = _compositor.CreateGeometricClip();
             CompositionEllipseGeometry circle = _compositor.CreateEllipseGeometry();
-            circle.Radius = new Vector2(_buttonVisual.Size.X / 2, _buttonVisual.Size.Y / 2);
-            circle.Center = new Vector2(_buttonVisual.Size.X / 2, _buttonVisual.Size.Y / 2);
+            circle.Radius = new Vector2(s_buttonVisual.Size.X / 2, s_buttonVisual.Size.Y / 2);
+            circle.Center = new Vector2(s_buttonVisual.Size.X / 2, s_buttonVisual.Size.Y / 2);
             gClip.Geometry = circle;
 
-            _buttonVisual.Clip = gClip;
+            s_buttonVisual.Clip = gClip;
 
             // Create the brush for the backing visual 
-            _pulseBrush = _compositor.CreateRadialGradientBrush();
-            _pulseBrush.EllipseCenter = new Vector2(.5f, .5f);
-            _pulseBrush.EllipseRadius = new Vector2(.5f, .5f);
+            s_pulseBrush = _compositor.CreateRadialGradientBrush();
+            s_pulseBrush.EllipseCenter = new Vector2(.5f, .5f);
+            s_pulseBrush.EllipseRadius = new Vector2(.5f, .5f);
 
-            _PBGradientStop1 = _compositor.CreateColorGradientStop();
-            _PBGradientStop1.Offset = 0;
-            _PBGradientStop1.Color = _transparent;
-            _PBGradientStop2 = _compositor.CreateColorGradientStop();
-            _PBGradientStop2.Offset = 1;
-            _PBGradientStop2.Color = _transparent;
+            s_PBGradientStop1 = _compositor.CreateColorGradientStop();
+            s_PBGradientStop1.Offset = 0;
+            s_PBGradientStop1.Color = s_innerPulseColor;
+            s_PBGradientStop2 = _compositor.CreateColorGradientStop();
+            s_PBGradientStop2.Offset = 1;
+            s_PBGradientStop2.Color = s_innerPulseColor;
 
-            _pulseBrush.ColorStops.Add(_PBGradientStop1);
-            _pulseBrush.ColorStops.Add(_PBGradientStop2);
+            s_pulseBrush.ColorStops.Add(s_PBGradientStop1);
+            s_pulseBrush.ColorStops.Add(s_PBGradientStop2);
 
             // Finish defining the properties of the backing visual creates a pulsing effect when animated
-            _pulseVisual.Size = new Vector2(500, 500);
-            _pulseVisual.Offset = new Vector3(((float)Rectangle1.ActualWidth / 2), ((float)Rectangle1.ActualHeight / 2), 0);
-            _pulseVisual.AnchorPoint = new Vector2(.5f, .5f);
-            _pulseVisual.Brush = _pulseBrush;
+            s_pulseVisual.Size = new Vector2(500, 500);
+            s_pulseVisual.Offset = new Vector3(((float)Rectangle1.ActualWidth / 2), ((float)Rectangle1.ActualHeight / 2), 0);
+            s_pulseVisual.AnchorPoint = new Vector2(.5f, .5f);
+            s_pulseVisual.Brush = s_pulseBrush;
 
             // Create a geometric clip that clips the rectangular sprite visual to a circle shape
             CompositionGeometricClip gClip2 = _compositor.CreateGeometricClip();
             CompositionEllipseGeometry circle2 = _compositor.CreateEllipseGeometry();
-            circle2.Radius = new Vector2(_pulseVisual.Size.X / 2, _pulseVisual.Size.Y / 2);
-            circle2.Center = new Vector2(_pulseVisual.Size.X / 2, _pulseVisual.Size.Y / 2);
+            circle2.Radius = new Vector2(s_pulseVisual.Size.X / 2, s_pulseVisual.Size.Y / 2);
+            circle2.Center = new Vector2(s_pulseVisual.Size.X / 2, s_pulseVisual.Size.Y / 2);
             gClip2.Geometry = circle2;
 
-            _pulseVisual.Clip = gClip2;
+            s_pulseVisual.Clip = gClip2;
 
             // Tie sprite visuals to corresponding XAML UI Elements
-            ElementCompositionPreview.SetElementChildVisual(Rectangle1, _pulseVisual);
-            ElementCompositionPreview.SetElementChildVisual(Rectangle2, _buttonVisual);
-
-            // WHen the page first loads we want the animations to be off so we set this boolean flag to false
-            _isAnimationOn = false;
+            ElementCompositionPreview.SetElementChildVisual(Rectangle1, s_pulseVisual);
+            ElementCompositionPreview.SetElementChildVisual(Rectangle2, s_buttonVisual);
         }
 
         // When the XAML element is clicked, this method with kick off the animation of the stop watch or turn it back to it's original state depending on if it's on or off
         private void OnClick1(object sender, RoutedEventArgs e)
         {
-
-            if (_isAnimationOn == false) {
+            if (s_isAnimationOn == false)
+            {
                 // Animation for changing the colors of the button from cool colors to warm colors to signal the timer is now on
-                _changeButtonGradientStop1 = _compositor.CreateColorKeyFrameAnimation();
-                _changeButtonGradientStop1.InsertKeyFrame(0, _blueViolet);
-                _changeButtonGradientStop1.InsertKeyFrame(1, _indianRed);
-                _changeButtonGradientStop1.Duration = TimeSpan.FromSeconds(2);
+                s_changeButtonGradientStop1 = _compositor.CreateColorKeyFrameAnimation();
+                s_changeButtonGradientStop1.InsertKeyFrame(0, s_innerRingCoolColor);
+                s_changeButtonGradientStop1.InsertKeyFrame(1, s_innerRingWarmColor);
+                s_changeButtonGradientStop1.Duration = TimeSpan.FromSeconds(2);
 
-                _BBGradientStop1.StartAnimation("Color", _changeButtonGradientStop1);
+                s_BBGradientStop1.StartAnimation("Color", s_changeButtonGradientStop1);
 
-                _changeButtonGradientStop2 = _compositor.CreateColorKeyFrameAnimation();
-                _changeButtonGradientStop2.InsertKeyFrame(0, _lightBlue);
-                _changeButtonGradientStop2.InsertKeyFrame(1, _orangeRed);
-                _changeButtonGradientStop2.Duration = TimeSpan.FromSeconds(2);
+                s_changeButtonGradientStop2 = _compositor.CreateColorKeyFrameAnimation();
+                s_changeButtonGradientStop2.InsertKeyFrame(0, s_outerRingCoolColor);
+                s_changeButtonGradientStop2.InsertKeyFrame(1, s_outerRingWarmColor);
+                s_changeButtonGradientStop2.Duration = TimeSpan.FromSeconds(2);
 
-                _BBGradientStop2.StartAnimation("Color", _changeButtonGradientStop2);
+                s_BBGradientStop2.StartAnimation("Color", s_changeButtonGradientStop2);
 
                 // Creating the animation for outer visual to create the pulsing effect that radiates from the center of the button out
                 // Animation for the first stop of the radial gradient brush applied on the pulsing sprite visual
-                _stop1OffsetAnim = _compositor.CreateScalarKeyFrameAnimation();
-                _stop1OffsetAnim.InsertKeyFrame(0, 0);
-                _stop1OffsetAnim.InsertKeyFrame(1f, 1f);
-                _stop1OffsetAnim.Duration = TimeSpan.FromSeconds(1);
-                _stop1OffsetAnim.IterationCount = 50;
+                s_stop1OffsetAnim = _compositor.CreateScalarKeyFrameAnimation();
+                s_stop1OffsetAnim.InsertKeyFrame(0, 0);
+                s_stop1OffsetAnim.InsertKeyFrame(1f, 1f);
+                s_stop1OffsetAnim.Duration = TimeSpan.FromSeconds(1);
+                s_stop1OffsetAnim.IterationCount = 50;
 
-                _PBGradientStop1.StartAnimation("Offset", _stop1OffsetAnim);
+                s_PBGradientStop1.StartAnimation("Offset", s_stop1OffsetAnim);
 
                 // Animation for the second stop of the radial gradient brush applied on the pulsing sprite visual
-                _stop2offsetAnim2 = _compositor.CreateScalarKeyFrameAnimation();
-                _stop2offsetAnim2.InsertKeyFrame(0, 0);
-                _stop2offsetAnim2.InsertKeyFrame(1f, 1f);
-                _stop2offsetAnim2.Duration = TimeSpan.FromSeconds(1);
-                _stop2offsetAnim2.IterationCount = 50;
-                _stop2offsetAnim2.DelayTime = TimeSpan.FromSeconds(.25f);
+                s_stop2offsetAnim2 = _compositor.CreateScalarKeyFrameAnimation();
+                s_stop2offsetAnim2.InsertKeyFrame(0, 0);
+                s_stop2offsetAnim2.InsertKeyFrame(1f, 1f);
+                s_stop2offsetAnim2.Duration = TimeSpan.FromSeconds(1);
+                s_stop2offsetAnim2.IterationCount = 50;
+                s_stop2offsetAnim2.DelayTime = TimeSpan.FromSeconds(.25f);
 
-                _PBGradientStop2.StartAnimation("Offset", _stop2offsetAnim2);
+                s_PBGradientStop2.StartAnimation("Offset", s_stop2offsetAnim2);
 
                 // When the stopwatch starts, the color for the gradient stops are changed to Alice Blue so that the pulse is visible
-                _pulseColor = _compositor.CreateColorKeyFrameAnimation();
-                _pulseColor.InsertKeyFrame(0, _transparent);
-                _pulseColor.InsertKeyFrame(.99f, _aliceBlue);
-                _pulseColor.InsertKeyFrame(1, _transparent);
-                _pulseColor.Duration = TimeSpan.FromSeconds(1);
-                _pulseColor.IterationBehavior = AnimationIterationBehavior.Forever;
+                s_pulseColor = _compositor.CreateColorKeyFrameAnimation();
+                s_pulseColor.InsertKeyFrame(0, s_innerPulseColor);
+                s_pulseColor.InsertKeyFrame(.99f, s_outerPulseColor);
+                s_pulseColor.InsertKeyFrame(1, s_innerPulseColor);
+                s_pulseColor.Duration = TimeSpan.FromSeconds(1);
+                s_pulseColor.IterationBehavior = AnimationIterationBehavior.Forever;
 
-                _PBGradientStop1.StartAnimation("Color", _pulseColor);
+                s_PBGradientStop1.StartAnimation("Color", s_pulseColor);
 
                 // Create the animation that animates the scale of the pulsing sprite visual
-                _scale = _compositor.CreateVector3KeyFrameAnimation();
-                _scale.InsertKeyFrame(0, new Vector3(0, 0, 0));
-                _scale.InsertKeyFrame(1, new Vector3(1, 1, 0));
-                _scale.Duration = TimeSpan.FromSeconds(1);
-                _scale.IterationCount = 50;
+                s_scale = _compositor.CreateVector3KeyFrameAnimation();
+                s_scale.InsertKeyFrame(0, Vector3.Zero);
+                s_scale.InsertKeyFrame(1, Vector3.One);
+                s_scale.Duration = TimeSpan.FromSeconds(1);
+                s_scale.IterationBehavior = AnimationIterationBehavior.Forever;
 
-                _pulseVisual.StartAnimation("Scale", _scale);
+                s_pulseVisual.StartAnimation("Scale", s_scale);
 
                 // Set up the stopwatch to reset each it is started again
-                _dt = new DispatcherTimer();
-                _stopwatch = Stopwatch.StartNew();
-                _dt.Tick += Dt_Tick;
-                _dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
-                _dt.Start();
+                s_stopwatch = Stopwatch.StartNew();
+                s_dt.Tick += Dt_Tick;
+                s_dt.Interval = TimeSpan.FromMilliseconds(32);
+                s_dt.Start();
 
-                _isAnimationOn = true;
-            } else {
+                s_isAnimationOn = true;
+            }
+            else
+            {
                 // Button turns the colors of it's gradient stops back to cooler colors when it is shut off
-                _changeButtonGradientStop1 = _compositor.CreateColorKeyFrameAnimation();
-                _changeButtonGradientStop1.InsertKeyFrame(0, _indianRed);
-                _changeButtonGradientStop1.InsertKeyFrame(1, _blueViolet);
-                _changeButtonGradientStop1.Duration = TimeSpan.FromSeconds(2);
+                s_changeButtonGradientStop1 = _compositor.CreateColorKeyFrameAnimation();
+                s_changeButtonGradientStop1.InsertKeyFrame(0, s_innerRingWarmColor);
+                s_changeButtonGradientStop1.InsertKeyFrame(1, s_innerRingCoolColor);
+                s_changeButtonGradientStop1.Duration = TimeSpan.FromSeconds(2);
 
-                _BBGradientStop1.StartAnimation("Color", _changeButtonGradientStop1);
+                s_BBGradientStop1.StartAnimation("Color", s_changeButtonGradientStop1);
 
-                _changeButtonGradientStop2 = _compositor.CreateColorKeyFrameAnimation();
-                _changeButtonGradientStop2.InsertKeyFrame(0, _orangeRed);
-                _changeButtonGradientStop2.InsertKeyFrame(1, _lightBlue);
-                _changeButtonGradientStop2.Duration = TimeSpan.FromSeconds(2);
+                s_changeButtonGradientStop2 = _compositor.CreateColorKeyFrameAnimation();
+                s_changeButtonGradientStop2.InsertKeyFrame(0, s_outerRingWarmColor);
+                s_changeButtonGradientStop2.InsertKeyFrame(1, s_outerRingCoolColor);
+                s_changeButtonGradientStop2.Duration = TimeSpan.FromSeconds(2);
 
-                _BBGradientStop2.StartAnimation("Color", _changeButtonGradientStop2);
+                s_BBGradientStop2.StartAnimation("Color", s_changeButtonGradientStop2);
 
                 // Animations for the pulsing effect are turned off
-                _stop1OffsetAnim = _compositor.CreateScalarKeyFrameAnimation();
-                _stop1OffsetAnim.InsertKeyFrame(0, 0);
-                _stop1OffsetAnim.InsertKeyFrame(0f, 0f);
-                _stop1OffsetAnim.Duration = TimeSpan.FromSeconds(1.5f);
-                _stop1OffsetAnim.IterationCount = 50;
+                s_stop1OffsetAnim = _compositor.CreateScalarKeyFrameAnimation();
+                s_stop1OffsetAnim.InsertKeyFrame(0, 0);
+                s_stop1OffsetAnim.Duration = TimeSpan.FromSeconds(1.5);
+                s_stop1OffsetAnim.IterationBehavior = AnimationIterationBehavior.Forever;
                 
-                _PBGradientStop1.StartAnimation("Offset", _stop1OffsetAnim);
+                s_PBGradientStop1.StartAnimation("Offset", s_stop1OffsetAnim);
 
-                _stop2offsetAnim2 = _compositor.CreateScalarKeyFrameAnimation();
-                _stop2offsetAnim2.InsertKeyFrame(0, 0);
-                _stop2offsetAnim2.InsertKeyFrame(0f, 0f);
-                _stop2offsetAnim2.Duration = TimeSpan.FromSeconds(1.5f);
-                _stop2offsetAnim2.IterationCount = 50;
-                _stop2offsetAnim2.DelayTime = TimeSpan.FromSeconds(.25f);
+                s_stop2offsetAnim2 = _compositor.CreateScalarKeyFrameAnimation();
+                s_stop2offsetAnim2.InsertKeyFrame(0, 0);
+                s_stop2offsetAnim2.Duration = TimeSpan.FromSeconds(1.5);
+                s_stop2offsetAnim2.IterationBehavior = AnimationIterationBehavior.Forever;
+                s_stop2offsetAnim2.DelayTime = TimeSpan.FromSeconds(.25);
 
-                _PBGradientStop2.StartAnimation("Offset", _stop2offsetAnim2);
+                s_PBGradientStop2.StartAnimation("Offset", s_stop2offsetAnim2);
 
-                _pulseColor = _compositor.CreateColorKeyFrameAnimation();
-                _pulseColor.InsertKeyFrame(0, _transparent);
-                _pulseColor.InsertKeyFrame(1, _transparent);
-                _pulseColor.Duration = TimeSpan.FromSeconds(1.5);
+                s_pulseColor = _compositor.CreateColorKeyFrameAnimation();
+                s_pulseColor.InsertKeyFrame(0, s_innerPulseColor);
+                s_pulseColor.InsertKeyFrame(1, s_innerPulseColor);
+                s_pulseColor.Duration = TimeSpan.FromSeconds(1.5);
 
-                _PBGradientStop1.StartAnimation("Color", _pulseColor);
+                s_PBGradientStop1.StartAnimation("Color", s_pulseColor);
 
                 // Create scale animation the helps with the final visual end result of create a pulsing effect
-                _scale = _compositor.CreateVector3KeyFrameAnimation();
-                _scale.InsertKeyFrame(0, new Vector3(0, 0, 0));
-                _scale.InsertKeyFrame(1, new Vector3(1, 1, 0));
-                _scale.Duration = TimeSpan.FromSeconds(1.5);
-                _scale.IterationCount = 50;
+                s_scale = _compositor.CreateVector3KeyFrameAnimation();
+                s_scale.InsertKeyFrame(0, Vector3.Zero);
+                s_scale.InsertKeyFrame(1, Vector3.One);
+                s_scale.Duration = TimeSpan.FromSeconds(1.5);
+                s_scale.IterationBehavior = AnimationIterationBehavior.Forever;
 
-                _pulseVisual.StartAnimation("Scale", _scale);
+                s_pulseVisual.StartAnimation("Scale", s_scale);
 
                 // Turn off the stopwatch and change text back to Start
-                _dt.Stop();
-                _stopwatch.Start();
-                Timer.Content = ("Start");
+                s_dt.Stop();
+                s_stopwatch.Start();
+                Timer.Content = "Start";
 
                 // Set our boolean flag for the stopwatch animation to false to indicate it's off
-                _isAnimationOn = false;
+                s_isAnimationOn = false;
             }
         }
 
         // Method that sets up the stopwatch to display the time or "Start" when clicked on and off
         private void Dt_Tick(object sender, object e)
         {
-            if (_isAnimationOn == true) {
-                TimeSpan ts = _stopwatch.Elapsed;
-                _currentTime = String.Format("{0:00}:{1:00}.{2:00}", ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
-                Timer.Content = _currentTime;
-            } else {
-                Timer.Content = ("Start");
+            if (s_isAnimationOn)
+            {
+                TimeSpan ts = s_stopwatch.Elapsed;
+                s_currentTime = $"{Math.Floor(ts.TotalMinutes)}:{ts.TotalSeconds % 60:00.00}";
+                Timer.Content = s_currentTime;
+            }
+            else
+            {
+                Timer.Content = "Start";
             }
         }
     }
