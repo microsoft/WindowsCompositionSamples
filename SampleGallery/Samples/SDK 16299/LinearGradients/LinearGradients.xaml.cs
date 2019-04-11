@@ -19,232 +19,199 @@ using Windows.UI.Composition;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI;
 using System.Numerics;
+using Windows.UI.Xaml.Controls;
+using System.Linq;
 
 namespace CompositionSampleGallery
 {
     public sealed partial class LinearGradients : SamplePage
     {
-
         public static string StaticSampleName => "Linear Gradients";
         public override string SampleName => StaticSampleName;
         public static string StaticSampleDescription => "Simple visual effect showing linear gradient animations. Scroll mouse over the textblocks or click on them to see the animations.";
         public override string SampleDescription => StaticSampleDescription;
 
-        // Create the Compositor.
-        private static readonly Compositor _compositor = Window.Current.Compositor;
-        
-        // Create the four colors that will be alternate on the two stops of the linear gradient brush.
-        private readonly static Color s_warmColor1 = Colors.DeepPink;
-        private readonly static Color s_warmColor2 = Colors.Honeydew;
-        private readonly static Color s_coolColor1 = Colors.LightSkyBlue;
-        private readonly static Color s_coolColor2 = Colors.Teal;
+        private static readonly (Color, Color) s_coolColors = (Colors.LightSkyBlue, Colors.Teal);
+        private static readonly (Color, Color) s_warmColors = (Colors.DeepPink, Colors.Honeydew);
 
-        private static SpriteVisual s_vis1;
-        private static SpriteVisual s_vis2;
-        private static SpriteVisual s_vis3;
-        private static SpriteVisual s_vis4;
+        private readonly Compositor _compositor = Window.Current.Compositor;
 
-        private static CompositionLinearGradientBrush s_brush;
-        private static CompositionColorGradientStop s_gradientStop1;
-        private static CompositionColorGradientStop s_gradientStop2;
+        private readonly CompositionColorGradientStop _gradientStop1;
+        private readonly CompositionColorGradientStop _gradientStop2;
 
-        private static Vector3KeyFrameAnimation s_scaleAnim;
+        private ColorScheme _currentColorScheme = ColorScheme.Warm;
 
-        private static ColorKeyFrameAnimation s_changeStopToWarmColor1;
-        private static ColorKeyFrameAnimation s_changeStopToHWarmColor2;
-        private static ColorKeyFrameAnimation s_changeStopToCoolColor1;
-        private static ColorKeyFrameAnimation s_changeStopToCoolColor2;
-        
         public LinearGradients()
         {
             this.InitializeComponent();
-        }
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            // Update Rectangle widths to match text width.
-            Rectangle1.Width = TextBlock1.ActualWidth;
-            Rectangle2.Width = TextBlock2.ActualWidth;
-            Rectangle3.Width = TextBlock3.ActualWidth;
-            Rectangle4.Width = TextBlock4.ActualWidth;
 
-            // Create the four visuals that will be used to hold the linear gradient brush.
-            s_vis1 = _compositor.CreateSpriteVisual();
-            s_vis2 = _compositor.CreateSpriteVisual();
-            s_vis3 = _compositor.CreateSpriteVisual();
-            s_vis4 = _compositor.CreateSpriteVisual();
-            
-            // Create the linear gradient brush and set up the first colors for it, DeepPink and HoneyDew. This brush will paint all of the visuals.
-            s_brush = _compositor.CreateLinearGradientBrush();
-            s_gradientStop1 = _compositor.CreateColorGradientStop();
-            s_gradientStop1.Offset = 0;
-            s_gradientStop1.Color = s_warmColor1;
-            s_gradientStop2 = _compositor.CreateColorGradientStop();
-            s_gradientStop2.Offset = 1;
-            s_gradientStop2.Color = s_warmColor2;
-            s_brush.ColorStops.Add(s_gradientStop1);
-            s_brush.ColorStops.Add(s_gradientStop2);
-            
-            // Paint visuals with brushes and set their locations to match the locations of their corresponding XAML UI Element.
-            s_vis1.Brush = s_brush;
-            s_vis1.Scale = new Vector3(0, 1, 0);
-            s_vis1.Size = new Vector2((float)Rectangle1.ActualWidth, (float)Rectangle1.ActualHeight);
-            
-            s_vis2.Brush = s_brush;
-            s_vis2.Scale = new Vector3(0, 1, 0);
-            s_vis2.Size = new Vector2((float)Rectangle2.ActualWidth, (float)Rectangle2.ActualHeight);
-            
-            s_vis3.Brush = s_brush;
-            s_vis3.Scale = new Vector3(0, 1, 0);
-            s_vis3.Size = new Vector2((float)Rectangle3.ActualWidth, (float)Rectangle3.ActualHeight);
+            // Create the linear gradient brush with the initial color scheme.
+            var (stop1Color, stop2Color) = GetCurrentColors();
+            var linearGradientBrush = _compositor.CreateLinearGradientBrush();
+            _gradientStop1 = _compositor.CreateColorGradientStop();
+            _gradientStop1.Color = stop1Color;
+            _gradientStop2 = _compositor.CreateColorGradientStop();
+            _gradientStop2.Offset = 1;
+            _gradientStop2.Color = stop2Color;
+            linearGradientBrush.ColorStops.Add(_gradientStop1);
+            linearGradientBrush.ColorStops.Add(_gradientStop2);
 
-            s_vis4.Brush = s_brush;
-            s_vis4.Scale = new Vector3(0, 1, 0);
-            s_vis4.Size = new Vector2((float)Rectangle4.ActualWidth, (float)Rectangle4.ActualHeight);
-
-            // Parent visuals to XAML rectangles.
-            ElementCompositionPreview.SetElementChildVisual(Rectangle1, s_vis1);
-            ElementCompositionPreview.SetElementChildVisual(Rectangle2, s_vis2);
-            ElementCompositionPreview.SetElementChildVisual(Rectangle3, s_vis3);
-            ElementCompositionPreview.SetElementChildVisual(Rectangle4, s_vis4);
-
-            // Create the scale & offset animation that animate the visuals' scale and offset.
-            s_scaleAnim = _compositor.CreateVector3KeyFrameAnimation();
-            s_scaleAnim.InsertKeyFrame(0, new Vector3(0, 1, 0));
-            s_scaleAnim.InsertKeyFrame(.5f, Vector3.One);
-            s_scaleAnim.InsertKeyFrame(1, new Vector3(0, 1, 0));
-            s_scaleAnim.Duration = TimeSpan.FromSeconds(2);
-
-            // Color animations that change the color of a stop when called to that stop. These animations are triggered from different intereactions with the XAML UI elements.
-            s_changeStopToHWarmColor2 = _compositor.CreateColorKeyFrameAnimation();
-            s_changeStopToHWarmColor2.InsertKeyFrame(1, s_warmColor2);
-            s_changeStopToHWarmColor2.Duration = TimeSpan.FromSeconds(2);
-
-            s_changeStopToWarmColor1 = _compositor.CreateColorKeyFrameAnimation();
-            s_changeStopToWarmColor1.InsertKeyFrame(1, s_warmColor1);
-            s_changeStopToWarmColor1.Duration = TimeSpan.FromSeconds(2);
-
-            s_changeStopToCoolColor1 = _compositor.CreateColorKeyFrameAnimation();
-            s_changeStopToCoolColor1.InsertKeyFrame(1, s_coolColor1);
-            s_changeStopToCoolColor1.Duration = TimeSpan.FromSeconds(2);
-
-            s_changeStopToCoolColor2 = _compositor.CreateColorKeyFrameAnimation();
-            s_changeStopToCoolColor2.InsertKeyFrame(1, s_coolColor2);
-            s_changeStopToCoolColor2.Duration = TimeSpan.FromSeconds(2);
-        }
-
-        // When pointer is pressed whatever is the current set of colors (DeepPink/Honeydew and LightSkyBlue/Teal) is swtiched to the set not displayed.
-        private void Pointer_Pressed(object sender, RoutedEventArgs e)
-        {
-            SwitchColorSetOnPressed(s_gradientStop1, s_gradientStop2);
-        }
-
-        // That switches the sets of colors (DeepPink/Honeydew and LightSkyBlue/Teal).
-        private void SwitchColorSetOnPressed(CompositionColorGradientStop stop1, CompositionColorGradientStop stop2)
-        {
-            // If stop 1 is currently one of the warmer colors that are set together, it will call animations to switch both stops to the cooler color sets when the mouse clicks on the visuals.
-            if (stop1.Color == s_warmColor1 || stop1.Color == s_warmColor2)
+            // Create the Visuals that will be used to paint with the linear gradient brush
+            // behind each line of text.
+            foreach (Grid lineElement in TextLines.Children)
             {
-                stop1.StartAnimation("Color", s_changeStopToCoolColor1);
-                stop2.StartAnimation("Color", s_changeStopToCoolColor2);
+                var visual = _compositor.CreateSpriteVisual();
+                visual.Brush = linearGradientBrush;
+
+                // Initially 0% scale on the X axis, so the Visual will be invisible.
+                visual.Scale = new Vector3(0, 1, 1);
+
+                // The Visual will be sized relative to its parent.
+                visual.RelativeSizeAdjustment = Vector2.One;
+
+                // Save the Visual in the Tag on the element for easy access in the event handlers.
+                lineElement.Tag = visual;
+
+                // Parent the Visual to the first child. The second child
+                // is the TextBlock that will draw on top of this Visual.
+                ElementCompositionPreview.SetElementChildVisual(lineElement.Children[0], visual);
             }
-            // If stop 1 is currently one of the cooler colors that are set together, it will call animations to switch both stops to the warmer color sets when the mouse clicks on the visuals.
-            else if (stop1.Color == s_coolColor1 || stop1.Color == s_coolColor2)
+        }
+
+        private ColorKeyFrameAnimation CreateAnimationToColor(Color color)
+        {
+            var animation = _compositor.CreateColorKeyFrameAnimation();
+            animation.InsertKeyFrame(1, color);
+            animation.Duration = TimeSpan.FromSeconds(2);
+            return animation;
+        }
+
+        private void AnimateToNewColorScheme(ColorScheme colorScheme)
+        {
+            // Save the color scheme as the current one.
+            _currentColorScheme = colorScheme;
+
+            // Animate to the colors in the color scheme.
+            var (stop1Color, stop2Color) = GetCurrentColors();
+            _gradientStop1.StartAnimation("Color", CreateAnimationToColor(stop1Color));
+            _gradientStop2.StartAnimation("Color", CreateAnimationToColor(stop2Color));
+        }
+
+        // Animate the given Visual to sweep across the text.
+        private void AnimateToNewPosition(Visual visual)
+        {
+            // Scale the width from 0 to 1 to 0.
+            var scaleAnimation = _compositor.CreateVector3KeyFrameAnimation();
+            scaleAnimation.InsertKeyFrame(0, new Vector3(0, 1, 1));
+            scaleAnimation.InsertKeyFrame(.5f, Vector3.One);
+            scaleAnimation.InsertKeyFrame(1, new Vector3(0, 1, 1));
+            scaleAnimation.Duration = TimeSpan.FromSeconds(2);
+            visual.StartAnimation("Scale", scaleAnimation);
+
+            // Sweep the offset along the x axis.
+            var targetX =
+                visual.RelativeOffsetAdjustment.X == 0
+                ? 1
+                : 0;
+
+            visual.AnchorPoint = new Vector2(targetX, 0);
+
+            var offsetAnimation = _compositor.CreateScalarKeyFrameAnimation();
+            offsetAnimation.Duration = TimeSpan.FromSeconds(1);
+            offsetAnimation.InsertKeyFrame(1, targetX);
+            visual.StartAnimation("RelativeOffsetAdjustment.X", offsetAnimation);
+        }
+
+        private void Line_PointerPressed(object sender, RoutedEventArgs e)
+        {
+            // Toggle the color scheme.
+            AnimateToNewColorScheme(GetComplementaryColorScheme(_currentColorScheme));
+        }
+
+        private void Line_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            // Get the Visual associated with the sender and animate its position and width.
+            AnimateToNewPosition((SpriteVisual)((FrameworkElement)sender).Tag);
+
+            if (sender == TextLines.Children.First())
             {
-                stop1.StartAnimation("Color", s_changeStopToWarmColor1);
-                stop2.StartAnimation("Color", s_changeStopToHWarmColor2);
+                // Pointer is over the top line.
+                switch (_currentColorScheme)
+                {
+                    case ColorScheme.CoolReversed:
+                    case ColorScheme.Warm:
+                        AnimateToNewColorScheme(GetReversedColorScheme(_currentColorScheme));
+                        break;
+                }
             }
-        }
-
-        // Animates scale of visual that method is called on.
-        private void AnimateScale(SpriteVisual target)
-        {
-            target.StartAnimation("Scale", s_scaleAnim);
-        }
-
-        // Switch the current colors of the two color stops in the linear gradient brush. Called when first XAML UI Element is entered by the mouse pointer.
-        private void ChangeStopColorsOnEntered(CompositionColorGradientStop stop1, CompositionColorGradientStop stop2)
-        {
-            if (stop1.Color == s_warmColor1)
+            else if (sender == TextLines.Children.Last())
             {
-                stop1.StartAnimation("Color", s_changeStopToHWarmColor2);
-                stop2.StartAnimation("Color", s_changeStopToWarmColor1);
+                // Pointer is over the bottom line.
+                switch (_currentColorScheme)
+                {
+                    case ColorScheme.Cool:
+                    case ColorScheme.WarmReversed:
+                        AnimateToNewColorScheme(GetReversedColorScheme(_currentColorScheme));
+                        break;
+                }
             }
-            else if (stop1.Color == s_coolColor2)
+        }
+
+        private (Color, Color) GetCurrentColors()
+        {
+            switch (_currentColorScheme)
             {
-                stop1.StartAnimation("Color", s_changeStopToCoolColor1);
-                stop2.StartAnimation("Color", s_changeStopToCoolColor2);
+                case ColorScheme.Warm: return s_warmColors;
+                case ColorScheme.WarmReversed: return Reverse(s_warmColors);
+                case ColorScheme.Cool: return s_coolColors;
+                case ColorScheme.CoolReversed: return Reverse(s_coolColors);
+                default:
+                    throw new InvalidOperationException();
             }
         }
 
-        // Switch the current colors of the two color stops in the linear gradient brush. Called when last XAML UI Element is entered by the mouse pointer.
-        private void ReverseStopColorsOnEntered(CompositionColorGradientStop stop1, CompositionColorGradientStop stop2)
+        private static ColorScheme GetComplementaryColorScheme(ColorScheme colorScheme)
+            => ApplyColorSchemeFunction(
+                colorScheme,
+                ifWarm: ColorScheme.Cool,
+                ifWarmReversed: ColorScheme.CoolReversed,
+                ifCool: ColorScheme.Warm,
+                ifCoolReversed: ColorScheme.WarmReversed);
+
+        private static ColorScheme GetReversedColorScheme(ColorScheme colorScheme)
+            => ApplyColorSchemeFunction(
+                colorScheme,
+                ifWarm: ColorScheme.WarmReversed,
+                ifWarmReversed: ColorScheme.Warm,
+                ifCool: ColorScheme.CoolReversed,
+                ifCoolReversed: ColorScheme.Cool);
+
+        private static ColorScheme ApplyColorSchemeFunction(
+            ColorScheme input,
+            ColorScheme ifWarm,
+            ColorScheme ifWarmReversed,
+            ColorScheme ifCool,
+            ColorScheme ifCoolReversed)
         {
-            if (stop1.Color == s_warmColor2)
-            {            
-                stop1.StartAnimation("Color", s_changeStopToWarmColor1);
-                stop2.StartAnimation("Color", s_changeStopToHWarmColor2);
-            }
-            else if (stop1.Color == s_coolColor1)
+            switch (input)
             {
-                stop1.StartAnimation("Color", s_changeStopToCoolColor2);
-                stop2.StartAnimation("Color", s_changeStopToCoolColor1);
+                case ColorScheme.Warm: return ifWarm;
+                case ColorScheme.WarmReversed: return ifWarmReversed;
+                case ColorScheme.Cool: return ifCool;
+                case ColorScheme.CoolReversed: return ifCoolReversed;
+                default:
+                    throw new InvalidOperationException();
             }
         }
 
-        // Animate the offset of the visuals to move back and forth the length of the given visual that this method is called on.
-        private void AnimateOffset(SpriteVisual target)
+        private static (T, T) Reverse<T>((T, T) pair) => (pair.Item2, pair.Item1);
+
+        private enum ColorScheme
         {
-            // The endpoint is the width of the inidividual sprite visual being targetted. The offset of the individual visuals will travel back and forth between these points.
-            float endPoint = target.Size.X;
-            
-            // Create offset animation
-            ScalarKeyFrameAnimation offsetAnim = _compositor.CreateScalarKeyFrameAnimation();
-            offsetAnim.Duration = TimeSpan.FromSeconds(1);
-
-            // When the visual is on the left, we set the anchor point to the right edge of the visual and the offset animation to end on the right side.
-            if (target.Offset.X == 0)
-            {
-                target.AnchorPoint = new Vector2(1, 0);
-                offsetAnim.InsertKeyFrame(1, endPoint);
-            }
-
-            // When the visual is on the right, we set the anchor point to the left edge of the visual and the offset animation to end on the left side.
-            else if (target.Offset.X == endPoint)
-            {
-                target.AnchorPoint = Vector2.Zero;
-                offsetAnim.InsertKeyFrame(1, 0);
-            }
-            target.StartAnimation("Offset.X", offsetAnim);
-        }
-
-        // Method for setting animations for the first canvas. This method is unique in that it contains a call to switch the color stops when this canvas is entered by mouse pointer.
-        private void Canvas1_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            AnimateScale(s_vis1);
-            AnimateOffset(s_vis1);
-            ChangeStopColorsOnEntered(s_gradientStop1, s_gradientStop2);
-        }
-
-        // Method for setting animations for the second canvas.
-        private void Canvas2_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            AnimateScale(s_vis2);
-            AnimateOffset(s_vis2);
-        }
-
-        // Method for setting animations for the third canvas.
-        private void Canvas3_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            AnimateScale(s_vis3);
-            AnimateOffset(s_vis3);
-        }
-
-        // Method for setting animations for the last canvas. This method is unique in that it contains a call to switch the color stops when this canvas is entered by mouse pointer.
-        private void Canvas4_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            AnimateScale(s_vis4);
-            AnimateOffset(s_vis4);
-            ReverseStopColorsOnEntered(s_gradientStop1, s_gradientStop2);
+            Warm,
+            WarmReversed,
+            Cool,
+            CoolReversed,
         }
     }
 }
