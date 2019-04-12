@@ -8,54 +8,38 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid Name="MyGrid">
+        <StackPanel x:Name="TextLines" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <StackPanel.Resources>
+                <Style TargetType="Grid">
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="FontWeight" Value="ExtraBold"/>
+                    <Setter Property="FontSize" Value="70"/>
+                </Style>
+            </StackPanel.Resources>
 
-            <Grid HorizontalAlignment="Center" Height="400" VerticalAlignment="Center" Width="300">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/> 
-                </Grid.RowDefinitions>
-
-                <Grid.Resources>
-                    <Style TargetType="Rectangle">
-                        <Setter Property="Fill" Value="Transparent"/>
-                        <Setter Property="Height" Value="100"/>
-                        <Setter Property="Margin" Value="0,10"/>
-                    </Style>
-                    <Style TargetType="Grid">
-                        <Setter Property="Margin" Value="0,10"/>
-                    </Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="FontWeight" Value="ExtraBold"/>
-                        <Setter Property="FontSize" Value="70"/>
-                        <Setter Property="Margin" Value="0,10"/>
-                    </Style>
-                </Grid.Resources>
-                
-                <Grid Grid.Row="0" PointerEntered="Canvas1_PointerEntered" PointerPressed="Pointer_Pressed">
-                    <Rectangle Name="Rectangle1"></Rectangle>
-                    <TextBlock Name="TextBlock1">About</TextBlock>
-                </Grid>
-                
-                <Grid Grid.Row="1" PointerEntered="Canvas2_PointerEntered" PointerPressed="Pointer_Pressed">
-                    <Rectangle Name="Rectangle2"></Rectangle>
-                    <TextBlock Name="TextBlock2">Work</TextBlock>
-                </Grid>
-
-                <Grid Grid.Row="2" PointerEntered="Canvas3_PointerEntered" PointerPressed="Pointer_Pressed">
-                    <Rectangle Name="Rectangle3"></Rectangle>
-                    <TextBlock Name="TextBlock3">Partners</TextBlock>
-                </Grid>
-
-                <Grid Grid.Row="3" PointerEntered="Canvas4_PointerEntered" PointerPressed="Pointer_Pressed">
-                    <Rectangle Name="Rectangle4"></Rectangle>
-                    <TextBlock Name="TextBlock4">Awards</TextBlock>
-                </Grid>
+            <Grid PointerEntered="Line_PointerEntered" PointerPressed="Line_PointerPressed">
+                <Rectangle />
+                <TextBlock>About</TextBlock>
             </Grid>
-        </Grid>
+
+            <Grid PointerEntered="Line_PointerEntered" PointerPressed="Line_PointerPressed">
+                <Rectangle />
+                <TextBlock>Work</TextBlock>
+            </Grid>
+
+            <Grid PointerEntered="Line_PointerEntered" PointerPressed="Line_PointerPressed">
+                <Rectangle />
+                <TextBlock>Partners</TextBlock>
+            </Grid>
+
+            <Grid PointerEntered="Line_PointerEntered" PointerPressed="Line_PointerPressed">
+                <Rectangle />
+                <TextBlock>Awards</TextBlock>
+            </Grid>
+        </StackPanel>
     </Grid>
 </local:SamplePage>
