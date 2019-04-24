@@ -1,0 +1,45 @@
+﻿<local:SamplePage
+    x:Class="CompositionSampleGallery.LinearGradients"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompositionSampleGallery"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel x:Name="TextLines" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <StackPanel.Resources>
+                <Style TargetType="Grid">
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="FontWeight" Value="ExtraBold"/>
+                    <Setter Property="FontSize" Value="70"/>
+                </Style>
+            </StackPanel.Resources>
+
+            <Grid PointerEntered="Line_PointerEntered" PointerPressed="Line_PointerPressed">
+                <Rectangle />
+                <TextBlock>About</TextBlock>
+            </Grid>
+
+            <Grid PointerEntered="Line_PointerEntered" PointerPressed="Line_PointerPressed">
+                <Rectangle />
+                <TextBlock>Work</TextBlock>
+            </Grid>
+
+            <Grid PointerEntered="Line_PointerEntered" PointerPressed="Line_PointerPressed">
+                <Rectangle />
+                <TextBlock>Partners</TextBlock>
+            </Grid>
+
+            <Grid PointerEntered="Line_PointerEntered" PointerPressed="Line_PointerPressed">
+                <Rectangle />
+                <TextBlock>Awards</TextBlock>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</local:SamplePage>

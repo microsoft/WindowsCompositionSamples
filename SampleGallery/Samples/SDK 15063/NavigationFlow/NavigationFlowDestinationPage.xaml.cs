@@ -81,7 +81,7 @@ namespace CompositionSampleGallery
             // Add a translation animation that will play when this element exits the scene
             var topBorderExitAnimation = _compositor.CreateScalarKeyFrameAnimation();
             topBorderExitAnimation.Target = "Translation.Y";
-            topBorderExitAnimation.InsertKeyFrame(1, -30);
+            topBorderExitAnimation.InsertKeyFrame(1, -450.0f);
             topBorderExitAnimation.Duration = TimeSpan.FromSeconds(0.4);
 
             ElementCompositionPreview.SetIsTranslationEnabled(TopBorder, true);
