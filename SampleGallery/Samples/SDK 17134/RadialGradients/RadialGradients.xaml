@@ -5,28 +5,20 @@
     xmlns:local="using:CompositionSampleGallery"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Loaded="Page_Loaded">
+    mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush }">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-
-        <Canvas Name="Canvas1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Rectangle Name="Rectangle1" Fill="Transparent" Grid.Column="1" Grid.Row="1" Width="500" Height="500"></Rectangle>
-            <Rectangle Name="Rectangle2" IsHitTestVisible="True" Fill="Transparent" Grid.Column="1" Grid.Row="1" Width="500" Height="500"></Rectangle>
-            <Rectangle Name="Rectangle3" IsHitTestVisible="True" Fill="Transparent" Grid.Column="1" Grid.Row="1" Width="500" Height="500"></Rectangle>
-            <Button Name="Timer" Grid.Column="1" Grid.Row="1" Width="500" Height="500" Background="Transparent"
-                        Click="OnClick1" FontSize="36" FontFamily="Microsoft YaHei UI" Canvas.Left="200" Foreground="White" HorizontalContentAlignment="Center"
-                        Style="{StaticResource BorderlessNoHoverButton}" AllowFocusOnInteraction="False">Start</Button>
-        </Canvas>
+        <Grid Width="400" Height="400">
+            <Rectangle Name="CompositionTreeParent" />
+            <Border HorizontalAlignment="Center">
+                <Button Name="StopwatchStartStop"
+                        Foreground="White" 
+                        Background="Transparent"
+                        Click="StopwatchStartStop_Click" 
+                        FontSize="36" 
+                        FontFamily="Microsoft YaHei UI" 
+                        Style="{StaticResource BorderlessNoHoverButton}">Start</Button>
+            </Border>
+        </Grid>
     </Grid>
 </local:SamplePage>
