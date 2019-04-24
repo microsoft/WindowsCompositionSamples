@@ -323,7 +323,8 @@ namespace CompositionSampleGallery
             _15063,       // Creators Update (1703)
             _16299,       // Fall Creators Update
             _17134,       // Version 1803
-            _17763        // Version 1810
+            _17763,       // Version 1810
+            _18362        // Version 1903
         };
 
         public RuntimeSupportedSDKs()

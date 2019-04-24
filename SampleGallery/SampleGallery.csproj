@@ -133,7 +133,7 @@
     </Compile>
     <Compile Include="Samples\SDK 14393\NineGridResizing\INineGridScenario.cs" />
     <Compile Include="Samples\SDK 17134\AnimationController\AnimationControl.cs" />
-    <Compile Include="Samples\SDK 17134\RadialGradients\RadialGradients.xaml.cs" />
+    <Compile Include="Samples\SDK 18362\RadialGradients\RadialGradients.xaml.cs" />
     <Compile Include="Shared\AppTelemetryClient.cs" />
     <None Include="SampleGallery_TemporaryKey.pfx" />
   </ItemGroup>
@@ -360,6 +360,7 @@
     <Content Include="Assets\SampleThumbnails\PointerEnterExitEffects.PNG" />
     <Content Include="Assets\SampleThumbnails\PointerRotate.PNG" />
     <Content Include="Assets\SampleThumbnails\PullToRefresh.PNG" />
+    <Content Include="Assets\SampleThumbnails\RadialGradients.png" />
     <Content Include="Assets\SampleThumbnails\ShadowInterop.PNG" />
     <Content Include="Assets\SampleThumbnails\ShadowPlayground.jpg" />
     <Content Include="Assets\Other\Calendar.png" />
@@ -490,7 +491,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\SDK 17134\RadialGradients\RadialGradients.xaml">
+    <Page Include="Samples\SDK 18362\RadialGradients\RadialGradients.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

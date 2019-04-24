@@ -14,6 +14,7 @@
     <DefineConstants Condition="$(TargetPlatformBuild) &gt;=16299">$(DefineConstants);SDKVERSION_16299</DefineConstants>
     <DefineConstants Condition="$(TargetPlatformBuild) &gt;=17134">$(DefineConstants);SDKVERSION_17134</DefineConstants>
     <DefineConstants Condition="$(TargetPlatformBuild) &gt;=17763">$(DefineConstants);SDKVERSION_17763</DefineConstants>
+    <DefineConstants Condition="$(TargetPlatformBuild) &gt;=18362">$(DefineConstants);SDKVERSION_18362</DefineConstants>
 
   </PropertyGroup>
 </Project>
