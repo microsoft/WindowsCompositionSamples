@@ -1,12 +1,13 @@
 ---
-topic: sample
+page_type: sample
 languages:
 - csharp
+- xaml
 products:
 - windows
 - windows-uwp
 statusNotificationTargets:
-- WinComposition
+- WinComposition@microsoft.com
 ---
 
 # Windows Composition Samples
