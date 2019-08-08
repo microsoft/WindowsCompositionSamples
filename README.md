@@ -1,13 +1,14 @@
 ---
 page_type: sample
 languages:
-- csharp
-- xaml
+  - csharp
+  - xaml
 products:
-- windows
-- windows-uwp
+  - windows
+  - windows-uwp
 statusNotificationTargets:
-- WinComposition@microsoft.com
+- wincomposition@microsoft.com
+description: This repo focuses on the platform-building blocks that make up the Fluent Design System.
 ---
 
 # Windows Composition Samples
