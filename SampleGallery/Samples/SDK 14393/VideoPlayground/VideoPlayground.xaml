@@ -113,22 +113,10 @@
                             Margin="10, 10, 25, 10">
                     <!-- Controls to load video. -->
                     <TextBlock Text="Video Source" Style="{StaticResource VideoPlaygroundText}" />
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Button x:Name="OpenFileButton" 
-                            Content="Open File" 
-                            Style="{StaticResource VideoPlaygroundButton}"
-                            Command="{Binding OpenFileCommand}"/>
-                        <Button x:Name="OpenUriButton" 
-                            Grid.Column="1" 
-                            Content="Open Link" 
-                            Style="{StaticResource VideoPlaygroundButton}"
-                            Command="{Binding OpenLinkDialogCommand}"
-                            CommandParameter="{Binding ElementName=LinkDialog}"/>
-                    </Grid>
+                    <Button x:Name="OpenFileButton" 
+                        Content="Open File" 
+                        Style="{StaticResource VideoPlaygroundButton}"
+                        Command="{Binding OpenFileCommand}"/>
 
                     <!-- The rest of these controls shouldn't show if there is not video loaded, as 
                          there shouldn't be a current effect assigned until then.-->

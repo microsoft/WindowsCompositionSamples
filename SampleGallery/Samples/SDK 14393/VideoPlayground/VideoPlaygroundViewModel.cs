@@ -184,8 +184,6 @@ namespace CompositionSampleGallery
         public IDelegateCommand AddLightCommand { get; private set; } 
         public IDelegateCommand RemoveLightCommand { get; private set; }
         public IDelegateCommand OpenFileCommand { get; private set; }
-        public IDelegateCommand OpenLinkDialogCommand { get; private set; }
-        public IDelegateCommand OpenLinkCommand { get; private set; }
         public IDelegateCommand AnimateCommand { get; private set; }
         #endregion
 
@@ -227,8 +225,6 @@ namespace CompositionSampleGallery
             RemoveLightCommand = new DelegateCommand(RemoveLightButton);
             AnimateCommand = new DelegateCommand(Animate);
             OpenFileCommand = new DelegateCommand(OpenFile);
-            OpenLinkDialogCommand = new DelegateCommand(OpenLinkDialog);
-            OpenLinkCommand = new DelegateCommand(OpenLink);
 
             DurationIndex = 0;
         }
@@ -242,40 +238,6 @@ namespace CompositionSampleGallery
         private void OpenFile(object obj)
         {
             LoadFile();
-        }
-
-        /// <summary>
-        /// Command that shows the given ContentDialog.
-        /// </summary>
-        /// <param name="param">The ContentDialog to show.</param>
-        private async void OpenLinkDialog(object param)
-        {
-            var dialog = param as ContentDialog;
-
-            if (dialog != null)
-            {
-                await dialog.ShowAsync();
-            }
-        }
-
-        /// <summary>
-        /// Command that opens the given link as a MediaSource.
-        /// </summary>
-        /// <param name="param">String that is a valid Uri.</param>
-        private void OpenLink(object param)
-        {
-            try
-            {
-                var link = param as String;
-
-                var source = MediaSource.CreateFromUri(new Uri(link));
-
-                LoadSource(source);
-            }
-            catch(Exception ex)
-            {
-                var ignored = ErrorMessage("Video Error", ex.Message);
-            }
         }
 
         /// <summary>
