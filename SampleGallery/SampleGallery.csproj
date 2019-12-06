@@ -117,6 +117,9 @@
       <DependentUpon>SampleGalleryPivotHost.xaml</DependentUpon>
     </Compile>
     <Compile Include="SampleGalleryUIIndirector.cs" />
+    <Compile Include="Samples\SDK 10586\AnimationCompleted\AnimationCompleted.xaml.cs">
+      <DependentUpon>AnimationCompleted.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\SDK 15063\PullToRefresh\PullToRefresh.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\ShowHideImplicitWebview\ShowHideImplicitWebview.xaml.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
     <Compile Include="Samples\SDK 15063\LightInterop\AmbLight.cs" Condition="$(TargetPlatformBuild) &gt;14393" />
@@ -333,6 +336,7 @@
     <Content Include="Assets\Nature\Nature-7.jpg" />
     <Content Include="Assets\NormalMapsAndMasks\bubblenm.jpg" />
     <Content Include="Assets\SampleThumbnails\AdvancedShadows.PNG" />
+    <Content Include="Assets\SampleThumbnails\AnimationCompleted.PNG" />
     <Content Include="Assets\SampleThumbnails\AnimationController.PNG" />
     <Content Include="Assets\SampleThumbnails\BackDropControlSample.PNG" />
     <Content Include="Assets\SampleThumbnails\BasicLayoutAndTransitions.PNG" />
@@ -462,6 +466,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SampleGalleryPivotHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\SDK 10586\AnimationCompleted\AnimationCompleted.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
