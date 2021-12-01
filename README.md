@@ -15,7 +15,7 @@ statusNotificationTargets:
 
 # Windows Input and Composition Samples
 
-![app gif](https://media.giphy.com/media/1qebS8Xah2p7PaMxHO/giphy.gif)
+![app gif](https://media.giphy.com/media/Hx2beMDfEA7QqWPvD4/giphy.gif)
 
 Welcome to the Windows App SDK Input and Composition Samples! For those of you familiar with the Windows Composition Samples, these samples are very similar but instead built on the APIs in the WinAppSDK (to learn more about the WinAppSDK, visit [here](https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/)), and they also feature new input APIs. This is the place for the latest code samples, demos, and developer feedback around building beautiful and engaging WinUI3 apps. This repo focuses on the platform building blocks that make up the [Fluent Design System](https://fluent.microsoft.com/), with emphasis on creating UI using APIs in the [Microsoft.UI.Composition](https://docs.microsoft.com/en-us/windows/winui/api/microsoft.ui.composition) and [Microsoft.UI.Input](https://docs.microsoft.com/en-us/windows/winui/api/microsoft.ui.input) namespaces.
 
