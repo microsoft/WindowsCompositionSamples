@@ -1,17 +1,32 @@
+//*********************************************************
+//
+// Copyright (c) Microsoft. All rights reserved.
+// This code is licensed under the MIT License (MIT).
+// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+// IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
+// THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//
+//*********************************************************
+
 ﻿using DepthDemo.Scenarios;
 using ExpressionBuilder;
+using Microsoft.UI;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Composition.Interactions;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml.Media;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
 using Windows.Foundation;
 using Windows.UI;
-using Windows.UI.Composition;
-using Windows.UI.Composition.Interactions;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Media;
 
 using EF = ExpressionBuilder.ExpressionFunctions;
 
@@ -194,7 +209,7 @@ namespace DepthDemo
         }
 
         #region PointerHandlers
-        private void MainGrid_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void MainGrid_PointerPressed(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
             {
@@ -209,7 +224,7 @@ namespace DepthDemo
             }
         }
 
-        private void MainCanvas_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void MainCanvas_PointerPressed(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             // Pass event on to the scenario that's in view
             foreach (Scenario scenario in _scenarios)
@@ -221,7 +236,7 @@ namespace DepthDemo
             }
         }
 
-        private void MainCanvas_PointerMoved(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void MainCanvas_PointerMoved(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             // Pass event on to the scenario that's in view
             foreach (Scenario scenario in _scenarios)
@@ -233,7 +248,7 @@ namespace DepthDemo
             }
         }
 
-        private void MainCanvas_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+        private void MainCanvas_DoubleTapped(object sender, Microsoft.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
         {
             // Pass event on to the scenario that's in view
             foreach (Scenario scenario in _scenarios)
@@ -291,6 +306,7 @@ namespace DepthDemo
             string helpTextInfo = _currentScenario.HelpTextInstructions;
 
             var messageDialog = new MessageDialog(helpTextInfo);
+            WinRT.Interop.InitializeWithWindow.Initialize(messageDialog, WinRT.Interop.WindowNative.GetWindowHandle(MainWindow.CurrentWindow));
             await messageDialog.ShowAsync();
         }
         #endregion

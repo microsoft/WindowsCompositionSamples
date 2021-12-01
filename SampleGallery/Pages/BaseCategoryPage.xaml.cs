@@ -13,9 +13,11 @@
 //*********************************************************
 
 using System.Linq;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Documents;
-using Windows.UI.Xaml.Navigation;
+
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Documents;
+using Microsoft.UI.Xaml.Navigation;
+using CompositionSampleGallery;
 
 namespace CompositionSampleGallery
 {

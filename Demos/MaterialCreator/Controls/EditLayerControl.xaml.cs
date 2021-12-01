@@ -12,6 +12,9 @@
 //
 //*********************************************************
 
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -19,10 +22,8 @@ using System.Linq;
 using System.Reflection;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-using Windows.UI.Composition.Effects;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Composition.Effects;
+using Microsoft.UI.Xaml.Hosting;
 
 namespace MaterialCreator
 {
@@ -233,6 +234,7 @@ namespace MaterialCreator
             openPicker.FileTypeFilter.Add(".jpg");
             openPicker.FileTypeFilter.Add(".jpeg");
             openPicker.FileTypeFilter.Add(".png");
+            WinRT.Interop.InitializeWithWindow.Initialize(openPicker, WinRT.Interop.WindowNative.GetWindowHandle(MainWindow.CurrentWindow));
             StorageFile file = await openPicker.PickSingleFileAsync();
 
             if (file != null)
@@ -262,11 +264,11 @@ namespace MaterialCreator
                         }
                         break;
 
-                    case LayerType.BackdropHost:
-                        {
-                            layer = new BackdropHostLayer();
-                        }
-                        break;
+                    //case LayerType.BackdropHost:
+                    //    {
+                    //        layer = new BackdropHostLayer();
+                    //    }
+                    //    break;
 
                     case LayerType.Color:
                         {

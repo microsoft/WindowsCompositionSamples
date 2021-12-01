@@ -12,14 +12,14 @@
 //
 //*********************************************************
 
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml.Shapes;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Shapes;
 
 namespace CompositionSampleGallery
 {
@@ -31,17 +31,17 @@ namespace CompositionSampleGallery
         private Vector3 _primaryImageScale, _secondaryImageScale, _tertiaryImageScale;
         private Ellipse _currentPrimary, _currentSecondary, _currentTertiary;
         private Dictionary<Ellipse, ImageItem> imageDictionary;
-        private static string _rightArrowGlyph = "\u2190"; 
+        private static string _rightArrowGlyph = "\u2190";
         private static string _leftArrowGlyph = "\u2192";
         private bool _circlesVisible = true;
         private ImplicitAnimationCollection _implicitAnimationCollection;
 
-        public static string        StaticSampleName => "Implicit Show/Hide Webview"; 
-        public override string      SampleName => StaticSampleName; 
-        public static string        StaticSampleDescription => "Demonstrates how to apply an implicit show/hide animation on a " +
-                                                                    "webview UI element in a realistic app scenario."; 
-        public override string      SampleDescription => StaticSampleDescription;
-        public override string      SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868955";
+        public static string StaticSampleName => "Implicit Show/Hide Webview";
+        public override string SampleName => StaticSampleName;
+        public static string StaticSampleDescription => "Demonstrates how to apply an implicit show/hide animation on a " +
+                                                                    "webview UI element in a realistic app scenario.";
+        public override string SampleDescription => StaticSampleDescription;
+        public override string SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868955";
 
 
         public ShowHideImplicitWebview()
@@ -155,7 +155,7 @@ namespace CompositionSampleGallery
         {
             UpdateVisualLayout();
 
-            if(LeftStackPanel.Visibility == Visibility.Collapsed && PageWebview.Visibility == Visibility.Visible)
+            if (LeftStackPanel.Visibility == Visibility.Collapsed && PageWebview.Visibility == Visibility.Visible)
             {
                 MainGrid.ColumnDefinitions[0].Width = new GridLength(1, GridUnitType.Star);
                 MainGrid.ColumnDefinitions[1].Width = new GridLength(3, GridUnitType.Star);
@@ -172,7 +172,7 @@ namespace CompositionSampleGallery
         private void ViewMoreButton_Click(object sender, RoutedEventArgs e)
         {
             if (_circlesVisible)
-            { 
+            {
                 LeftStackPanel.Visibility = Visibility.Collapsed;
                 PageWebview.Visibility = Visibility.Visible;
                 MainGrid.ColumnDefinitions[0].Width = new GridLength(1, GridUnitType.Star);
@@ -209,7 +209,7 @@ namespace CompositionSampleGallery
         /// </summary>
         private void UpdateVisualLayout()
         {
-            if(_currentPrimary != null)
+            if (_currentPrimary != null)
             {
                 var primary = ElementCompositionPreview.GetElementVisual(_currentPrimary);
                 var secondary = ElementCompositionPreview.GetElementVisual(_currentSecondary);
@@ -301,11 +301,11 @@ namespace CompositionSampleGallery
     {
         private string webviewString;
 
-        public ImageItem( string webviewString)
+        public ImageItem(string webviewString)
         {
             this.webviewString = webviewString;
         }
-        
+
         public string GetWebviewString()
         {
             return webviewString;

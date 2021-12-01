@@ -14,12 +14,14 @@
 
 using System;
 using System.Numerics;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI;
-using Windows.UI.Xaml.Controls;
 using System.Collections.Generic;
+
+using Windows.UI;
+
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Hosting;
 using Microsoft.Graphics.Canvas.Effects;
 
 namespace CompositionSampleGallery
@@ -51,7 +53,7 @@ namespace CompositionSampleGallery
             {
                 // Animate in normal or reverse based on switch toggle
                 var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
-                _blurAnimation.Direction = value ? Windows.UI.Composition.AnimationDirection.Normal : Windows.UI.Composition.AnimationDirection.Reverse;
+                _blurAnimation.Direction = value ? Microsoft.UI.Composition.AnimationDirection.Normal : Microsoft.UI.Composition.AnimationDirection.Reverse;
                 _blurBrush.Properties.StartAnimation("blurEffect.BlurAmount", _blurAnimation);
                 BackgroundToggle.IsEnabled = false; // disable button while animation is in progress
                 batch.End();
@@ -77,7 +79,7 @@ namespace CompositionSampleGallery
             {
                 // Animate in normal or reverse based on switch toggle
                 var batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
-                _saturationAnimation.Direction = value ? Windows.UI.Composition.AnimationDirection.Normal : Windows.UI.Composition.AnimationDirection.Reverse;
+                _saturationAnimation.Direction = value ? Microsoft.UI.Composition.AnimationDirection.Normal : Microsoft.UI.Composition.AnimationDirection.Reverse;
                 _saturationBrush.Properties.StartAnimation("saturationEffect.Saturation", _saturationAnimation);
                 ForegroundToggle.IsEnabled = false; // disable button while animation is in progress
                 batch.End();

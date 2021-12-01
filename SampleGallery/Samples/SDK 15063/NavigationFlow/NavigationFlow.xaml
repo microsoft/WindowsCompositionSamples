@@ -9,10 +9,19 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Frame x:Name="InnerFrame" Navigated="InnerFrame_Navigated" SizeChanged="InnerFrame_SizeChanged" />
-        <Button
+        <!-- TODO: Fix NavigationBackButtonSmallStyle key is not found for lifted version -->
+        <!--<Button
             x:Name="GoBackButton"
             Margin="5"
             Style="{StaticResource NavigationBackButtonSmallStyle}"
+            VerticalAlignment="Top"
+            IsEnabled="False"
+            Click="GoBackButton_Click" />-->
+        
+        <Button
+            x:Name="GoBackButton"
+            Margin="5"            
+            Content="Back"
             VerticalAlignment="Top"
             IsEnabled="False"
             Click="GoBackButton_Click" />

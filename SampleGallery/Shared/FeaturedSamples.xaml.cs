@@ -15,8 +15,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace CompositionSampleGallery
 {
@@ -64,7 +65,6 @@ namespace CompositionSampleGallery
         public FeaturedSamples()
         {
             this.InitializeComponent();
-            NewSamplesList.ItemClick += MainPage.FeaturedSampleList_ItemClick;
         }
 
         // We don't want the featured sample list to show if there aren't any samples 

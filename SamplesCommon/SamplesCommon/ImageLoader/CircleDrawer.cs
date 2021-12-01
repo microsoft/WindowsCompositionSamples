@@ -18,9 +18,10 @@ using System.Threading.Tasks;
 
 using Windows.Foundation;
 using Windows.UI;
-using Windows.UI.Composition;
 
 using Microsoft.Graphics.Canvas.UI.Composition;
+using Microsoft.UI;
+using Microsoft.UI.Composition;
 
 namespace SamplesCommon
 {
@@ -50,7 +51,7 @@ namespace SamplesCommon
         {
             using (var ds = CanvasComposition.CreateDrawingSession(surface))
             {
-                ds.Clear(Colors.Transparent);
+                ds.Clear(Microsoft.UI.Colors.Transparent);
                 ds.FillCircle(new Vector2(_radius, _radius), _radius, _color);
             }
         }

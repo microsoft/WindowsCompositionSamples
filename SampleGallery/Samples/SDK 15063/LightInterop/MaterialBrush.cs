@@ -17,14 +17,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
-using Microsoft.Graphics.Canvas.Effects;
-using Windows.UI.Composition.Effects;
-using Windows.UI;
 using System.Numerics;
+
+using Windows.UI;
 using Windows.Foundation;
+
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.UI.Composition.Effects;
 
 namespace CompositionSampleGallery.Samples.LightInterop
 
@@ -35,12 +37,12 @@ namespace CompositionSampleGallery.Samples.LightInterop
 
         protected override void OnConnected()
         {
-            Compositor compositor = Window.Current.Compositor;
+            Compositor compositor = CompositionTarget.GetCompositorForCurrentThread();
 
             // CompositionCapabilities: Are Effects supported?
-            bool usingFallback = !CompositionCapabilities.GetForCurrentView().AreEffectsSupported();
+            var capabilities = new CompositionCapabilities();
+            bool usingFallback = !capabilities.AreEffectsSupported();
             FallbackColor = Color.FromArgb(100, 60, 60, 60);
-
             if (usingFallback)
             {
                 // If Effects are not supported, use Fallback Solid Color
@@ -59,30 +61,30 @@ namespace CompositionSampleGallery.Samples.LightInterop
             const float glassLightAmount = 0.5f;
             const float glassBlurAmount = 0.95f;
             Color tintColor = Color.FromArgb(255, 128, 128, 128);
-
-            var graphicsEffect = new ArithmeticCompositeEffect()
+        
+            var graphicsEffect = new Microsoft.Graphics.Canvas.Effects.ArithmeticCompositeEffect()
             {
                 Name = "LightComposite",
                 Source1Amount = 1,
                 Source2Amount = glassLightAmount,
                 MultiplyAmount = 0,
-                Source1 = new ArithmeticCompositeEffect()
+                Source1 = new Microsoft.Graphics.Canvas.Effects.ArithmeticCompositeEffect()
                 {
                     Name = "BlurComposite",
                     Source1Amount = 1 - glassBlurAmount,
                     Source2Amount = glassBlurAmount,
                     MultiplyAmount = 0,
-                    Source1 = new ColorSourceEffect()
+                    Source1 = new Microsoft.Graphics.Canvas.Effects.ColorSourceEffect()
                     {
                         Name = "Tint",
                         Color = tintColor,
                     },
-                    Source2 = new GaussianBlurEffect()
+                    Source2 = new Microsoft.Graphics.Canvas.Effects.GaussianBlurEffect()
                     {
                         BlurAmount = 20,
                         Source = new CompositionEffectSourceParameter("Backdrop"),
-                        Optimization = EffectOptimization.Balanced,
-                        BorderMode = EffectBorderMode.Hard,
+                        Optimization = Microsoft.Graphics.Canvas.Effects.EffectOptimization.Balanced,
+                        BorderMode = Microsoft.Graphics.Canvas.Effects.EffectBorderMode.Hard,
                     },
                 },
                 Source2 = new SceneLightingEffect()
@@ -97,7 +99,7 @@ namespace CompositionSampleGallery.Samples.LightInterop
             // Create EffectFactory and EffectBrush
             CompositionEffectFactory effectFactory = compositor.CreateEffectFactory(graphicsEffect);
             CompositionEffectBrush effectBrush = effectFactory.CreateBrush();
-            
+
             // Create BackdropBrush
             CompositionBackdropBrush backdrop = compositor.CreateBackdropBrush();
 

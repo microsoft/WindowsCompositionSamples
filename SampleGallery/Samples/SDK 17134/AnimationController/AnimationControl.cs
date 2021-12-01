@@ -13,12 +13,14 @@
 //*********************************************************
 using System;
 using System.Numerics;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Input;
+
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
 
 namespace CompositionSampleGallery
 {
@@ -37,7 +39,7 @@ namespace CompositionSampleGallery
         public override string      SampleDescription => StaticSampleDescription;
         private void AnimationSetup()
         {
-            _compositor = Window.Current.Compositor;
+            _compositor = CompositionTarget.GetCompositorForCurrentThread();
             _visual = ElementCompositionPreview.GetElementVisual(Rectangle);
             _pause = true;
             _interval = TimeSpan.FromMilliseconds(16); // based on 60f/sec

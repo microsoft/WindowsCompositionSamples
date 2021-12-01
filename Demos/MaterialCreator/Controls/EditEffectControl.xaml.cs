@@ -12,10 +12,10 @@
 //
 //*********************************************************
 
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Diagnostics;
 using System.Reflection;
-using Windows.UI.Xaml.Controls;
 
 namespace MaterialCreator
 {

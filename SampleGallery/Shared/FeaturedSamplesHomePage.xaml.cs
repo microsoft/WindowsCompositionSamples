@@ -13,7 +13,8 @@
 //*********************************************************
 
 using System.Collections;
-using Windows.UI.Xaml.Controls;
+
+using Microsoft.UI.Xaml.Controls;
 
 namespace CompositionSampleGallery
 {
@@ -22,7 +23,6 @@ namespace CompositionSampleGallery
         public FeaturedSampleHomePage()
         {
             this.InitializeComponent();
-            FeaturedSampleList.ItemClick += MainPage.FeaturedSampleList_ItemClick;
         }
 
         public IEnumerable ItemsSource
@@ -30,6 +30,10 @@ namespace CompositionSampleGallery
             get { return (IEnumerable)FeaturedSampleList.ItemsSource; }
             set { FeaturedSampleList.ItemsSource = value; }
         }
-
+        // Navigate up to the parent frame and trigger a navigation
+        private void FeaturedSamplesList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            MainNavigationViewModel.NavigateToSample(sender, e);
+        }
     }
 }

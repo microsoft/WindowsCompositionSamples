@@ -12,16 +12,22 @@
 //
 //*********************************************************
 
-using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.Effects;
+//using Microsoft.Graphics.Canvas;
+//using Microsoft.Graphics.Canvas.Effects;
 using SamplesCommon;
+
 using System;
 using System.Numerics;
 using Windows.Foundation;
+
 using Windows.UI;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Hosting;
+
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI;
+using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.Graphics.Canvas;
 
 namespace CompositionSampleGallery
 {
@@ -61,7 +67,7 @@ namespace CompositionSampleGallery
             ElementCompositionPreview.SetElementChildVisual(hostForVisual, _containerForVisuals);
 
             // Create the circle mask
-            _circleMaskSurface = ImageLoader.Instance.LoadCircle(200, Colors.White);
+            _circleMaskSurface = ImageLoader.Instance.LoadCircle(200, Microsoft.UI.Colors.White);
         }
         #endregion
 

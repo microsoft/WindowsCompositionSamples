@@ -1,31 +1,58 @@
-﻿using System;
-using System.Collections;
+//*********************************************************
+//
+// Copyright (c) Microsoft. All rights reserved.
+// This code is licensed under the MIT License (MIT).
+// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+// IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
+// THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//
+//*********************************************************
+
+﻿using Microsoft.UI.Dispatching;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml.Input;
+using SamplesCommon;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.System;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace CompositionSampleGallery
 {
-    public sealed partial class SampleGalleryNavViewHost : UserControl, ISampleGalleryUIHost
+    public sealed partial class SampleGalleryNavViewHost : UserControl
     {
         object _itemsSource;
-
+        private SampleDefinition _dummySampleDefinition;
         public SampleGalleryNavViewHost()
         {
             this.InitializeComponent();
+            NavView.PointerPressed += PointerPressedHandler;
+        }
+
+        private void PointerPressedHandler(object sender, PointerRoutedEventArgs e)
+        {
+                     
+            if (e.GetCurrentPoint((UIElement)sender).Properties.IsXButton1Pressed)
+            {
+                if (ContentFrame.CanGoBack)
+                {
+                    ContentFrame.GoBack();
+                }
+            }
+            else if (e.GetCurrentPoint((UIElement)sender).Properties.IsXButton2Pressed)
+            {
+                if (ContentFrame.CanGoForward)
+                {
+                    ContentFrame.GoForward();
+                }
+            }
         }
 
         public object SampleCategories
@@ -44,7 +71,7 @@ namespace CompositionSampleGallery
                 if (_itemsSource != null)
                 {
                     List<NavigationViewItem> newItems = new List<NavigationViewItem>();
-                    foreach (NavigationItem item in (ICollection)value)
+                    foreach (NavigationItem item in (ICollection<NavigationItem>)value)
                     {
                         NavigationViewItem navItem = new NavigationViewItem();
                         navItem.Content = item.DisplayName;
@@ -64,26 +91,17 @@ namespace CompositionSampleGallery
             }
         }
 
-        public bool CanGoBack
+        private void NavigationView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
         {
-            get
+            if (ContentFrame.CanGoBack)
             {
-                return ContentFrame.CanGoBack;
+                ContentFrame.GoBack();
             }
         }
-
-        public void GoBack()
-        {
-            ContentFrame.GoBack();
-            FireBackStackChangedEvent();
-        }
-
-        public event EventHandler BackStackStateChanged;
 
         public void Navigate(Type type, object parameter)
         {
             ContentFrame.Navigate(type, parameter);
-            FireBackStackChangedEvent();
         }
 
         public void NotifyCompositionCapabilitiesChanged(bool areEffectsSupported, bool areEffectsFast)
@@ -91,13 +109,7 @@ namespace CompositionSampleGallery
             if (ContentFrame.Content is SampleHost host)
             {
                 SamplePage page = (SamplePage)host.Content;
-                page.OnCapabiliesChanged(areEffectsSupported, areEffectsFast);
             }
-        }
-
-        private void FireBackStackChangedEvent()
-        {
-            BackStackStateChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -111,7 +123,6 @@ namespace CompositionSampleGallery
             if (args.IsSettingsInvoked)
             {
                 Navigate(typeof(Settings), null);
-                ClearBackstack();
             }
             else
             {
@@ -121,7 +132,7 @@ namespace CompositionSampleGallery
                 // reflect that change until *after* this event has fired.  So, use the thread's DispatcherQueue to defer the navigation until 
                 // after the nav view has processed the potential selection change.
 
-                DispatcherQueue.GetForCurrentThread().TryEnqueue(DispatcherQueuePriority.High, () => { NavigateToSelectedItem(); } );                
+                DispatcherQueue.GetForCurrentThread().TryEnqueue(DispatcherQueuePriority.High, () => { NavigateToSelectedItem(); });
             }
         }
 
@@ -131,17 +142,54 @@ namespace CompositionSampleGallery
 
             Dictionary<string, string> properties = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             properties.Add("TargetView", navItem.Category.ToString());
-            Shared.AppTelemetryClient.TrackEvent("Navigate", properties, null);
+            CompositionSampleGallery.AppTelemetryClient.TrackEvent("Navigate", properties, null);
             Navigate(navItem.PageType, navItem);
-            ClearBackstack();
         }
 
-        private void ClearBackstack()
+        private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            // Reset the backstack when a new category is selected to avoid having to coordinate the cateogory 
-            // selection as we navigate back through the backstack
-            ContentFrame.BackStack.Clear();
-            FireBackStackChangedEvent();
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                var matches = from sampleDef in SampleDefinitions.Definitions
+                              where sampleDef.DisplayName.IndexOf(sender.Text, StringComparison.CurrentCultureIgnoreCase) >= 0
+                                 || (sampleDef.Tags != null && sampleDef.Tags.Any(str => str.IndexOf(sender.Text, StringComparison.CurrentCultureIgnoreCase) >= 0))
+                              select sampleDef;
+
+                if (matches.Count() > 0)
+                {
+                    SearchBox.ItemsSource = matches.OrderByDescending(i => i.DisplayName.StartsWith(sender.Text, StringComparison.CurrentCultureIgnoreCase)).ThenBy(i => i.DisplayName);
+                }
+                else
+                {
+                    _dummySampleDefinition = new SampleDefinition("No results found", null, SampleType.Reference, SampleCategory.APIReference, false, false);
+                    SearchBox.ItemsSource = new SampleDefinition[] { _dummySampleDefinition };
+                }
+            }
+        }
+
+        private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            if (!string.IsNullOrEmpty(args.QueryText) && args.ChosenSuggestion == null)
+            {
+                MainNavigationViewModel.ShowSearchResults(args.QueryText);
+            }
+        }
+
+        private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            if (((SampleDefinition)(args.SelectedItem)) == _dummySampleDefinition)
+            {
+                SearchBox.Text = "";
+            }
+            else
+            {
+                MainNavigationViewModel.NavigateToSample((SampleDefinition)args.SelectedItem);
+            }
+        }
+
+        private void SearchBox_AccessKeyInvoked(UIElement sender, Microsoft.UI.Xaml.Input.AccessKeyInvokedEventArgs args)
+        {
+            SearchBox.Focus(FocusState.Keyboard);
         }
     }
 }

@@ -12,11 +12,11 @@
 //
 //*********************************************************
 
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Diagnostics;
 using System.Numerics;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 
 namespace MaterialCreator

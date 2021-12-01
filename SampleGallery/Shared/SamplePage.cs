@@ -13,9 +13,10 @@
 //*********************************************************
 
 using System;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Documents;
-using Windows.UI.Xaml.Navigation;
+
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Documents;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace CompositionSampleGallery
 {
@@ -23,7 +24,7 @@ namespace CompositionSampleGallery
     {
         public abstract string SampleDescription { get; }
         public abstract string SampleName { get; }
-        public virtual string SampleCodeUri { get { return "https://github.com/Microsoft/composition/";} }
+        public virtual string SampleCodeUri { get { return "https://github.com/Microsoft/windowscompositionsamples/";} }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -38,7 +39,7 @@ namespace CompositionSampleGallery
                 // Show sample tags if any exist
                 if(host.SampleDefinition.Tags != null)
                 {
-                    host.SampleTagsTextBlock.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    host.SampleTagsTextBlock.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
                     host.SampleTagsTextBlock.Inlines.Add(new Run() { Text = "Tags: " });
                     foreach (string t in host.SampleDefinition.Tags)
                     {
@@ -50,11 +51,6 @@ namespace CompositionSampleGallery
                     }
                 }
             }
-        }
-        
-        public virtual void OnCapabiliesChanged(bool areEffectSupported, bool areEffectsFast)
-        {
-
         }
     }
 }

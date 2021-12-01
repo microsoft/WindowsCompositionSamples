@@ -7,15 +7,16 @@
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
 // IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH 
+// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
 // THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 //*********************************************************
 
 using SamplesCommon;
-using Windows.UI;
-using Windows.UI.Composition;
-using Windows.UI.Xaml.Hosting;
+
+using Microsoft.UI;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml.Hosting;
 
 namespace CompositionSampleGallery
 {
@@ -40,7 +41,7 @@ namespace CompositionSampleGallery
         public override string      SampleDescription => StaticSampleDescription; 
         public override string      SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761177"; 
 
-        private void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void SamplePage_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             // Get backing visual from shadow container and interop compositor
             _shadowContainer = ElementCompositionPreview.GetElementVisual(ShadowContainer);
@@ -65,7 +66,7 @@ namespace CompositionSampleGallery
             _isMaskEnabled = false;
         }
 
-        private void SamplePage_Unloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void SamplePage_Unloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             if (_imageMaskSurface != null)
             {
@@ -73,7 +74,7 @@ namespace CompositionSampleGallery
             }
         }
 
-        private void MaskButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void MaskButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             if (_isMaskEnabled) //then remove mask
             {

@@ -39,24 +39,12 @@
                 </Path>
             </Grid>
         </Grid>
-        
+
         <!--Grid Painted with XCBB: Animated Effects on LoadedImageSurface-->
         <Grid Name="ImageEffectGrid" Grid.Column="0" Grid.Row="1" Margin="20,10, 10, 20">
             <Grid.Background>
                 <brushes:ImageEffectBrush ImageUriString="ms-appx:///Assets/Landscapes/Landscape-12.jpg"/>
             </Grid.Background>
-        </Grid>
-
-        <!--Grid and Text Painted with XCBB: HostBackdrop Effects-->
-        <Grid Name="TextHostBackdrop" Grid.Column="1" Grid.Row="0" Margin="10,20, 20, 10">
-            <Grid.Background>
-                <brushes:HostBackdropEffectBrush FallbackColor="Black" OverlayColor="#CC141414"/>
-            </Grid.Background>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="ExtraLight" FontSize="35" TextWrapping="WrapWholeWords" Text="Paint Xaml UIElements with Composition Brushes">
-                <TextBlock.Foreground>
-                    <brushes:HostBackdropEffectBrush FallbackColor="White" OverlayColor="#66FFFFFF"/>
-                </TextBlock.Foreground>
-            </TextBlock>
         </Grid>
 
         <!--Shape Painted with XCBB: Animated Backdrop Effects-->

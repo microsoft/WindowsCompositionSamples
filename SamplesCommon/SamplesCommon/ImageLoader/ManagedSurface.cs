@@ -17,7 +17,8 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 
 using Windows.Foundation;
-using Windows.UI.Composition;
+
+using Microsoft.UI.Composition;
 
 namespace SamplesCommon
 {

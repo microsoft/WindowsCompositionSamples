@@ -7,8 +7,9 @@
 namespace ExpressionBuilder
 {
     using System.Numerics;
-    using Windows.UI.Composition;
-    using Windows.UI.Composition.Interactions;
+
+    using Microsoft.UI.Composition;
+    using Microsoft.UI.Composition.Interactions;
 
     ///---------------------------------------------------------------------------------------------------------------------
     /// 

@@ -13,9 +13,11 @@
 //*********************************************************
 
 using SamplesCommon;
+
 using System;
-using Windows.UI;
-using Windows.UI.Composition;
+
+using Microsoft.UI;
+using Microsoft.UI.Composition;
 
 namespace CompositionSampleGallery
 {

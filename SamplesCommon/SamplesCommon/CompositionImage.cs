@@ -1,56 +1,59 @@
-﻿//*********************************************************
+//*********************************************************
 //
 // Copyright (c) Microsoft. All rights reserved.
 // This code is licensed under the MIT License (MIT).
-// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
-// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-// IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH 
+// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+// IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
 // THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 //*********************************************************
 
+﻿using Microsoft.UI;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml.Media;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Text;
+using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.UI;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Media;
 
 namespace SamplesCommon
 {
     public sealed class CompositionImage : Control
     {
-        private bool                        _unloaded;
-        private Compositor                  _compositor;
-        private SpriteVisual                _sprite;
-        private Uri                         _uri;
-        private ManagedSurface              _surface;
-        private CompositionSurfaceBrush     _surfaceBrush;
-        private CompositionBrush            _brush;
-        private LoadTimeEffectHandler       _loadEffectDelegate;
-        private CompositionStretch          _stretchMode;
-        private DispatcherTimer             _timer;
-        public event RoutedEventHandler     ImageOpened;
-        public event RoutedEventHandler     ImageFailed;
-        private TimeSpan                    _placeholderDelay;
-        private CompositionBrush            _placeholderBrush;
-        private bool                        _sharedSurface;
+        private bool _unloaded;
+        private Compositor _compositor;
+        private SpriteVisual _sprite;
+        private Uri _uri;
+        private ManagedSurface _surface;
+        private CompositionSurfaceBrush _surfaceBrush;
+        private CompositionBrush _brush;
+        private LoadTimeEffectHandler _loadEffectDelegate;
+        private CompositionStretch _stretchMode;
+        private DispatcherTimer _timer;
+        public event RoutedEventHandler ImageOpened;
+        public event RoutedEventHandler ImageFailed;
+        private TimeSpan _placeholderDelay;
+        private CompositionBrush _placeholderBrush;
+        private bool _sharedSurface;
 
-        static private CompositionBrush     _defaultPlaceholderBrush;
+        static private CompositionBrush _defaultPlaceholderBrush;
         static private ScalarKeyFrameAnimation
                                             _fadeOutAnimation;
         static private Vector2KeyFrameAnimation
                                             _scaleAnimation;
-        static bool                         _staticsInitialized;
+        static bool _staticsInitialized;
 
         public CompositionImage()
         {
@@ -437,7 +440,7 @@ namespace SamplesCommon
                 {
                     ImageFailed(this, null);
                 }
-            }           
+            }
         }
 
         private void Timer_Tick(object sender, object e)
@@ -471,12 +474,11 @@ namespace SamplesCommon
             Visual loadingVisual = _sprite.Children.LastOrDefault();
             loadingVisual.StartAnimation("Opacity", _fadeOutAnimation);
 
-#if SDKVERSION_14393
             Vector2 visualSize = _sprite.Size;
             _surfaceBrush.CenterPoint = new Vector2(visualSize.X *.5f, visualSize.Y * .5f);
 
             _surfaceBrush.StartAnimation("Scale", _scaleAnimation);
-#endif
+
             // End the batch after those animations complete
             batch.End();
         }
@@ -535,4 +537,4 @@ namespace SamplesCommon
             set { _placeholderDelay = value; }
         }
     }
-}
+    }

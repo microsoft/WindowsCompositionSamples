@@ -13,10 +13,12 @@
 //*********************************************************
 
 using System;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Composition;
 using System.Numerics;
+
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml.Media;
 
 namespace CompositionSampleGallery
 {
@@ -43,7 +45,7 @@ namespace CompositionSampleGallery
         {
 
             //Get the compositor from the current Window. This is new in the Creator's Update.
-            var compositor = Window.Current.Compositor;
+            var compositor = CompositionTarget.GetCompositorForCurrentThread();
 
             var animation = compositor.CreateScalarKeyFrameAnimation();
 
@@ -71,7 +73,7 @@ namespace CompositionSampleGallery
         //Yellow Rectangle and Red Rectangle Animations using Offset as in Aniversary Update
         void StartAnimationOffset()
         {
-            var compositor = Window.Current.Compositor;
+            var compositor = CompositionTarget.GetCompositorForCurrentThread();
 
             //Animation
             var animation2 = compositor.CreateScalarKeyFrameAnimation();
@@ -115,7 +117,7 @@ namespace CompositionSampleGallery
             //Note - we need to get the backing Visual for Border1 instead of the rectangle because of the workaround to hide from Xaml Layout
             var visual2 = ElementCompositionPreview.GetElementVisual(Border1);
             var visual3 = ElementCompositionPreview.GetElementVisual(Rectangle2);
-            var compositor = Window.Current.Compositor;
+            var compositor = CompositionTarget.GetCompositorForCurrentThread();
 
             //Define the implicit collection
             var tiltAnimations = compositor.CreateImplicitAnimationCollection();

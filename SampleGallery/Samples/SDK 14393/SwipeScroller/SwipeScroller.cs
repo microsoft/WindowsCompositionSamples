@@ -13,11 +13,12 @@
 //*********************************************************
 
 using CompositionSampleGallery.Samples.SDK_14393.SwipeScroller.Models;
-using CompositionSampleGallery.Shared;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Windows.UI.Xaml;
+
+using Microsoft.UI.Xaml;
+using CompositionSampleGallery.Shared;
 
 namespace CompositionSampleGallery
 {

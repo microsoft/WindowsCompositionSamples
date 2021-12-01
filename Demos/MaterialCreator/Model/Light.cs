@@ -12,6 +12,8 @@
 //
 //*********************************************************
 
+using Microsoft.UI;
+using Microsoft.UI.Composition;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -20,7 +22,6 @@ using System.Numerics;
 using System.Reflection;
 using System.Runtime.Serialization;
 using Windows.UI;
-using Windows.UI.Composition;
 
 namespace MaterialCreator
 {

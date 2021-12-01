@@ -12,21 +12,24 @@
 //
 //*********************************************************
 
-using CompositionSampleGallery.Shared;
-using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.Effects;
 using SamplesCommon;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Numerics;
-using Windows.Graphics.Effects;
+
 using Windows.UI;
-using Windows.UI.Composition;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
+using Windows.Graphics.Effects;
+
+using Microsoft.UI;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas.Effects;
+using CompositionSampleGallery.Shared;
 
 namespace CompositionSampleGallery
 {
@@ -60,7 +63,7 @@ namespace CompositionSampleGallery
         public override string  SampleName => StaticSampleName;
         public static string    StaticSampleDescription => "Demonstrates how to use a BackDrop effect to deemphasize background content. Click on any thumbnail to trigger the selected effect.";
         public override string  SampleDescription => StaticSampleDescription; 
-        public override string  SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761179"; 
+        public override string  SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761179";
 
         public LocalDataSource Model { set; get; }
         private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -227,6 +230,8 @@ namespace CompositionSampleGallery
             // Create the dialog
             var messageDialog = new MessageDialog(thumbnail.Name);
             messageDialog.Commands.Add(new UICommand("Close", new UICommandInvokedHandler(DialogDismissedHandler)));
+
+            WinRT.Interop.InitializeWithWindow.Initialize(messageDialog, WinRT.Interop.WindowNative.GetWindowHandle(MainWindow.CurrentWindow));
 
             // Show the message dialog
             await messageDialog.ShowAsync();

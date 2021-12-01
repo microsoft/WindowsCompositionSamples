@@ -12,6 +12,8 @@
 //
 //*********************************************************
 
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -19,8 +21,6 @@ using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Windows.Graphics.Effects;
-using Windows.UI.Composition;
-using Windows.UI.Xaml.Controls;
 
 namespace MaterialCreator
 {
@@ -38,7 +38,7 @@ namespace MaterialCreator
         
         public Material()
         {
-            StreamingContext context;
+            StreamingContext context = new StreamingContext();
             Initialize(context);
         }
 

@@ -12,18 +12,18 @@
 //
 //*********************************************************
 
-using CompositionSampleGallery.Shared;
 using SamplesCommon;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Numerics;
 using Windows.Foundation;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Input;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml.Input;
+using CompositionSampleGallery.Shared;
 
 namespace CompositionSampleGallery
 {
@@ -172,13 +172,13 @@ namespace CompositionSampleGallery
             }
         }
 
-        private void Canvas_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void Canvas_PointerEntered(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             CompositionImage image = ((DependencyObject)sender).GetFirstDescendantOfType<CompositionImage>();
             _currentTechnique.OnPointerEnter(e.GetCurrentPoint(image).Position.ToVector2(), image);
         }
 
-        private void Canvas_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void Canvas_PointerExited(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             CompositionImage image = ((DependencyObject)sender).GetFirstDescendantOfType<CompositionImage>();
             _currentTechnique.OnPointerExit(e.GetCurrentPoint(image).Position.ToVector2(), image);

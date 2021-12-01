@@ -13,6 +13,11 @@
 //*********************************************************
 
 using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.UI;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using SamplesCommon;
 using System;
 using System.Collections.Generic;
@@ -25,10 +30,6 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-using Windows.UI;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace MaterialCreator
 {
@@ -45,7 +46,7 @@ namespace MaterialCreator
 
         public ImageLayer() : base()
         {
-            StreamingContext context;
+            StreamingContext context = new StreamingContext();
             Initialize(context);
         }
 
@@ -53,8 +54,8 @@ namespace MaterialCreator
         private void Initialize(StreamingContext context)
         {
             _type = LayerType.Image;
-            _brush = Window.Current.Compositor.CreateSurfaceBrush();
-            _nineGrid = Window.Current.Compositor.CreateNineGridBrush();
+            _brush = CompositionTarget.GetCompositorForCurrentThread().CreateSurfaceBrush();
+            _nineGrid = CompositionTarget.GetCompositorForCurrentThread().CreateNineGridBrush();
             _inputEffect = new BorderEffect()
             {
                 Name = _id,
@@ -120,6 +121,7 @@ namespace MaterialCreator
                     openPicker.FileTypeFilter.Add(".jpg");
                     openPicker.FileTypeFilter.Add(".jpeg");
                     openPicker.FileTypeFilter.Add(".png");
+                    WinRT.Interop.InitializeWithWindow.Initialize(openPicker, WinRT.Interop.WindowNative.GetWindowHandle(MainWindow.CurrentWindow));
                     return await openPicker.PickSingleFileAsync();
                 }
                 else

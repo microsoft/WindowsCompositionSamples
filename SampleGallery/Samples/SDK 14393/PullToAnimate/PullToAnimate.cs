@@ -16,13 +16,15 @@ using ExpressionBuilder;
 using Microsoft.Graphics.Canvas.Effects;
 using System;
 using System.Numerics;
+
 using Windows.Foundation;
-using Windows.UI.Composition;
-using Windows.UI.Composition.Interactions;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Input;
 using Windows.UI.ViewManagement;
+
+using Microsoft.UI.Composition;
+using Microsoft.UI.Composition.Interactions;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml.Input;
 
 using EF = ExpressionBuilder.ExpressionFunctions;
 
@@ -53,7 +55,6 @@ namespace CompositionSampleGallery
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            ApplicationView.GetForCurrentView().TryResizeView(new Size(1792, 1008));
             _backgroundImageVisual = ElementCompositionPreview.GetElementVisual(BackgroundImage);
             _weatherLayerVisual = ElementCompositionPreview.GetElementVisual(WeatherLayer);
             _todoLayerVisual = ElementCompositionPreview.GetElementVisual(ToDoLayer);
@@ -90,7 +91,7 @@ namespace CompositionSampleGallery
             _backgroundVisual.Size = new Vector2((float)Root.ActualWidth, (float)Root.ActualHeight);
 
             _backgroundVisualDimmer = _compositor.CreateSpriteVisual();
-            _backgroundVisualDimmer.Brush = _compositor.CreateColorBrush(Windows.UI.Colors.Black);
+            _backgroundVisualDimmer.Brush = _compositor.CreateColorBrush(Microsoft.UI.Colors.Black);
             _backgroundVisualDimmer.Size = _backgroundVisual.Size;
 
             ElementCompositionPreview.SetElementChildVisual(BackgroundImageOverlay, _backgroundVisualDimmer);
@@ -241,13 +242,7 @@ namespace CompositionSampleGallery
 
             _interactionSource = VisualInteractionSource.Create(_backgroundVisual);
             _interactionSource.PositionYSourceMode = InteractionSourceMode.EnabledWithInertia;
-
-#if SDKVERSION_17763
-            if (MainPage.RuntimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._17763))
-            {
-                 _interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadAndPointerWheel;
-            }
-#endif
+            _interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadAndPointerWheel;
             _tracker.InteractionSources.Add(_interactionSource);
 
             var trackerNode = _tracker.GetReference();

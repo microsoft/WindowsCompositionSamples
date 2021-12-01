@@ -21,7 +21,6 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="CategoryDescriptionTextBlock.Style" Value="{StaticResource CategoryDescriptionTextBlockStyleWide}" />
-                        <Setter Target="MainGrid.Background" Value="White" />
                     </VisualState.Setters>
                 </VisualState>
 
@@ -32,7 +31,6 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="CategoryDescriptionTextBlock.Style" Value="{StaticResource CategoryDescriptionTextBlockStyleNarrow}" />
-                        <Setter Target="MainGrid.Background" Value="Black" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -45,8 +43,7 @@
                 <local:FeaturedSamples 
                     x:Name="FeaturedSampleControl" 
                     Description="Click a sample to learn more"
-                    Background="{StaticResource CategoryPageFeaturedSamplesBackground}"
-                    Foreground="Black"/>
+                    Background="{StaticResource CategoryPageFeaturedSamplesBackground}"/>
                 <!-- End featured transition samples -->
 
                 <RichTextBlock x:Name="CategoryDescriptionTextBlock" Style="{StaticResource CategoryDescriptionTextBlockStyleWide}" />

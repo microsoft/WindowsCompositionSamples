@@ -12,11 +12,11 @@
 //
 //*********************************************************
 
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Diagnostics;
 using System.Numerics;
 using Windows.UI;
-using Windows.UI.Xaml.Controls;
 
 
 namespace MaterialCreator
@@ -52,31 +52,31 @@ namespace MaterialCreator
             ComboBoxItem item = LightTypeSelection.SelectedItem as ComboBoxItem;
             LightTypes lightType = (LightTypes)item.Tag;
 
-            PointProperties.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            SpotProperties.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            DirectionProperties.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            DefaultProperties.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            PointProperties.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
+            SpotProperties.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
+            DirectionProperties.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
+            DefaultProperties.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
 
             switch (lightType)
             {
                 case LightTypes.Point:
-                    DefaultProperties.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                    PointProperties.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    DefaultProperties.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
+                    PointProperties.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
                     break;
 
                 case LightTypes.Spot:
-                    DefaultProperties.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                    SpotProperties.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                    DirectionProperties.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    DefaultProperties.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
+                    SpotProperties.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
+                    DirectionProperties.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
                     break;
 
                 case LightTypes.Distant:
-                    PointProperties.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                    DirectionProperties.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    PointProperties.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
+                    DirectionProperties.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
                     break;
 
                 case LightTypes.Ambient:
-                    PointProperties.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    PointProperties.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
                     break;
 
                 default:
@@ -229,7 +229,7 @@ namespace MaterialCreator
             UpdateLight();
         }
 
-        private void Slider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        private void Slider_ValueChanged(object sender, Microsoft.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             if (InnerCone != null && OuterCone != null)
             {

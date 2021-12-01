@@ -17,10 +17,11 @@ using System.Threading.Tasks;
 
 using Windows.Foundation;
 using Windows.UI;
-using Windows.UI.Composition;
 
 using Microsoft.Graphics.Canvas.Text;
 using Microsoft.Graphics.Canvas.UI.Composition;
+using Microsoft.UI;
+using Microsoft.UI.Composition;
 
 namespace SamplesCommon
 {

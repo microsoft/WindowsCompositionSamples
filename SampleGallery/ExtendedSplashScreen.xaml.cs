@@ -14,8 +14,8 @@
 
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace CompositionSampleGallery
 {
@@ -41,7 +41,7 @@ namespace CompositionSampleGallery
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             // Create the main page
-            MainPage page = new MainPage(_splashImageBounds);
+            MainPage page = new MainPage();
 
             // ... and navigate to the Main Page
             var rootFrame = Window.Current.Content as Frame;

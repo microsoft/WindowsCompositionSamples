@@ -118,7 +118,7 @@
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        TextAlignment="Center">Get the sample code on GitHub</TextBlock>
-                <HyperlinkButton HorizontalAlignment="Center" Foreground="White" Content="aka.ms/windowsui" NavigateUri="https://aka.ms/windowsui"></HyperlinkButton>
+                <HyperlinkButton HorizontalAlignment="Center" Foreground="White" Content="aka.ms/winappsdksamples" NavigateUri="https://aka.ms/winappsdksamples"></HyperlinkButton>
             </StackPanel>
         </Grid>
         <!-- End GitHub -->

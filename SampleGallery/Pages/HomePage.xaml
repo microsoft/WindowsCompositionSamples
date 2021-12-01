@@ -18,7 +18,6 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="CategoryDescriptionTextBlock.Style" Value="{StaticResource CategoryDescriptionTextBlockStyleWide}" />
-                        <Setter Target="MainScrollViewer.Background" Value="White" />
                     </VisualState.Setters>
                 </VisualState>
 
@@ -30,7 +29,6 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="CategoryDescriptionTextBlock.Style" Value="{StaticResource CategoryDescriptionTextBlockStyleNarrow}" />
-                        <Setter Target="MainScrollViewer.Background" Value="Black" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -52,7 +50,7 @@
                 </Paragraph>
                 <Paragraph Margin="15">
                     All of the samples shown here are available on Microsoft's
-                    <Hyperlink NavigateUri="http://aka.ms/windowsui">Windows Composition Samples</Hyperlink> repo on GitHub.
+                    <Hyperlink NavigateUri="https://github.com/microsoft/WindowsAppSDK-Samples">Windows App SDK Samples</Hyperlink> repo on GitHub.
                 </Paragraph>
                 <Paragraph Margin="15">
                     Want to preview and experiment with the very latest pre-release samples demonstrating visual effects, animations and interactions?  Become a Windows Insider and rebuild the Windows Composition Samples project against the latest Insider SDK and OS build to get samples that are otherwise hidden on major OS release builds.

@@ -13,9 +13,10 @@
 //*********************************************************
 
 using System;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Documents;
-using Windows.UI.Xaml.Navigation;
+
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Documents;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace CompositionSampleGallery
 {
@@ -43,7 +44,7 @@ namespace CompositionSampleGallery
             ContentFrame.Navigate(definition.Type, this);
         }
 
-        public void TagHyperlink_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        public void TagHyperlink_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             var inline = ((Hyperlink)sender).Inlines[0];
             var run = (Run)inline;

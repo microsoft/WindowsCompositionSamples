@@ -20,11 +20,11 @@
             <ToggleSwitch x:Name="ToggleSwitch" Margin="0,0,20,0" Toggled="ToggleSwitch_Toggled" IsOn="True">Simulate Capabilities</ToggleSwitch>
             <ComboBox x:Name="SimulatorDropdown" Header="Capability" ItemsSource="{x:Bind capabilityDropdownOptions}" 
                       DisplayMemberPath="Name" SelectionChanged="SimulatorDropdown_SelectionChanged"/>
-        </StackPanel>        
+        </StackPanel>
 
         <Canvas x:Name="ImageCanvas" Grid.Row="1"></Canvas>
 
         <TextBlock Text="{x:Bind CapabilityText, Mode=OneWay}" Foreground="Black" Grid.Row="2" HorizontalAlignment="Center" FontFamily="Segoe UI" FontStyle="Italic" VerticalAlignment="Center"/>
-
+        
     </Grid>
 </local:SamplePage>

@@ -15,8 +15,9 @@
 using ExpressionBuilder;
 using System;
 using System.Numerics;
-using Windows.UI.Composition;
-using Windows.UI.Xaml.Hosting;
+
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml.Hosting;
 
 using EF = ExpressionBuilder.ExpressionFunctions;
 
@@ -104,7 +105,7 @@ namespace CompositionSampleGallery
                 Matrix4x4.CreateTranslation(size.X / 2, size.Y / 2, 0f);
         }
 
-        private void Root_SizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
+        private void Root_SizeChanged(object sender, Microsoft.UI.Xaml.SizeChangedEventArgs e)
         {
             UpdatePerspective();
         }

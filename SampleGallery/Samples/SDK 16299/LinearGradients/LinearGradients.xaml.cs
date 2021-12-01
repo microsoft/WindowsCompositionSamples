@@ -13,14 +13,18 @@
 //*********************************************************
 
 using System;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Composition;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI;
 using System.Numerics;
-using Windows.UI.Xaml.Controls;
 using System.Linq;
+
+using Windows.UI;
+
+using Microsoft.UI;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml.Media;
 
 namespace CompositionSampleGallery
 {
@@ -34,7 +38,7 @@ namespace CompositionSampleGallery
         private static readonly (Color, Color) s_coolColors = (Colors.LightSkyBlue, Colors.Teal);
         private static readonly (Color, Color) s_warmColors = (Colors.DeepPink, Colors.Honeydew);
 
-        private readonly Compositor _compositor = Window.Current.Compositor;
+        private readonly Compositor _compositor = CompositionTarget.GetCompositorForCurrentThread();
 
         private readonly CompositionColorGradientStop _gradientStop1;
         private readonly CompositionColorGradientStop _gradientStop2;

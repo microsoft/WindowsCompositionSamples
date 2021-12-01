@@ -12,23 +12,25 @@
 //
 //*********************************************************
 
-using CompositionSampleGallery.Shared;
-using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.Effects;
 using SamplesCommon;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Numerics;
 using System.Threading.Tasks;
+
 using Windows.Foundation;
 using Windows.Graphics.Effects;
-using Windows.UI;
-using Windows.UI.Composition;
-using Windows.UI.Composition.Effects;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
+
+using Microsoft.UI;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Composition.Effects;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas.Effects;
+using CompositionSampleGallery.Shared;
 
 namespace CompositionSampleGallery
 {
@@ -324,7 +326,7 @@ namespace CompositionSampleGallery
 
                         IGraphicsEffect graphicsEffect = new CompositeEffect()
                         {
-                            Mode = CanvasComposite.Add,
+                            Mode = Microsoft.Graphics.Canvas.CanvasComposite.Add,
                             Sources =
                             {
                                 new CompositionEffectSourceParameter("ImageSource"),
@@ -356,16 +358,16 @@ namespace CompositionSampleGallery
 
                         IGraphicsEffect graphicsEffect = new CompositeEffect()
                         {
-                            Mode = CanvasComposite.DestinationIn,
+                            Mode = Microsoft.Graphics.Canvas.CanvasComposite.DestinationIn,
                             Sources =
                             {
-                                new ArithmeticCompositeEffect()
+                                new Microsoft.Graphics.Canvas.Effects.ArithmeticCompositeEffect()
                                 {
                                     Source1Amount = 1,
                                     Source2Amount = 1,
                                     MultiplyAmount = 0,
 
-                                    Source1 = new ArithmeticCompositeEffect()
+                                    Source1 = new Microsoft.Graphics.Canvas.Effects.ArithmeticCompositeEffect()
                                     {
                                         MultiplyAmount = 1,
                                         Source1Amount = 0,
@@ -411,7 +413,7 @@ namespace CompositionSampleGallery
 
                         IGraphicsEffect graphicsEffect = new CompositeEffect()
                         {
-                            Mode = CanvasComposite.Add,
+                            Mode = Microsoft.Graphics.Canvas.CanvasComposite.Add,
                             Sources =
                             {
                                 new CompositionEffectSourceParameter("ImageSource"),
@@ -446,16 +448,16 @@ namespace CompositionSampleGallery
 
                         IGraphicsEffect graphicsEffect = new CompositeEffect()
                         {
-                            Mode = CanvasComposite.DestinationIn,
+                            Mode = Microsoft.Graphics.Canvas.CanvasComposite.DestinationIn,
                             Sources =
                             {
-                                new ArithmeticCompositeEffect()
+                                new Microsoft.Graphics.Canvas.Effects.ArithmeticCompositeEffect()
                                 {
                                     Source1Amount = 1,
                                     Source2Amount = 1,
                                     MultiplyAmount = 0,
 
-                                    Source1 = new ArithmeticCompositeEffect()
+                                    Source1 = new Microsoft.Graphics.Canvas.Effects.ArithmeticCompositeEffect()
                                     {
                                         MultiplyAmount = 1,
                                         Source1Amount = 0,
@@ -505,12 +507,12 @@ namespace CompositionSampleGallery
 
                         IGraphicsEffect graphicsEffect = new CompositeEffect()
                         {
-                            Mode = CanvasComposite.DestinationIn,
+                            Mode = Microsoft.Graphics.Canvas.CanvasComposite.DestinationIn,
                             Sources =
                             {
                                 new CompositeEffect()
                                 {
-                                    Mode = CanvasComposite.Add,
+                                    Mode = Microsoft.Graphics.Canvas.CanvasComposite.Add,
                                     Sources =
                                     {
                                         new CompositionEffectSourceParameter("ImageSource"),
@@ -544,16 +546,16 @@ namespace CompositionSampleGallery
 
                         IGraphicsEffect graphicsEffect = new CompositeEffect()
                         {
-                            Mode = CanvasComposite.DestinationIn,
+                            Mode = Microsoft.Graphics.Canvas.CanvasComposite.DestinationIn,
                             Sources =
                             {
-                                new ArithmeticCompositeEffect()
+                                new Microsoft.Graphics.Canvas.Effects.ArithmeticCompositeEffect()
                                 {
                                     Source1Amount = 1,
                                     Source2Amount = 1,
                                     MultiplyAmount = 0,
 
-                                    Source1 = new ArithmeticCompositeEffect()
+                                    Source1 = new Microsoft.Graphics.Canvas.Effects.ArithmeticCompositeEffect()
                                     {
                                         MultiplyAmount = 1,
                                         Source1Amount = 0,
@@ -599,7 +601,7 @@ namespace CompositionSampleGallery
             UpdateEffectBrush();
         }
 
-        private void ThumbnailList_PointerMoved(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void ThumbnailList_PointerMoved(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             Vector2 offset = e.GetCurrentPoint(ThumbnailList).Position.ToVector2();
             ComboBoxItem item = LightingSelection.SelectedValue as ComboBoxItem;

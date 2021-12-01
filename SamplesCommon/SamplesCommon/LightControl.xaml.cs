@@ -16,9 +16,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
-using Windows.UI.Composition;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
+
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml;
 
 namespace SamplesCommon
 {
@@ -106,6 +108,20 @@ namespace SamplesCommon
             }
         }
 
+        GridLength CreateGridLength(double value, GridUnitType gridUnitType)
+        {
+#if USING_CSWINRT
+            return new GridLength(value, gridUnitType);
+#else
+            return new GridLength() { Value = value, GridUnitType = gridUnitType };
+#endif
+        }
+
+        GridLength CreateGridLength(double value)
+        {
+            return CreateGridLength(value, GridUnitType.Pixel);
+        }
+
         private void LightTypeSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBoxItem item = LightTypeSelection.SelectedValue as ComboBoxItem;
@@ -114,51 +130,51 @@ namespace SamplesCommon
             switch (lightType)
             {
                 case LightTypes.PointLight:
-                    XOffsetRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    YOffsetRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    ZOffsetRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    ConstantAttenuationRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    LinearAttenuationRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    QuadraticAttenuationRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    InnerConeRow.Height = new Windows.UI.Xaml.GridLength(0);
-                    OuterConeRow.Height = new Windows.UI.Xaml.GridLength(0);
-                    InnerConeColorRow.Height = new Windows.UI.Xaml.GridLength(0);
-                    OuterConeColorRow.Height = new Windows.UI.Xaml.GridLength(0);
-                    LightColorRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    DirectionXRow.Height = new Windows.UI.Xaml.GridLength(0);
-                    DirectionYRow.Height = new Windows.UI.Xaml.GridLength(0);
+                    XOffsetRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    YOffsetRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    ZOffsetRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    ConstantAttenuationRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    LinearAttenuationRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    QuadraticAttenuationRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    InnerConeRow.Height = CreateGridLength(0);
+                    OuterConeRow.Height = CreateGridLength(0);
+                    InnerConeColorRow.Height = CreateGridLength(0);
+                    OuterConeColorRow.Height = CreateGridLength(0);
+                    LightColorRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    DirectionXRow.Height = CreateGridLength(0);
+                    DirectionYRow.Height = CreateGridLength(0);
                     break;
 
                 case LightTypes.SpotLight:
-                    XOffsetRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    YOffsetRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    ZOffsetRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    ConstantAttenuationRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    LinearAttenuationRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    QuadraticAttenuationRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    InnerConeRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    OuterConeRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    InnerConeColorRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    OuterConeColorRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    LightColorRow.Height = new Windows.UI.Xaml.GridLength(0);
-                    DirectionXRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    DirectionYRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
+                    XOffsetRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    YOffsetRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    ZOffsetRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    ConstantAttenuationRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    LinearAttenuationRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    QuadraticAttenuationRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    InnerConeRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    OuterConeRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    InnerConeColorRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    OuterConeColorRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    LightColorRow.Height = CreateGridLength(0);
+                    DirectionXRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    DirectionYRow.Height = CreateGridLength(1, GridUnitType.Auto);
                     break;
 
                 case LightTypes.DistantLight:
-                    XOffsetRow.Height = new Windows.UI.Xaml.GridLength(0);
-                    YOffsetRow.Height = new Windows.UI.Xaml.GridLength(0);
-                    ZOffsetRow.Height = new Windows.UI.Xaml.GridLength(0);
-                    ConstantAttenuationRow.Height = new Windows.UI.Xaml.GridLength(0);
-                    LinearAttenuationRow.Height = new Windows.UI.Xaml.GridLength(0);
-                    QuadraticAttenuationRow.Height = new Windows.UI.Xaml.GridLength(0);
-                    InnerConeRow.Height = new Windows.UI.Xaml.GridLength(0);
-                    OuterConeRow.Height = new Windows.UI.Xaml.GridLength(0);
-                    InnerConeColorRow.Height = new Windows.UI.Xaml.GridLength(0);
-                    OuterConeColorRow.Height = new Windows.UI.Xaml.GridLength(0);
-                    LightColorRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    DirectionXRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                    DirectionYRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
+                    XOffsetRow.Height = CreateGridLength(0);
+                    YOffsetRow.Height = CreateGridLength(0);
+                    ZOffsetRow.Height = CreateGridLength(0);
+                    ConstantAttenuationRow.Height = CreateGridLength(0);
+                    LinearAttenuationRow.Height = CreateGridLength(0);
+                    QuadraticAttenuationRow.Height = CreateGridLength(0);
+                    InnerConeRow.Height = CreateGridLength(0);
+                    OuterConeRow.Height = CreateGridLength(0);
+                    InnerConeColorRow.Height = CreateGridLength(0);
+                    OuterConeColorRow.Height = CreateGridLength(0);
+                    LightColorRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    DirectionXRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                    DirectionYRow.Height = CreateGridLength(1, GridUnitType.Auto);
                     break;
                 default:
                     break;
@@ -167,21 +183,21 @@ namespace SamplesCommon
             // Update UI for selected light type
             if (lightType == LightTypes.SpotLight)
             {
-                InnerConeRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                OuterConeRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                InnerConeColorRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
-                OuterConeColorRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
+                InnerConeRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                OuterConeRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                InnerConeColorRow.Height = CreateGridLength(1, GridUnitType.Auto);
+                OuterConeColorRow.Height = CreateGridLength(1, GridUnitType.Auto);
 
-                LightColorRow.Height = new Windows.UI.Xaml.GridLength(0);
+                LightColorRow.Height = CreateGridLength(0);
             }
             else
             {
-                InnerConeRow.Height = new Windows.UI.Xaml.GridLength(0);
-                OuterConeRow.Height = new Windows.UI.Xaml.GridLength(0);
-                InnerConeColorRow.Height = new Windows.UI.Xaml.GridLength(0);
-                OuterConeColorRow.Height = new Windows.UI.Xaml.GridLength(0);
+                InnerConeRow.Height = CreateGridLength(0);
+                OuterConeRow.Height = CreateGridLength(0);
+                InnerConeColorRow.Height = CreateGridLength(0);
+                OuterConeColorRow.Height = CreateGridLength(0);
 
-                LightColorRow.Height = new Windows.UI.Xaml.GridLength(1, Windows.UI.Xaml.GridUnitType.Auto);
+                LightColorRow.Height = CreateGridLength(1, GridUnitType.Auto);
             }
 
             UpdateLight();
@@ -268,7 +284,7 @@ namespace SamplesCommon
             UpdateLight();
         }
 
-        private void Slider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        private void Slider_ValueChanged(object sender, Microsoft.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             if (InnerCone != null && OuterCone != null)
             {

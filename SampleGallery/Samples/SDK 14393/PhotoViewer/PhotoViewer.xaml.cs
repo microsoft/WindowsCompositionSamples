@@ -12,9 +12,10 @@
 //
 //*********************************************************
 
-using CompositionSampleGallery.Shared;
 using System;
-using Windows.UI.Xaml;
+
+using Microsoft.UI.Xaml;
+using CompositionSampleGallery.Shared;
 
 namespace CompositionSampleGallery
 {
@@ -41,10 +42,18 @@ namespace CompositionSampleGallery
                 return new Uri(((Thumbnail)o).ImageUrl);
             };
 
-            ImagePopupViewer.Show(Model.Nature[0].ImageUrl, Model.Nature, getImageForThumbnail, new Thickness(50, 50, 50, 50), this);
+            ImagePopupViewer.Show(Model.Nature[0].ImageUrl, Model.Nature, getImageForThumbnail, 
+                new Thickness
+                {
+                    Left = 50,
+                    Top = 50,
+                    Right = 50,
+                    Bottom = 50
+                }, 
+                this);
         }
 
-        private void SamplePage_Loading(Windows.UI.Xaml.FrameworkElement sender, object args)
+        private void SamplePage_Loading(Microsoft.UI.Xaml.FrameworkElement sender, object args)
         {
             LoadData();
         }

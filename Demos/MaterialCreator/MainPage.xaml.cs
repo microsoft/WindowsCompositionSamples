@@ -12,28 +12,30 @@
 //
 //*********************************************************
 
+using Microsoft.UI;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Imaging;
 using System;
 using System.Numerics;
-using Windows.Foundation;
-using Windows.UI;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.Storage.Pickers;
-using Windows.Storage;
-using Windows.Storage.Streams;
 using System.Text;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Windows.UI.Xaml.Input;
 using System.Diagnostics;
-using Windows.Graphics.Effects;
 using System.Reflection;
 using SamplesCommon;
+using Windows.Foundation;
+using Windows.UI;
+using Windows.Storage.Pickers;
+using Windows.Storage;
+using Windows.Storage.Streams;
+using Windows.Graphics.Effects;
 using Windows.UI.ViewManagement;
+using Windows.Foundation.Metadata;
 
 namespace MaterialCreator
 {
@@ -51,12 +53,6 @@ namespace MaterialCreator
         public MainPage()
         {
             this.InitializeComponent();
-
-            Color bgColor = Color.FromArgb(255, 204, 204, 204);
-            ApplicationView.GetForCurrentView().TitleBar.BackgroundColor = bgColor;
-            ApplicationView.GetForCurrentView().TitleBar.InactiveBackgroundColor = bgColor;
-            ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = bgColor;
-            ApplicationView.GetForCurrentView().TitleBar.ButtonInactiveBackgroundColor = bgColor;
 
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
 
@@ -231,6 +227,7 @@ namespace MaterialCreator
                 openPicker.FileTypeFilter.Add(".jpg");
                 openPicker.FileTypeFilter.Add(".jpeg");
                 openPicker.FileTypeFilter.Add(".png");
+                WinRT.Interop.InitializeWithWindow.Initialize(openPicker, WinRT.Interop.WindowNative.GetWindowHandle(MainWindow.CurrentWindow));
                 StorageFile file = await openPicker.PickSingleFileAsync();
 
                 if (file != null)
@@ -262,6 +259,13 @@ namespace MaterialCreator
                     SecondaryButtonText = "No",
                     IsSecondaryButtonEnabled = true,
                 };
+
+                // Use this code to associate the dialog to the appropriate AppWindow by setting
+                // the dialog's XamlRoot to the same XamlRoot as an element that is already present in the AppWindow.
+                if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 8))
+                {
+                    newMaterialDialog.XamlRoot = this.XamlRoot;
+                }
 
                 ContentDialogResult result = await newMaterialDialog.ShowAsync();
                 switch (result)
@@ -543,6 +547,7 @@ namespace MaterialCreator
 
                     viewEffectDialog.EffectText = sb.ToString();
 
+                    viewEffectDialog.XamlRoot = this.XamlRoot;
                     await viewEffectDialog.ShowAsync();
                 }
 

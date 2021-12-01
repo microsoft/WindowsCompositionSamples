@@ -47,7 +47,7 @@
                                     </Grid>
                                 </Canvas>
                             </Grid>
-                            <interactivity:Interaction.Behaviors>
+                             <interactivity:Interaction.Behaviors>
                                 <behaviors:InteractionBehavior HittestContent="{Binding ElementName=Image}" InfoContent="{Binding ElementName=Info}" PhotoContent="{Binding ElementName=Photo}" InfoContainer ="{Binding ElementName=InfoCanvas}" />
                             </interactivity:Interaction.Behaviors>
                         </Grid>

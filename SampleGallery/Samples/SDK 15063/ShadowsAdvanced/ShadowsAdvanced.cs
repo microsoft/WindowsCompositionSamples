@@ -12,16 +12,17 @@
 //
 //*********************************************************
 
-using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Shapes;
 using System.Numerics;
 using System;
-using Windows.UI.Xaml.Hosting;
 using SamplesCommon;
+
+using Microsoft.UI;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Shapes;
+using Microsoft.UI.Xaml.Hosting;
 
 namespace CompositionSampleGallery
 {
@@ -52,7 +53,7 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
         }
 
-        private void ShadowsAdvanced_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void ShadowsAdvanced_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             // Determine width and heigth of the canvas
             float width = (_gridMargin * 2) + (_columns * _itemLength) + (_columns * _itemMargin);
@@ -187,7 +188,7 @@ namespace CompositionSampleGallery
             content.Properties.ImplicitAnimations = implicitAnimationVisual;
             shadow.Visual.ImplicitAnimations = implicitAnimationShadow;
             shadow.DropShadow.ImplicitAnimations = implicitAnimationShadow;
-            
+
         }
 
         private void Content_PointerExited(object sender, PointerRoutedEventArgs e)

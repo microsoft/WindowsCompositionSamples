@@ -14,9 +14,10 @@
 
 using System;
 using System.Numerics;
-using Windows.UI;
-using Windows.UI.Composition;
-using Windows.UI.Xaml.Hosting;
+
+using Microsoft.UI;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml.Hosting;
 
 namespace CompositionSampleGallery
 {
@@ -34,7 +35,7 @@ namespace CompositionSampleGallery
         public override string      SampleDescription => StaticSampleDescription;
         public override string SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=869005";
 
-        private void TextShimmer_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void TextShimmer_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             //get interop compositor
             _compositor = ElementCompositionPreview.GetElementVisual(TextBlock).Compositor;

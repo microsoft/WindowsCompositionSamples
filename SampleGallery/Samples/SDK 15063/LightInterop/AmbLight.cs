@@ -17,12 +17,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Composition;
 using System.Numerics;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+
+using Microsoft.UI;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
 
 namespace CompositionSampleGallery.Samples.LightInterop
 {
@@ -32,7 +33,7 @@ namespace CompositionSampleGallery.Samples.LightInterop
 
         protected override void OnConnected(UIElement newElement)
         {
-            Compositor compositor = Window.Current.Compositor;
+            Compositor compositor = CompositionTarget.GetCompositorForCurrentThread();
 
             // Create AmbientLight and set its properties
             AmbientLight ambientLight = compositor.CreateAmbientLight();

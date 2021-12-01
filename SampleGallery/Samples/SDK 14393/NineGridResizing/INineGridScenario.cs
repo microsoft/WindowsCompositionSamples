@@ -12,7 +12,7 @@
 //
 //*********************************************************
 
-using Windows.UI.Composition;
+using Microsoft.UI.Composition;
 
 namespace CompositionSampleGallery.Samples.SDK_14393.NineGridResizing
 {
