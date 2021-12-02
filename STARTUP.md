@@ -12,7 +12,7 @@ Once you have Visual Studio and the appropriate SDK(s) installed, clone the Wind
 
 Open the SampleGallery solution file (.sln extension) in Visual Studio to view and manage the project.
 
-Open up the Solution Explorer (Under the "View" menu item in the top left), right click the SampleGalleryPkg and click "Set as Startup Project".You will also need to change the solution platform to x64 instead of Arm64.
+Open up the Solution Explorer (Under the "View" menu item in the top left), right click the SampleGalleryPkg and click "Set as Startup Project". You will also need to change the solution platform to x64 instead of Arm64.
 
 You'll want to restore dependencies or install yourself through NuGet in order to avoid dependency errors. To manage the NuGet dependencies in Visual Studio, right click the Sample Gallery project and select 'Manage NuGet Packages', then search for and install necessary dependencies.
 
