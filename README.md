@@ -64,7 +64,7 @@ This project is focused on experimenting with Microsoft.UI.Composition and Micro
 
  * [Xaml Controls Gallery](https://github.com/microsoft/Xaml-Controls-Gallery/tree/winui3) for WinUI3 controls-based UI
  * [Windows UI Library (WinUI)](https://docs.microsoft.com/en-us/windows/apps/winui/) NuGet packages for XAML controls 
- * [Windows App SDK](https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/) Documentation for the new WinAppSDK
+ * [Windows App SDK](https://docs.microsoft.com/windows/apps/windows-app-sdk/) Documentation for the new WinAppSDK
 
 ## Privacy
 
