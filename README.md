@@ -11,7 +11,7 @@ statusNotificationTargets:
 
 > **NOTE**
 > 
-> We've switched over the sample project to consume from the Windows App SDK.
+> We've switched over the sample project to consume from the [Windows App SDK](https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/). For the Universal Windows Platform version of the Windows Composition Samples, please visit [this commit](https://github.com/microsoft/WindowsCompositionSamples/tree/48077464cb1bcbd4756116822c9d8c7e0364f98b) 
 
 # Windows Input and Composition Samples
 
