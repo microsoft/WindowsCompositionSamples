@@ -63,7 +63,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 This project is focused on experimenting with Microsoft.UI.Composition and Microsoft.UI.Input APIs to create beautiful, unique, and engaging user experiences. If instead you’re looking to get started with higher-level UI concepts with heavier focus on XAML-based controls, check out related projects: 
 
  * [Xaml Controls Gallery](https://github.com/microsoft/Xaml-Controls-Gallery/tree/winui3) for WinUI3 controls-based UI
- * [Windows UI Library (WinUI)](https://docs.microsoft.com/en-us/windows/apps/winui/) NuGet packages for XAML controls 
+ * [Windows UI Library (WinUI)](https://docs.microsoft.com/windows/apps/winui/) NuGet packages for XAML controls 
  * [Windows App SDK](https://docs.microsoft.com/windows/apps/windows-app-sdk/) Documentation for the new WinAppSDK
 
 ## Privacy
