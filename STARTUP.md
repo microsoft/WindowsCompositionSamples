@@ -4,7 +4,7 @@ Here you'll find some helpful guidance on how to locally build and run this proj
 
 ## Prerequisites
 
-For local development, please visit this [link](https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/set-up-your-development-environment?tabs=vs%2Cstable) to set up your development environment before building this project.
+For local development, please visit this [link](https://docs.microsoft.com/windows/apps/windows-app-sdk/set-up-your-development-environment?tabs=vs%2Cstable) to set up your development environment before building this project.
 
 ## Cloning and Building
 
