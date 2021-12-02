@@ -11,7 +11,7 @@ statusNotificationTargets:
 
 > **NOTE**
 > 
-> We've switched over the sample project to consume from the [Windows App SDK](https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/). For the Universal Windows Platform version of the Windows Composition Samples, please visit [this commit](https://github.com/microsoft/WindowsCompositionSamples/tree/48077464cb1bcbd4756116822c9d8c7e0364f98b) 
+> We've switched over the sample project to consume from the [Windows App SDK](https://docs.microsoft.com/windows/apps/windows-app-sdk/). For the Universal Windows Platform version of the Windows Composition Samples, please visit [this commit](https://github.com/microsoft/WindowsCompositionSamples/tree/48077464cb1bcbd4756116822c9d8c7e0364f98b) 
 
 # Windows Input and Composition Samples
 
@@ -26,7 +26,7 @@ Inside this repo, you’ll find the following additional info:
 
 If you are a developer getting familiar with the WinUI 3.0 platform, want to build beautiful and innovative UI experiences, and don't mind a few bugs here and there, then this is the place for you!
 
-We also want to see what inspiring UX you're building, so feel free to reach out on Twitter [@WindowsUI](https://twitter.com/windowsui), and [sign up](https://t.co/9vNiiBp2yJ) for our newsletter to always get the latest.
+We also want to see what inspiring UX you're building, so feel free to reach out on Twitter [@WindowsUI](https://twitter.com/windowsui).
 
 ## Project Structure
 
@@ -46,11 +46,11 @@ These are early reference implementations, prototypes, and utilities the team ha
 
 ### ExpressionBuilder
 
-A set of C# classes enabling developers to build ExpressionAnimations in a more type-safe environment.
+A set of C# classes enabling you to build ExpressionAnimations in a more type-safe environment.
 
 ### Samples Native
 
-A native library used to access some lower level functionality that has no WinRT projections.
+A native library used to access some lower-level functionality that has no WinRT projections.
 
 ## Contributing
 
