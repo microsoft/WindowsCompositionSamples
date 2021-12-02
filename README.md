@@ -4,7 +4,7 @@ languages:
 - csharp
 products:
 - windows
-- windows-appsdk
+- windows-app-sdk
 statusNotificationTargets:
 - WinComposition
 ---
