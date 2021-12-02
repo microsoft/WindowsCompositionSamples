@@ -13,6 +13,7 @@
 //*********************************************************
 
 using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.UI;
 using System.Runtime.Serialization;
 using Windows.UI;
 
@@ -25,7 +26,7 @@ namespace MaterialCreator
 
         public ColorLayer() : base()
         {
-            StreamingContext context;
+            StreamingContext context = new StreamingContext();
             Initialize(context);
         }
 

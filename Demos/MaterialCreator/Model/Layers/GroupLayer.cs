@@ -12,11 +12,11 @@
 //
 //*********************************************************
 
+using Microsoft.UI.Composition;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using Windows.UI.Composition;
 
 namespace MaterialCreator
 {
@@ -27,7 +27,7 @@ namespace MaterialCreator
 
         public GroupLayer() : base()
         {
-            StreamingContext context;
+            StreamingContext context = new StreamingContext();
             Initialize(context);
         }
 

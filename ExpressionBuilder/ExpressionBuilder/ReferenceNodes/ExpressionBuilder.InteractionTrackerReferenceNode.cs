@@ -6,7 +6,7 @@
 
 namespace ExpressionBuilder
 {
-    using Windows.UI.Composition.Interactions;
+    using Microsoft.UI.Composition.Interactions;
 
     public sealed class InteractionTrackerReferenceNode : ReferenceNode
     {

@@ -14,9 +14,9 @@
 
 using System;
 using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 
 namespace CompositionSampleGallery
 {
@@ -61,10 +61,10 @@ namespace CompositionSampleGallery
         private void InitializeColors()
         {
             _colorsByPivotItem = new PropertySet();
-            _colorsByPivotItem.Add("Pictures", Windows.UI.Colors.Orange);
-            _colorsByPivotItem.Add("ContactInfo", Windows.UI.Colors.Lavender);
-            _colorsByPivotItem.Add("Download", Windows.UI.Colors.GreenYellow);
-            _colorsByPivotItem.Add("Comment", Windows.UI.Colors.DeepSkyBlue);
+            _colorsByPivotItem.Add("Pictures", Microsoft.UI.Colors.Orange);
+            _colorsByPivotItem.Add("ContactInfo", Microsoft.UI.Colors.Lavender);
+            _colorsByPivotItem.Add("Download", Microsoft.UI.Colors.GreenYellow);
+            _colorsByPivotItem.Add("Comment", Microsoft.UI.Colors.DeepSkyBlue);
         }
 
 
@@ -93,13 +93,12 @@ namespace CompositionSampleGallery
         /// This is achieved by creating a circular solid colored visual directly underneath the
         /// Pivot header which was clicked, and animating its scale so that it floods a designated bounding box. 
         /// </summary>
-        private void Header_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void Header_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             var header = sender as AppBarButton;
 
-            var currentPivotItem = rootPivot.SelectedItem as PivotItem;
-            var contentHeight = rootPivot.RenderSize.Height - header.RenderSize.Height;
-            var contentWidth = rootPivot.RenderSize.Width;
+            var contentHeight = rootNavView.RenderSize.Height - header.RenderSize.Height;
+            var contentWidth = rootNavView.RenderSize.Width;
 
             var headerPosition = header.TransformToVisual(UICanvas).TransformPoint(new Windows.Foundation.Point(0d, 0d));
 
@@ -107,7 +106,7 @@ namespace CompositionSampleGallery
             {
                 Width = contentWidth,
                 Height = contentHeight,
-                X = Window.Current.Bounds.Width,
+                X = this.ActualSize.X,
                 Y = headerPosition.Y + header.RenderSize.Height
             };
 
@@ -123,15 +122,14 @@ namespace CompositionSampleGallery
         /// </summary>
         private void ColorSlideTransitionCompleted(object sender, EventArgs e)
         {
-            var currentPivotItem = rootPivot.SelectedItem as PivotItem;
-            foreach (PivotItem pivotItem in rootPivot.Items)
-            {
-                if (pivotItem == currentPivotItem)
-                    (pivotItem.Content as FrameworkElement).Visibility = Visibility.Visible;
-                else
-                    (pivotItem.Content as FrameworkElement).Visibility = Visibility.Collapsed;
-            }
-
+            //var currentPivotItem = rootPivot.SelectedItem as PivotItem;
+            //foreach (PivotItem pivotItem in rootPivot.Items)
+            //{
+            //    if (pivotItem == currentPivotItem)
+            //        (pivotItem.Content as FrameworkElement).Visibility = Visibility.Visible;
+            //    else
+            //        (pivotItem.Content as FrameworkElement).Visibility = Visibility.Collapsed;
+            //}
         }
 
 

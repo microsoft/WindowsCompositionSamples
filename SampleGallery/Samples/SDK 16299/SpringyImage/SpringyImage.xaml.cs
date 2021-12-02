@@ -13,12 +13,14 @@
 //*********************************************************
 
 using ExpressionBuilder;
+
 using System;
 using System.Numerics;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Input;
+
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml.Input;
 
 using EF = ExpressionBuilder.ExpressionFunctions;
 using EV = ExpressionBuilder.ExpressionValues;

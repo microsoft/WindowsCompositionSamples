@@ -12,9 +12,9 @@
 //
 //*********************************************************
 
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Data;
 using System;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Data;
 
 namespace MaterialCreator
 {

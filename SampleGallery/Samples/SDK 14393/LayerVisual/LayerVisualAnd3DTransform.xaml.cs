@@ -15,13 +15,15 @@
 using System;
 using System.Threading.Tasks;
 using System.Numerics;
-using Microsoft.Graphics.Canvas.Effects;
-using Windows.Graphics.Effects;
-using Windows.UI;
-using Windows.UI.Composition;
-using Windows.UI.Xaml.Hosting;
 using System.Collections.Generic;
 using SamplesCommon;
+
+using Windows.Graphics.Effects;
+
+using Microsoft.UI;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.Graphics.Canvas.Effects;
 
 
 namespace CompositionSampleGallery
@@ -244,7 +246,7 @@ namespace CompositionSampleGallery
         public override string      SampleDescription => StaticSampleDescription;
         public override string      SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868998";
 
-        private async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void Page_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             double paramHeight;
             double paramWidth;
@@ -306,20 +308,20 @@ namespace CompositionSampleGallery
                 EffectType.Sepia };
 
             float[] sectionPropertyValues = { 1.0f, 0.0f, 0.0f };
-            Color[] sectionColors = { Colors.Linen, Colors.Linen, Colors.Linen };
+            Windows.UI.Color[] sectionColors = { Colors.Linen, Colors.Linen, Colors.Linen };
             double sectionWidthRatio = 0.9;
             double delatSectionWidth = RightWallGrid.Width * sectionGridWidthRatio * (1 - sectionWidthRatio) * 0.5;
 
             for (int j = 0; j < _fColumnCount; ++j)
             {
-                Windows.UI.Xaml.Controls.Grid section = (Windows.UI.Xaml.Controls.Grid)RightWallGrid.Children[j];
+                Microsoft.UI.Xaml.Controls.Grid section = (Microsoft.UI.Xaml.Controls.Grid)RightWallGrid.Children[j];
                 section.Width = sectionGridWidthRatio * RightWallGrid.Width * sectionWidthRatio;
                 section.Height = RightWallGrid.Height * 0.9;
-                section.Margin = new Windows.UI.Xaml.Thickness(
-                    (1.5 - j * 0.5) * delatSectionWidth,
-                    0.05 * paramHeight,
-                    (0.5 + j * 0.5) * delatSectionWidth,
-                    0.05 * paramHeight);
+                section.Margin = new Microsoft.UI.Xaml.Thickness {
+                    Left = (1.5 - j * 0.5) * delatSectionWidth,
+                    Top = 0.05 * paramHeight,
+                    Right = (0.5 + j * 0.5) * delatSectionWidth,
+                    Bottom = 0.05 * paramHeight };
 
                 double contentGridHeightRatio = 1 / 3.0;
                 double contentWidthRatio = 0.8;
@@ -342,14 +344,15 @@ namespace CompositionSampleGallery
 
                 for (int i = 0; i < _fColumnCount; ++i)
                 {
-                    Windows.UI.Xaml.Shapes.Rectangle content = (Windows.UI.Xaml.Shapes.Rectangle)section.Children[i];
+                    Microsoft.UI.Xaml.Shapes.Rectangle content = (Microsoft.UI.Xaml.Shapes.Rectangle)section.Children[i];
                     content.Width = section.Width * contentWidthRatio;
                     content.Height = contentGridHeightRatio * section.Height * contentHeightRatio;
 
-                    content.Margin = new Windows.UI.Xaml.Thickness(deltaWidth,
-                        (1.5 - i * 0.5) * deltaHeight,
-                        deltaWidth,
-                        (0.5 + i * 0.5) * deltaHeight);
+                    content.Margin = new Microsoft.UI.Xaml.Thickness {
+                        Left = deltaWidth,
+                        Top = (1.5 - i * 0.5) * deltaHeight,
+                        Right = deltaWidth,
+                        Bottom = (0.5 + i * 0.5) * deltaHeight };
 
                     _sectionContentParams[i][j] = new EffectParameters(this,
                         sectionEffectTypes[j], sectionPropertyValues[j]);
@@ -374,7 +377,7 @@ namespace CompositionSampleGallery
 
             for (int j = 0; j < RightWallGrid.Children.Count; ++j)
             {
-                Windows.UI.Xaml.Controls.Grid section = (Windows.UI.Xaml.Controls.Grid)RightWallGrid.Children[j];
+                Microsoft.UI.Xaml.Controls.Grid section = (Microsoft.UI.Xaml.Controls.Grid)RightWallGrid.Children[j];
                 EffectParameters sectionPara = _sectionParams[j];
 
                 section.PointerEntered += (s, v) =>
@@ -388,7 +391,7 @@ namespace CompositionSampleGallery
 
                 for (int i = 0; i < section.Children.Count; ++i)
                 {
-                    Windows.UI.Xaml.Shapes.Rectangle content = (Windows.UI.Xaml.Shapes.Rectangle)section.Children[i];
+                    Microsoft.UI.Xaml.Shapes.Rectangle content = (Microsoft.UI.Xaml.Shapes.Rectangle)section.Children[i];
                     EffectParameters contentPara = _sectionContentParams[i][j];
 
                     content.PointerEntered += (s, v) =>
@@ -477,7 +480,7 @@ namespace CompositionSampleGallery
         private ContainerVisual AddLayerVisual(
             CompositionEffectBrush effectBrush,
             Vector2 size,
-            Windows.UI.Xaml.UIElement parent)
+            Microsoft.UI.Xaml.UIElement parent)
         {
             var layerVisual = _compositor.CreateLayerVisual();
             layerVisual.Effect = effectBrush;
@@ -503,7 +506,7 @@ namespace CompositionSampleGallery
         }
 
         private void AddColorSpriteVisual(
-            Color color,
+            Windows.UI.Color color,
             Vector2 size,
             ContainerVisual parent)
         {
@@ -542,7 +545,7 @@ namespace CompositionSampleGallery
 
             return Math.Min(scaleX, scaleY);
         }
-        private void SamplePage_SizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
+        private void SamplePage_SizeChanged(object sender, Microsoft.UI.Xaml.SizeChangedEventArgs e)
         {
             float scale = GetFullScale();
             if (_roomVisual != null)
@@ -551,7 +554,7 @@ namespace CompositionSampleGallery
             }
         }
 
-        private void SamplePage_Unloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void SamplePage_Unloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             foreach (var surface in _imageSurfaces)
             {

@@ -13,9 +13,9 @@
 //*********************************************************
 
 using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.UI.Composition.Effects;
 using System.Runtime.Serialization;
 using Windows.Storage;
-using Windows.UI.Composition.Effects;
 
 namespace MaterialCreator
 {
@@ -26,7 +26,7 @@ namespace MaterialCreator
 
         public LightingLayer() : base()
         {
-            StreamingContext context;
+            StreamingContext context = new StreamingContext();
             Initialize(context);
         }
 

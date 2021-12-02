@@ -18,19 +18,19 @@
                 <!-- This border is needed to ensure XAML does not explicitly set Offset on the 
                      TextBlock which we are animating.  -->
                 <TextBlock x:Name="TextBlock1" 
-                       Text="This is a XAML TextBlock animated with Windows.UI.Composition."
+                       Text="This is a XAML TextBlock animated with Microsoft.UI.Composition."
                        TextWrapping="Wrap"/>
             </Border>
-            <TextBlock Text="Example 2 - Add Windows.UI.Composition content to the XAML tree using SetElementChildVisual()"
+            <TextBlock Text="Example 2 - Add Microsoft.UI.Composition content to the XAML tree using SetElementChildVisual()"
                    Margin="10, 40, 10, 10"
                    TextWrapping="WrapWholeWords"
                    FontWeight="Bold"/>
             <TextBlock x:Name="TextBlock2"
-                   Text="These are Windows.UI.Composition SpriteVisuals which are children of this TextBlock."
+                   Text="These are Microsoft.UI.Composition SpriteVisuals which are children of this TextBlock."
                    Margin="10"
                    TextWrapping="Wrap"/>
 
-            <TextBlock Text="Example 3 - Change the tree order of the Windows.UI.Composition content"
+            <TextBlock Text="Example 3 - Change the tree order of the Microsoft.UI.Composition content"
                    Margin="10, 140, 10, 10"
                    TextWrapping="WrapWholeWords"
                    FontWeight="Bold"/>

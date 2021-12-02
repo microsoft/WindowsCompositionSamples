@@ -1,4 +1,18 @@
-﻿using Windows.UI.Xaml.Controls;
+//*********************************************************
+//
+// Copyright (c) Microsoft. All rights reserved.
+// This code is licensed under the MIT License (MIT).
+// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+// IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
+// THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//
+//*********************************************************
+
+﻿using Microsoft.UI.Xaml.Controls;
 
 namespace CompositionSampleGallery
 {
@@ -15,17 +29,12 @@ namespace CompositionSampleGallery
         {
             InitializeComponent();
 
-#if SDKVERSION_14393
             SampleComboBox.ItemsSource = new[] { "XAML Connected Animation", "Custom Connected Animation" };
-#else
-            SampleComboBox.ItemsSource = new[] { "Custom Connected Animation" };
-#endif
             SampleComboBox.SelectedIndex = 0;
         }
 
         private void SampleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-#if SDKVERSION_14393
             if (SampleComboBox.SelectedIndex == 0)
             {
                 SamplesFrame.Navigate(typeof(ConnectedAnimationSample));
@@ -34,12 +43,6 @@ namespace CompositionSampleGallery
             {
                 SamplesFrame.Navigate(typeof(CustomConnectedAnimation));
             }
-#else
-            if (SampleComboBox.SelectedIndex == 0)
-            {
-                SamplesFrame.Navigate(typeof(CustomConnectedAnimation));
-            }
-#endif
         }
     }
 }

@@ -17,13 +17,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Composition;
 using System.Numerics;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Hosting;
+
+using Microsoft.UI;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Hosting;
 
 namespace CompositionSampleGallery.Samples.LightInterop
 {
@@ -35,7 +36,7 @@ namespace CompositionSampleGallery.Samples.LightInterop
 
         protected override void OnConnected(UIElement targetElement)
         {
-            Compositor compositor = Window.Current.Compositor;
+            Compositor compositor = CompositionTarget.GetCompositorForCurrentThread();
 
             // Create SpotLight and set its properties
             SpotLight spotLight = compositor.CreateSpotLight();
@@ -86,7 +87,7 @@ namespace CompositionSampleGallery.Samples.LightInterop
             if (CompositionLight != null)
             {
                 // touch input is still UI thread-bound as of the Creator's Update
-                if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
+                if (e.Pointer.PointerDeviceType == Microsoft.UI.Input.PointerDeviceType.Touch)
                 {
                     Vector2 offset = e.GetCurrentPoint((UIElement)sender).Position.ToVector2();
                     (CompositionLight as SpotLight).Offset = new Vector3(offset.X, offset.Y, 15);

@@ -39,7 +39,7 @@
                     <VisualState.Setters>
                         <Setter Target="FullSampleList.ItemTemplate" Value="{StaticResource FeaturedSampleDataTemplateNarrow}" />
                         <Setter Target="FullSampleList.Padding" Value="12,0,0,0" />
-                        <Setter Target="HeaderItem.Foreground" Value="White" />
+                        <Setter Target="HeaderItem.Foreground" Value="Black" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

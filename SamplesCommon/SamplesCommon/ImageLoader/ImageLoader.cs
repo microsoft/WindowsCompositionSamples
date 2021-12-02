@@ -19,13 +19,16 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Graphics.DirectX;
 using Windows.UI;
-using Windows.UI.Composition;
 
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Text;
 using Microsoft.Graphics.Canvas.UI.Composition;
+using Microsoft.UI.Composition;
 
+#if SampleNative_TODO
 using SamplesNative;
+#endif
+
 using Windows.Storage;
 
 namespace SamplesCommon
@@ -47,7 +50,10 @@ namespace SamplesCommon
         private static bool                 _intialized;
         private static ImageLoader          _imageLoader;
 
+#if SampleNative_TODO
         private DeviceLostHelper            _deviceLostHelper;
+#endif
+
         private Compositor                  _compositor;
         private CanvasDevice                _canvasDevice;
         private CompositionGraphicsDevice   _graphicsDevice;
@@ -60,15 +66,22 @@ namespace SamplesCommon
 
             _compositor = compositor;
             _drawingLock = new object();
+
+#if SampleNative_TODO
             _deviceLostHelper = new DeviceLostHelper();
+#endif
 
             _canvasDevice = new CanvasDevice();
+#if !USING_CSWINRT  // TODO: Define IDirect3DDevice for Win32
             _canvasDevice.DeviceLost += DeviceLost;
+#endif
 
+#if SampleNative_TODO
             _deviceLostHelper.WatchDevice(_canvasDevice);
             _deviceLostHelper.DeviceLost += DeviceRemoved;
+#endif
 
-            _graphicsDevice = CanvasComposition.CreateCompositionGraphicsDevice(_compositor, _canvasDevice);
+            _graphicsDevice = (CompositionGraphicsDevice)CanvasComposition.CreateCompositionGraphicsDevice(_compositor, _canvasDevice);
             _graphicsDevice.RenderingDeviceReplaced += RenderingDeviceReplaced;
         }
 
@@ -80,8 +93,10 @@ namespace SamplesCommon
 
                 if (_canvasDevice != null)
                 {
+#if !USING_CSWINRT  // TODO: Define IDirect3DDevice for Win32
                     _canvasDevice.DeviceLost -= DeviceLost;
                     _canvasDevice.Dispose();
+#endif
                     _canvasDevice = null;
                 }
 
@@ -208,23 +223,32 @@ namespace SamplesCommon
                 surfaceSize = default(Size);
             }
 
-            var surface = _graphicsDevice.CreateDrawingSurface(surfaceSize, DirectXPixelFormat.B8G8R8A8UIntNormalized, DirectXAlphaMode.Premultiplied);
+            var surface = _graphicsDevice.CreateDrawingSurface(surfaceSize, Microsoft.Graphics.DirectX.DirectXPixelFormat.B8G8R8A8UIntNormalized, Microsoft.Graphics.DirectX.DirectXAlphaMode.Premultiplied);
 
             return surface;
         }
 
+#if SampleNative_TODO
         private void DeviceRemoved(DeviceLostHelper sender, object args)
         {
             _canvasDevice.RaiseDeviceLost();
         }
+#endif
 
         private void DeviceLost(CanvasDevice sender, object args)
         {
+#if !USING_CSWINRT  // TODO: Define IDirect3DDevice for Win32
             sender.DeviceLost -= DeviceLost;
+#endif
 
             _canvasDevice = new CanvasDevice();
+#if !USING_CSWINRT  // TODO: Define IDirect3DDevice for Win32
             _canvasDevice.DeviceLost += DeviceLost;
+#endif
+
+#if SampleNative_TODO
             _deviceLostHelper.WatchDevice(_canvasDevice);
+#endif
 
             CanvasComposition.SetCanvasDevice(_graphicsDevice, _canvasDevice);
         }

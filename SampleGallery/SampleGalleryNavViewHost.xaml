@@ -2,24 +2,30 @@
     x:Class="CompositionSampleGallery.SampleGalleryNavViewHost"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:CompositionSampleGallery"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
-    mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400"
-    Loaded="OnLoaded">
+	mc:Ignorable="d">
 
-    <Grid>
-        <contract5Present:NavigationView 
-            x:Name="NavView"  
-            IsSettingsVisible="True"
+	<Grid>
+        <NavigationView
+            x:Name="NavView"
+            IsSettingsVisible="True" 
+            BackRequested="NavigationView_BackRequested" 
+            IsBackEnabled="{Binding ElementName=ContentFrame, Path=CanGoBack}"
             ItemInvoked="NavViewItemInvoked">
-
+            <NavigationView.AutoSuggestBox>
+                <AutoSuggestBox x:Name="SearchBox" QueryIcon="Find" PlaceholderText="Search Samples (Alt+Q)" 
+                            TextChanged="AutoSuggestBox_TextChanged"
+                            QuerySubmitted="AutoSuggestBox_QuerySubmitted"
+                            SuggestionChosen="AutoSuggestBox_SuggestionChosen"
+                            DisplayMemberPath="DisplayName"
+                            TextMemberPath="DisplayName" 
+                            AccessKey="Q" AccessKeyInvoked="SearchBox_AccessKeyInvoked"
+                            KeyTipPlacementMode="Bottom"
+                            AutomationProperties.AccessKey="ALT+Q" />
+            </NavigationView.AutoSuggestBox>
             <Frame x:Name="ContentFrame" Margin="24"/>
-                        
-        </contract5Present:NavigationView>
-
+            
+        </NavigationView>
     </Grid>
 </UserControl>

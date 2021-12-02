@@ -2,13 +2,13 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
 
-    <SDKVersionToUse>10.0.14332.0</SDKVersionToUse>
+    <SDKVersionToUse>10.0.17763.0</SDKVersionToUse>
 
     <TargetPlatformVersion Condition="$(TargetPlatformVersion) == ''">$(SDKVersionToUse)</TargetPlatformVersion>
-    <TargetPlatformMinVersion Condition="$(TargetPlatformMinVersion) == ''">10.0.10586.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion Condition="$(TargetPlatformMinVersion) == ''">10.0.17763.0</TargetPlatformMinVersion>
 
     <TargetPlatformBuild>$(TargetPlatformVersion.Split('.')[2])</TargetPlatformBuild>
-    <DefineConstants Condition="$(TargetPlatformBuild) &gt;=10586">$(DefineConstants);SDKVERSION_10586</DefineConstants>
+    <DefineConstants Condition="$(TargetPlatformBuild) &gt;=10586">$(DefineConstants);SDKVERSION_10586</DefineConstants>    
     <DefineConstants Condition="$(TargetPlatformBuild) &gt;=14393">$(DefineConstants);SDKVERSION_14393</DefineConstants>
     <DefineConstants Condition="$(TargetPlatformBuild) &gt;=15063">$(DefineConstants);SDKVERSION_15063</DefineConstants>
     <DefineConstants Condition="$(TargetPlatformBuild) &gt;=16299">$(DefineConstants);SDKVERSION_16299</DefineConstants>

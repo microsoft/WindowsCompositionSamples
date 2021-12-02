@@ -12,20 +12,20 @@
 //
 //*********************************************************
 
-using CompositionSampleGallery.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Windows.UI.Core;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace CompositionSampleGallery
 {
     public class MainNavigationViewModel
     {
         private static MainNavigationViewModel s_instance;
-        public ISampleGalleryUIHost _hostingUI;
+        public SampleGalleryNavViewHost _hostingUI;
         private List<NavigationItem> _mainMenuList;
 
         // Category description text
@@ -41,6 +41,8 @@ namespace CompositionSampleGallery
             @"The industry lives and breathes 2D design. Now’s the time to expand our toolkit for more dimensions. We’re scaling our design system to work across devices, inviting innovation across new forms. And we’re looking to you to help us imagine this new world.  These samples show some building blocks for making custom UI that is tailored for different devices.";
         public const string CategoryDescription_APIReference =
             @"In addition to the samples that display the Fluent building blocks in UI, some simple API reference samples are provided to ramp up and learn about basic API capabilities.";
+        public const string CategoryDescription_Input =
+            @"The visual layer wouldn't be nearly as useful without allowing users to interact with it. Here are some samples to show off some of the ways in which users can interact with the visual elements on the screen"; // TODO: Update description
 
 
         void AddNavigationItem(
@@ -62,38 +64,30 @@ namespace CompositionSampleGallery
             }
         }
 
-        public MainNavigationViewModel(ISampleGalleryUIHost hostingUI)
+        public MainNavigationViewModel(SampleGalleryNavViewHost hostingUI)
         {
             _hostingUI = hostingUI;
-
-            _hostingUI.BackStackStateChanged += (object sender, EventArgs args) =>
-            {
-                // Show or hide the global back button
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                    _hostingUI.CanGoBack ?
-                    AppViewBackButtonVisibility.Visible :
-                    AppViewBackButtonVisibility.Collapsed;
-            };
-
-            SystemNavigationManager.GetForCurrentView().BackRequested += (object backSender, BackRequestedEventArgs backArgs) =>
-            {
-                _hostingUI.GoBack();
-            };
-
-
 
             // Build a collection used to populate the navigation menu. This is where you can define the display names of
             // each menu item and which page they map to.
             _mainMenuList = new List<NavigationItem>();
-            AddNavigationItem(_mainMenuList, "Home",            SampleCategory.None,                    typeof(HomePage),                 addEvenIfNoMatchingSamples: true,                         thumbnail: "ms-appx:///Assets/CategoryIcons/table_home_icon.png");
-            AddNavigationItem(_mainMenuList, "Light",           SampleCategory.Light,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Light,           thumbnail: "ms-appx:///Assets/CategoryIcons/table_light_icon_bw.png");
-            AddNavigationItem(_mainMenuList, "Depth",           SampleCategory.Depth,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Depth,           thumbnail: "ms-appx:///Assets/CategoryIcons/table_depth_icon_bw.png");
-            AddNavigationItem(_mainMenuList, "Motion",          SampleCategory.Motion,                  typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Motion,          thumbnail: "ms-appx:///Assets/CategoryIcons/table_motion_icon_bw.png");
-            AddNavigationItem(_mainMenuList, "Material",        SampleCategory.Material,                typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Material,        thumbnail: "ms-appx:///Assets/CategoryIcons/table_material_icon_bw.png");
-            AddNavigationItem(_mainMenuList, "Scale",           SampleCategory.Scale,                   typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_Scale,           thumbnail: "ms-appx:///Assets/CategoryIcons/table_scale_icon_bw.png");
-            AddNavigationItem(_mainMenuList, "API Reference",   SampleCategory.APIReference,            typeof(BaseCategoryPage),         categoryDescription: CategoryDescription_APIReference,    thumbnail: "ms-appx:///Assets/CategoryIcons/table_reference_icon.png");
+            AddNavigationItem(_mainMenuList, "Home", SampleCategory.None, typeof(HomePage), addEvenIfNoMatchingSamples: true, thumbnail: "ms-appx:///Assets/CategoryIcons/table_home_icon.png");
+            AddNavigationItem(_mainMenuList, "Light", SampleCategory.Light, typeof(BaseCategoryPage), categoryDescription: CategoryDescription_Light, addEvenIfNoMatchingSamples: true, thumbnail: "ms-appx:///Assets/CategoryIcons/table_light_icon_bw.png");
+            AddNavigationItem(_mainMenuList, "Depth", SampleCategory.Depth, typeof(BaseCategoryPage), categoryDescription: CategoryDescription_Depth, thumbnail: "ms-appx:///Assets/CategoryIcons/table_depth_icon_bw.png");
+            AddNavigationItem(_mainMenuList, "Motion", SampleCategory.Motion, typeof(BaseCategoryPage), categoryDescription: CategoryDescription_Motion, thumbnail: "ms-appx:///Assets/CategoryIcons/table_motion_icon_bw.png");
+            AddNavigationItem(_mainMenuList, "Material", SampleCategory.Material, typeof(BaseCategoryPage), categoryDescription: CategoryDescription_Material, thumbnail: "ms-appx:///Assets/CategoryIcons/table_material_icon_bw.png");
+            AddNavigationItem(_mainMenuList, "Scale", SampleCategory.Scale, typeof(BaseCategoryPage), categoryDescription: CategoryDescription_Scale, thumbnail: "ms-appx:///Assets/CategoryIcons/table_scale_icon_bw.png");
+            AddNavigationItem(_mainMenuList, "API Reference", SampleCategory.APIReference, typeof(BaseCategoryPage), categoryDescription: CategoryDescription_APIReference, thumbnail: "ms-appx:///Assets/CategoryIcons/table_reference_icon.png");
+            AddNavigationItem(_mainMenuList, "Input", SampleCategory.Input, typeof(BaseCategoryPage), categoryDescription: CategoryDescription_Input, thumbnail: "ms-appx:///Assets/CategoryIcons/Mouse.png");
 
             s_instance = this;
+
+            // Navigate to the home screen first
+            NavigationItem navItem = _mainMenuList.First();
+            Dictionary<string, string> properties = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            properties.Add("TargetView", navItem.Category.ToString());
+            CompositionSampleGallery.AppTelemetryClient.TrackEvent("Navigate", properties, null);
+            _hostingUI.Navigate(navItem.PageType, navItem);
         }
 
         public List<NavigationItem> MainMenuList => _mainMenuList;
@@ -104,7 +98,7 @@ namespace CompositionSampleGallery
         }
 
         public static void NavigateToSample(SampleDefinition sample)
-        {            
+        {
             s_instance._hostingUI.Navigate(typeof(SampleHost), sample);
         }
 

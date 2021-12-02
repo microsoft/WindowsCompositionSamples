@@ -12,7 +12,7 @@
 //
 //*********************************************************
 
-using Windows.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -25,7 +25,7 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
         }
 
-        private void SettingsButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void SettingsButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             MainNavigationViewModel.ShowSettings();
         }                                       

@@ -12,12 +12,15 @@
 //
 //*********************************************************
 
-using Microsoft.Graphics.Canvas.Effects;
+
 using System;
+
 using Windows.Graphics.Effects;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
+
+using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media;
 
 namespace CompositionSampleGallery.Samples.BrushInterop
 {
@@ -59,7 +62,7 @@ namespace CompositionSampleGallery.Samples.BrushInterop
                 return;
             }
 
-            Compositor compositor = Window.Current.Compositor;
+            Compositor compositor = CompositionTarget.GetCompositorForCurrentThread();
 
             // Use LoadedImageSurface API to get ICompositionSurface from image uri provided
             _surface = LoadedImageSurface.StartLoadFromUri(new Uri(ImageUriString));
@@ -69,7 +72,8 @@ namespace CompositionSampleGallery.Samples.BrushInterop
             _surfaceBrush.Stretch = CompositionStretch.UniformToFill;
 
             // CompositionCapabilities: Are Tint+Temperature and Saturation supported?
-            bool usingFallback = !CompositionCapabilities.GetForCurrentView().AreEffectsSupported();
+            var capabilities = new CompositionCapabilities();
+            bool usingFallback = !capabilities.AreEffectsSupported();
             if (usingFallback)
             {
                 // If Effects are not supported, Fallback to image without effects
@@ -104,7 +108,7 @@ namespace CompositionSampleGallery.Samples.BrushInterop
             tempAnim.InsertKeyFrame(0.5f, 1f);
             tempAnim.InsertKeyFrame(1, 0);
             tempAnim.Duration = TimeSpan.FromSeconds(5);
-            tempAnim.IterationBehavior = Windows.UI.Composition.AnimationIterationBehavior.Forever;
+            tempAnim.IterationBehavior = Microsoft.UI.Composition.AnimationIterationBehavior.Forever;
             effectBrush.Properties.StartAnimation("TempAndTint.Temperature", tempAnim);
         }
 

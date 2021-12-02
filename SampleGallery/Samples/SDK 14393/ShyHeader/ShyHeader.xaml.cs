@@ -13,17 +13,19 @@
 //*********************************************************
 
 using ExpressionBuilder;
-using Microsoft.Graphics.Canvas.Effects;
 using System.Numerics;
-using Windows.UI.Xaml;
-using Windows.UI.Composition;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Media;
+
 using EF = ExpressionBuilder.ExpressionFunctions;
-using CompositionSampleGallery.Shared;
 using System.Collections.ObjectModel;
 using SamplesCommon;
+
+using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml.Media;
+using CompositionSampleGallery.Shared;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 namespace CompositionSampleGallery
@@ -52,7 +54,7 @@ namespace CompositionSampleGallery
         public override string  SampleDescription => StaticSampleDescription;
         public override string  SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=869003"; 
 
-        private void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void SamplePage_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             // Retrieve the ScrollViewer that the GridView is using internally
             var scrollViewer = gridView.GetFirstDescendantOfType<ScrollViewer>();

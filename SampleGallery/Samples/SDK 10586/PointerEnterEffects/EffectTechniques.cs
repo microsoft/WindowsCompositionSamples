@@ -19,12 +19,12 @@ using System.Numerics;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Graphics.DirectX;
-using Windows.UI.Composition;
+using Microsoft.UI.Composition;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Effects;
-using Microsoft.Graphics.Canvas.UI.Composition;
 
 using EF = ExpressionBuilder.ExpressionFunctions;
+using Microsoft.Graphics.Canvas.UI.Composition;
 
 namespace CompositionSampleGallery.PointerEffectTechniques
 {
@@ -328,7 +328,7 @@ namespace CompositionSampleGallery.PointerEffectTechniques
                 Sources = {
                     new ColorSourceEffect
                     {
-                        Color = Windows.UI.Colors.Black
+                        Color = Microsoft.UI.Colors.Black
                     },
                     new ArithmeticCompositeEffect
                     {
@@ -465,7 +465,7 @@ namespace CompositionSampleGallery.PointerEffectTechniques
                 Sources = {
                     new ColorSourceEffect
                     {
-                        Color = Windows.UI.Colors.Black
+                        Color = Microsoft.UI.Colors.Black
                     },
                     new ArithmeticCompositeEffect
                     {

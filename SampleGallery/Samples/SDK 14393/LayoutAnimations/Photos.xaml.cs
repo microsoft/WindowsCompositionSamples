@@ -13,10 +13,11 @@
 //*********************************************************
 
 using System;
-using Windows.UI.Composition;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Controls;
 using System.Collections.ObjectModel;
+
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml.Controls;
 using CompositionSampleGallery.Shared;
 
 namespace CompositionSampleGallery

@@ -20,11 +20,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Numerics;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Hosting;
+
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Hosting;
+using Windows.Foundation;
 
 namespace CompositionSampleGallery
 {
@@ -327,6 +329,16 @@ namespace CompositionSampleGallery
         {
             // Set properties for ninegridVisual and backgroundContainer
             SetDefaultVisualProperties();
+
+            LandscapeTrigger.SizeChanged(new Size(this.ActualSize.X, this.ActualSize.Y));
+            PortraitTrigger.SizeChanged(new Size(this.ActualSize.X, this.ActualSize.Y));
+            this.SizeChanged += BlurPlayground_SizeChanged;
+        }
+
+        private void BlurPlayground_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            LandscapeTrigger.SizeChanged(e.NewSize);
+            PortraitTrigger.SizeChanged(e.NewSize);
         }
 
         /// <summary>

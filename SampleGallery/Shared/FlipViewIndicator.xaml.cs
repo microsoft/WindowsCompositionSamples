@@ -17,11 +17,12 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media;
+
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI;
 
 namespace CompositionSampleGallery
 {
@@ -40,8 +41,6 @@ namespace CompositionSampleGallery
             this.InitializeComponent();
 
             _model = new FlipViewModel();
-
-#if SDKVERSION_15063
 
             SampleDefinition brushInterop = SampleDefinitions.Definitions.Where(x => x.Type == typeof(BrushInterop)).FirstOrDefault();
             if (brushInterop != null)
@@ -66,7 +65,6 @@ namespace CompositionSampleGallery
                 _model.FlipViewItems.Add(new FeaturedFlipViewSample("Create an interactive 3D experience", "", "/Assets/BannerImages/IneractionTrackerBanner.png", 3, interactions3D));
             }
             this.DataContext = _model;
-#endif
 
             // Automatically have the FlipView progress to the next item
             if (Model.FlipViewItems.Count() > 1)
@@ -146,7 +144,12 @@ namespace CompositionSampleGallery
         }
     }
 
-    public class FeaturedFlipViewSample : INotifyPropertyChanged
+    public class FeaturedFlipViewSample
+#if USING_CSWINRT
+        : System.ComponentModel.INotifyPropertyChanged
+#else
+        : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+#endif
     {
         private string _title;
         private string _Description;
@@ -155,7 +158,12 @@ namespace CompositionSampleGallery
         private int _index;
         private SampleDefinition _sampleDefinition;
         private bool _selected = default(bool);
+
+#if USING_CSWINRT
         public event PropertyChangedEventHandler PropertyChanged;
+#else
+        public event Microsoft.UI.Xaml.Data.PropertyChangedEventHandler PropertyChanged;
+#endif
 
         public FeaturedFlipViewSample(string title, string description, string backgroundImageUrl, int index, SampleDefinition sampleDefinition = null, string navigationUrl = null)
         {
@@ -185,10 +193,10 @@ namespace CompositionSampleGallery
 
         private void OnPropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
+            System.ComponentModel.PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
             {
-                handler(this, new PropertyChangedEventArgs(propertyName));
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
     }
@@ -201,7 +209,7 @@ namespace CompositionSampleGallery
             bool selected = (bool)value;
             if (selected)
             {
-                return new SolidColorBrush(Colors.White);
+                return new SolidColorBrush(Microsoft.UI.Colors.White);
             }
             else
             {
@@ -214,7 +222,7 @@ namespace CompositionSampleGallery
             if(value != null)
             {
                 SolidColorBrush sbc = (SolidColorBrush)value;
-                if (sbc.Color == Colors.White)
+                if (sbc.Color == Microsoft.UI.Colors.White)
                     return true;
             }
             return false;

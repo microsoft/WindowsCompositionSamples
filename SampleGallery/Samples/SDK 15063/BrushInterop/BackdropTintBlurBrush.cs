@@ -13,9 +13,10 @@
 //*********************************************************
 
 using System;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
+
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media;
 using Microsoft.Graphics.Canvas.Effects;
 
 namespace CompositionSampleGallery.Samples.BrushInterop
@@ -24,16 +25,17 @@ namespace CompositionSampleGallery.Samples.BrushInterop
     {
         protected override void OnConnected()
         {
-            Compositor compositor = Window.Current.Compositor;
-
+            Compositor compositor = CompositionTarget.GetCompositorForCurrentThread();
             // CompositionCapabilities: Are Effects supported?
-            bool usingFallback = !CompositionCapabilities.GetForCurrentView().AreEffectsSupported();
+            var capabilities = new CompositionCapabilities();
+            bool usingFallback = !capabilities.AreEffectsSupported();
             if (usingFallback)
             {
                 // If Effects are not supported, use Fallback Solid Color
                 CompositionBrush = compositor.CreateColorBrush(FallbackColor);
                 return;
             }
+
 
             // Define Effect graph
             var graphicsEffect = new BlendEffect
@@ -42,7 +44,7 @@ namespace CompositionSampleGallery.Samples.BrushInterop
                 Background = new ColorSourceEffect()
                 {
                     Name = "Tint",
-                    Color = Windows.UI.Colors.Silver,
+                    Color = Microsoft.UI.Colors.Silver,
                 },
                 Foreground = new GaussianBlurEffect()
                 {

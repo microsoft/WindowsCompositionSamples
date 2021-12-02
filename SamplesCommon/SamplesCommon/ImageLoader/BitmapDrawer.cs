@@ -16,19 +16,20 @@ using System;
 using System.Threading.Tasks;
 
 using Windows.Foundation;
-using Windows.UI.Composition;
-
-using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.UI.Composition;
 using Windows.Storage;
 using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
+
+using Microsoft.Graphics;
+using Microsoft.Graphics.Canvas;
+using Microsoft.UI.Composition;
+using Microsoft.Graphics.Canvas.UI.Composition;
 
 namespace SamplesCommon
 {
     public class BitmapDrawer : IContentDrawer
     {
-        Uri _uri;
+		readonly Uri _uri;
         LoadTimeEffectHandler _handler;
         StorageFile _file;
 
@@ -72,13 +73,13 @@ namespace SamplesCommon
             if (_file != null)
             {
                 SoftwareBitmap softwareBitmap = await LoadFromFile(_file);
+
                 canvasBitmap = CanvasBitmap.CreateFromSoftwareBitmap(canvasDevice, softwareBitmap);
             }
             else
             {
                 canvasBitmap = await CanvasBitmap.LoadAsync(canvasDevice, _uri);
             }
-
 
             var bitmapSize = canvasBitmap.Size;
 
@@ -105,6 +106,7 @@ namespace SamplesCommon
                 else
                 {
                     // Draw the image to the surface
+
                     using (var session = CanvasComposition.CreateDrawingSession(surface))
                     {
                         session.Clear(Windows.UI.Color.FromArgb(0, 0, 0, 0));

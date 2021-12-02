@@ -12,7 +12,7 @@
 //
 //*********************************************************
 
-using CompositionSampleGallery.Pages;
+using CompositionSampleGallery;
 using SamplesCommon;
 using System;
 using System.Collections.Generic;
@@ -22,31 +22,30 @@ using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Metadata;
 using Windows.UI;
-using Windows.UI.Composition;
+using Microsoft.UI;
+using Microsoft.UI.Composition;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml;
 
 namespace CompositionSampleGallery
 {
     public sealed partial class MainPage : Page
     {
         private ManagedSurface                  _splashSurface;
-#if SDKVERSION_15063
         private static CompositionCapabilities  _capabilities;
-#endif
-        private static bool                     _areEffectsSupported;
-        private static bool                     _areEffectsFast;
+
+        private static bool                     _areEffectsSupported = true;
+        private static bool                     _areEffectsFast = true;
         private static RuntimeSupportedSDKs     _runtimeCapabilities;
         private MainNavigationViewModel         _mainNavigation;        
 
-        private SampleDefinition                _dummySampleDefinition;
-
-        public MainPage(Rect imageBounds)
+        public MainPage()
         {
             _runtimeCapabilities = new RuntimeSupportedSDKs();
 
@@ -54,12 +53,10 @@ namespace CompositionSampleGallery
             // appropriate SDK version and the runtime supports this version
             if (_runtimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._15063))
             {
-#if SDKVERSION_15063
-                _capabilities = CompositionCapabilities.GetForCurrentView();
+                _capabilities = new CompositionCapabilities();
                 _capabilities.Changed += HandleCapabilitiesChangedAsync;
                 _areEffectsSupported = _capabilities.AreEffectsSupported();
                 _areEffectsFast = _capabilities.AreEffectsFast();
-#endif
             }
             else
             {
@@ -73,26 +70,7 @@ namespace CompositionSampleGallery
             ImageLoader.Initialize(ElementCompositionPreview.GetElementVisual(this).Compositor);
 
             // Show the custome splash screen
-            ShowCustomSplashScreen(imageBounds);
-
-            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = false;
-
-#if SDKVERSION_16299
-            // Apply acrylic styling to the navigation and caption
-            if (_runtimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._16299))
-            { 
-                // Extend the app into the titlebar so that we can apply acrylic
-                CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-                ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
-                titleBar.ButtonBackgroundColor = Colors.Transparent;
-                titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-                titleBar.ButtonForegroundColor = Colors.Black;
-
-                // Apply acrylic to the main navigation
-                TitleBarRow.Height = new GridLength(31);
-                TitleBarGrid.Background = (Brush)Application.Current.Resources["SystemControlChromeMediumLowAcrylicWindowMediumBrush"];
-            }
-#endif
+            ShowCustomSplashScreen(MainWindow.CurrentWindow.Bounds);
         }
 
         public MainNavigationViewModel MainNavigation => _mainNavigation;
@@ -112,7 +90,6 @@ namespace CompositionSampleGallery
             get { return _runtimeCapabilities; }
         }
 
-#if SDKVERSION_15063
         private async void HandleCapabilitiesChangedAsync(CompositionCapabilities sender, object args)
         {
             _areEffectsSupported = _capabilities.AreEffectsSupported();
@@ -148,12 +125,11 @@ namespace CompositionSampleGallery
                 await messageDialog.ShowAsync();
             }
         }
-#endif
 
         private void ShowCustomSplashScreen(Rect imageBounds)
         {
             Compositor compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
-            Vector2 windowSize = new Vector2((float)Window.Current.Bounds.Width, (float)Window.Current.Bounds.Height);
+            Vector2 windowSize = new Vector2((float)MainWindow.CurrentWindow.Bounds.Width, (float)MainWindow.CurrentWindow.Bounds.Height);
 
 
             //
@@ -256,58 +232,6 @@ namespace CompositionSampleGallery
             // Now that loading is complete, dismiss the custom splash screen
             HideCustomSplashScreen();
         }
-
-        public static void FeaturedSampleList_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            MainNavigationViewModel.NavigateToSample(sender, e);
-        }
-
-
-        private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-        {
-            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
-            {
-                var matches = from sampleDef in SampleDefinitions.Definitions
-                                 where sampleDef.DisplayName.IndexOf(sender.Text, StringComparison.CurrentCultureIgnoreCase) >= 0 
-                                    || (sampleDef.Tags != null && sampleDef.Tags.Any(str => str.IndexOf(sender.Text, StringComparison.CurrentCultureIgnoreCase) >= 0))
-                              select sampleDef;
-                
-                if(matches.Count() > 0)
-                {
-                    SearchBox.ItemsSource = matches.OrderByDescending(i => i.DisplayName.StartsWith(sender.Text, StringComparison.CurrentCultureIgnoreCase)).ThenBy(i => i.DisplayName);
-                }
-                else
-                {
-                    _dummySampleDefinition = new SampleDefinition("No results found", null, SampleType.Reference, SampleCategory.APIReference, false, false);
-                    SearchBox.ItemsSource = new SampleDefinition[] { _dummySampleDefinition };
-                }
-            }
-        }
-
-        private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-        {
-            if (!string.IsNullOrEmpty(args.QueryText) && args.ChosenSuggestion == null)
-            {
-                MainNavigationViewModel.ShowSearchResults(args.QueryText);
-            }
-        }
-
-        private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
-        {
-            if (((SampleDefinition)(args.SelectedItem)) == _dummySampleDefinition)
-            {
-                SearchBox.Text = "";
-            }
-            else
-            {
-                MainNavigationViewModel.NavigateToSample((SampleDefinition)args.SelectedItem);
-            }
-        }
-
-        private void SearchBox_AccessKeyInvoked(UIElement sender, Windows.UI.Xaml.Input.AccessKeyInvokedEventArgs args)
-        {
-            SearchBox.Focus(FocusState.Keyboard);
-        }
     }
 
     // This class caches and provides information about the supported 
@@ -361,7 +285,7 @@ namespace CompositionSampleGallery
         }
     }
 
-    public class IsPaneOpenToVisibilityConverter : Windows.UI.Xaml.Data.IValueConverter
+    public class IsPaneOpenToVisibilityConverter : Microsoft.UI.Xaml.Data.IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter,
               string language)

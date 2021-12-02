@@ -9,8 +9,10 @@ namespace ExpressionBuilder
     using System;
     using System.Collections.Generic;
     using System.Numerics;
+
     using Windows.UI;
-    using Windows.UI.Composition;
+
+    using Microsoft.UI.Composition;
 
     internal enum ExpressionNodeType
     {
@@ -278,7 +280,7 @@ namespace ExpressionBuilder
                 _compObjToParamNameMap = new Dictionary<CompositionObject, string>();
                 foreach (var compObj in compObjects)
                 {
-                    // compObj.ToString() will return something like "Windows.UI.Composition.SpriteVisual"
+                    // compObj.ToString() will return something like "Microsoft.UI.Composition.SpriteVisual"
                     // Make it look like "SpriteVisual_1"
                     string paramName = compObj.ToString();
                     paramName = $"{paramName.Substring(paramName.LastIndexOf('.') + 1)}_{++id}";       // make sure the created param name doesn't overwrite a custom name

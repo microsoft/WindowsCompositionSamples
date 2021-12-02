@@ -16,9 +16,9 @@ using ExpressionBuilder;
 using SamplesCommon;
 using System;
 using System.Numerics;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Hosting;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Hosting;
 
 using EF = ExpressionBuilder.ExpressionFunctions;
 
@@ -40,7 +40,7 @@ namespace CompositionSampleGallery
         public override string      SampleDescription => StaticSampleDescription; 
         public override string      SampleCodeUri => "http://go.microsoft.com/fwlink/p/?LinkID=761172"; 
 
-        private void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void SamplePage_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             Compositor compositor = ElementCompositionPreview.GetElementVisual(MyGrid).Compositor;
             ContainerVisual container = compositor.CreateContainerVisual();
@@ -62,13 +62,13 @@ namespace CompositionSampleGallery
             SpriteVisual redSprite = compositor.CreateSpriteVisual();
             redSprite.Brush = _redBallSurface.Brush;
             redSprite.Size = new Vector2(100f, 100f);
-            redSprite.Offset = new Vector3((float)Window.Current.Bounds.Width / 2 - redSprite.Size.X/2, 150f, 0f);
+            redSprite.Offset = new Vector3(this.ActualSize.X / 2 - redSprite.Size.X/2, 150f, 0f);
             container.Children.InsertAtTop(redSprite);
 
             SpriteVisual blueSprite = compositor.CreateSpriteVisual();
             blueSprite.Brush = _blueBallSurface.Brush;
             blueSprite.Size = new Vector2(25f, 25f);
-            blueSprite.Offset = new Vector3((float)Window.Current.Bounds.Width / 2 - redSprite.Size.X / 2, 50f, 0f);
+            blueSprite.Offset = new Vector3((float)this.ActualSize.X / 2 - redSprite.Size.X / 2, 50f, 0f);
             container.Children.InsertAtTop(blueSprite);
 
             //
@@ -117,7 +117,7 @@ namespace CompositionSampleGallery
             redSprite.StartAnimation("Offset.Y", offsetAnimation);
         }
 
-        private void SamplePage_Unloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void SamplePage_Unloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             _redBallSurface.Dispose();
             _blueBallSurface.Dispose();

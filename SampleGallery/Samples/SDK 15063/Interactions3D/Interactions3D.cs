@@ -14,21 +14,24 @@
 
 using ExpressionBuilder;
 using SamplesCommon;
+
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+
 using Windows.Foundation;
-using Windows.UI;
-using Windows.UI.Composition;
-using Windows.UI.Composition.Interactions;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Input;
+
+using Microsoft.UI;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Composition.Interactions;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml.Input;
 using Microsoft.Graphics.Canvas.Text;
 
 using EF = ExpressionBuilder.ExpressionFunctions;
-using CompositionSampleGallery.Shared;
 using System.Collections.ObjectModel;
+using CompositionSampleGallery.Shared;
 
 namespace CompositionSampleGallery
 {
@@ -89,12 +92,7 @@ namespace CompositionSampleGallery
             _interactionSource = VisualInteractionSource.Create(_rootContainer);
             _interactionSource.ScaleSourceMode = InteractionSourceMode.EnabledWithInertia;
             _interactionSource.PositionXSourceMode = InteractionSourceMode.EnabledWithInertia;
-#if SDKVERSION_17763
-            if (MainPage.RuntimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._17763))
-            {
-                 _interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadAndPointerWheel;
-            }
-#endif
+            _interactionSource.ManipulationRedirectionMode = VisualInteractionSourceRedirectionMode.CapableTouchpadAndPointerWheel;
             _tracker = InteractionTracker.CreateWithOwner(_compositor, this);
             _tracker.MinScale = 0.6f;
             _tracker.MaxScale = 5.0f;

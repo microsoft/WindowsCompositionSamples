@@ -14,8 +14,9 @@
 
 using System;
 using Windows.System;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
+
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
 
 namespace CompositionSampleGallery
 {
@@ -30,6 +31,6 @@ namespace CompositionSampleGallery
 
         private async void TwitterPanel_Tapped(object sender, TappedRoutedEventArgs e){ await Launcher.LaunchUriAsync(new Uri("https://twitter.com/WindowsUI")); }
 
-        private async void GitHubPanel_Tapped(object sender, TappedRoutedEventArgs e){ await Launcher.LaunchUriAsync(new Uri("http://aka.ms/windowsui")); }
+        private async void GitHubPanel_Tapped(object sender, TappedRoutedEventArgs e){ await Launcher.LaunchUriAsync(new Uri("https://aka.ms/winappsdksamples")); }
     }
 }

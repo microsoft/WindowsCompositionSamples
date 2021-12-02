@@ -21,11 +21,12 @@ using System;
 using System.Numerics;
 using Windows.Foundation;
 using Windows.UI;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Hosting;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Hosting;
 
 using EF = ExpressionBuilder.ExpressionFunctions;
+using Microsoft.UI;
 
 namespace CompositionSampleGallery
 {
@@ -248,7 +249,7 @@ namespace CompositionSampleGallery
 
             // Push the text content down to make room for the image overhanging.
             //
-            ContentPanel.Margin = new Thickness(5, (float)ParallaxingImage.ActualHeight + profileImageSize.Y / 2, 5, 5);
+            ContentPanel.Margin = new Thickness { Left = 5, Top = (float)ParallaxingImage.ActualHeight + profileImageSize.Y / 2, Right = 5, Bottom = 5 };
             
             //
             // Resolve all of the property parameters and references on the frontVisual animations and start them.
@@ -375,7 +376,7 @@ namespace CompositionSampleGallery
             return crossFadeBrush;
         }
 
-        void ApplyBlurEffect(CompositionDrawingSurface surface, CanvasBitmap bitmap, Windows.UI.Composition.CompositionGraphicsDevice device)
+        void ApplyBlurEffect(CompositionDrawingSurface surface, CanvasBitmap bitmap, Microsoft.UI.Composition.CompositionGraphicsDevice device)
         {
             GaussianBlurEffect blurEffect = new GaussianBlurEffect()
             {

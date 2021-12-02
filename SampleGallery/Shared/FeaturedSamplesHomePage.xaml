@@ -83,7 +83,8 @@
                           IsItemClickEnabled="True" 
                           HorizontalAlignment="Center"
                           VerticalAlignment="Top"
-                          VerticalContentAlignment="Top">
+                          VerticalContentAlignment="Top"
+                          ItemClick="FeaturedSamplesList_ItemClick">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="VerticalAlignment" Value="Top" />

@@ -15,13 +15,15 @@
 using ExpressionBuilder;
 using System;
 using System.Numerics;
+
 using Windows.Foundation;
-using Windows.UI.Composition;
-using Windows.UI.Composition.Interactions;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Input;
+
+using Microsoft.UI.Composition;
+using Microsoft.UI.Composition.Interactions;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml.Input;
 
 using EF = ExpressionBuilder.ExpressionFunctions;
 
@@ -73,41 +75,15 @@ namespace CompositionSampleGallery
 
         private void ActivateSpringForce()
         {
+            var modifier = InteractionTrackerInertiaNaturalMotion.Create(_compositor);
+            var springAnimation = _compositor.CreateSpringScalarAnimation();
+            springAnimation.Period = TimeSpan.FromSeconds(.15);
+            springAnimation.DampingRatio = .4f;
+            springAnimation.FinalValue = 0.0f;
 
-#if SDKVERSION_15063
-            //
-            // On newer builds, use the Spring NaturalMotion 
-            //
-            if (MainPage.RuntimeCapabilities.IsSdkVersionRuntimeSupported(RuntimeSupportedSDKs.SDKVERSION._15063))
-            {
-                var modifier = InteractionTrackerInertiaNaturalMotion.Create(_compositor);
-                var springAnimation = _compositor.CreateSpringScalarAnimation();
-                springAnimation.Period = TimeSpan.FromSeconds(.15);
-                springAnimation.DampingRatio = .4f;
-                springAnimation.FinalValue = 0.0f;
-
-                modifier.Condition = _compositor.CreateExpressionAnimation("true");
-                modifier.NaturalMotion = springAnimation;
-                _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
-            }
-            //
-            // On older builds, use a custom force that behaves like a spring
-            //
-            else
-#endif
-            {
-                var dampingConstant = 5;
-                var springConstant = 20;
-                var modifier = InteractionTrackerInertiaMotion.Create(_compositor);
-
-                // Set the condition to true (always)
-                modifier.SetCondition((BooleanNode)true);
-
-                // Define a spring-like force, anchored at position 0.
-                var target = ExpressionValues.Target.CreateInteractionTrackerTarget();
-                modifier.SetMotion((-target.Position.Y * springConstant) - (dampingConstant * target.PositionVelocityInPixelsPerSecond.Y));
-                _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
-            }
+            modifier.Condition = _compositor.CreateExpressionAnimation("true");
+            modifier.NaturalMotion = springAnimation;
+            _tracker.ConfigurePositionYInertiaModifiers(new InteractionTrackerInertiaModifier[] { modifier });
         }
         private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -192,7 +168,7 @@ namespace CompositionSampleGallery
 
         private void Root_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+            if (e.Pointer.PointerDeviceType == Microsoft.UI.Input.PointerDeviceType.Mouse)
             {
                 _tracker.TryUpdatePositionWithAdditionalVelocity(new Vector3(0.0f, 1000.0f, 0.0f));
             }

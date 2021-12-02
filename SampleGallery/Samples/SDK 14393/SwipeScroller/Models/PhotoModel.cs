@@ -13,7 +13,6 @@
 //*********************************************************
 
 using System;
-using CompositionSampleGallery.Shared;
 
 namespace CompositionSampleGallery.Samples.SDK_14393.SwipeScroller.Models
 {

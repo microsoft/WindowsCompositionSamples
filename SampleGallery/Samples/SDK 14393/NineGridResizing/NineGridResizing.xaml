@@ -66,7 +66,7 @@
             <VisualStateGroup>
                 <VisualState x:Name="Wide">
                     <VisualState.StateTriggers>
-                        <triggers:OrientationTrigger Orientation="Landscape" />
+                        <triggers:OrientationTrigger Orientation="Landscape" x:Name="LandscapeTrigger"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="MainGrid.RowDefinitions[1].Height" Value="auto"/>
@@ -79,7 +79,7 @@
 
                 <VisualState x:Name="Narrow">
                     <VisualState.StateTriggers>
-                        <triggers:OrientationTrigger Orientation="Portrait" />
+                        <triggers:OrientationTrigger Orientation="Portrait" x:Name="PortraitTrigger"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="MainGrid.RowDefinitions[0].Height" Value="*"/>

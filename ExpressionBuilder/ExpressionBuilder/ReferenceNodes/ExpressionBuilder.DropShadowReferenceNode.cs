@@ -6,7 +6,7 @@
 
 namespace ExpressionBuilder
 {
-    using Windows.UI.Composition;
+    using Microsoft.UI.Composition;
 
     public sealed class DropShadowReferenceNode : ReferenceNode
     {

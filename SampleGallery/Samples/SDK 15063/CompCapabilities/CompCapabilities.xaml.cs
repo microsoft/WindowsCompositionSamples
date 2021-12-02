@@ -11,19 +11,17 @@
 // THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 //*********************************************************
-
-using Microsoft.Graphics.Canvas.Effects;
 using SamplesCommon;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Numerics;
-using Windows.UI;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
-
+using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.UI;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Hosting;
 namespace CompositionSampleGallery
 {
     public sealed partial class CompCapabilities : SamplePage, INotifyPropertyChanged
@@ -41,13 +39,13 @@ namespace CompositionSampleGallery
         private CapabilityWrapper _activeCapabilityWrapper;
 
         public ObservableCollection<CapabilityWrapper> capabilityDropdownOptions = new ObservableCollection<CapabilityWrapper>();
-
-        public static string    StaticSampleName => "Composition Capabilities";
-        public override string  SampleName => StaticSampleName;
-        public static string    StaticSampleDescription => "Demonstrates how to use the capabilities API to detect hardware capabilities, " +
+        
+        public static string StaticSampleName => "Composition Capabilities";
+        public override string SampleName => StaticSampleName;
+        public static string StaticSampleDescription => "Demonstrates how to use the capabilities API to detect hardware capabilities, " +
                                                             "listen to capability changes, and adjust effect usage and UI based on hardware.";
-        public override string  SampleDescription => StaticSampleDescription;
-        public override string  SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868946";
+        public override string SampleDescription => StaticSampleDescription;
+        public override string SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868946";
 
         public CompCapabilities()
         {
@@ -56,22 +54,20 @@ namespace CompositionSampleGallery
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
 
             // Get hardware capabilities and register changed event listener
-            _liveCapabilities = CompositionCapabilities.GetForCurrentView();
+            _liveCapabilities = new CompositionCapabilities();
 
             var fastEffectsCapabilitySimulatedOption = new CapabilityWrapper("EffectsFast", true, true);
             capabilityDropdownOptions.Add(fastEffectsCapabilitySimulatedOption);
             capabilityDropdownOptions.Add(new CapabilityWrapper("EffectsSupported", true, false));
             capabilityDropdownOptions.Add(new CapabilityWrapper("None", false, false));
             SimulatorDropdown.SelectedItem = fastEffectsCapabilitySimulatedOption;
-
+            
             _activeCapabilityWrapper = fastEffectsCapabilitySimulatedOption;
         }
-
         /// <summary>
         /// Handles property changes for data binding.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-
         /// <summary>
         /// Binding for TextBlock description of effects applied
         /// </summary>
@@ -94,7 +90,7 @@ namespace CompositionSampleGallery
         private void HandleCapabilitiesChanged(CompositionCapabilities sender, object args)
         {
             _liveCapabilities = sender;
-           
+
             if (ToggleSwitch.IsOn == false)
             {
                 // If not in simulate mode, update to wrapper to use live capabilities and update view
@@ -161,7 +157,6 @@ namespace CompositionSampleGallery
                     _imageContainer.Children.InsertAtTop(_circleImageVisual);
                     _containsCircleImage = true;
                 }
-
                 //
                 // Create saturation effect, which will be either used alone if effects are slow, or chained 
                 // with blur if effects are fast
@@ -183,10 +178,9 @@ namespace CompositionSampleGallery
                         BorderMode = EffectBorderMode.Hard,
                         Optimization = EffectOptimization.Balanced
                     };
-
                     CompositionEffectFactory chainedEffectFactory = _compositor.CreateEffectFactory(chainedEffect);
-                    CompositionEffectBrush effectBrush = chainedEffectFactory.CreateBrush();
 
+                    CompositionEffectBrush effectBrush = chainedEffectFactory.CreateBrush();
                     effectBrush.SetSourceParameter("SaturationSource", _surface.Brush);
 
                     _backgroundImageVisual.Brush = effectBrush;
@@ -198,11 +192,8 @@ namespace CompositionSampleGallery
                     // If effects are slow but supported use desaturation effect since it is less expensive than blur
                     CompositionEffectFactory saturationEffectFactory = _compositor.CreateEffectFactory(saturationEffect);
                     CompositionEffectBrush saturationBrush = saturationEffectFactory.CreateBrush();
-
                     saturationBrush.SetSourceParameter("SaturationSource", _surface.Brush);
-
                     _backgroundImageVisual.Brush = saturationBrush;
-
                     CapabilityText = "Effects are supported but not fast. Background image is desaturated.";
                 }
             }
@@ -212,7 +203,7 @@ namespace CompositionSampleGallery
                 // If effects are not supported, just use the image as the background with no effects
                 // and remove the center circle image to declutter the UI.
                 //
-
+                
                 if (_containsCircleImage)
                 {
                     _imageContainer.Children.Remove(_circleImageVisual);
@@ -224,7 +215,6 @@ namespace CompositionSampleGallery
                 CapabilityText = "Effects not supported. No effects are applied.";
             }
         }
-
         /// <summary>
         /// Updates size and position of the two image visuals on grid size change
         /// </summary>
@@ -238,7 +228,8 @@ namespace CompositionSampleGallery
         /// </summary>
         private void UpdateVisualSizeAndPosition()
         {
-            if (_backgroundImageVisual != null) {
+            if (_backgroundImageVisual != null)
+            {
                 _backgroundImageVisual.Size = new Vector2((float)ImageCanvas.ActualWidth, (float)ImageCanvas.ActualHeight);
             }
 
@@ -250,7 +241,6 @@ namespace CompositionSampleGallery
                 _circleImageVisual.Offset = new Vector3(xOffset, yOffset, 0);
             }
         }
-
         /// <summary>
         /// Clean up resources on unload
         /// </summary>
@@ -271,17 +261,15 @@ namespace CompositionSampleGallery
             }
         }
 
-        private void SimulatorDropdown_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
+        private void SimulatorDropdown_SelectionChanged(object sender, Microsoft.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
             var selectedSimulatedCapability = (CapabilityWrapper)SimulatorDropdown.SelectedItem;
             _activeCapabilityWrapper = selectedSimulatedCapability;
-
-            if(_backgroundImageVisual != null)
+            if (_backgroundImageVisual != null)
             {
                 UpdateAlbumArt();
             }
         }
-
         private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
             ToggleSwitch toggleSwitch = sender as ToggleSwitch;
@@ -303,18 +291,17 @@ namespace CompositionSampleGallery
                     // Update to use actual capabilities
                     _activeCapabilityWrapper = new CapabilityWrapper("", _liveCapabilities.AreEffectsSupported(), _liveCapabilities.AreEffectsFast());
                 }
-
                 UpdateAlbumArt();
             }
         }
     }
-
-    public class CapabilityWrapper{
-
+    
+    public class CapabilityWrapper
+    {
         public string Name { get; }
         public bool EffectsSupported { get; }
         public bool EffectsFast { get; }
-        
+
         public CapabilityWrapper(string name, bool effectsSupported, bool effectsFast)
         {
             Name = name;

@@ -12,6 +12,12 @@
 //
 //*********************************************************
 
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI;
 using Microsoft.Graphics.Canvas.Effects;
 using System;
 using System.Collections.Generic;
@@ -21,17 +27,11 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using CompositionSampleGallery.Commands;
+using SamplesCommon;
 using Windows.Media.Core;
 using Windows.Media.Playback;
-using Windows.Storage;
-using Windows.Storage.Pickers;
-using Windows.UI.Composition;
 using Windows.UI.Core;
 using Windows.UI.Popups;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI;
-using SamplesCommon;
 
 namespace CompositionSampleGallery
 {

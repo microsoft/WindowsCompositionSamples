@@ -13,6 +13,7 @@
 //*********************************************************
 
 using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.UI.Composition;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -22,7 +23,6 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Windows.Graphics.Effects;
-using Windows.UI.Composition;
 
 namespace MaterialCreator
 {
@@ -33,7 +33,7 @@ namespace MaterialCreator
         Color,
         Image,
         Backdrop,
-        BackdropHost,
+        //BackdropHost,
         Lighting,
         Group,
     }
@@ -49,7 +49,7 @@ namespace MaterialCreator
     [KnownType(typeof(ColorLayer))]
     [KnownType(typeof(ImageLayer))]
     [KnownType(typeof(BackdropLayer))]
-    [KnownType(typeof(BackdropHostLayer))]
+    //[KnownType(typeof(BackdropHostLayer))]
     [KnownType(typeof(LightingLayer))]
     [KnownType(typeof(GroupLayer))]
     public abstract class Layer : INotifyPropertyChanged
@@ -76,7 +76,7 @@ namespace MaterialCreator
         {
             Effects = new ObservableCollection<Effect>();
 
-            StreamingContext context;
+            StreamingContext context = new StreamingContext();
             Initialize(context);
             Description = "New Layer";
             BlendMode = "Normal";

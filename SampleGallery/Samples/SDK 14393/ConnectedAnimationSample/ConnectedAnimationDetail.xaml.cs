@@ -14,10 +14,10 @@
 
 using System;
 using Windows.UI.Core;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media.Animation;
+using Microsoft.UI.Xaml.Media.Imaging;
+using Microsoft.UI.Xaml.Navigation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -25,7 +25,7 @@ namespace CompositionSampleGallery
 {
     public sealed partial class ConnectedAnimationDetail : Page
     {
-        SystemNavigationManager _systemNavigationManager = SystemNavigationManager.GetForCurrentView();
+        //SystemNavigationManager _systemNavigationManager = SystemNavigationManager.GetForCurrentView();
 
         public ConnectedAnimationDetail()
         {

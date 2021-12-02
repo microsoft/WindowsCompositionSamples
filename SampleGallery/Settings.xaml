@@ -27,8 +27,8 @@
                 <RichTextBlock MaxWidth="840" Margin="0,10,0,0" IsTextSelectionEnabled="True">
                     <Paragraph>
                         This app showcases core platform building blocks which power Fluent design and can be used to create more delightful, engaging experiences. The source code to this app is available on the
-                        <Hyperlink NavigateUri="http://aka.ms/windowsui">
-                            Windows Composition Samples
+                        <Hyperlink NavigateUri="https://github.com/Microsoft/composition/">
+                            Windows App SDK Samples
                         </Hyperlink> repo on GitHub.
                     </Paragraph>
                 </RichTextBlock>

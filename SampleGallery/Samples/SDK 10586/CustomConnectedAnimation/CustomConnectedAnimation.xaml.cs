@@ -12,13 +12,15 @@
 //
 //*********************************************************
 
-using CompositionSampleGallery.Shared;
 using SamplesCommon;
+
 using Windows.Foundation;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
+
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
+using CompositionSampleGallery.Shared;
 
 namespace CompositionSampleGallery
 {

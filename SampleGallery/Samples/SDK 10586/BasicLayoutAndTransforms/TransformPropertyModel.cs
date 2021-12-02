@@ -19,7 +19,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.UI.Composition;
+using Microsoft.UI.Composition;
 
 namespace CompositionSampleGallery
 {

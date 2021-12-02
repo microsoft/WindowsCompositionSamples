@@ -19,13 +19,15 @@ using SamplesCommon;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+
 using Windows.Foundation;
 using Windows.Graphics.Effects;
 using Windows.UI;
-using Windows.UI.Composition;
-using Windows.UI.Composition.Effects;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Hosting;
+
+using Microsoft.UI.Composition;
+using Microsoft.UI.Composition.Effects;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Hosting;
 
 namespace CompositionSampleGallery
 {
@@ -56,8 +58,8 @@ namespace CompositionSampleGallery
 
             // Setup the basic scene
             _rootContainer = _compositor.CreateContainerVisual();
-            _sceneContainer = _compositor.CreateContainerVisual();
             _worldSpaceContainer = _compositor.CreateContainerVisual();
+            _sceneContainer = _compositor.CreateContainerVisual();           
 
             _rootContainer.Children.InsertAtTop(_worldSpaceContainer);
             _worldSpaceContainer.Children.InsertAtTop(_sceneContainer);
@@ -68,7 +70,6 @@ namespace CompositionSampleGallery
             _ambientLight.Targets.Add(_sceneContainer);
 
             ElementCompositionPreview.SetElementChildVisual(EnvironmentPanel, _rootContainer);
-
         }
 
         public static string   StaticSampleName => "Light Spheres"; 
@@ -77,7 +78,7 @@ namespace CompositionSampleGallery
         public override string SampleDescription => StaticSampleDescription;
         public override string SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=869000";
 
-        private async void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void SamplePage_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             ConstructWalls();
 
@@ -112,25 +113,25 @@ namespace CompositionSampleGallery
             // Create the lighting effect for the spheres
             IGraphicsEffect graphicsEffect = new CompositeEffect()
             {
-                Mode = CanvasComposite.DestinationIn,
+                Mode = Microsoft.Graphics.Canvas.CanvasComposite.DestinationIn,
                 Sources =
                 {
-                    new ArithmeticCompositeEffect()
+                    new Microsoft.Graphics.Canvas.Effects.ArithmeticCompositeEffect()
                     {
                         Source1Amount = .9f,
                         Source2Amount = 1f,
                         MultiplyAmount = 0,
-                        Source1 = new ArithmeticCompositeEffect()
+                        Source1 = new Microsoft.Graphics.Canvas.Effects.ArithmeticCompositeEffect()
                         {
                             MultiplyAmount = .5f,
                             Source1Amount = .5f,
                             Source2Amount = 0f,
-                            Source1 = new ArithmeticCompositeEffect()
+                            Source1 = new Microsoft.Graphics.Canvas.Effects.ArithmeticCompositeEffect()
                             {
                                 MultiplyAmount = 1f,
                                 Source1Amount = 0f,
                                 Source2Amount = 0f,
-                                Source1 = new ColorSourceEffect()
+                                Source1 = new Microsoft.Graphics.Canvas.Effects.ColorSourceEffect()
                                 {
                                     Name = "Color",
                                 },
@@ -323,7 +324,7 @@ namespace CompositionSampleGallery
             UpdateAnimationState();
         }
 
-        private void Slider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        private void Slider_ValueChanged(object sender, Microsoft.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             if (_brushList != null)
             {

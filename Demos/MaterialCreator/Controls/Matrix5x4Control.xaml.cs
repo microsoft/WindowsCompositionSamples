@@ -13,8 +13,8 @@
 //*********************************************************
 
 using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.UI.Xaml.Controls;
 using System;
-using Windows.UI.Xaml.Controls;
 
 namespace MaterialCreator
 {

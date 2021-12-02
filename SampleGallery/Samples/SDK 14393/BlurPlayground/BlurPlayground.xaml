@@ -26,54 +26,56 @@
             <StackPanel>
 
                 <Slider x:Name="BlurAmount" 
-                        Header="Blur Amount"
-                        ValueChanged="BlurAmount_ValueChanged" 
-                        Minimum="0" 
-                        Maximum="100"
-                        IsEnabled="True"
-                        Margin="10,10,0,10"/>
+                            Header="Blur Amount"
+                            ValueChanged="BlurAmount_ValueChanged" 
+                            Minimum="0" 
+                            Maximum="100"
+                            IsEnabled="True"
+                            Margin="10,10,0,10"/>
 
                 <ToggleSwitch x:Name="AnimateToggle"
-                              Header="Animate Effects"
-                              OffContent="Stop"
-                              OnContent="Start"
-                              Toggled="ToggleSwitch_Toggled"
-                              IsEnabled="True"
-                              VerticalAlignment="Stretch" 
-                              HorizontalAlignment="Stretch"
-                              Margin="10,0,0,10"/>
+                                  Header="Animate Effects"
+                                  OffContent="Stop"
+                                  OnContent="Start"
+                                  Toggled="ToggleSwitch_Toggled"
+                                  IsEnabled="True"
+                                  VerticalAlignment="Stretch" 
+                                  HorizontalAlignment="Stretch"
+                                  Margin="10,0,0,10"/>
 
                 <Border Height="Auto" Width="Auto">
                     <common:ColorMixer 
-                            x:Name="Tint"
-                            ColorChanged="ColorChanged" 
-                            Color="{ThemeResource SystemAccentColor}"
-                            Margin="10"/>
+                                x:Name="Tint"
+                                ColorChanged="ColorChanged" 
+                                Color="{ThemeResource SystemAccentColor}"
+                                Margin="10"/>
                 </Border>
 
                 <ComboBox 
-                        x:Name="BlendSelection" 
-    					HorizontalAlignment="Stretch" 
-    					VerticalAlignment="Stretch" 
-    					SelectionChanged="BlendSelection_SelectionChanged"
-                        PlaceholderText="Blend Modes" 
-                        Margin="10"/>
+                            x:Name="BlendSelection" 
+    					    HorizontalAlignment="Stretch" 
+    					    VerticalAlignment="Stretch" 
+    					    SelectionChanged="BlendSelection_SelectionChanged"
+                            PlaceholderText="Blend Modes" 
+                            Margin="10"/>
 
             </StackPanel>
 
         </ScrollViewer>
 
         <common:CompositionImage x:Name="CatImage" 
-               Grid.Column="1" 
-               Grid.Row="0"
-               Margin="10"
-               Source="ms-appx:///Assets/Abstract/Abstract-1.jpg"/>
+                   Grid.Column="1" 
+                   Grid.Row="0"
+                   Margin="10"
+                   Source="ms-appx:///Assets/Abstract/Abstract-1.jpg"/>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="Wide">
                     <VisualState.StateTriggers>
-                        <common:OrientationTrigger Orientation="Landscape" />
+                        <common:OrientationTrigger
+                                Orientation="Landscape"
+                                x:Name="LandscapeTrigger"/>
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
@@ -88,7 +90,9 @@
 
                 <VisualState x:Name="Narrow">
                     <VisualState.StateTriggers>
-                        <common:OrientationTrigger Orientation="Portrait" />
+                        <common:OrientationTrigger 
+                                Orientation="Portrait"
+                                x:Name="PortraitTrigger"/>
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
@@ -104,6 +108,6 @@
         </VisualStateManager.VisualStateGroups>
 
     </Grid>
-    
+
 </local:SamplePage>
 

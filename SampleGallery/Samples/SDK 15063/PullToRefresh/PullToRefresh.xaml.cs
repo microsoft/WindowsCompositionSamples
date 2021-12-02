@@ -12,17 +12,19 @@
 //
 //*********************************************************
 
-using CompositionSampleGallery.Shared;
 using System.Numerics;
 using System;
 using System.Collections.Generic;
-using Windows.UI.Composition;
-using Windows.UI.Composition.Interactions;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Input;
-using ExpressionBuilder;
 using System.Collections.ObjectModel;
+
+using ExpressionBuilder;
+
+using Microsoft.UI.Composition;
+using Microsoft.UI.Composition.Interactions;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml.Input;
+using CompositionSampleGallery.Shared;
 
 namespace CompositionSampleGallery
 {

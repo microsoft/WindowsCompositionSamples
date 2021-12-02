@@ -27,22 +27,10 @@
             <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Padding="59,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">Windows Composition Samples</TextBlock>
         </Grid>
         <Grid Grid.Row="1" >
-            <local:SampleGalleryUIIndirector
+            <local:SampleGalleryNavViewHost
             Grid.Row="1"
             x:Name="GalleryUI"
-            UIType="Auto"
             SampleCategories="{x:Bind Path=MainNavigation.MainMenuList}"/>
-
-            <AutoSuggestBox x:Name="SearchBox" QueryIcon="Find" PlaceholderText="Search Samples (Alt+Q)" 
-                            Width="300" HorizontalAlignment="Right" Margin="0,7,10,0"
-                            TextChanged="AutoSuggestBox_TextChanged"
-                            QuerySubmitted="AutoSuggestBox_QuerySubmitted"
-                            SuggestionChosen="AutoSuggestBox_SuggestionChosen"
-                            DisplayMemberPath="DisplayName"
-                            TextMemberPath="DisplayName" 
-                            AccessKey="Q" AccessKeyInvoked="SearchBox_AccessKeyInvoked"
-                            KeyTipPlacementMode="Bottom"
-                            AutomationProperties.AccessKey="ALT+Q"/>
         </Grid>
     </Grid>
 </Page>

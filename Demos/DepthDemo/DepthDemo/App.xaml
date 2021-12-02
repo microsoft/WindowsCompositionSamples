@@ -2,11 +2,14 @@
     x:Class="DepthDemo.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:DepthDemo"
-    RequestedTheme="Light">
-
+    xmlns:local="using:DepthDemo">
     <Application.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <!-- Other merged dictionaries here -->
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Other app resources here -->
             <Style x:Key="ButtonStyle" TargetType="Button">
                 <Setter Property="Foreground" Value="#009999"/>
                 <Setter Property="Background" Value="White"/>
@@ -15,5 +18,4 @@
             </Style>
         </ResourceDictionary>
     </Application.Resources>
-
 </Application>

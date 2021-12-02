@@ -12,18 +12,19 @@
 //
 //*********************************************************
 
-using CompositionSampleGallery.Shared;
 using ExpressionBuilder;
 using Microsoft.Graphics.Canvas.Effects;
 using SamplesCommon;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Hosting;
+
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Hosting;
 
 using EF = ExpressionBuilder.ExpressionFunctions;
+using CompositionSampleGallery.Shared;
 
 namespace CompositionSampleGallery
 {

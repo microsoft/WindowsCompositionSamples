@@ -13,19 +13,24 @@
 //*********************************************************
 
 using ExpressionBuilder;
+
+#if Microsoft_Xaml_Behaviors_Uwp_Managed  // The behavior nuget package has depenedency on windows.ui.xaml
 using Microsoft.Xaml.Interactivity;
+#endif
+
 using System;
 using System.Numerics;
-using Windows.UI.Composition;
-using Windows.UI.Composition.Interactions;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Hosting;
+
+using Microsoft.UI.Composition;
+using Microsoft.UI.Composition.Interactions;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Hosting;
 
 using EF = ExpressionBuilder.ExpressionFunctions;
 
 namespace CompositionSampleGallery.Samples.SDK_14393.SwipeScroller.Behaviors
 {
-    class InteractionBehavior : DependencyObject, IInteractionTrackerOwner, IBehavior
+    class InteractionBehavior : DependencyObject, IInteractionTrackerOwner
     {
         #region setup
 
@@ -128,7 +133,7 @@ namespace CompositionSampleGallery.Samples.SDK_14393.SwipeScroller.Behaviors
                     {
                         direction = -1;
                     }
-                    _tracker.TryUpdatePositionWithAdditionalVelocity(new Vector3(0f, direction*1000f, 0f));
+                    _tracker.TryUpdatePositionWithAdditionalVelocity(new Vector3(0f, direction * 1000f, 0f));
                 }
             };
         }
@@ -210,33 +215,33 @@ namespace CompositionSampleGallery.Samples.SDK_14393.SwipeScroller.Behaviors
         #region Callbacks
         public void CustomAnimationStateEntered(InteractionTracker sender, InteractionTrackerCustomAnimationStateEnteredArgs args)
         {
-            
+
         }
 
         public void IdleStateEntered(InteractionTracker sender, InteractionTrackerIdleStateEnteredArgs args)
         {
-            
+
         }
 
         public void InertiaStateEntered(InteractionTracker sender, InteractionTrackerInertiaStateEnteredArgs args)
         {
-            
+
         }
 
         public void InteractingStateEntered(InteractionTracker sender, InteractionTrackerInteractingStateEnteredArgs args)
         {
-            
+
         }
 
         public void RequestIgnored(InteractionTracker sender, InteractionTrackerRequestIgnoredArgs args)
         {
-            
+
         }
 
         public void ValuesChanged(InteractionTracker sender, InteractionTrackerValuesChangedArgs args)
         {
             // Store whether the item is expanded in order to know whether a mouse click should expand or collapse 
-            _isExpanded = (args.Position.Y > 0); 
+            _isExpanded = (args.Position.Y > 0);
         }
         #endregion //Callbacks
 
@@ -262,12 +267,12 @@ namespace CompositionSampleGallery.Samples.SDK_14393.SwipeScroller.Behaviors
             _props = null;
         }
 
-        protected DependencyObject AssociatedObject { get; set; }
+        DependencyObject AssociatedObject { get; set; }
 
-        DependencyObject IBehavior.AssociatedObject
-        {
-            get { return this.AssociatedObject; }
-        }
+        //DependencyObject AssociatedObject
+        //{
+        //    get { return this.AssociatedObject; }
+        //}
 
         InteractionTracker _tracker;
         CompositionPropertySet _props;

@@ -12,18 +12,20 @@
 //
 //*********************************************************
 
-using Microsoft.Graphics.Canvas.Effects;
-using Microsoft.Graphics.Canvas.Text;
 using SamplesCommon;
 using System;
 using System.Numerics;
+
 using Windows.Foundation;
 using Windows.Graphics.Effects;
-using Windows.UI;
-using Windows.UI.Composition;
-using Windows.UI.Text;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Hosting;
+
+using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.Graphics.Canvas.Text;
+using Microsoft.UI;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Text;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Hosting;
 
 namespace CompositionSampleGallery
 {
@@ -43,7 +45,7 @@ namespace CompositionSampleGallery
         public override string      SampleDescription => StaticSampleDescription;
         public override string      SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=869002";
 
-        private void Grid_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void Grid_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {           
             // Get the current compositor
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
@@ -55,7 +57,8 @@ namespace CompositionSampleGallery
             ArtistImage.PlaceholderDelay = TimeSpan.MinValue;
 
             // Bounds of the window, used for positioning lights
-            Vector2 sizeWindowBounds = new Vector2((float)Window.Current.Bounds.Width, (float)Window.Current.Bounds.Height);
+            //Vector2 sizeWindowBounds = new Vector2((float)Window.Current.Bounds.Width, (float)Window.Current.Bounds.Height);
+            Vector2 sizeWindowBounds = new Vector2(this.ActualSize.X, this.ActualSize.Y);
 
             // Setup the image and lighting effect
             CreateImageAndLights(sizeWindowBounds);

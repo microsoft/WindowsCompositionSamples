@@ -14,10 +14,11 @@
 
 using System;
 using System.Threading.Tasks;
+
 using Windows.Foundation;
-using Windows.UI.Composition;
 
 using Microsoft.Graphics.Canvas;
+using Microsoft.UI.Composition;
 
 namespace SamplesCommon
 {

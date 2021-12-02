@@ -13,7 +13,8 @@
 //*********************************************************
 
 using System.Linq;
-using Windows.UI.Xaml.Controls;
+
+using Microsoft.UI.Xaml.Controls;
 
 namespace CompositionSampleGallery
 {
@@ -54,11 +55,11 @@ namespace CompositionSampleGallery
         {
             if (isVisible)
             {
-                NoResultsTextBlock.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                NoResultsTextBlock.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
             }
             else
             {
-                NoResultsTextBlock.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                NoResultsTextBlock.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
             }
         }
     }

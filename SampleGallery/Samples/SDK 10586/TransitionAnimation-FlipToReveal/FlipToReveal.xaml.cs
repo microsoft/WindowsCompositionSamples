@@ -14,8 +14,8 @@
 
 using System;
 using System.Numerics;
-using Windows.UI.Composition;
-using Windows.UI.Xaml.Hosting;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml.Hosting;
 
 namespace CompositionSampleGallery
 {
@@ -35,7 +35,7 @@ namespace CompositionSampleGallery
 
         private Boolean IsFlipped = false;
 
-        private void MainPanel_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private void MainPanel_Tapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             Visual visual = ElementCompositionPreview.GetElementVisual(CaptionTile);
             Compositor compositor = visual.Compositor;
@@ -66,7 +66,7 @@ namespace CompositionSampleGallery
 
             // we want the CaptionTile visible as it flips back
             if(IsFlipped)
-                CaptionTile.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                CaptionTile.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
 
             visual.StartAnimation("RotationAngleInDegrees", rotationAnimation);
 
@@ -79,7 +79,7 @@ namespace CompositionSampleGallery
 
             // we want the CaptionTile invisible once flipped over
             if(IsFlipped)
-                CaptionTile.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                CaptionTile.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
 
             
         }
@@ -106,7 +106,7 @@ namespace CompositionSampleGallery
 
         }
 
-        private void MainPanel_SizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
+        private void MainPanel_SizeChanged(object sender, Microsoft.UI.Xaml.SizeChangedEventArgs e)
         {
             UpdatePerspective();
         }

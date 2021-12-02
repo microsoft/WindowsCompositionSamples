@@ -13,8 +13,8 @@
 //*********************************************************
 
 using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.UI.Composition;
 using System.Runtime.Serialization;
-using Windows.UI.Composition;
 
 namespace MaterialCreator
 {
@@ -22,7 +22,7 @@ namespace MaterialCreator
     {
         public BackdropLayer() : base()
         {
-            StreamingContext context;
+            StreamingContext context = new StreamingContext();
             Initialize(context);
         }
 

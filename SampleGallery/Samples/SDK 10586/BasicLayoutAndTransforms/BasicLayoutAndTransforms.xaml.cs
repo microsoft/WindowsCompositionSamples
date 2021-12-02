@@ -13,8 +13,8 @@
 //*********************************************************
 
 using System.Numerics;
-using Windows.UI.Composition;
-using Windows.UI.Xaml.Hosting;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml.Hosting;
 using System.Collections.Generic;
 
 namespace CompositionSampleGallery
@@ -40,7 +40,7 @@ namespace CompositionSampleGallery
         public override string      SampleDescription => StaticSampleDescription;
         public override string      SampleCodeUri => "https://go.microsoft.com/fwlink/?linkid=868942";
 
-        private void SamplePage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void SamplePage_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             // Acquire Compositor and set up basic visual tree structure
             _xamlRoot = ElementCompositionPreview.GetElementVisual(MainGrid);
@@ -58,12 +58,12 @@ namespace CompositionSampleGallery
             _apIndicator = _compositor.CreateSpriteVisual();
             _apIndicator.Size = new Vector2(10, 10);
             _apIndicator.AnchorPoint = new Vector2(0.5f, 0.5f);
-            _apIndicator.Brush = _compositor.CreateColorBrush(Windows.UI.Colors.Red);
+            _apIndicator.Brush = _compositor.CreateColorBrush(Microsoft.UI.Colors.Red);
 
             _cpIndicator = _compositor.CreateSpriteVisual();
             _cpIndicator.Size = new Vector2(10, 10);
             _cpIndicator.AnchorPoint = new Vector2(0.5f, 0.5f);
-            _cpIndicator.Brush = _compositor.CreateColorBrush(Windows.UI.Colors.Green);
+            _cpIndicator.Brush = _compositor.CreateColorBrush(Microsoft.UI.Colors.Green);
 
             _root.Children.InsertAtTop(_indicatorContainer);
             _indicatorContainer.Children.InsertAtTop(_cpIndicator);

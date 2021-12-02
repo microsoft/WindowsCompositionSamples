@@ -12,8 +12,8 @@
 //
 //*********************************************************
 
-using Windows.UI;
-using Windows.UI.Composition;
+using Microsoft.UI;
+using Microsoft.UI.Composition;
 
 namespace CompositionSampleGallery.Samples.SDK_14393.NineGridResizing.NineGridScenarios
 {

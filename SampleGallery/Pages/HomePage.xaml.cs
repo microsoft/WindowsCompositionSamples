@@ -12,9 +12,11 @@
 //
 //*********************************************************
 
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using System.Diagnostics;
 using System.Linq;
+
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace CompositionSampleGallery
 {
@@ -61,23 +63,13 @@ namespace CompositionSampleGallery
         public HomePage()
         {
             this.InitializeComponent();
-
-#if SDKVERSION_15063
-
-             var featuredSamples = from sampleDef in SampleDefinitions.Definitions
-                                  where (sampleDef.Type == typeof(NavigationFlow))
-                                  || (sampleDef.Type == typeof(SwipeScroller))
-                                  || (sampleDef.Type == typeof(ShadowsAdvanced))
-                                  || (sampleDef.Type == typeof(LightInterop))
-                                  select sampleDef;
-
-#else
-             var featuredSamples = from sampleDef in SampleDefinitions.Definitions
+            var featuredSamples = from sampleDef in SampleDefinitions.Definitions
                                   where (sampleDef.Type == typeof(ColorBloomTransition))
                                   || (sampleDef.Type == typeof(ConnectedAnimationShell))
                                   || (sampleDef.Type == typeof(ZoomWithPerspective))
-                                  select sampleDef;            
-#endif
+                                  || (sampleDef.Type == typeof(LayerVisualAnd3DTransform))
+                                  select sampleDef;
+
             FeaturedSampleList.ItemsSource = featuredSamples;
         }
     }
