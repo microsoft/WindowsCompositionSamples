@@ -1,10 +1,12 @@
 ---
-topic: sample
+name: Windows Input and Composition sample
+page_type: sample
 languages:
 - csharp
 products:
 - windows
 - windows-app-sdk
+urlFragment: composition
 statusNotificationTargets:
 - WinComposition
 ---
