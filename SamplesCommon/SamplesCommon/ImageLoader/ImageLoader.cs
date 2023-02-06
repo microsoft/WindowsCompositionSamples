@@ -152,7 +152,7 @@ namespace SamplesCommon
 
         public ManagedSurface LoadFromUri(Uri uri, Size size)
         {
-            return LoadFromUri(uri, Size.Empty, null);
+            return LoadFromUri(uri, size, null);
         }
 
         public ManagedSurface LoadFromUri(Uri uri, Size size, LoadTimeEffectHandler handler)
