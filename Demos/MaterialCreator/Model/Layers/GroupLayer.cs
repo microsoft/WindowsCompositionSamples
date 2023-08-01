@@ -118,7 +118,7 @@ namespace MaterialCreator
 
         public void ReplaceLayer(Layer oldLayer, Layer newLayer)
         {
-            // Transfer relevent state to new layer
+            // Transfer relevant state to new layer
             newLayer.Initialize(oldLayer);
 
             Layers[Layers.IndexOf(oldLayer)] = newLayer;
