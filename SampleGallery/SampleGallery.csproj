@@ -206,8 +206,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.196" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.3233" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240404000" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
