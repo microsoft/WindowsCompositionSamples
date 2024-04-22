@@ -234,7 +234,7 @@ namespace CompositionSampleGallery
             {
                 for (int column = 0; column < _columns; ++column)
                 {
-                    if (content == _content[row, column])
+                    if (content == (object) _content[row, column])
                     {
                         return _shadows[row, column];
                     }

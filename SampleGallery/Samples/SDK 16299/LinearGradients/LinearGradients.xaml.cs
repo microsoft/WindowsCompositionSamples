@@ -136,7 +136,7 @@ namespace CompositionSampleGallery
             // Get the Visual associated with the sender and animate its position and width.
             AnimateToNewPosition((SpriteVisual)((FrameworkElement)sender).Tag);
 
-            if (sender == TextLines.Children.First())
+            if (sender == (object) TextLines.Children.First())
             {
                 // Pointer is over the top line.
                 switch (_currentColorScheme)
@@ -147,7 +147,7 @@ namespace CompositionSampleGallery
                         break;
                 }
             }
-            else if (sender == TextLines.Children.Last())
+            else if (sender == (object) TextLines.Children.Last())
             {
                 // Pointer is over the bottom line.
                 switch (_currentColorScheme)

@@ -34,32 +34,32 @@
                             Margin="10">
                     <TextBlock HorizontalAlignment="Center">Blur Radius</TextBlock>
                     <Slider
-                            Value="{x:Bind Shadow.BlurRadius, Mode=TwoWay}"
+                            Value="{x:Bind RenderShadow.BlurRadius, Mode=TwoWay}"
                             HorizontalAlignment="Stretch"
                             Minimum="0" Maximum="100"
                             Margin="0, 20, 10, 0"/>
                     <TextBlock HorizontalAlignment="Center">Opacity</TextBlock>
                     <Slider
-                            Value="{x:Bind Shadow.ShadowOpacity, Mode=TwoWay}"
+                            Value="{x:Bind RenderShadow.ShadowOpacity, Mode=TwoWay}"
                             HorizontalAlignment="Stretch"
                             Minimum="0" Maximum="1"
                             StepFrequency=".1"
                             Margin="0, 20, 10, 0"/>
                     <TextBlock HorizontalAlignment="Center">Offset - X</TextBlock>
                     <Slider
-                            Value="{x:Bind Shadow.OffsetX, Mode=TwoWay}"
+                            Value="{x:Bind RenderShadow.OffsetX, Mode=TwoWay}"
                             HorizontalAlignment="Stretch"
                             Minimum="-200" Maximum="200" 
                             Margin="0, 20, 10, 0"/>
                     <TextBlock HorizontalAlignment="Center">Offset - Y</TextBlock>
                     <Slider
-                            Value="{x:Bind Shadow.OffsetY, Mode=TwoWay}"
+                            Value="{x:Bind RenderShadow.OffsetY, Mode=TwoWay}"
                             HorizontalAlignment="Stretch"
                             Minimum="-200" Maximum="200"  
                             Margin="0, 20, 10, 0"/>
                     <TextBlock HorizontalAlignment="Center">Shadow Color</TextBlock>
                     <common:ColorMixer
-                            Color="{Binding ElementName=Shadow, Path=Color, Mode=TwoWay}"
+                            Color="{Binding ElementName=RenderShadow, Path=Color, Mode=TwoWay}"
                             HorizontalAlignment="Stretch"
                             Margin="0, 20, 10, 0"/>
                 </StackPanel>
@@ -68,7 +68,7 @@
 
         <Grid x:Name="ShadowContainer" Grid.Column="1"
               HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-            <common:CompositionShadow x:Name="Shadow"
+            <common:CompositionShadow x:Name="RenderShadow"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
                 <common:CompositionImage x:Name="Image"

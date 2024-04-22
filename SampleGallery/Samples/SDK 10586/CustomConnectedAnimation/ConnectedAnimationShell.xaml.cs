@@ -29,7 +29,7 @@ namespace CompositionSampleGallery
         {
             InitializeComponent();
 
-            SampleComboBox.ItemsSource = new[] { "XAML Connected Animation", "Custom Connected Animation" };
+            SampleComboBox.ItemsSource = new[] { "XAML Connected Animation" };
             SampleComboBox.SelectedIndex = 0;
         }
 
@@ -38,10 +38,6 @@ namespace CompositionSampleGallery
             if (SampleComboBox.SelectedIndex == 0)
             {
                 SamplesFrame.Navigate(typeof(ConnectedAnimationSample));
-            }
-            else if (SampleComboBox.SelectedIndex == 1)
-            {
-                SamplesFrame.Navigate(typeof(CustomConnectedAnimation));
             }
         }
     }

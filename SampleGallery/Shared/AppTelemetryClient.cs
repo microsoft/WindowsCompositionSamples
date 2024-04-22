@@ -30,7 +30,7 @@ namespace CompositionSampleGallery
 
         private static string _sessionId = null;
         private static string _machineId = Guid.Empty.ToString();
-        private static bool _isInitialized = false;
+        //private static bool _isInitialized = false;
 
         private struct AppInsightsEvent
         {
@@ -79,7 +79,7 @@ namespace CompositionSampleGallery
                     }
                 }
 
-                _isInitialized = true;
+                //_isInitialized = true;
             });
 
             initializeClient.Start();

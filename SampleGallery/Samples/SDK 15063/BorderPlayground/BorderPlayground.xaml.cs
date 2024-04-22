@@ -154,7 +154,7 @@ namespace CompositionSampleGallery
         {
             _image.Brush.Scale = new Vector2((float)ScaleX.Value, (float)ScaleY.Value);
             _image.Brush.Offset = new Vector2((float)OffsetX.Value, (float)OffsetY.Value);
-            _image.Brush.RotationAngleInDegrees = (float)Rotation.Value;
+            _image.Brush.RotationAngleInDegrees = (float)RenderRotation.Value;
             _image.Brush.Stretch = CompositionStretch.None;
             _image.Brush.CenterPoint = new Vector2(_sprite.Size.X / 2f, _sprite.Size.Y / 2f);
         }

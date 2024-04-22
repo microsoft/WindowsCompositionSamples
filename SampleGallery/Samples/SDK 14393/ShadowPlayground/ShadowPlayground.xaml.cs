@@ -17,6 +17,7 @@ using SamplesCommon;
 using Microsoft.UI;
 using Microsoft.UI.Composition;
 using Microsoft.UI.Xaml.Hosting;
+using System.Reflection;
 
 namespace CompositionSampleGallery
 {
@@ -79,12 +80,12 @@ namespace CompositionSampleGallery
             if (_isMaskEnabled) //then remove mask
             {
                 _image.Brush = _maskBrush.Source; //set set composition image's brush to (the initial) surfacebrush (source) 
-                Shadow.Mask = null; //remove mask from shadow
+                RenderShadow.Mask = null; //remove mask from shadow
             }
             else //add mask
             {
                 _image.Brush = _maskBrush; //set composition image's brush to maskbrush
-                Shadow.Mask = _maskBrush.Mask; //add mask to shadow
+                RenderShadow.Mask = _maskBrush.Mask; //add mask to shadow
             }
 
             // Update bool
