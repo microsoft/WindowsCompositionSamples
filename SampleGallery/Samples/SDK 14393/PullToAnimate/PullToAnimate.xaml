@@ -32,7 +32,6 @@
         <Grid x:Name="ToDoLayer" Width="500" Height="145" Margin="0,0,0,0"
               RelativePanel.AlignHorizontalCenterWithPanel="True"
               RelativePanel.AlignVerticalCenterWithPanel="True">
-            <!--<Image x:Name="Appointment" Source="ms-appx:///Assets/Other/Appointment.png" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="500" Height="145" Margin="0,0,0,0"/>-->
             <StackPanel Orientation="Vertical">
                 <StackPanel.Resources>
                     <Style TargetType="TextBlock">
