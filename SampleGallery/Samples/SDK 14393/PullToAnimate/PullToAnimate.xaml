@@ -27,11 +27,23 @@
               RelativePanel.AlignRightWithPanel="True"
               RelativePanel.AlignBottomWithPanel="True">
             <Image x:Name="WeatherInfoImage" Source="ms-appx:///Assets/Other/WeatherInfo.png" HorizontalAlignment="Center" VerticalAlignment="Top" Width="383" Height="351" Margin="0,0,0,0"/>
+
         </Grid>
         <Grid x:Name="ToDoLayer" Width="500" Height="145" Margin="0,0,0,0"
               RelativePanel.AlignHorizontalCenterWithPanel="True"
               RelativePanel.AlignVerticalCenterWithPanel="True">
-            <Image x:Name="Appointment" Source="ms-appx:///Assets/Other/Appointment.png" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="500" Height="145" Margin="0,0,0,0"/>
+            <!--<Image x:Name="Appointment" Source="ms-appx:///Assets/Other/Appointment.png" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="500" Height="145" Margin="0,0,0,0"/>-->
+            <StackPanel Orientation="Vertical">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="FontWeight" Value="SemiLight"/>
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock Text="Dinner with Thelonious" FontSize="48"/>
+                <TextBlock Text="The Other Side Café" FontSize="28"/>
+                <TextBlock Text="7:30 PM - 9:00 PM" FontSize="28"/>
+            </StackPanel>
         </Grid>
         <Image x:Name="CalendarIcon" Source="ms-appx:///Assets/Other/Calendar.png"
                RelativePanel.AlignHorizontalCenterWithPanel="True"
