@@ -23,6 +23,7 @@ using Microsoft.UI.Composition;
 using Microsoft.UI.Composition.Scenes;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Hosting;
+using WinRT;
 
 namespace CompositionSampleGallery
 {    
@@ -91,8 +92,8 @@ namespace CompositionSampleGallery
         static MemoryBuffer CopyArrayOfBytesToMemoryBuffer(byte[] a)
         {
             MemoryBuffer mb = new MemoryBuffer((uint)a.Length);
-            IMemoryBufferReference mbr = mb.CreateReference();
-            IMemoryBufferByteAccess mba = (IMemoryBufferByteAccess)mbr;
+            var mbr = mb.CreateReference();
+            var mba = mbr.As<IMemoryBufferByteAccess>();
             unsafe
             {
                 byte* bytes = null;

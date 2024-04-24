@@ -98,7 +98,7 @@
                 <TextBlock Text="Rotation" 
                            FontWeight="Bold"
                            Margin="10,0,10,0"/>
-                <Slider    x:Name="Rotation"
+                <Slider    x:Name="RenderRotation"
                            Margin="10,0,10,10"
                            Minimum="0" 
                            Maximum="360" 

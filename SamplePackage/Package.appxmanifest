@@ -7,19 +7,19 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="c93387c6-d3c9-4ffa-868d-4a8de3af9e29"
-    Publisher="CN=getrou"
+    Name="0d9fba84-711c-45a9-88c6-70792d6752b7"
+    Publisher="CN=jstall"
     Version="1.0.0.0" />
 
   <Properties>
-    <DisplayName>SampleGallery (Package)</DisplayName>
-    <PublisherDisplayName>getrou</PublisherDisplayName>
+    <DisplayName>Composition Sample Gallery</DisplayName>
+    <PublisherDisplayName>jstall</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
 
   <Dependencies>
-    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
-    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.14393.0" MaxVersionTested="10.0.14393.0" />
   </Dependencies>
 
   <Resources>
@@ -31,8 +31,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="SampleGallery (Package)"
-        Description="SampleGallery (Package)"
+        DisplayName="Composition SampleGallery"
+        Description="Composition SamplePackage"
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
         Square44x44Logo="Images\Square44x44Logo.png">
@@ -43,6 +43,7 @@
   </Applications>
 
   <Capabilities>
+    <Capability Name="internetClient" />
     <rescap:Capability Name="runFullTrust" />
   </Capabilities>
 </Package>
