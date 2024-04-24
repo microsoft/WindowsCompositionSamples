@@ -27,7 +27,6 @@
                     <VisualState.Setters>
                         <Setter Target="FullSampleList.ItemTemplate" Value="{StaticResource FeaturedSampleDataTemplateWide}" />
                         <Setter Target="FullSampleList.Padding" Value="24,0,0,0" />
-                        <Setter Target="HeaderItem.Foreground" Value="Black" />
                     </VisualState.Setters>
                 </VisualState>
 
@@ -39,13 +38,12 @@
                     <VisualState.Setters>
                         <Setter Target="FullSampleList.ItemTemplate" Value="{StaticResource FeaturedSampleDataTemplateNarrow}" />
                         <Setter Target="FullSampleList.Padding" Value="12,0,0,0" />
-                        <Setter Target="HeaderItem.Foreground" Value="Black" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <GridView x:Name="FullSampleList" Foreground="Red" IsItemClickEnabled="True" ItemClick="FullSampleList_ItemClick">
+        <GridView x:Name="FullSampleList" IsItemClickEnabled="True" ItemClick="FullSampleList_ItemClick">
             
 
             <GridView.ItemContainerStyle>
@@ -60,7 +58,7 @@
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
             <GridView.Header>
-                <GridViewHeaderItem x:Name="HeaderItem" Content="All Samples" Padding="10" Margin="0" Typography.Capitals="AllSmallCaps" Foreground="{ThemeResource ResourceKey=SystemControlForegroundAccentBrush}">
+                <GridViewHeaderItem x:Name="HeaderItem" Content="All Samples" Padding="10" Margin="0" Typography.Capitals="AllSmallCaps">
                 </GridViewHeaderItem>
             </GridView.Header>
         </GridView>

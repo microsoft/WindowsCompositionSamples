@@ -36,8 +36,7 @@
                         <TextBlock RelativePanel.AlignBottomWithPanel="True"
                                    RelativePanel.AlignRightWithPanel="True"
                                    Text="{x:Bind Name}"
-                                   Style="{ThemeResource TitleTextBlockStyle}"
-                                   Foreground="Black">
+                                   Style="{ThemeResource TitleTextBlockStyle}">
                         </TextBlock>
                     </RelativePanel>
                 </DataTemplate>
