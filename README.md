@@ -12,8 +12,14 @@ statusNotificationTargets:
 ---
 
 > **NOTE**
-> 
-> We've switched over the sample project to consume from the [Windows App SDK](https://docs.microsoft.com/windows/apps/windows-app-sdk/). For the Universal Windows Platform version of the Windows Composition Samples, please visit [this release.](https://github.com/microsoft/WindowsCompositionSamples/tree/UniversalWindowsPlatform) 
+>
+> We've switched over the sample project to consume from the
+[Windows App SDK](https://docs.microsoft.com/windows/apps/windows-app-sdk/).
+We've moved these samples into the main WindowsAppSDK-Samples repo under the
+[SceneGraph](https://github.com/microsoft/WindowsAppSDK-Samples/tree/main/Samples/SceneGraph)
+directory.  This separate repo will become read-only, and no further changes will be made.  For the
+Universal Windows Platform version of the Windows Composition Samples, please visit
+[this release.](https://github.com/microsoft/WindowsCompositionSamples/tree/UniversalWindowsPlatform) 
 
 # Windows Input and Composition Samples
 
